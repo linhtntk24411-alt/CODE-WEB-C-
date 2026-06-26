@@ -1,0 +1,387 @@
+/* ============================================================
+   auth.css – Trang Đăng nhập / Đăng ký
+   Dùng chung cho login.html và register.html
+   ============================================================ */
+
+:root {
+  --auth-primary: #840001;
+  --auth-primary-dark: #700001;
+  --auth-primary-container: #b00103;
+  --auth-on-primary: #ffffff;
+  --auth-surface: #fbf9f8;
+  --auth-surface-lowest: #ffffff;
+  --auth-surface-container-low: #f6f3f2;
+  --auth-on-surface: #1b1c1c;
+  --auth-on-surface-variant: #5c403b;
+  --auth-outline-variant: #e5bdb7;
+  --auth-border: #f0eded;
+  --auth-shadow: rgba(51, 51, 51, 0.05);
+  --auth-radius: 12px;
+  --auth-radius-sm: 8px;
+}
+
+/* -------------------- Body & Page Layout --------------------- */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--auth-surface);
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0;
+}
+
+/* -------------------- Main Content --------------------------- */
+.auth-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 128px 24px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background decorations (blur circles) */
+.auth-bg-decoration {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(32px);
+  pointer-events: none;
+  z-index: 0;
+}
+.auth-bg-decoration--top {
+  width: 256px;
+  height: 256px;
+  top: 80px;
+  right: -10%;
+  background: var(--auth-primary);
+  opacity: 0.03;
+}
+.auth-bg-decoration--bottom {
+  width: 320px;
+  height: 320px;
+  bottom: 80px;
+  left: -10%;
+  background: #805062; /* secondary */
+  opacity: 0.05;
+}
+
+/* -------------------- Auth Card ------------------------------ */
+.auth-card {
+  width: 100%;
+  max-width: 448px;
+  padding: 47px 48px 48px;
+  background: var(--auth-surface-lowest);
+  border: 1px solid var(--auth-border);
+  border-radius: var(--auth-radius);
+  box-shadow: 0 4px 12px var(--auth-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* -------------------- Auth Header ---------------------------- */
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+.auth-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.3;
+  color: var(--auth-on-surface);
+  margin: 0;
+}
+.auth-title--primary {
+  color: var(--auth-primary);
+}
+.auth-subtitle {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--auth-on-surface-variant);
+  margin: 0;
+}
+
+/* -------------------- Toggle Tabs ---------------------------- */
+.toggle-tabs {
+  display: flex;
+  background: var(--auth-surface-container-low);
+  padding: 4px;
+  border-radius: var(--auth-radius-sm);
+  gap: 0;
+}
+
+.toggle-tab {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--auth-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.toggle-tab.active {
+  background: var(--auth-surface-lowest);
+  color: var(--auth-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.toggle-tab:hover:not(.active) {
+  color: var(--auth-on-surface);
+}
+
+/* Tab dạng link (dùng trên login/register để chuyển trang) */
+.toggle-tab--link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--auth-on-surface-variant);
+  font-weight: 400;
+  font-size: 16px;
+  padding: 8px 0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: transparent;
+  flex: 1;
+}
+.toggle-tab--link:hover {
+  color: var(--auth-on-surface);
+  background: rgba(0, 0, 0, 0.02);
+}
+.toggle-tab--link:active {
+  transform: scale(0.97);
+}
+
+/* -------------------- Auth Form ------------------------------ */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--auth-on-surface-variant);
+}
+
+/* Label riêng cho register (đậm hơn) */
+.input-label--register {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--auth-on-surface);
+}
+
+.forgot-link {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--auth-primary);
+  text-decoration: none;
+}
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.input-field {
+  width: 100%;
+  padding: 9px 16px;
+  background: var(--auth-surface-lowest);
+  border: 1px solid var(--auth-outline-variant);
+  border-radius: var(--auth-radius-sm);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.375;
+  color: var(--auth-on-surface);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.input-field::placeholder {
+  color: #6b7280;
+}
+.input-field:focus {
+  border-color: var(--auth-primary);
+  box-shadow: 0 0 0 4px rgba(176, 1, 3, 0.2);
+}
+
+/* -------------------- Auth Button ---------------------------- */
+.auth-btn {
+  width: 100%;
+  padding: 16px 0;
+  background: var(--auth-primary-container);
+  color: var(--auth-on-primary);
+  border: none;
+  border-radius: var(--auth-radius-sm);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+.auth-btn:hover {
+  opacity: 0.9;
+}
+.auth-btn:active {
+  transform: scale(0.98);
+}
+.auth-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* -------------------- Divider -------------------------------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--auth-outline-variant);
+}
+.divider-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--auth-on-surface-variant);
+  white-space: nowrap;
+}
+/* Divider đặc biệt cho register */
+.divider--register .divider-text--register {
+  font-weight: 600;
+  color: var(--auth-on-surface-variant);
+}
+
+/* -------------------- Social Logins -------------------------- */
+.social-logins {
+  display: flex;
+  gap: 16px;
+}
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 2px solid var(--auth-outline-variant);
+  border-radius: var(--auth-radius-sm);
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--auth-on-surface);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.social-btn:hover {
+  background: var(--auth-surface-container-low);
+}
+.social-btn:active {
+  transform: scale(0.97);
+}
+.social-btn svg {
+  flex-shrink: 0;
+}
+
+/* -------------------- Help Text ------------------------------ */
+.auth-help {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--auth-on-surface-variant);
+  text-align: center;
+  margin: 0;
+}
+.auth-help-link {
+  color: var(--auth-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+.auth-help-link:hover {
+  text-decoration: underline;
+}
+
+/* Help text đặc biệt cho register (có thể điều chỉnh thêm) */
+.auth-help--register {
+  margin-top: 0;
+}
+
+/* -------------------- Đặc thù riêng cho Register ------------- */
+.auth-main--register {
+  padding-top: 120px; /* điều chỉnh nếu muốn */
+}
+.auth-card--register {
+  gap: 40px; /* giảm khoảng cách so với login (48px) */
+}
+.input-group--register .input-label--register {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--auth-on-surface);
+}
+
+/* -------------------- Responsive ----------------------------- */
+@media (max-width: 640px) {
+  .auth-main {
+    padding: 100px 16px 32px;
+  }
+  .auth-card {
+    padding: 32px 24px;
+    gap: 32px;
+  }
+  .auth-title {
+    font-size: 24px;
+  }
+  .social-logins {
+    flex-direction: column;
+  }
+  .auth-bg-decoration--top {
+    width: 180px;
+    height: 180px;
+    top: 40px;
+    right: -20%;
+  }
+  .auth-bg-decoration--bottom {
+    width: 200px;
+    height: 200px;
+    bottom: 40px;
+    left: -20%;
+  }
+}
