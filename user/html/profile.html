@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ sơ của tôi | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/component.css">
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body class="profile-page">
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="profile-main">
+    <div class="profile-container">
+      <!-- Sidebar Navigation -->
+      <aside class="profile-sidebar">
+        <nav class="profile-nav">
+          <a href="#" class="profile-nav-item active">
+            <span class="material-symbols-outlined">person</span>
+            <span>Hồ sơ của tôi</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Đơn hàng của tôi</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">edit_square</span>
+            <span>Yêu cầu thiết kế</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>Kho map đã lưu</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">grade</span>
+            <span>Đánh giá của tôi</span>
+          </a>
+          <div class="profile-nav-divider"></div>
+          <a href="#" class="profile-nav-item profile-nav-item--logout">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Đăng xuất</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Right Content Area -->
+      <div class="profile-content">
+        <!-- Section 1: User Summary -->
+        <section class="profile-summary">
+          <div class="profile-avatar">
+            <!-- Sử dụng asset mới -->
+            <img src="../assets/avatar_user.jpeg" alt="User Avatar" class="profile-avatar-img">
+            <button class="profile-avatar-upload">
+              <span class="material-symbols-outlined">photo_camera</span>
+            </button>
+          </div>
+          <div class="profile-user-info">
+            <h1 class="profile-user-name">Nguyễn Minh Anh</h1>
+            <div class="profile-user-badges">
+              <span class="profile-badge profile-badge--vip">
+                <span class="material-symbols-outlined">stars</span>
+                Thành viên Vàng
+              </span>
+              <span class="profile-join-date">Gia nhập: 15/03/2024</span>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <p class="profile-stat-number">12</p>
+              <p class="profile-stat-label">Đơn hàng</p>
+            </div>
+            <div class="profile-stat">
+              <p class="profile-stat-number">45</p>
+              <p class="profile-stat-label">Map đã lưu</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Personal Information -->
+        <section class="profile-info">
+          <div class="profile-info-header">
+            <h2 class="profile-info-title">Thông tin cá nhân</h2>
+            <button class="profile-info-edit" id="editToggle">
+              <span class="material-symbols-outlined">edit</span>
+              Chỉnh sửa
+            </button>
+          </div>
+
+          <div class="profile-info-grid">
+            <div class="profile-info-group">
+              <label class="profile-info-label">Họ và tên</label>
+              <input type="text" class="profile-info-input" value="Nguyễn Minh Anh" readonly>
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Số điện thoại</label>
+              <input type="tel" class="profile-info-input" value="0901 234 567" readonly>
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Email</label>
+              <input type="email" class="profile-info-input" value="minhanh.uri@gmail.com" readonly>
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Ngày sinh</label>
+              <input type="text" class="profile-info-input" value="12/08/1998" readonly>
+            </div>
+            <div class="profile-info-group profile-info-group--full">
+              <label class="profile-info-label">Địa chỉ giao hàng</label>
+              <textarea class="profile-info-textarea" readonly rows="2">123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</textarea>
+            </div>
+          </div>
+
+          <div class="profile-info-actions">
+            <button class="profile-save-btn">Lưu thay đổi</button>
+          </div>
+        </section>
+
+        <!-- Section 3: Recent Activity Summary -->
+        <section class="profile-activity">
+          <!-- Latest Order -->
+          <div class="profile-activity-card profile-activity-card--order">
+            <div class="profile-activity-header">
+              <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
+              <span class="profile-activity-status profile-activity-status--completed">Hoàn thành</span>
+            </div>
+            <div class="profile-activity-body">
+              <p class="profile-activity-id">#UR-10928</p>
+              <p class="profile-activity-desc">Bộ Perler Beads 72 màu + Khuôn chữ nhật lớn</p>
+              <p class="profile-activity-price">850.000đ</p>
+            </div>
+            <button class="profile-activity-btn">Xem chi tiết</button>
+          </div>
+
+          <!-- Latest Request -->
+          <div class="profile-activity-card profile-activity-card--request">
+            <div class="profile-activity-header">
+              <h3 class="profile-activity-title">Yêu cầu thiết kế</h3>
+              <span class="profile-activity-status profile-activity-status--pending">Đang chờ xử lý</span>
+            </div>
+            <div class="profile-activity-body">
+              <p class="profile-activity-id">REQ-8821</p>
+              <p class="profile-activity-desc">Chuyển đổi chân dung 15x15cm (Beads 2.6mm)</p>
+              <p class="profile-activity-date">Gửi vào: 10:45 - 20/05/2024</p>
+            </div>
+            <button class="profile-activity-btn">Theo dõi tiến độ</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>
