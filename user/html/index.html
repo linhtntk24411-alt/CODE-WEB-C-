@@ -1,14 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urii - Hạt ủi nhiệt Perler Beads</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- CSS của bạn -->
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
     <main>
+        <!-- HERO BANNER -->
         <section class="hero" aria-label="Banner nổi bật">
             <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-indicators">
@@ -61,6 +67,14 @@
             </div>
         </section>
 
+        <!-- VALUES - Render bằng JS -->
+        <section class="section section--values">
+            <div class="container">
+                <div class="values-grid" id="valuesGrid"></div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES - Render bằng JS -->
         <section class="section section--categories">
             <div class="container">
                 <div class="section-header">
@@ -70,39 +84,11 @@
                     </div>
                     <a class="section-link" href="#">Xem tất cả →</a>
                 </div>
-
-                <div class="category-grid">
-                    <article class="category-card img-hover-effect">
-                        <div class="category-card__media">
-                            <img src="../assets/index/kit.jpg" alt="Bộ KIT DIY">
-                        </div>
-                        <h3>Bộ KIT DIY</h3>
-                    </article>
-
-                    <article class="category-card img-hover-effect">
-                        <div class="category-card__media category-card__media--soft">
-                            <img src="../assets/index/dungcu.png" alt="Dụng cụ">
-                        </div>
-                        <h3>Dụng Cụ</h3>
-                    </article>
-
-                    <article class="category-card img-hover-effect">
-                        <div class="category-card__media category-card__media--warm">
-                            <img src="../assets/index/hatrefill.png" alt="Hạt lẻ">
-                        </div>
-                        <h3>Hạt Lẻ Các Loại</h3>
-                    </article>
-
-                    <article class="category-card img-hover-effect">
-                        <div class="category-card__media category-card__media--pink">
-                            <img src="../assets/index/handmade.jpg" alt="Phụ kiện handmade">
-                        </div>
-                        <h3>Phụ Kiện Handmade</h3>
-                    </article>
-                </div>
+                <div class="category-grid" id="categoryGrid"></div>
             </div>
         </section>
 
+        <!-- PRODUCTS - Render bằng JS -->
         <section class="section section--products">
             <div class="container">
                 <div class="section-header">
@@ -110,72 +96,36 @@
                         <span class="section-kicker">Bán chạy</span>
                         <h2>Sản phẩm bán chạy</h2>
                     </div>
+                    <a class="section-link" href="#">Xem tất cả →</a>
                 </div>
-
-                <div class="product-grid">
-                    <article class="product-card">
-                        <div class="product-card__media">
-                            <img src="../assets/index/banchay.png" alt="Set Cơ Bản 24 Màu">
-                            <span class="product-card__badge">Bán chạy</span>
-                        </div>
-                        <div class="product-card__body">
-                            <h3>Set Cơ Bản 24 Màu</h3>
-                            <div class="product-card__footer">
-                                <span class="price">69.000đ</span>
-                                <button class="btn btn-urii btn-sm" type="button">+</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-card__media">
-                            <img src="../assets/index/worldcup.jpg" alt="Móc khóa Worldcup">
-                        </div>
-                        <div class="product-card__body">
-                            <h3>Móc Khóa Worldcup</h3>
-                            <div class="product-card__footer">
-                                <span class="price">35.000đ</span>
-                                <button class="btn btn-urii btn-sm" type="button">+</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-card__media">
-                            <img src="../assets/index/hopdung.jpg" alt="Hộp đựng hạt nhựa ủi">
-                        </div>
-                        <div class="product-card__body">
-                            <h3>Hộp Đựng Hạt Nhựa Ủi</h3>
-                            <div class="product-card__footer">
-                                <span class="price">69.000đ</span>
-                                <button class="btn btn-urii btn-sm" type="button">+</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-card__media">
-                            <img src="../assets/index/banui.png" alt="Bàn ủi đa năng">
-                        </div>
-                        <div class="product-card__body">
-                            <h3>Bàn Ủi Đa Năng</h3>
-                            <div class="product-card__footer">
-                                <span class="price">85.000đ</span>
-                                <button class="btn btn-urii btn-sm" type="button">+</button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <div class="product-grid" id="productGrid"></div>
             </div>
         </section>
 
+        <!-- HOW TO - Render bằng JS -->
+        <section class="section section--howto">
+            <div class="container">
+                <div class="section-header section-header--center">
+                    <div>
+                        <span class="section-kicker">Hướng dẫn</span>
+                        <h2>3 bước cho người mới</h2>
+                        <p style="max-width: 600px; margin: 0.5rem auto 0; color: var(--muted);">
+                            Bắt đầu hành trình sáng tạo cùng hạt nhựa ủi nhiệt dễ dàng hơn bao giờ hết
+                        </p>
+                    </div>
+                </div>
+                <div class="steps-grid" id="stepsGrid"></div>
+            </div>
+        </section>
+
+        <!-- SERVICE BANNER -->
         <section class="section section--service">
             <div class="container">
                 <div class="service-banner">
                     <div class="service-banner__content">
                         <span class="section-kicker section-kicker--light">Dịch vụ thiết kế theo yêu cầu</span>
-                        <h2>Biến bức ảnh của bạn thành tác phẩm Pixel Art!</h2>
-                        <p>Gửi hình ảnh bạn muốn thực hiện, Urii sẽ tư vấn và cung cấp map mẫu cùng nguyên liệu đầy đủ để bạn tự tay hoàn thiện.</p>
+                        <h2>Biến bức ảnh của bạn thành sản phẩm hạt nhựa ủi!</h2>
+                        <p>Gửi hình ảnh bạn muốn thực hiện, Urii sẽ tư vấn và giúp bạn hoàn thiện sản phẩm</p>
                         <div class="service-banner__actions">
                             <a class="btn btn-light fw-bold text-urii" href="#">Gửi yêu cầu ngay</a>
                             <a class="btn btn-outline-light" href="#">Xem bảng giá</a>
@@ -185,6 +135,7 @@
             </div>
         </section>
 
+        <!-- GALLERY - Render bằng JS -->
         <section class="section section--gallery">
             <div class="container text-center">
                 <div class="section-header section-header--center">
@@ -193,31 +144,63 @@
                         <p>Chia sẻ tác phẩm của bạn với hashtag #UriiUiCaTheGioi để có cơ hội xuất hiện trên thư viện của chúng tôi.</p>
                     </div>
                 </div>
-
-                <div class="gallery-grid">
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd1.png" alt="Góc cộng đồng 1">
-                    </article>
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd2.png" alt="Góc cộng đồng 2">
-                    </article>
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd3.png" alt="Góc cộng đồng 3">
-                    </article>
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd4.png" alt="Góc cộng đồng 4">
-                    </article>
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd5.png" alt="Góc cộng đồng 5">
-                    </article>
-                    <article class="gallery-item img-hover-effect">
-                        <img src="../assets/index/stcd6.png" alt="Góc cộng đồng 6">
-                    </article>
-                </div>
+                <div class="gallery-grid" id="galleryGrid"></div>
             </div>
         </section>
     </main>
 
+    <!-- ===== POPUP VOUCHER ===== -->
+    <div class="voucher-popup" id="voucherPopup">
+        <div class="voucher-popup__overlay" id="popupOverlay"></div>
+        <div class="voucher-popup__content">
+            <button class="voucher-popup__close" id="closePopup">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="voucher-popup__icon">
+                <i class="bi bi-gift-fill"></i>
+            </div>
+            <h2>Nhận Voucher 50%</h2>
+            <p>Điền thông tin để nhận ngay voucher giảm 50% cho sinh nhật của bạn!</p>
+            
+            <form id="voucherForm" class="voucher-popup__form">
+                <div class="form-group">
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" id="fullName" placeholder="Nhập họ tên của bạn" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthday">Ngày sinh</label>
+                    <input type="date" id="birthday" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" placeholder="Nhập số điện thoại" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="bi bi-gift"></i> Nhận Voucher Ngay
+                </button>
+            </form>
+            
+            <div class="voucher-popup__thankyou" id="thankYou">
+                <div class="check-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h3>Chúc mừng!</h3>
+                <p>Voucher đã được gửi đến SĐT của bạn.<br>Hãy kiểm tra tin nhắn nhé!</p>
+            </div>
+            
+            <p class="voucher-popup__note">
+                <i class="bi bi-shield-check"></i> Thông tin của bạn được bảo mật
+            </p>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript của bạn -->
+    <script src="../js/index.js"></script>
 </body>
 </html>
