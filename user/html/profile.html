@@ -11,6 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
+  <!-- CropperJS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
   <!-- CSS hệ thống -->
   <link rel="stylesheet" href="../css/global.css" />
   <link rel="stylesheet" href="../css/component.css" />
@@ -65,18 +69,18 @@
             </button>
           </div>
           <div class="profile-user-info">
-            <h1 class="profile-user-name" id="profileUserName">Nguyễn Minh Anh</h1>
+            <h1 class="profile-user-name" id="profileUserName">Đang tải...</h1>
             <div class="profile-user-badges">
-              <span class="profile-join-date" id="profileJoinDate">Gia nhập: 15/03/2024</span>
+              <span class="profile-join-date" id="profileJoinDate">Đang tải...</span>
             </div>
           </div>
           <div class="profile-stats">
             <div class="profile-stat">
-              <p class="profile-stat-number" id="orderCount">12</p>
+              <p class="profile-stat-number" id="orderCount">0</p>
               <p class="profile-stat-label">Đơn hàng</p>
             </div>
             <div class="profile-stat">
-              <p class="profile-stat-number" id="mapCount">45</p>
+              <p class="profile-stat-number" id="mapCount">0</p>
               <p class="profile-stat-label">Map đã lưu</p>
             </div>
           </div>
@@ -101,23 +105,23 @@
           <div class="profile-info-grid">
             <div class="profile-info-group">
               <label class="profile-info-label">Họ và tên</label>
-              <input type="text" class="profile-info-input" id="fullName" value="Nguyễn Minh Anh" readonly />
+              <input type="text" class="profile-info-input" id="fullName" readonly />
             </div>
             <div class="profile-info-group">
               <label class="profile-info-label">Số điện thoại</label>
-              <input type="tel" class="profile-info-input" id="phoneNumber" value="0901 234 567" readonly />
+              <input type="tel" class="profile-info-input" id="phoneNumber" readonly />
             </div>
             <div class="profile-info-group">
               <label class="profile-info-label">Email</label>
-              <input type="email" class="profile-info-input" id="emailAddress" value="minhanh.uri@gmail.com" readonly />
+              <input type="email" class="profile-info-input" id="emailAddress" readonly />
             </div>
             <div class="profile-info-group">
               <label class="profile-info-label">Ngày sinh</label>
-              <input type="text" class="profile-info-input" id="birthDate" value="12/08/1998" readonly />
+              <input type="text" class="profile-info-input" id="birthDate" readonly />
             </div>
             <div class="profile-info-group profile-info-group--full">
               <label class="profile-info-label">Địa chỉ giao hàng</label>
-              <textarea class="profile-info-textarea" id="shippingAddress" readonly rows="2">123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</textarea>
+              <textarea class="profile-info-textarea" id="shippingAddress" readonly rows="2"></textarea>
             </div>
           </div>
 
@@ -126,34 +130,8 @@
           </div>
         </section>
 
-        <!-- Section 3: Recent Activity -->
-        <section class="profile-activity">
-          <div class="profile-activity-card profile-activity-card--order">
-            <div class="profile-activity-header">
-              <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
-              <span class="profile-activity-status profile-activity-status--completed">Hoàn thành</span>
-            </div>
-            <div class="profile-activity-body">
-              <p class="profile-activity-id">#UR-10928</p>
-              <p class="profile-activity-desc">Bộ Perler Beads 72 màu + Khuôn chữ nhật lớn</p>
-              <p class="profile-activity-price">850.000đ</p>
-            </div>
-            <button class="profile-activity-btn">Xem chi tiết</button>
-          </div>
-
-          <div class="profile-activity-card profile-activity-card--request">
-            <div class="profile-activity-header">
-              <h3 class="profile-activity-title">Yêu cầu thiết kế</h3>
-              <span class="profile-activity-status profile-activity-status--pending">Đang chờ xử lý</span>
-            </div>
-            <div class="profile-activity-body">
-              <p class="profile-activity-id">REQ-8821</p>
-              <p class="profile-activity-desc">Chuyển đổi chân dung 15x15cm (Beads 2.6mm)</p>
-              <p class="profile-activity-date">Gửi vào: 10:45 - 20/05/2024</p>
-            </div>
-            <button class="profile-activity-btn">Theo dõi tiến độ</button>
-          </div>
-        </section>
+        <!-- Section 3: Recent Activity (được render từ JavaScript) -->
+        <section class="profile-activity" id="activitySection"></section>
       </div>
     </div>
   </main>
@@ -162,10 +140,22 @@
   <div id="footer-placeholder"></div>
   <div id="chatbot-placeholder"></div>
 
-  <!-- ==================== MODALS ==================== -->
-
-  <!-- Overlay chung -->
+  <!-- ===== MODALS ===== -->
   <div class="modal-overlay" id="modalOverlay"></div>
+
+  <!-- Popup Thông báo -->
+  <div class="modal" id="modalNotification">
+    <div class="modal-content modal-content--notification">
+      <div class="modal-icon modal-icon--info" id="notificationIcon">
+        <span class="material-symbols-outlined">check_circle</span>
+      </div>
+      <h3 class="modal-title" id="notificationTitle">Thông báo</h3>
+      <p class="modal-desc" id="notificationMessage">Nội dung thông báo</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--primary" id="notificationOkBtn">Đồng ý</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal Đăng xuất -->
   <div class="modal" id="modalLogout">
@@ -211,19 +201,18 @@
                 <span class="material-symbols-outlined">visibility</span>
               </button>
             </div>
-            <!-- Hiển thị các yêu cầu và trạng thái -->
             <div class="password-requirements" id="passwordRequirements">
               <span class="req-item" data-req="length">
-                <span class="req-icon">✖</span> Ít nhất 8 ký tự
+                <span class="req-circle"></span> Ít nhất 8 ký tự
               </span>
               <span class="req-item" data-req="uppercase">
-                <span class="req-icon">✖</span> Chữ hoa (A-Z)
+                <span class="req-circle"></span> Chữ hoa (A-Z)
               </span>
               <span class="req-item" data-req="lowercase">
-                <span class="req-icon">✖</span> Chữ thường (a-z)
+                <span class="req-circle"></span> Chữ thường (a-z)
               </span>
               <span class="req-item" data-req="number">
-                <span class="req-icon">✖</span> Số (0-9)
+                <span class="req-circle"></span> Số (0-9)
               </span>
             </div>
           </div>
@@ -249,7 +238,7 @@
     </div>
   </div>
 
-  <!-- Modal Quên mật khẩu (Khôi phục) -->
+  <!-- Modal Quên mật khẩu -->
   <div class="modal" id="modalForgotPassword">
     <div class="modal-content modal-content--forgot">
       <div class="modal-header">
@@ -274,7 +263,7 @@
     </div>
   </div>
 
-  <!-- Modal Cập nhật Avatar -->
+  <!-- ===== MODAL CẬP NHẬT AVATAR (theo mẫu) ===== -->
   <div class="modal" id="modalAvatar">
     <div class="modal-content modal-content--avatar">
       <div class="modal-header">
@@ -328,7 +317,27 @@
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- Modal Crop Ảnh (riêng biệt) -->
+  <div class="modal" id="modalCrop">
+    <div class="modal-content modal-content--crop">
+      <div class="modal-header">
+        <h2 class="modal-title">Cắt ảnh đại diện</h2>
+        <button class="modal-close" data-close="modalCrop">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="crop-container">
+          <img id="cropImage" src="" alt="Crop Image" style="max-width: 100%;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" data-close="modalCrop">Hủy</button>
+        <button class="modal-btn modal-btn--primary" id="cropSaveBtn">Cắt</button>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/main.js"></script>
   <script src="../js/profile.js"></script>
 </body>
