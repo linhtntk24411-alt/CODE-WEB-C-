@@ -1,0 +1,337 @@
+/* ==========================================================================
+   URII HEADER CSS
+   Link component.css TRƯỚC file này.
+   ========================================================================== */
+
+.urii-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0e8e8;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-container {
+    width: 92%;
+    max-width: 1300px;
+    margin: 0 auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    /* Đổi gap từ 0 thành space-between để tự động chia đều khoảng cách giữa 3 cụm */
+    justify-content: space-between; 
+}
+
+/* ── LOGO ─────────────────────────────────────────────── */
+
+.header-logo {
+    flex-shrink: 0;
+    margin-right: 32px;
+}
+
+.header-logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+    transition: opacity 0.15s ease;
+}
+
+.header-logo a:hover .logo-img {
+    opacity: 0.85;
+}
+
+/* ── NAV ──────────────────────────────────────────────── */
+
+.header-nav {
+    /* Bật lại flex: 1 và căn giữa chữ để Menu nằm chính giữa hoàn hảo */
+    flex: 1;           
+    display: flex;
+    justify-content: center; 
+}
+
+.header-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Tăng từ 4px lên 20px cho các chữ cách nhau rộng rãi, đẹp mắt */
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav li {
+    position: relative;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border-radius: 9px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #fdf0f0;
+    color: var(--urii-red);
+}
+
+/* ── DROPDOWN ─────────────────────────────────────────── */
+
+.header-nav .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background-color: #ffffff;
+    border: 1px solid #f5e8e8;
+    border-radius: 14px;
+    padding: 8px;
+    min-width: 220px;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    z-index: 1010;
+}
+
+.header-nav .dropdown-menu li {
+    width: 100%;
+}
+
+.header-nav .dropdown-menu a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 9px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.header-nav .dropdown-menu a:hover {
+    background-color: #fdf0f0;
+    color: var(--urii-red);
+}
+
+.header-nav .nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ── ACTIONS ──────────────────────────────────────────── */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    /* Xóa dòng margin-left: auto đi nha m */
+}
+
+.header-divider {
+    width: 1px;
+    height: 24px;
+    background-color: #eee;
+    margin: 0 2px;
+}
+
+/* ── AUTH BUTTONS ─────────────────────────────────────── */
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-register {
+    text-decoration: none;
+    color: var(--urii-red);
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px 18px;
+    border-radius: 9px;
+    border: 1.5px solid var(--urii-red);
+    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-register:hover {
+    background-color: var(--urii-red);
+    color: #ffffff;
+}
+
+.btn-login {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px 20px;
+    border-radius: 9px;
+    background-color: var(--urii-red);
+    border: 1.5px solid var(--urii-red);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background-color: var(--urii-red-hover);
+    border-color: var(--urii-red-hover);
+}
+
+/* ── ACCOUNT DROPDOWN ─────────────────────────────────── */
+
+.account-icon-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.account-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background-color: #ffffff;
+    border: 1.5px dashed var(--urii-red);
+    border-radius: 14px;
+    min-width: 250px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 1010;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.account-icon-wrapper:hover .account-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.account-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.account-menu li {
+    border-bottom: 1px dashed #f0dede;
+}
+
+.account-menu li:last-child {
+    border-bottom: none;
+}
+
+.account-menu-item {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.account-menu-item:hover {
+    background-color: #fdf0f0;
+    color: var(--urii-red);
+}
+
+.account-menu-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease;
+}
+
+.account-menu-icon svg {
+    width: 16px;
+    height: 16px;
+    color: var(--muted);
+    stroke: currentColor;
+}
+
+.account-menu-item:hover .account-menu-icon {
+    background-color: #fcd7dd;
+}
+
+.account-menu-item:hover .account-menu-icon svg {
+    color: var(--urii-red);
+}
+
+.arrow-icon {
+    width: 15px;
+    height: 15px;
+    color: #cccccc;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.account-menu-item:hover .arrow-icon {
+    color: var(--urii-red);
+}
+
+.account-logout {
+    padding: 10px 14px 6px;
+}
+
+.btn-logout {
+    width: 100%;
+    background-color: var(--urii-red);
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 11px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.15s ease;
+}
+
+.btn-logout svg {
+    width: 17px;
+    height: 17px;
+    stroke: currentColor;
+}
+
+.btn-logout:hover {
+    background-color: var(--urii-red-hover);
+}
