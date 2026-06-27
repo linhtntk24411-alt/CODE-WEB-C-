@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Hướng dẫn làm map mẫu - Urii Perler Beads</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Liên kết chuẩn tới file CSS phân tách riêng biệt -->
+    <link rel="stylesheet" href="../css/gallery-detail.css">
+</head>
+<body>
+
+    <header class="main-header" id="global-header"></header>
+
+    <main class="main-wrapper">
+        
+        <!-- Breadcrumb Nav -->
+        <nav class="breadcrumb-nav">
+            <a class="breadcrumb-link" href="gallery.html">Trang chủ</a>
+            <span class="material-symbols-outlined icon-arrow-nav">chevron_right</span>
+            <a class="breadcrumb-link" href="gallery.html">Thư viện map mẫu</a>
+            <span class="material-symbols-outlined icon-arrow-nav">chevron_right</span>
+            <span class="breadcrumb-current" id="breadcrumb-title">Đang tải...</span>
+        </nav>
+
+        <!-- Khung Layout Tổng Quan Phía Trên (Ảnh trái, Thông tin phải) -->
+        <div class="layout-sidebar-grid">
+            
+            <!-- Vùng hiển thị sơ đồ hạt bên trái -->
+            <div class="visual-sidebar">
+                <div class="preview-card">
+                    <img class="preview-img" id="main-preview-img" src="" alt="Main map">
+                    <div class="preview-overlay">
+                        <span class="zoom-btn">
+                            <span class="material-symbols-outlined">zoom_in</span> Xem chi tiết sơ đồ
+                        </span>
+                    </div>
+                    <span class="status-badge">
+                        <span class="material-symbols-outlined">school</span> Hướng dẫn thực hiện
+                    </span>
+                </div>
+            </div>
+
+            <!-- Khối thông số và bảng màu bên phải -->
+            <div class="info-container">
+                <div class="page-title-block">
+                    <h1 class="page-main-title" id="project-title">Đang tải...</h1>
+                    <div class="meta-row">
+                        <div class="meta-link-group text-tertiary">
+                            <span class="material-symbols-outlined text-sm">schedule</span>
+                            <span id="meta-time">--</span>
+                        </div>
+                        <span class="text-outline">|</span>
+                        <div class="meta-link-group text-variant">
+                            <span class="material-symbols-outlined text-sm">trending_up</span>
+                            <span id="meta-level">--</span>
+                        </div>
+                        <span class="text-outline">|</span>
+                        <div class="rank-badge" id="rating-stars-container">
+                            <!-- Sao đánh giá render tự động -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khối chuẩn bị vật liệu -->
+                <section class="filter-section spec-card">
+                    <h3 class="filter-section-title">
+                        <span class="material-symbols-outlined">inventory_2</span> Yêu cầu chuẩn bị (Requirements)
+                    </h3>
+                    <div class="menu-list">
+                        <div class="menu-btn-spec">
+                            <span class="text-variant">Bàn ủi hạt (Pegboard):</span>
+                            <strong id="req-pegboard">--</strong>
+                        </div>
+                        <div class="menu-btn-spec">
+                            <span class="text-variant">Ước lượng thời gian:</span>
+                            <strong id="req-time">--</strong>
+                        </div>
+                        <div class="color-list-wrapper">
+                            <span class="color-title">Chi tiết mã màu &amp; số lượng:</span>
+                            <div class="color-grid-container" id="color-list-container">
+                                <!-- Mã hạt màu render ở đây -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="action-box">
+                    <button class="btn-action-download"><span class="material-symbols-outlined">download</span> Tải hướng dẫn miễn phí (PDF)</button>
+                    <button class="btn-share-sub"><span class="material-symbols-outlined">share</span> Chia sẻ với cộng đồng</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khung Layout Quy Trình Phía Dưới (Các bước trái, Lợi ích phải) -->
+        <div class="layout-sidebar-grid content-bottom-row">
+            
+            <!-- Các bước làm chi tiết bên trái -->
+            <div class="steps-main-container">
+                <section class="filter-section steps-white-card">
+                    <h2 class="steps-title-main">
+                        <span class="material-symbols-outlined text-3xl">construction</span> Các bước tạo tác phẩm (Steps to Create)
+                    </h2>
+                    <div class="step-timeline" id="steps-timeline-container">
+                        <!-- Trục timeline 4 bước đổ ở đây -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Khối lợi ích bên phải đứng im khi cuộn -->
+            <aside class="filter-sidebar">
+                <div class="sticky-wrapper">
+                    <div class="designer-promo-card benefit-sidebar-card">
+                        <h3 class="promo-title">Lợi ích khi dùng Map Urii</h3>
+                        <ul class="benefit-list">
+                            <li class="benefit-item">
+                                <span class="material-symbols-outlined symbol-filled">verified</span>
+                                <p>Tỷ lệ hạt 1:1 chuẩn xác tuyệt đối với kích thước thực tế.</p>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="material-symbols-outlined symbol-filled">verified</span>
+                                <p>Mã màu đồng nhất với hệ màu hạt Perler/Artkal phổ biến.</p>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="material-symbols-outlined symbol-filled">verified</span>
+                                <p>Video hướng dẫn chi tiết đi kèm trong file PDF.</p>
+                            </li>
+                        </ul>
+                        <div class="showcase-box">
+                            <h4 class="color-title uppercase-title">Cộng đồng đã làm</h4>
+                            <div class="grid-showcase-gallery" id="community-showcase">
+                                <!-- Ảnh showcase đổ ở đây -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer-primary-container" id="global-footer"></footer>
+
+
+    <!-- <script src="../js/main.js"></script> -->
+    <script src="../js/gallery-detail.js"></script>
+</body>
+</html>
