@@ -37,13 +37,12 @@
 
   // ===== USER DATA =====
   let userData = null;
-  let activities = [];
+  let latestOrder = null; // Đơn hàng gần nhất
   let tempAvatarSrc = null;
   let cropper = null;
 
   // ===== TOAST SYSTEM =====
   function showToast(message, type = 'success') {
-    // Tạo container nếu chưa có
     let container = document.querySelector('.toast-container');
     if (!container) {
       container = document.createElement('div');
@@ -59,7 +58,6 @@
     `;
     container.appendChild(toast);
 
-    // Tự động xóa sau 3 giây
     setTimeout(() => {
       toast.classList.add('toast--fade-out');
       setTimeout(() => toast.remove(), 400);
@@ -115,7 +113,7 @@
     if (e.key === 'Escape') closeAllModals();
   });
 
-  // ===== NOTIFICATION POPUP (chỉ dùng cho lỗi/cảnh báo) =====
+  // ===== NOTIFICATION POPUP =====
   function showPopupNotification(message, type = 'error', title = 'Lỗi') {
     const icon = document.getElementById('notificationIcon');
     const titleEl = document.getElementById('notificationTitle');
@@ -133,16 +131,33 @@
   // ===== LOAD DATA =====
   async function loadUserData() {
     try {
-      const response = await fetch('../data/users.json');
-      if (!response.ok) throw new Error('Không thể tải dữ liệu');
-      const data = await response.json();
-      userData = data.user;
-      activities = data.activities || [];
+      // Tải dữ liệu người dùng
+      const userResponse = await fetch('../data/users.json');
+      if (!userResponse.ok) throw new Error('Không thể tải dữ liệu người dùng');
+      const userDataRaw = await userResponse.json();
+      userData = userDataRaw.user;
+
+      // Tải đơn hàng để lấy đơn gần nhất
+      const ordersResponse = await fetch('../data/orders.json');
+      if (ordersResponse.ok) {
+        const ordersData = await ordersResponse.json();
+        // Lọc đơn hàng và sắp xếp theo ngày mới nhất
+        const sortedOrders = ordersData.orders.sort((a, b) => {
+          const dateA = new Date(a.date.split('/').reverse().join('/'));
+          const dateB = new Date(b.date.split('/').reverse().join('/'));
+          return dateB - dateA;
+        });
+        latestOrder = sortedOrders.length > 0 ? sortedOrders[0] : null;
+      } else {
+        console.warn('Không thể tải đơn hàng');
+      }
+
       renderProfile(userData);
-      renderActivities(activities);
+      renderActivities();
+
     } catch (error) {
       console.error('Lỗi tải dữ liệu:', error);
-      showPopupNotification('Không thể tải dữ liệu người dùng. Vui lòng thử lại sau.', 'error', 'Lỗi');
+      showPopupNotification('Không thể tải dữ liệu. Vui lòng thử lại sau.', 'error', 'Lỗi');
     }
   }
 
@@ -171,65 +186,58 @@
     }
   }
 
-  // ===== RENDER ACTIVITIES =====
-  function renderActivities(list) {
-    if (!list || list.length === 0) {
-      elements.activitySection.innerHTML = '<p class="profile-empty">Không có hoạt động nào gần đây.</p>';
+  // ===== RENDER ACTIVITIES (chỉ hiển thị 1 đơn hàng gần nhất) =====
+  function renderActivities() {
+    if (!latestOrder) {
+      elements.activitySection.innerHTML = '<p class="profile-empty">Không có đơn hàng nào gần đây.</p>';
       return;
     }
 
-    let html = '';
-    list.forEach(item => {
-      if (item.type === 'order') {
-        html += `
-          <div class="profile-activity-card profile-activity-card--order">
-            <div class="profile-activity-header">
-              <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
-              <span class="profile-activity-status profile-activity-status--${item.statusType}">${item.status}</span>
-            </div>
-            <div class="profile-activity-body">
-              <p class="profile-activity-id">#${item.id}</p>
-              <p class="profile-activity-desc">${item.description}</p>
-              <p class="profile-activity-price">${item.price}</p>
-            </div>
-            <button class="profile-activity-btn" data-target="order-detail">Xem chi tiết</button>
-          </div>
-        `;
-      } else if (item.type === 'request') {
-        html += `
-          <div class="profile-activity-card profile-activity-card--request">
-            <div class="profile-activity-header">
-              <h3 class="profile-activity-title">Yêu cầu thiết kế</h3>
-              <span class="profile-activity-status profile-activity-status--${item.statusType}">${item.status}</span>
-            </div>
-            <div class="profile-activity-body">
-              <p class="profile-activity-id">${item.id}</p>
-              <p class="profile-activity-desc">${item.description}</p>
-              <p class="profile-activity-date">${item.date}</p>
-            </div>
-            <button class="profile-activity-btn" data-target="request-tracking">Theo dõi tiến độ</button>
-          </div>
-        `;
-      }
-    });
+    const order = latestOrder;
+    const statusMap = {
+      'pending': 'Đang xử lý',
+      'shipping': 'Đang giao hàng',
+      'completed': 'Hoàn thành',
+      'cancelled': 'Đã hủy'
+    };
+    const statusDisplay = statusMap[order.statusType] || order.status;
+
+    // Kiểm tra nếu đơn hoàn thành và có showReview
+    const showReview = order.statusType === 'completed' && order.showReview === true;
+
+    let html = `
+      <div class="profile-activity-card profile-activity-card--order">
+        <div class="profile-activity-header">
+          <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
+          <span class="profile-activity-status profile-activity-status--${order.statusType}">${statusDisplay}</span>
+        </div>
+        <div class="profile-activity-body">
+          <p class="profile-activity-id">#${order.id}</p>
+          <p class="profile-activity-desc">${order.total}</p>
+          <p class="profile-activity-date">Ngày đặt: ${order.date}</p>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:8px;">
+          <button class="profile-activity-btn" data-order-id="${order.id}">Xem chi tiết</button>
+          ${showReview ? `<button class="profile-activity-btn profile-activity-btn--review" data-order-id="${order.id}">Đánh giá</button>` : ''}
+        </div>
+      </div>
+    `;
     elements.activitySection.innerHTML = html;
 
-    // Gắn sự kiện chuyển hướng trực tiếp (không thông báo)
-    document.querySelectorAll('.profile-activity-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Giả lập chuyển hướng đến trang tương ứng
-        const target = this.dataset.target;
-        // Ví dụ: window.location.href = '/order/' + id;
-        // Tạm thời chỉ log để demo
-        console.log('Chuyển hướng đến:', target);
-        // Nếu muốn chuyển hướng thật, bỏ comment dòng dưới:
-        // window.location.href = '/' + target;
-        // Hoặc có thể dùng showToast để thông báo demo (nhưng yêu cầu là chuyển hướng không thông báo)
-        // Ở đây tôi để demo bằng toast (có thể bỏ nếu không muốn)
-        // showToast('Chuyển hướng đến ' + target, 'info');
-        // Tuy nhiên theo yêu cầu: không cần thông báo, chỉ chuyển hướng
-        // Nên tôi sẽ không hiển thị gì, chỉ log.
-      });
+    // Gắn sự kiện "Xem chi tiết"
+    document.querySelector('.profile-activity-btn[data-order-id]')?.addEventListener('click', function() {
+      const orderId = this.dataset.orderId;
+      if (orderId) {
+        window.location.href = `order-detail.html?id=${orderId}`;
+      }
+    });
+
+    // Gắn sự kiện "Đánh giá"
+    document.querySelector('.profile-activity-btn--review')?.addEventListener('click', function() {
+      const orderId = this.dataset.orderId;
+      if (orderId) {
+        window.location.href = `review.html?order=${orderId}`;
+      }
     });
   }
 
@@ -285,7 +293,6 @@
       userData.birth = elements.birthDate.value;
       userData.address = elements.shippingAddress.value;
       elements.userName.textContent = userData.name;
-      // Toast thông báo thành công
       showToast('Thông tin đã được lưu thành công!', 'success');
     }, 1500);
   });
@@ -448,7 +455,7 @@
   });
 
   // ============================================================
-  // AVATAR MODULE (theo mẫu)
+  // AVATAR MODULE
   // ============================================================
   (function avatarModule() {
     const avatarImg = elements.avatar;
@@ -556,10 +563,15 @@
 
   })();
 
-  // ===== SIDEBAR ACTIVE =====
+  // ===== SIDEBAR ACTIVE & NAVIGATION =====
   document.querySelectorAll('.profile-nav-item:not(.profile-nav-item--logout)').forEach(item => {
     item.addEventListener('click', function(e) {
       e.preventDefault();
+      const text = this.querySelector('span:last-child')?.textContent.trim();
+      if (text === 'Đơn hàng của tôi') {
+        window.location.href = 'orders.html';
+        return;
+      }
       document.querySelectorAll('.profile-nav-item').forEach(i => i.classList.remove('active'));
       this.classList.add('active');
     });

@@ -18,10 +18,12 @@
   <!-- CSS hệ thống -->
   <link rel="stylesheet" href="../css/global.css" />
   <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />   <!-- THÊM DÒNG NÀY -->
   <link rel="stylesheet" href="../css/profile.css" />
 </head>
 <body class="profile-page">
-  <!-- HEADER -->
+
+  <!-- HEADER (sẽ fetch từ components/header.html) -->
   <div id="header-placeholder"></div>
 
   <!-- MAIN CONTENT -->
@@ -130,7 +132,7 @@
           </div>
         </section>
 
-        <!-- Section 3: Recent Activity (được render từ JavaScript) -->
+        <!-- Section 3: Recent Activity -->
         <section class="profile-activity" id="activitySection"></section>
       </div>
     </div>
@@ -263,7 +265,7 @@
     </div>
   </div>
 
-  <!-- ===== MODAL CẬP NHẬT AVATAR (theo mẫu) ===== -->
+  <!-- ===== MODAL CẬP NHẬT AVATAR ===== -->
   <div class="modal" id="modalAvatar">
     <div class="modal-content modal-content--avatar">
       <div class="modal-header">
@@ -317,7 +319,7 @@
     </div>
   </div>
 
-  <!-- Modal Crop Ảnh (riêng biệt) -->
+  <!-- Modal Crop Ảnh -->
   <div class="modal" id="modalCrop">
     <div class="modal-content modal-content--crop">
       <div class="modal-header">
@@ -338,7 +340,22 @@
     </div>
   </div>
 
+  <!-- JS -->
   <script src="../js/main.js"></script>
   <script src="../js/profile.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
 </body>
 </html>
