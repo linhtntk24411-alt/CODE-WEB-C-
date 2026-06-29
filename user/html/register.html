@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/component.css">
   <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/header.css">
 </head>
 <body class="auth-page">
   <!-- HEADER -->
@@ -49,11 +50,38 @@
         </div>
         <div class="input-group input-group--register">
           <label for="password" class="input-label input-label--register">Mật khẩu</label>
-          <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" data-target="password">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+          <!-- Password Requirements -->
+          <div class="password-requirements" id="passwordRequirements">
+            <span class="req-item" data-req="length">
+              <span class="req-circle"></span> Ít nhất 8 ký tự
+            </span>
+            <span class="req-item" data-req="uppercase">
+              <span class="req-circle"></span> Chữ hoa (A-Z)
+            </span>
+            <span class="req-item" data-req="lowercase">
+              <span class="req-circle"></span> Chữ thường (a-z)
+            </span>
+            <span class="req-item" data-req="number">
+              <span class="req-circle"></span> Số (0-9)
+            </span>
+          </div>
         </div>
         <div class="input-group input-group--register">
           <label for="confirm-password" class="input-label input-label--register">Xác nhận mật khẩu</label>
-          <input type="password" id="confirm-password" class="input-field" placeholder="••••••••" required>
+          <div class="password-input-wrapper">
+            <input type="password" id="confirm-password" class="input-field" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" data-target="confirm-password">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+          <!-- Password Match Feedback -->
+          <div class="password-match-feedback" id="passwordMatchFeedback"></div>
         </div>
         <button type="submit" class="auth-btn">Đăng ký</button>
       </form>
@@ -97,38 +125,7 @@
 
   <!-- JS -->
   <script src="../js/main.js"></script>
-  <script>
-    (function() {
-      const form = document.getElementById('register-form');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const btn = form.querySelector('.auth-btn');
-          const originalText = btn.textContent;
-          btn.textContent = 'Đang xử lý...';
-          btn.disabled = true;
-          btn.classList.add('loading');
-
-          const password = document.getElementById('password');
-          const confirm = document.getElementById('confirm-password');
-          if (password.value !== confirm.value) {
-            alert('Mật khẩu xác nhận không khớp!');
-            btn.textContent = originalText;
-            btn.disabled = false;
-            btn.classList.remove('loading');
-            return;
-          }
-
-          setTimeout(() => {
-            btn.textContent = originalText;
-            btn.disabled = false;
-            btn.classList.remove('loading');
-            alert('Đăng ký thành công! (Demo)');
-            // window.location.href = 'login.html';
-          }, 1500);
-        });
-      }
-    })();
-  </script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/header.js"></script>
 </body>
 </html>
