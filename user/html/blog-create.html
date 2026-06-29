@@ -6,7 +6,7 @@
   <title>Tạo Bài Viết Mới | Urii Perler Beads</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
   <!-- CSS hệ thống -->
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/blog-create.css" />
 </head>
-<body class="bg-background font-body-md text-on-surface">
+<body>
 
   <!-- HEADER -->
   <div id="header-placeholder"></div>
@@ -73,8 +73,8 @@
         </div>
       </div>
 
-      <!-- Preview ảnh (đặt riêng bên dưới, không trong vùng upload) -->
-      <div class="upload-preview-area" id="uploadPreviewArea">
+      <!-- Khu vực preview ảnh (riêng biệt, bên dưới hộp tải) -->
+      <div class="upload-preview-area">
         <div class="upload-preview__list" id="imagePreview"></div>
       </div>
 
@@ -127,11 +127,11 @@
       <div class="seo-panel" id="seoPanel" style="display:none;">
         <div class="form-group">
           <label for="seoTitle">Meta Title</label>
-          <input type="text" id="seoTitle" placeholder="Tiêu đề hiển thị trên công cụ tìm kiếm" style="max-width: 300px;" />
+          <input type="text" id="seoTitle" placeholder="Tiêu đề hiển thị trên công cụ tìm kiếm" />
         </div>
         <div class="form-group">
           <label for="seoDesc">Meta Description</label>
-          <textarea id="seoDesc" rows="2" placeholder="Mô tả ngắn cho bài viết" style="max-width: 300px;"></textarea>
+          <textarea id="seoDesc" rows="2" placeholder="Mô tả ngắn cho bài viết"></textarea>
         </div>
         <div class="form-group">
           <label for="postTags">Thẻ (tags) – cách nhau bằng dấu phẩy</label>
@@ -144,9 +144,6 @@
   <!-- FOOTER & CHATBOT -->
   <div id="footer-placeholder"></div>
   <div id="chatbot-placeholder"></div>
-
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
 
   <!-- JS -->
   <script src="../js/main.js"></script>

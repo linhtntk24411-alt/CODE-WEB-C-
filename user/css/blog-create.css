@@ -180,6 +180,7 @@ body {
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
   width: 100%;
+  box-sizing: border-box;
 }
 .form-group input:focus,
 .form-group select:focus,
@@ -289,6 +290,7 @@ body {
   line-height: 1;
   transition: all 0.2s;
   font-weight: bold;
+  z-index: 5;
 }
 .upload-preview__list .remove-image:hover {
   background: #d32f2f;
@@ -438,6 +440,7 @@ body {
   font-size: 16px;
   color: var(--blog-create-on-surface);
   transition: background 0.2s;
+  box-sizing: border-box;
 }
 .seo-toggle:hover {
   background: rgba(234, 232, 231, 0.7);
@@ -454,24 +457,67 @@ body {
   transform: rotate(90deg);
 }
 
+/* Panel SEO - căn đều, không bị thụt */
 .seo-panel {
-  padding: 20px 16px;
+  padding: 20px 24px;
   background: var(--blog-create-surface-low);
   border-radius: 0 0 var(--blog-create-radius-sm) var(--blog-create-radius-sm);
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-.seo-panel .form-group input,
-.seo-panel .form-group textarea {
-  max-width: 400px;
-}
-.seo-panel textarea {
-  resize: vertical;
-  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* ---- Toast (giống toaster các trang trước) ---- */
+/* Mỗi form group chiếm toàn bộ chiều rộng */
+.seo-panel .form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.seo-panel .form-group label {
+  font-family: var(--blog-create-font-heading);
+  font-size: 16px;
+  color: var(--blog-create-on-surface-variant);
+  margin: 0;
+  padding: 0;
+}
+
+/* Tất cả input và textarea đều có cùng width, padding, box-sizing */
+.seo-panel .form-group input,
+.seo-panel .form-group textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  margin: 0;
+  border: 1px solid var(--blog-create-outline-variant);
+  border-radius: var(--blog-create-radius-sm);
+  font-family: var(--blog-create-font);
+  font-size: 16px;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  display: block;
+}
+
+.seo-panel .form-group input:focus,
+.seo-panel .form-group textarea:focus {
+  border-color: var(--blog-create-primary);
+  box-shadow: 0 0 0 4px rgba(132, 0, 1, 0.1);
+}
+
+.seo-panel .form-group textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+/* ---- Toast ---- */
 .toast-container {
   position: fixed;
   top: 24px;
