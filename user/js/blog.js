@@ -441,7 +441,7 @@
           blogId: currentBlogId,
           parentId: parentId,
           author: 'Bạn',
-          avatar: '',
+          avatar: '../assets/avatar_user.jpeg', // ĐÃ SỬA
           content: content,
           time: 'Vừa xong'
         };
@@ -557,7 +557,7 @@
         blogId: currentBlogId,
         parentId: null,
         author: 'Bạn',
-        avatar: '',
+        avatar: '../assets/avatar_user.jpeg',
         content: text,
         time: 'Vừa xong'
       };
@@ -628,6 +628,101 @@
     handleMainCommentSubmit();
 
     document.title = `${blog.title} - Urii Perler Beads`;
+
+    // ========== THÊM LIKE & BOOKMARK ==========
+    // Cập nhật số like từ dữ liệu blog
+    const likeCountSpan = document.getElementById('likeCount');
+    if (likeCountSpan) {
+      likeCountSpan.textContent = blog.likes || 0;
+    }
+
+    // Lấy trạng thái từ localStorage
+    const likesStorage = JSON.parse(localStorage.getItem('blogLikes') || '{}');
+    const bookmarksStorage = JSON.parse(localStorage.getItem('bookmarks') || '{}');
+
+    const likeBtn = document.getElementById('likeBtn');
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+
+    // Like
+    if (likeBtn) {
+      const isLiked = likesStorage[blog.id] || false;
+      if (isLiked) {
+        likeBtn.classList.add('liked');
+        likeBtn.querySelector('i').classList.remove('bi-heart');
+        likeBtn.querySelector('i').classList.add('bi-heart-fill');
+      } else {
+        likeBtn.classList.remove('liked');
+        likeBtn.querySelector('i').classList.remove('bi-heart-fill');
+        likeBtn.querySelector('i').classList.add('bi-heart');
+      }
+
+      likeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const isLikedNow = this.classList.contains('liked');
+        const blogId = blog.id;
+        let likes = JSON.parse(localStorage.getItem('blogLikes') || '{}');
+        if (isLikedNow) {
+          // Bỏ like
+          delete likes[blogId];
+          this.classList.remove('liked');
+          this.querySelector('i').classList.remove('bi-heart-fill');
+          this.querySelector('i').classList.add('bi-heart');
+          // Giảm số like trong blog (chỉ hiển thị, không lưu vào JSON)
+          let currentLike = parseInt(likeCountSpan.textContent);
+          if (currentLike > 0) likeCountSpan.textContent = currentLike - 1;
+          showToast('Đã bỏ thích', 'info', '💔');
+        } else {
+          // Like
+          likes[blogId] = true;
+          this.classList.add('liked');
+          this.querySelector('i').classList.remove('bi-heart');
+          this.querySelector('i').classList.add('bi-heart-fill');
+          let currentLike = parseInt(likeCountSpan.textContent);
+          likeCountSpan.textContent = currentLike + 1;
+          showToast('Đã thích bài viết', 'success', '❤️');
+        }
+        localStorage.setItem('blogLikes', JSON.stringify(likes));
+      });
+    }
+
+    // Bookmark
+    if (bookmarkBtn) {
+      const isBookmarked = bookmarksStorage[blog.id] || false;
+      if (isBookmarked) {
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.querySelector('i').classList.remove('bi-bookmark');
+        bookmarkBtn.querySelector('i').classList.add('bi-bookmark-fill');
+        bookmarkBtn.querySelector('span').textContent = 'Đã lưu';
+      } else {
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.querySelector('i').classList.remove('bi-bookmark-fill');
+        bookmarkBtn.querySelector('i').classList.add('bi-bookmark');
+        bookmarkBtn.querySelector('span').textContent = 'Lưu';
+      }
+
+      bookmarkBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const isBookmarkedNow = this.classList.contains('bookmarked');
+        const blogId = blog.id;
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '{}');
+        if (isBookmarkedNow) {
+          delete bookmarks[blogId];
+          this.classList.remove('bookmarked');
+          this.querySelector('i').classList.remove('bi-bookmark-fill');
+          this.querySelector('i').classList.add('bi-bookmark');
+          this.querySelector('span').textContent = 'Lưu';
+          showToast('Đã bỏ lưu', 'info', '📌');
+        } else {
+          bookmarks[blogId] = true;
+          this.classList.add('bookmarked');
+          this.querySelector('i').classList.remove('bi-bookmark');
+          this.querySelector('i').classList.add('bi-bookmark-fill');
+          this.querySelector('span').textContent = 'Đã lưu';
+          showToast('Đã lưu bài viết', 'success', '📌');
+        }
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      });
+    }
   }
 
   // ============================================================
