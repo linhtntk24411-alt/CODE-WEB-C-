@@ -1,7 +1,12 @@
 (function() {
   'use strict';
 
-  // ===== DOM refs =====
+  // ===== PHÁT HIỆN TRANG =====
+  const path = window.location.pathname;
+  const isListPage = path.includes('blog-list.html') || (!path.includes('blog-detail.html') && path.endsWith('.html'));
+  const isDetailPage = path.includes('blog-detail.html');
+
+  // ===== DOM refs cho list =====
   const featuredContainer = document.getElementById('featuredContainer');
   const blogGrid = document.getElementById('blogGrid');
   const paginationContainer = document.getElementById('paginationContainer');
@@ -9,29 +14,50 @@
   const sortSelect = document.getElementById('sortSelect');
   const scrollBtn = document.getElementById('scrollToTop');
 
+  // ===== Biến chung =====
   let allBlogs = [];
+  let allComments = [];
   let currentCategory = 'all';
   let currentSort = 'newest';
   let currentPage = 1;
   const perPage = 6;
+  let commentLimit = 5;
+  let currentBlogComments = [];
 
-  // ===== Load data =====
+  // ===== HÀM TẢI DỮ LIỆU =====
   async function loadBlogs() {
     try {
-      const response = await fetch('../data/blogs.json');
-      if (!response.ok) throw new Error('Không thể tải dữ liệu blog');
-      const data = await response.json();
-      allBlogs = data.blogs;
-      renderBlogs();
+      const [blogsRes, commentsRes] = await Promise.all([
+        fetch('../data/blogs.json'),
+        fetch('../data/comments.json')
+      ]);
+      if (!blogsRes.ok) throw new Error('Không thể tải dữ liệu blog');
+      if (!commentsRes.ok) throw new Error('Không thể tải dữ liệu comment');
+      
+      const blogsData = await blogsRes.json();
+      const commentsData = await commentsRes.json();
+      
+      allBlogs = blogsData.blogs;
+      allComments = commentsData.comments;
+
+      if (isListPage) {
+        renderBlogs();
+      } else if (isDetailPage) {
+        renderBlogDetail();
+      }
     } catch (error) {
-      console.error('Lỗi tải blog:', error);
-      if (blogGrid) {
+      console.error('Lỗi tải dữ liệu:', error);
+      if (isListPage && blogGrid) {
         blogGrid.innerHTML = '<p style="text-align:center;padding:40px;grid-column:1/-1;color:var(--blog-on-surface-variant);">Không thể tải bài viết. Vui lòng thử lại sau.</p>';
+      } else if (isDetailPage) {
+        document.getElementById('detailTitle').innerText = 'Không tìm thấy bài viết';
       }
     }
   }
 
-  // ===== Filter, Sort, Paginate =====
+  // ============================================================
+  // ===== LOGIC TRANG DANH SÁCH (blog-list.html) =====
+  // ============================================================
   function filterBlogs(blogs, category) {
     if (category === 'all') return blogs;
     return blogs.filter(b => b.categorySlug === category);
@@ -56,39 +82,29 @@
     return blogs.slice(start, start + size);
   }
 
-  // ===== Màu pastel cho category =====
   function getCategoryColor(slug) {
     const colors = {
-      'huong-dan-diy': '#6C5B7B',    // tím pastel
-      'meo-vat': '#F08A5D',          // cam pastel
-      'y-tuong-thiet-ke': '#B83B5E', // hồng pastel
-      'goc-nghe-thuat': '#6A9C89'    // xanh pastel
+      'huong-dan-diy': '#6C5B7B',
+      'meo-vat': '#F08A5D',
+      'y-tuong-thiet-ke': '#B83B5E',
+      'goc-nghe-thuat': '#6A9C89'
     };
     return colors[slug] || '#840001';
   }
 
-  // ===== Render Featured + Sidebar (chỉ khi category === 'all') =====
   function renderFeatured(blogs) {
-    const container = document.getElementById('featuredContainer');
-    if (!container) return;
-    
+    if (!featuredContainer) return;
     if (currentCategory !== 'all') {
-      container.style.display = 'none';
+      featuredContainer.style.display = 'none';
       return;
     }
-    
-    container.style.display = 'grid';
-    
+    featuredContainer.style.display = 'grid';
     const featured = blogs.find(b => b.isFeatured === true) || blogs[0];
     if (!featured) {
-      container.innerHTML = '';
+      featuredContainer.innerHTML = '';
       return;
     }
-
-    const sidebarBlogs = blogs
-      .filter(b => b.id !== featured.id)
-      .slice(0, 3);
-
+    const sidebarBlogs = blogs.filter(b => b.id !== featured.id).slice(0, 3);
     let html = `
       <div class="blog-featured__main" onclick="window.location.href='blog-detail.html?slug=${featured.slug}'">
         <div class="blog-featured__image">
@@ -112,14 +128,12 @@
         </div>
       </div>
     `;
-
     html += `
       <div class="blog-featured__sidebar">
         <div class="blog-sidebar__card">
           <h3>Bài viết mới nhất</h3>
           <div class="blog-sidebar__list">
     `;
-
     sidebarBlogs.forEach(blog => {
       html += `
         <div class="blog-sidebar__item" onclick="window.location.href='blog-detail.html?slug=${blog.slug}'">
@@ -131,17 +145,14 @@
         </div>
       `;
     });
-
     html += `
           </div>
         </div>
       </div>
     `;
-
-    container.innerHTML = html;
+    featuredContainer.innerHTML = html;
   }
 
-  // ===== Render Grid =====
   function renderGrid(blogs) {
     if (!blogGrid) return;
     if (blogs.length === 0) {
@@ -181,6 +192,7 @@
     });
     blogGrid.innerHTML = html;
 
+    // Bookmark toggle
     document.querySelectorAll('#blogGrid .blog-card__bookmark').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -197,7 +209,6 @@
         localStorage.setItem('bookmarks', JSON.stringify(saved));
       });
     });
-
     const saved = JSON.parse(localStorage.getItem('bookmarks') || '{}');
     document.querySelectorAll('#blogGrid .blog-card__bookmark').forEach(btn => {
       const id = btn.dataset.id;
@@ -209,7 +220,6 @@
     });
   }
 
-  // ===== Render Pagination =====
   function renderPagination(totalPages) {
     if (!paginationContainer) return;
     if (totalPages <= 1) {
@@ -219,9 +229,7 @@
     let html = '';
     const prevDisabled = currentPage === 1;
     const nextDisabled = currentPage === totalPages;
-
     html += `<button onclick="goToPage(${currentPage - 1})" ${prevDisabled ? 'disabled' : ''}><i class="bi bi-chevron-left"></i></button>`;
-
     for (let i = 1; i <= totalPages; i++) {
       if (i === currentPage) {
         html += `<button class="active" onclick="goToPage(${i})">${i}</button>`;
@@ -231,23 +239,18 @@
         html += `<span class="dots">...</span>`;
       }
     }
-
     html += `<button onclick="goToPage(${currentPage + 1})" ${nextDisabled ? 'disabled' : ''}><i class="bi bi-chevron-right"></i></button>`;
     paginationContainer.innerHTML = html;
   }
 
-  // ===== Main Render =====
   function renderBlogs() {
     const filtered = filterBlogs(allBlogs, currentCategory);
     const sorted = sortBlogs(filtered, currentSort);
     const totalPages = Math.ceil(sorted.length / perPage);
-
     if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
-
     const paginated = paginate(sorted, currentPage, perPage);
 
     renderFeatured(allBlogs);
-    
     // Thêm/xóa tiêu đề "Bài viết"
     let gridHeader = document.querySelector('.blog-grid-header');
     if (currentCategory === 'all') {
@@ -258,16 +261,12 @@
         blogGrid.parentNode.insertBefore(gridHeader, blogGrid);
       }
     } else {
-      if (gridHeader) {
-        gridHeader.remove();
-      }
+      if (gridHeader) gridHeader.remove();
     }
-    
     renderGrid(paginated);
     renderPagination(totalPages);
   }
 
-  // ===== Page navigation =====
   window.goToPage = function(page) {
     const filtered = filterBlogs(allBlogs, currentCategory);
     const totalPages = Math.ceil(filtered.length / perPage);
@@ -277,40 +276,154 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // ===== Category filter =====
-  categoryTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      categoryTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      currentCategory = this.dataset.category;
-      currentPage = 1;
-      renderBlogs();
-    });
-  });
+  // ============================================================
+  // ===== LOGIC TRANG CHI TIẾT (blog-detail.html) =====
+  // ============================================================
+  // ĐƯỜNG DẪN ẢNH MẶC ĐỊNH CHO COMMENT
+  const DEFAULT_AVATAR = '../assets/avatar-non.jpg';
 
-  // ===== Sort =====
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function() {
-      currentSort = this.value;
-      currentPage = 1;
-      renderBlogs();
-    });
-  }
-
-  // ===== Scroll to Top =====
-  if (scrollBtn) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        scrollBtn.classList.add('visible');
-      } else {
-        scrollBtn.classList.remove('visible');
+  function renderComments(blogId) {
+    const commentList = document.getElementById('commentList');
+    const commentCount = document.getElementById('commentCount');
+    const loadMoreBtn = document.querySelector('.blog-detail-comments__loadmore-btn');
+    
+    currentBlogComments = allComments.filter(c => c.blogId === blogId);
+    commentCount.innerText = currentBlogComments.length;
+    
+    if (currentBlogComments.length <= commentLimit) {
+      renderCommentItems(currentBlogComments);
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+    } else {
+      renderCommentItems(currentBlogComments.slice(0, commentLimit));
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'inline-block';
+        loadMoreBtn.textContent = `Xem thêm ${currentBlogComments.length - commentLimit} bình luận`;
+        loadMoreBtn.onclick = function() {
+          renderCommentItems(currentBlogComments);
+          this.style.display = 'none';
+        };
       }
-    });
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    }
   }
 
-  // ===== Init =====
+  function renderCommentItems(comments) {
+    const commentList = document.getElementById('commentList');
+    if (comments.length === 0) {
+      commentList.innerHTML = '<p class="no-comments" style="text-align:center;color:#916f6a;padding:20px;">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>';
+      return;
+    }
+    let html = '';
+    comments.forEach(comment => {
+      // Sử dụng ảnh mặc định cho tất cả comment
+      const avatarSrc = DEFAULT_AVATAR;
+      html += `
+        <div class="blog-detail-comments__item">
+          <div class="blog-detail-comments__avatar" style="background: #f0f0f0; overflow:hidden;">
+            <img src="${avatarSrc}" alt="${comment.author}" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <div>
+            <div class="blog-detail-comments__header">
+              <span class="blog-detail-comments__username">${comment.author}</span>
+              <span class="blog-detail-comments__time">${comment.time}</span>
+            </div>
+            <p class="blog-detail-comments__text">${comment.content}</p>
+            <button class="blog-detail-comments__reply">Trả lời</button>
+          </div>
+        </div>
+      `;
+    });
+    commentList.innerHTML = html;
+  }
+
+  function renderBlogDetail() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+    if (!slug) {
+      document.getElementById('detailTitle').innerText = 'Không tìm thấy bài viết';
+      return;
+    }
+    const blog = allBlogs.find(b => b.slug === slug);
+    if (!blog) {
+      document.getElementById('detailTitle').innerText = 'Bài viết không tồn tại';
+      return;
+    }
+
+    // Banner
+    const banner = document.getElementById('blogBanner');
+    if (blog.image) {
+      banner.style.backgroundImage = `url('${blog.image}')`;
+    }
+    document.getElementById('detailCategory').innerText = blog.category || 'Chung';
+    document.getElementById('detailTitle').innerText = blog.title;
+    document.getElementById('detailAvatar').src = blog.avatar || '../assets/default-avatar.jpg';
+    document.getElementById('detailAuthor').innerText = blog.author;
+    document.getElementById('detailDate').innerText = blog.date;
+
+    // Nội dung
+    document.getElementById('detailContent').innerHTML = blog.content;
+
+    // Tags
+    const tagsContainer = document.getElementById('detailTags');
+    tagsContainer.innerHTML = '<span class="blog-detail-tags__label">Tags:</span>';
+    if (blog.tags && blog.tags.length) {
+      blog.tags.forEach(tag => {
+        const a = document.createElement('a');
+        a.href = `blog-list.html?tag=${tag}`;
+        a.innerText = `#${tag}`;
+        tagsContainer.appendChild(a);
+      });
+    }
+
+    // Author Bio
+    document.getElementById('bioAvatar').src = blog.avatar || '../assets/default-avatar.jpg';
+    document.getElementById('bioName').innerText = blog.author;
+    document.getElementById('bioDesc').innerText = blog.bio || 'Thành viên yêu thích handmade và sáng tạo không ngừng.';
+
+    // Render comments
+    renderComments(blog.id);
+
+    document.title = `${blog.title} - Urii Perler Beads`;
+  }
+
+  // ============================================================
+  // ===== SỰ KIỆN CHO LIST =====
+  // ============================================================
+  if (isListPage) {
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.dataset.category;
+        currentPage = 1;
+        renderBlogs();
+      });
+    });
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        currentSort = this.value;
+        currentPage = 1;
+        renderBlogs();
+      });
+    }
+
+    if (scrollBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  // ============================================================
+  // ===== KHỞI ĐỘNG =====
+  // ============================================================
   loadBlogs();
+
 })();

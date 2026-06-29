@@ -1,0 +1,50 @@
+{
+  "comments": [
+    { "id": 1, "blogId": 1, "author": "Minh Thư", "avatar": "", "content": "Bài viết hay quá! Mình cũng thích ngồi làm đồ handmade cuối tuần.", "time": "1 giờ trước" },
+    { "id": 2, "blogId": 1, "author": "Hoàng Anh", "avatar": "", "content": "Cảm ơn bạn đã chia sẻ, mình sẽ thử làm theo.", "time": "3 giờ trước" },
+    { "id": 3, "blogId": 1, "author": "Phương Linh", "avatar": "", "content": "Nhìn những chiếc bánh sừng bò pixel thèm quá!", "time": "5 giờ trước" },
+    { "id": 4, "blogId": 1, "author": "Quốc Huy", "avatar": "", "content": "Mình cũng nghiện làm đồ handmade như bạn.", "time": "6 giờ trước" },
+    { "id": 5, "blogId": 1, "author": "Ngọc Anh", "avatar": "", "content": "Góc bàn nhìn ấm cúng thật đấy.", "time": "8 giờ trước" },
+    { "id": 6, "blogId": 1, "author": "Trung Kiên", "avatar": "", "content": "Bạn thường mua hạt ở đâu vậy?", "time": "10 giờ trước" },
+    { "id": 7, "blogId": 1, "author": "Hà My", "avatar": "", "content": "Mình cũng muốn có một góc bàn như thế này quá!", "time": "12 giờ trước" },
+    { "id": 8, "blogId": 1, "author": "Bảo Ngọc", "avatar": "", "content": "Bài viết truyền cảm hứng ghê!", "time": "14 giờ trước" },
+    { "id": 9, "blogId": 1, "author": "Đức Anh", "avatar": "", "content": "Làm handmade đúng là liều thuốc tinh thần.", "time": "16 giờ trước" },
+    { "id": 10, "blogId": 1, "author": "Thu Hương", "avatar": "", "content": "Mình thích nhất là mấy em bánh pretzel.", "time": "1 ngày trước" },
+    
+    { "id": 11, "blogId": 2, "author": "Bảo Ngọc", "avatar": "", "content": "Em cáo dễ thương quá! Mình thích màu cam này.", "time": "2 giờ trước" },
+    { "id": 12, "blogId": 2, "author": "Đức Anh", "avatar": "", "content": "Làm theo hướng dẫn của bạn, mình đã thành công!", "time": "4 giờ trước" },
+    { "id": 13, "blogId": 2, "author": "Thu Hương", "avatar": "", "content": "Cầm thành phẩm trên tay thích thật đấy.", "time": "6 giờ trước" },
+    
+    { "id": 14, "blogId": 3, "author": "Minh Quân", "avatar": "", "content": "Bé mèo khóc mà nhìn dễ thương không tưởng.", "time": "1 giờ trước" },
+    { "id": 15, "blogId": 3, "author": "Hải Yến", "avatar": "", "content": "Mình cũng đang làm một em mèo, cảm ơn ý tưởng.", "time": "3 giờ trước" },
+    { "id": 16, "blogId": 3, "author": "Văn Hùng", "avatar": "", "content": "Ảnh chụp đẹp, bài viết hài hước.", "time": "5 giờ trước" },
+    
+    { "id": 17, "blogId": 4, "author": "Nhật Minh", "avatar": "", "content": "Rèm cửa đẹp quá, mình sẽ làm tặng bạn.", "time": "2 giờ trước" },
+    { "id": 18, "blogId": 4, "author": "Thanh Tâm", "avatar": "", "content": "Công phu thật đấy, bạn kiên trì quá!", "time": "4 giờ trước" },
+    
+    { "id": 19, "blogId": 5, "author": "Phúc An", "avatar": "", "content": "Mang handmade ra phố hay ghê, mình cũng sẽ làm.", "time": "1 giờ trước" },
+    { "id": 20, "blogId": 5, "author": "Kim Ngân", "avatar": "", "content": "Mình cũng thường làm charm để tặng bạn bè.", "time": "3 giờ trước" },
+    
+    { "id": 21, "blogId": 6, "author": "Đăng Khoa", "avatar": "", "content": "Bookmark đáng yêu quá, mình sẽ làm theo.", "time": "2 giờ trước" },
+    { "id": 22, "blogId": 6, "author": "Mai Anh", "avatar": "", "content": "Mình thích nhất là bé tôm chiên giòn.", "time": "5 giờ trước" },
+    
+    { "id": 23, "blogId": 7, "author": "Hữu Phước", "avatar": "", "content": "Kệ đựng hạt gọn gàng quá, mình học hỏi được nhiều.", "time": "1 giờ trước" },
+    { "id": 24, "blogId": 7, "author": "Quỳnh Như", "avatar": "", "content": "Mình sẽ sắp xếp lại góc làm việc như bạn.", "time": "3 giờ trước" },
+    
+    { "id": 25, "blogId": 8, "author": "Gia Hân", "avatar": "", "content": "Bộ sưu tập Sanrio của bạn đẹp quá!", "time": "2 giờ trước" },
+    { "id": 26, "blogId": 8, "author": "Bảo Trân", "avatar": "", "content": "Mình thích nhất Kitty trong bánh tart dâu.", "time": "4 giờ trước" },
+    
+    { "id": 27, "blogId": 9, "author": "Tuấn Kiệt", "avatar": "", "content": "Fan bóng đá như mình mê mấy em này luôn!", "time": "1 giờ trước" },
+    { "id": 28, "blogId": 9, "author": "Ánh Dương", "avatar": "", "content": "Messi Chibi nhìn dễ thương quá trời.", "time": "3 giờ trước" },
+    
+    { "id": 29, "blogId": 10, "author": "Thành Công", "avatar": "", "content": "Hộp quà 3D độc đáo thật, mình sẽ làm tặng người yêu.", "time": "2 giờ trước" },
+    { "id": 30, "blogId": 10, "author": "Mỹ Duyên", "avatar": "", "content": "Cảm ơn hướng dẫn chi tiết, mình sẽ thử.", "time": "5 giờ trước" },
+    
+    { "id": 31, "blogId": 11, "author": "Vĩnh Khang", "avatar": "", "content": "Hello Kitty trong túi đào cưng xỉu!", "time": "1 giờ trước" },
+    { "id": 32, "blogId": 11, "author": "Hồng Nhung", "avatar": "", "content": "Đợi thành phẩm của bạn nhé!", "time": "4 giờ trước" },
+    
+    { "id": 33, "blogId": 12, "author": "Quang Huy", "avatar": "", "content": "Nam châm đồ ăn nhìn thèm ghê, mình đã thử làm và thành công.", "time": "2 giờ trước" },
+    { "id": 34, "blogId": 12, "author": "Ngọc Trâm", "avatar": "", "content": "Rất thích ý tưởng này, cảm ơn bạn!", "time": "5 giờ trước" },
+    { "id": 35, "blogId": 12, "author": "Đình Bảo", "avatar": "", "content": "Mình sẽ làm bộ sưu tập nam châm đồ ăn giống bạn.", "time": "7 giờ trước" }
+  ]
+}
