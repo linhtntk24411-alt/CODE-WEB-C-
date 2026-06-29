@@ -45,61 +45,95 @@
     }, 3000);
   }
 
-  // ===== CUSTOM PROMPT =====
+  // ===== PROMPT TÙY CHỈNH (không inline CSS) =====
   function showPrompt(title, placeholder, defaultValue = '') {
     return new Promise((resolve) => {
       const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: fixed; top:0; left:0; width:100%; height:100%;
-        background: rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center;
-        z-index:9999; backdrop-filter:blur(4px);
-      `;
+      overlay.className = 'prompt-overlay';
       overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) { overlay.remove(); resolve(null); }
+        if (e.target === overlay) {
+          overlay.remove();
+          resolve(null);
+        }
       });
 
       const modal = document.createElement('div');
-      modal.style.cssText = `
-        background:#fff; padding:32px 24px 24px; border-radius:12px; max-width:480px; width:90%;
-        box-shadow:0 20px 60px rgba(0,0,0,0.2); font-family:'Segoe UI', sans-serif;
-        animation:fadeIn 0.2s ease;
-      `;
+      modal.className = 'prompt-modal';
       modal.innerHTML = `
-        <h3 style="font-family:'Segoe UI',sans-serif; font-size:20px; font-weight:600; margin-bottom:12px; color:#1b1c1c;">${title}</h3>
-        <input type="text" id="customPromptInput" value="${defaultValue}" placeholder="${placeholder}" style="
-          width:100%; padding:12px 16px; border:1px solid #e5bdb7; border-radius:8px;
-          font-size:16px; font-family:'Segoe UI',sans-serif; outline:none; transition:border-color 0.2s, box-shadow 0.2s;
-          margin-bottom:16px; box-sizing:border-box;
-        " />
-        <div style="display:flex; gap:12px; justify-content:flex-end;">
-          <button id="customPromptCancel" style="
-            padding:8px 24px; border:1px solid #e5bdb7; border-radius:8px; background:transparent;
-            font-family:'Segoe UI',sans-serif; font-weight:600; font-size:14px; cursor:pointer; color:#5c403b;
-          ">Hủy</button>
-          <button id="customPromptConfirm" style="
-            padding:8px 24px; border:none; border-radius:8px; background:#840001; color:#fff;
-            font-family:'Segoe UI',sans-serif; font-weight:600; font-size:14px; cursor:pointer;
-            box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);
-          ">OK</button>
+        <h3 class="prompt-title">${title}</h3>
+        <input type="text" class="prompt-input" id="customPromptInput" value="${defaultValue}" placeholder="${placeholder}" />
+        <div class="prompt-actions">
+          <button class="prompt-btn-cancel" id="customPromptCancel">Hủy</button>
+          <button class="prompt-btn-confirm" id="customPromptConfirm">OK</button>
         </div>
       `;
       overlay.appendChild(modal);
       document.body.appendChild(overlay);
 
       const input = modal.querySelector('#customPromptInput');
-      input.focus(); input.select();
+      input.focus();
+      input.select();
+
       const confirmBtn = modal.querySelector('#customPromptConfirm');
       const cancelBtn = modal.querySelector('#customPromptCancel');
-      const close = (result) => { overlay.remove(); resolve(result); };
+
+      const close = (result) => {
+        overlay.remove();
+        resolve(result);
+      };
+
       confirmBtn.addEventListener('click', () => close(input.value.trim() || null));
       cancelBtn.addEventListener('click', () => close(null));
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') close(input.value.trim() || null);
         if (e.key === 'Escape') close(null);
       });
-      const style = document.createElement('style');
-      style.textContent = `@keyframes fadeIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }`;
-      document.head.appendChild(style);
+    });
+  }
+
+  // ===== POPUP KHÔI PHỤC BẢN NHÁP (không inline CSS) =====
+  function showRestorePopup() {
+    return new Promise((resolve) => {
+      const overlay = document.createElement('div');
+      overlay.className = 'restore-overlay';
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+          resolve(false);
+        }
+      });
+
+      const modal = document.createElement('div');
+      modal.className = 'restore-modal';
+      modal.innerHTML = `
+        <div class="restore-icon">📝</div>
+        <h3 class="restore-title">Khôi phục bản nháp</h3>
+        <p class="restore-desc">Bạn có bản nháp chưa lưu từ lần trước. Bạn có muốn khôi phục không?</p>
+        <div class="restore-actions">
+          <button class="restore-btn-primary" id="restoreBtn">Khôi phục</button>
+          <button class="restore-btn-secondary" id="ignoreBtn">Bỏ qua</button>
+        </div>
+      `;
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      const restoreBtn = modal.querySelector('#restoreBtn');
+      const ignoreBtn = modal.querySelector('#ignoreBtn');
+
+      const close = (result) => {
+        overlay.remove();
+        resolve(result);
+      };
+
+      restoreBtn.addEventListener('click', () => close(true));
+      ignoreBtn.addEventListener('click', () => close(false));
+
+      document.addEventListener('keydown', function escHandler(e) {
+        if (e.key === 'Escape') {
+          close(false);
+          document.removeEventListener('keydown', escHandler);
+        }
+      });
     });
   }
 
@@ -160,7 +194,7 @@
     }, 1000);
   }
 
-  // ===== XỬ LÝ ẢNH UPLOAD (hiển thị dưới hộp upload, không bị chồng) =====
+  // ===== XỬ LÝ ẢNH UPLOAD =====
   imageUpload.addEventListener('change', function(e) {
     const files = Array.from(e.target.files);
     files.forEach(file => {
@@ -175,9 +209,8 @@
             <span class="remove-image" data-filename="${file.name}">×</span>
           `;
           imagePreview.appendChild(previewItem);
-          // Xóa ảnh (sự kiện riêng, không ảnh hưởng đến upload)
           previewItem.querySelector('.remove-image').addEventListener('click', function(e) {
-            e.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+            e.stopPropagation();
             const name = this.dataset.filename;
             imageFiles = imageFiles.filter(f => f.name !== name);
             this.closest('.preview-item').remove();
@@ -190,21 +223,17 @@
     imageUpload.value = '';
   });
 
-  // Kéo thả (không can thiệp vào preview)
   uploadArea.addEventListener('dragover', function(e) {
     e.preventDefault();
-    this.style.borderColor = '#840001';
-    this.style.backgroundColor = 'rgba(132,0,1,0.02)';
+    this.classList.add('dragover');
   });
   uploadArea.addEventListener('dragleave', function(e) {
     e.preventDefault();
-    this.style.borderColor = '';
-    this.style.backgroundColor = '';
+    this.classList.remove('dragover');
   });
   uploadArea.addEventListener('drop', function(e) {
     e.preventDefault();
-    this.style.borderColor = '';
-    this.style.backgroundColor = '';
+    this.classList.remove('dragover');
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       imageUpload.files = files;
@@ -303,12 +332,13 @@
   titleInput.addEventListener('input', autoSaveDraft);
   categorySelect.addEventListener('change', autoSaveDraft);
 
-  // ===== KHÔI PHỤC BẢN NHÁP =====
-  function loadLastDraft() {
+  // ===== KHÔI PHỤC BẢN NHÁP (sử dụng popup tùy chỉnh) =====
+  async function loadLastDraft() {
     const posts = JSON.parse(localStorage.getItem('userBlogs') || '[]');
     const draft = posts.filter(p => p.status === 'draft').pop();
     if (draft) {
-      if (confirm('Bạn có bản nháp chưa lưu từ lần trước. Khôi phục?')) {
+      const shouldRestore = await showRestorePopup();
+      if (shouldRestore) {
         titleInput.value = draft.title || '';
         categorySelect.value = draft.categorySlug || 'huong-dan-diy';
         editorContent.innerHTML = draft.content || '';
@@ -318,6 +348,8 @@
         updateWordCount();
         autoSave.textContent = 'Đã khôi phục bản nháp';
         showToast('Đã khôi phục bản nháp', 'info', '📝');
+      } else {
+        showToast('Đã bỏ qua bản nháp cũ', 'info', '➡️');
       }
     }
   }
