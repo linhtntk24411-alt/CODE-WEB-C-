@@ -101,7 +101,7 @@ body {
 }
 
 .order-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
   font-size: 28px;
   color: var(--order-detail-on-surface);
@@ -220,7 +220,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
   font-size: 20px;
   color: var(--order-detail-on-surface);

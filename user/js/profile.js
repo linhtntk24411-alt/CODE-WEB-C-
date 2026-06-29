@@ -37,7 +37,7 @@
 
   // ===== USER DATA =====
   let userData = null;
-  let latestOrder = null; // Đơn hàng gần nhất
+  let latestOrder = null;
   let tempAvatarSrc = null;
   let cropper = null;
 
@@ -131,17 +131,14 @@
   // ===== LOAD DATA =====
   async function loadUserData() {
     try {
-      // Tải dữ liệu người dùng
       const userResponse = await fetch('../data/users.json');
       if (!userResponse.ok) throw new Error('Không thể tải dữ liệu người dùng');
       const userDataRaw = await userResponse.json();
       userData = userDataRaw.user;
 
-      // Tải đơn hàng để lấy đơn gần nhất
       const ordersResponse = await fetch('../data/orders.json');
       if (ordersResponse.ok) {
         const ordersData = await ordersResponse.json();
-        // Lọc đơn hàng và sắp xếp theo ngày mới nhất
         const sortedOrders = ordersData.orders.sort((a, b) => {
           const dateA = new Date(a.date.split('/').reverse().join('/'));
           const dateB = new Date(b.date.split('/').reverse().join('/'));
@@ -186,7 +183,7 @@
     }
   }
 
-  // ===== RENDER ACTIVITIES (chỉ hiển thị 1 đơn hàng gần nhất) =====
+  // ===== RENDER ACTIVITIES =====
   function renderActivities() {
     if (!latestOrder) {
       elements.activitySection.innerHTML = '<p class="profile-empty">Không có đơn hàng nào gần đây.</p>';
@@ -201,8 +198,6 @@
       'cancelled': 'Đã hủy'
     };
     const statusDisplay = statusMap[order.statusType] || order.status;
-
-    // Kiểm tra nếu đơn hoàn thành và có showReview
     const showReview = order.statusType === 'completed' && order.showReview === true;
 
     let html = `
@@ -216,7 +211,7 @@
           <p class="profile-activity-desc">${order.total}</p>
           <p class="profile-activity-date">Ngày đặt: ${order.date}</p>
         </div>
-        <div style="display:flex; gap:12px; margin-top:8px;">
+        <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
           <button class="profile-activity-btn" data-order-id="${order.id}">Xem chi tiết</button>
           ${showReview ? `<button class="profile-activity-btn profile-activity-btn--review" data-order-id="${order.id}">Đánh giá</button>` : ''}
         </div>
@@ -224,20 +219,14 @@
     `;
     elements.activitySection.innerHTML = html;
 
-    // Gắn sự kiện "Xem chi tiết"
     document.querySelector('.profile-activity-btn[data-order-id]')?.addEventListener('click', function() {
       const orderId = this.dataset.orderId;
-      if (orderId) {
-        window.location.href = `order-detail.html?id=${orderId}`;
-      }
+      if (orderId) window.location.href = `order-detail.html?id=${orderId}`;
     });
 
-    // Gắn sự kiện "Đánh giá"
     document.querySelector('.profile-activity-btn--review')?.addEventListener('click', function() {
       const orderId = this.dataset.orderId;
-      if (orderId) {
-        window.location.href = `review.html?order=${orderId}`;
-      }
+      if (orderId) window.location.href = `review.html?order=${orderId}`;
     });
   }
 
@@ -570,6 +559,10 @@
       const text = this.querySelector('span:last-child')?.textContent.trim();
       if (text === 'Đơn hàng của tôi') {
         window.location.href = 'orders.html';
+        return;
+      }
+      if (text === 'Kho map đã lưu') {
+        window.location.href = 'saved-maps.html';
         return;
       }
       document.querySelectorAll('.profile-nav-item').forEach(i => i.classList.remove('active'));

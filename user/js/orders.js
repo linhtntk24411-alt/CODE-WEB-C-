@@ -162,6 +162,21 @@
     });
   });
 
+  // ===== SIDEBAR NAVIGATION =====
+  document.querySelectorAll('.orders-nav-item:not(.orders-nav-item--logout)').forEach(item => {
+    item.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href && href !== '#' && href !== 'orders.html') {
+        // Cho phép chuyển hướng
+        window.location.href = href;
+        return;
+      }
+      e.preventDefault();
+      document.querySelectorAll('.orders-nav-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
   // ===== KHỞI TẠO =====
   document.addEventListener('DOMContentLoaded', loadOrders);
 })();

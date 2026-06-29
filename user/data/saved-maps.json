@@ -1,0 +1,68 @@
+{
+  "maps": [
+    {
+      "id": 1,
+      "title": "Mèo Chiibi Pastel",
+      "author": "Linh Ruby",
+      "image": "../assets/save-maps/meo-chiibi-pastel.jpeg",
+      "rating": 4.8,
+      "liked": true
+    },
+    {
+      "id": 2,
+      "title": "Mèo cà chua 3D",
+      "author": "Urii Team",
+      "image": "../assets/save-maps/meo-ca-chua-3d.jpeg",
+      "rating": 5.0,
+      "liked": true
+    },
+    {
+      "id": 3,
+      "title": "Cá vàng pastel",
+      "author": "Nam Trần",
+      "image": "../assets/save-maps/ca-vang-pastel.jpeg",
+      "rating": 4.5,
+      "liked": true
+    },
+    {
+      "id": 4,
+      "title": "Lá thư Joke Bear",
+      "author": "Hoàng Yến",
+      "image": "../assets/save-maps/la-thu-joke-bear.jpeg",
+      "rating": 4.9,
+      "liked": true
+    },
+    {
+      "id": 5,
+      "title": "Trái táo pastel",
+      "author": "Minh Anh",
+      "image": "../assets/save-maps/trai-tao-pastel.jpeg",
+      "rating": 4.7,
+      "liked": true
+    },
+    {
+      "id": 6,
+      "title": "Bó hoa đơn giản",
+      "author": "Urii Team",
+      "image": "../assets/save-maps/bo-hoa-don-gian.jpeg",
+      "rating": 4.6,
+      "liked": true
+    },
+    {
+      "id": 7,
+      "title": "Bó hoa phức tạp",
+      "author": "Urii Team",
+      "image": "../assets/save-maps/bo-hoa-phuc-tap.jpeg",
+      "rating": 4.9,
+      "liked": true
+    },
+    {
+      "id": 8,
+      "title": "Sumikko Gurashi",
+      "author": "Linh Ruby",
+      "image": "../assets/save-maps/Sumikko-Gurashi.jpeg",
+      "rating": 4.8,
+      "liked": true
+    }
+  ]
+}

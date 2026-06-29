@@ -68,7 +68,7 @@ body {
   margin-bottom: 32px;
 }
 .review-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
   font-size: 28px;
   color: var(--review-on-surface);
@@ -103,7 +103,7 @@ body {
 }
 .review-label {
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: var(--review-on-surface);
@@ -244,7 +244,7 @@ body {
 .review-btn {
   padding: 12px 32px;
   border-radius: var(--review-radius-sm);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
