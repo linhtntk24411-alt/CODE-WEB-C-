@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html class="light" lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Chi tiết bài viết | Urii Perler Beads</title>
 
   <!-- Google Fonts -->
@@ -24,9 +24,9 @@
   <!-- HEADER -->
   <div id="header-placeholder"></div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="blog-detail-main">
-    <!-- Banner hero -->
+    <!-- Banner -->
     <section class="blog-detail-banner" id="blogBanner" style="background-image: url('');">
       <div class="blog-detail-banner__overlay">
         <div class="blog-detail-banner__container">
@@ -51,7 +51,6 @@
     <!-- Tags -->
     <div class="blog-detail-tags" id="detailTags">
       <span class="blog-detail-tags__label">Tags:</span>
-      <!-- Render từ JS -->
     </div>
 
     <!-- Author Bio -->
@@ -70,16 +69,24 @@
     <!-- Comments -->
     <section class="blog-detail-comments">
       <h2 class="blog-detail-comments__title">Bình luận (<span id="commentCount">0</span>)</h2>
+
+      <!-- Form bình luận chính -->
       <div class="blog-detail-comments__form">
         <div class="blog-detail-comments__avatar-placeholder"></div>
-        <textarea class="blog-detail-comments__textarea" placeholder="Chia sẻ ý kiến của bạn..." rows="3"></textarea>
-        <button class="blog-detail-comments__submit">Gửi bình luận</button>
-      </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                <textarea class="blog-detail-comments__textarea" id="commentInput" placeholder="Chia sẻ ý kiến của bạn..." rows="3"></textarea>
+                <button class="blog-detail-comments__submit" id="submitComment" style="align-self:flex-end;">Gửi bình luận</button>
+            </div>
+        </div>
+
+      <!-- Danh sách bình luận -->
       <div class="blog-detail-comments__list" id="commentList">
         <!-- Render từ JS -->
       </div>
-      <div class="blog-detail-comments__loadmore" id="loadMoreContainer" style="display: none;">
-        <button class="blog-detail-comments__loadmore-btn" id="loadMoreBtn">Xem thêm bình luận</button>
+
+      <!-- Nút xem thêm -->
+      <div class="blog-detail-comments__loadmore">
+        <button class="blog-detail-comments__loadmore-btn">Xem thêm bình luận</button>
       </div>
     </section>
   </main>
@@ -98,7 +105,6 @@
   <script src="../js/header.js"></script>
   <script src="../js/blog.js"></script>
   <script>
-    // Load header/footer
     document.addEventListener('DOMContentLoaded', function() {
       fetch('../components/header.html')
         .then(res => res.text())

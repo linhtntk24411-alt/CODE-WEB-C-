@@ -23,6 +23,30 @@
   const perPage = 6;
   let commentLimit = 5;
   let currentBlogComments = [];
+  let currentBlogId = null;
+
+  // ===== TOAST =====
+  function showToast(message, type = 'success', icon = '✅') {
+    const oldContainer = document.querySelector('.toast-container');
+    if (oldContainer) oldContainer.remove();
+
+    const container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast--${type}`;
+    toast.innerHTML = `
+      <span class="toast-icon">${icon}</span>
+      <span class="toast-message">${message}</span>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('toast--fade-out');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
 
   // ===== HÀM TẢI DỮ LIỆU =====
   async function loadBlogs() {
@@ -66,14 +90,10 @@
   function sortBlogs(blogs, sort) {
     const copy = [...blogs];
     switch (sort) {
-      case 'newest':
-        return copy.sort((a, b) => new Date(b.date) - new Date(a.date));
-      case 'most-viewed':
-        return copy.sort((a, b) => b.views - a.views);
-      case 'most-liked':
-        return copy.sort((a, b) => b.likes - a.likes);
-      default:
-        return copy;
+      case 'newest': return copy.sort((a, b) => new Date(b.date) - new Date(a.date));
+      case 'most-viewed': return copy.sort((a, b) => b.views - a.views);
+      case 'most-liked': return copy.sort((a, b) => b.likes - a.likes);
+      default: return copy;
     }
   }
 
@@ -145,11 +165,7 @@
         </div>
       `;
     });
-    html += `
-          </div>
-        </div>
-      </div>
-    `;
+    html += `</div></div></div>`;
     featuredContainer.innerHTML = html;
   }
 
@@ -203,8 +219,10 @@
         const saved = JSON.parse(localStorage.getItem('bookmarks') || '{}');
         if (icon.classList.contains('bi-bookmark-fill')) {
           saved[id] = true;
+          showToast('Đã lưu bài viết', 'success', '📌');
         } else {
           delete saved[id];
+          showToast('Đã bỏ lưu', 'info', '📌');
         }
         localStorage.setItem('bookmarks', JSON.stringify(saved));
       });
@@ -251,7 +269,6 @@
     const paginated = paginate(sorted, currentPage, perPage);
 
     renderFeatured(allBlogs);
-    // Thêm/xóa tiêu đề "Bài viết"
     let gridHeader = document.querySelector('.blog-grid-header');
     if (currentCategory === 'all') {
       if (!gridHeader) {
@@ -279,31 +296,29 @@
   // ============================================================
   // ===== LOGIC TRANG CHI TIẾT (blog-detail.html) =====
   // ============================================================
-  // ĐƯỜNG DẪN ẢNH MẶC ĐỊNH CHO COMMENT
   const DEFAULT_AVATAR = '../assets/avatar-non.jpg';
 
-  function renderComments(blogId) {
-    const commentList = document.getElementById('commentList');
-    const commentCount = document.getElementById('commentCount');
-    const loadMoreBtn = document.querySelector('.blog-detail-comments__loadmore-btn');
-    
-    currentBlogComments = allComments.filter(c => c.blogId === blogId);
-    commentCount.innerText = currentBlogComments.length;
-    
-    if (currentBlogComments.length <= commentLimit) {
-      renderCommentItems(currentBlogComments);
-      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-    } else {
-      renderCommentItems(currentBlogComments.slice(0, commentLimit));
-      if (loadMoreBtn) {
-        loadMoreBtn.style.display = 'inline-block';
-        loadMoreBtn.textContent = `Xem thêm ${currentBlogComments.length - commentLimit} bình luận`;
-        loadMoreBtn.onclick = function() {
-          renderCommentItems(currentBlogComments);
-          this.style.display = 'none';
-        };
+  // ---- Cấu trúc dữ liệu comment với replies ----
+  // Mỗi comment có thể có mảng replies
+  function buildCommentTree(comments) {
+    const map = {};
+    const roots = [];
+    comments.forEach(c => {
+      map[c.id] = { ...c, replies: [] };
+    });
+    comments.forEach(c => {
+      if (c.parentId) {
+        if (map[c.parentId]) {
+          map[c.parentId].replies.push(map[c.id]);
+        } else {
+          // Nếu parent không tồn tại, coi như root
+          roots.push(map[c.id]);
+        }
+      } else {
+        roots.push(map[c.id]);
       }
-    }
+    });
+    return roots;
   }
 
   function renderCommentItems(comments) {
@@ -312,29 +327,259 @@
       commentList.innerHTML = '<p class="no-comments" style="text-align:center;color:#916f6a;padding:20px;">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>';
       return;
     }
+
+    // Sắp xếp comments theo thời gian (mới nhất lên đầu? tùy bạn, tôi để cũ nhất lên đầu)
+    const sorted = [...comments].sort((a, b) => new Date(a.time) - new Date(b.time));
+    const tree = buildCommentTree(sorted);
+
     let html = '';
-    comments.forEach(comment => {
-      // Sử dụng ảnh mặc định cho tất cả comment
-      const avatarSrc = DEFAULT_AVATAR;
-      html += `
-        <div class="blog-detail-comments__item">
-          <div class="blog-detail-comments__avatar" style="background: #f0f0f0; overflow:hidden;">
-            <img src="${avatarSrc}" alt="${comment.author}" style="width:100%;height:100%;object-fit:cover;" />
+    tree.forEach(comment => {
+      html += renderCommentItem(comment, 0);
+    });
+    commentList.innerHTML = html;
+
+    // Gắn sự kiện cho các nút "Trả lời" và các nút gửi reply
+    attachReplyEvents();
+  }
+
+  function renderCommentItem(comment, depth) {
+    const avatarSrc = comment.avatar || DEFAULT_AVATAR;
+    const indent = depth * 20;
+    const isReply = depth > 0;
+    const replyClass = isReply ? 'comment-reply' : '';
+
+    let html = `
+      <div class="blog-detail-comments__item ${replyClass}" style="margin-left:${indent}px;" data-comment-id="${comment.id}">
+        <div class="comment-main">
+          <div class="blog-detail-comments__avatar">
+            <img src="${avatarSrc}" alt="${comment.author}" />
           </div>
-          <div>
+          <div style="flex:1;">
             <div class="blog-detail-comments__header">
               <span class="blog-detail-comments__username">${comment.author}</span>
               <span class="blog-detail-comments__time">${comment.time}</span>
+              ${isReply ? '<span style="font-size:12px;color:#916f6a;">→ Trả lời</span>' : ''}
             </div>
             <p class="blog-detail-comments__text">${comment.content}</p>
             <button class="blog-detail-comments__reply">Trả lời</button>
           </div>
         </div>
-      `;
-    });
-    commentList.innerHTML = html;
+        <!-- Reply box sẽ được chèn vào đây -->
+        <div class="reply-box" id="replyBox-${comment.id}">
+          <textarea placeholder="Viết phản hồi..." rows="2"></textarea>
+          <div class="reply-actions">
+            <button class="btn-reply-cancel">Hủy</button>
+            <button class="btn-reply-submit">Gửi</button>
+          </div>
+        </div>
+        <!-- Replies của comment này -->
+        <div class="comment-replies">
+          ${comment.replies.map(reply => renderCommentItem(reply, depth + 1)).join('')}
+        </div>
+      </div>
+    `;
+    return html;
   }
 
+  function attachReplyEvents() {
+    // Các nút "Trả lời"
+    document.querySelectorAll('.blog-detail-comments__reply').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const item = this.closest('.blog-detail-comments__item');
+        if (!item) return;
+        const commentId = item.dataset.commentId;
+        const replyBox = document.getElementById(`replyBox-${commentId}`);
+        if (!replyBox) return;
+
+        // Toggle hiển thị reply box
+        const isActive = replyBox.classList.contains('active');
+        // Đóng tất cả reply box khác
+        document.querySelectorAll('.reply-box.active').forEach(box => {
+          if (box !== replyBox) box.classList.remove('active');
+        });
+        if (isActive) {
+          replyBox.classList.remove('active');
+        } else {
+          replyBox.classList.add('active');
+          const textarea = replyBox.querySelector('textarea');
+          textarea.focus();
+          // Thêm @username vào textarea
+          const username = item.querySelector('.blog-detail-comments__username')?.innerText || '';
+          textarea.value = `@${username} `;
+        }
+      });
+    });
+
+    // Nút "Hủy" trong reply box
+    document.querySelectorAll('.btn-reply-cancel').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const replyBox = this.closest('.reply-box');
+        if (replyBox) replyBox.classList.remove('active');
+      });
+    });
+
+    // Nút "Gửi" trong reply box
+    document.querySelectorAll('.btn-reply-submit').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const replyBox = this.closest('.reply-box');
+        if (!replyBox) return;
+        const textarea = replyBox.querySelector('textarea');
+        const content = textarea.value.trim();
+        if (!content) {
+          showToast('Vui lòng nhập nội dung phản hồi.', 'error', '❌');
+          return;
+        }
+        // Lấy commentId từ id của replyBox
+        const idMatch = replyBox.id.match(/replyBox-(\d+)/);
+        if (!idMatch) return;
+        const parentId = parseInt(idMatch[1]);
+
+        // Tạo comment con
+        const newReply = {
+          id: Date.now(),
+          blogId: currentBlogId,
+          parentId: parentId,
+          author: 'Bạn',
+          avatar: '',
+          content: content,
+          time: 'Vừa xong'
+        };
+
+        // Lưu vào localStorage
+        let savedComments = JSON.parse(localStorage.getItem('tempComments') || '[]');
+        savedComments.push(newReply);
+        localStorage.setItem('tempComments', JSON.stringify(savedComments));
+
+        showToast('Phản hồi đã được gửi!', 'success', '💬');
+        replyBox.classList.remove('active');
+        textarea.value = '';
+
+        // Render lại comments (có thể cải thiện bằng cách thêm trực tiếp)
+        renderAllComments();
+      });
+    });
+  }
+
+  // Hàm lấy comments từ cả JSON và localStorage
+  function getCommentsForBlog(blogId) {
+    let comments = allComments.filter(c => c.blogId === blogId);
+    // Lấy comments từ localStorage
+    const tempComments = JSON.parse(localStorage.getItem('tempComments') || '[]');
+    const blogComments = tempComments.filter(c => c.blogId === blogId);
+    // Merge: ưu tiên tempComments (có thể ghi đè)
+    const merged = [...comments, ...blogComments];
+    // Loại bỏ trùng lặp theo id
+    const seen = new Set();
+    return merged.filter(c => {
+      if (seen.has(c.id)) return false;
+      seen.add(c.id);
+      return true;
+    });
+  }
+
+  function renderAllComments() {
+    const comments = getCommentsForBlog(currentBlogId);
+    const commentCount = document.getElementById('commentCount');
+    commentCount.innerText = comments.length;
+
+    // Sắp xếp mới nhất lên đầu (hoặc cũ nhất tùy bạn)
+    const sorted = [...comments].sort((a, b) => new Date(a.time) - new Date(b.time));
+    const tree = buildCommentTree(sorted);
+
+    // Giới hạn hiển thị 5 comment gốc (không tính replies)
+    const rootComments = tree;
+    const limitedRoots = rootComments.slice(0, commentLimit);
+
+    const commentList = document.getElementById('commentList');
+    const loadMoreBtn = document.querySelector('.blog-detail-comments__loadmore-btn');
+
+    if (rootComments.length === 0) {
+      commentList.innerHTML = '<p class="no-comments" style="text-align:center;color:#916f6a;padding:20px;">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>';
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+      return;
+    }
+
+    let html = '';
+    limitedRoots.forEach(comment => {
+      html += renderCommentItem(comment, 0);
+    });
+    commentList.innerHTML = html;
+
+    // Xử lý nút "Xem thêm"
+    if (rootComments.length > commentLimit) {
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'inline-block';
+        const remaining = rootComments.length - commentLimit;
+        loadMoreBtn.textContent = `Xem thêm ${remaining} bình luận`;
+        // Gán lại sự kiện để load tất cả
+        const newLoadMore = loadMoreBtn.cloneNode(true);
+        loadMoreBtn.parentNode.replaceChild(newLoadMore, loadMoreBtn);
+        newLoadMore.addEventListener('click', function() {
+          // Hiển thị tất cả
+          let allHtml = '';
+          rootComments.forEach(comment => {
+            allHtml += renderCommentItem(comment, 0);
+          });
+          commentList.innerHTML = allHtml;
+          this.style.display = 'none';
+          // Gắn lại sự kiện reply sau khi render
+          attachReplyEvents();
+        });
+      }
+    } else {
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+    }
+
+    // Gắn sự kiện reply cho các comment vừa render
+    attachReplyEvents();
+  }
+
+  function renderComments(blogId) {
+    currentBlogId = blogId;
+    renderAllComments();
+  }
+
+  // ===== XỬ LÝ SUBMIT COMMENT CHÍNH =====
+  function handleMainCommentSubmit() {
+    const submitBtn = document.getElementById('submitComment');
+    const commentInput = document.getElementById('commentInput');
+    if (!submitBtn || !commentInput) return;
+
+    submitBtn.addEventListener('click', function() {
+      const text = commentInput.value.trim();
+      if (!text) {
+        showToast('Vui lòng nhập nội dung bình luận.', 'error', '❌');
+        return;
+      }
+      const newComment = {
+        id: Date.now(),
+        blogId: currentBlogId,
+        parentId: null,
+        author: 'Bạn',
+        avatar: '',
+        content: text,
+        time: 'Vừa xong'
+      };
+      let savedComments = JSON.parse(localStorage.getItem('tempComments') || '[]');
+      savedComments.push(newComment);
+      localStorage.setItem('tempComments', JSON.stringify(savedComments));
+      showToast('Bình luận đã được gửi!', 'success', '💬');
+      commentInput.value = '';
+      renderAllComments();
+    });
+
+    // Cho phép Ctrl+Enter để gửi
+    commentInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        submitBtn.click();
+      }
+    });
+  }
+
+  // ============================================================
+  // ===== RENDER BLOG DETAIL =====
+  // ============================================================
   function renderBlogDetail() {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('slug');
@@ -347,12 +592,11 @@
       document.getElementById('detailTitle').innerText = 'Bài viết không tồn tại';
       return;
     }
+    currentBlogId = blog.id;
 
     // Banner
     const banner = document.getElementById('blogBanner');
-    if (blog.image) {
-      banner.style.backgroundImage = `url('${blog.image}')`;
-    }
+    if (blog.image) banner.style.backgroundImage = `url('${blog.image}')`;
     document.getElementById('detailCategory').innerText = blog.category || 'Chung';
     document.getElementById('detailTitle').innerText = blog.title;
     document.getElementById('detailAvatar').src = blog.avatar || '../assets/default-avatar.jpg';
@@ -381,6 +625,7 @@
 
     // Render comments
     renderComments(blog.id);
+    handleMainCommentSubmit();
 
     document.title = `${blog.title} - Urii Perler Beads`;
   }
