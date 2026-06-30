@@ -9,8 +9,8 @@
 /* Định vị thanh topbar nằm ngang sát đỉnh màn hình, chừa khoảng trống bên trái cho Sidebar */
 .admin-topbar {
     height: 64px;
-    width: calc(100% - 260px); /* Đẩy sang phải, chừa 260px cho sidebar */
-    margin-left: 260px;
+    width: calc(100% - 300px); /* Đẩy sang phải, chừa 300px cho sidebar */
+    margin-left: 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
