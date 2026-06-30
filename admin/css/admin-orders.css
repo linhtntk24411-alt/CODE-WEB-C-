@@ -1,0 +1,193 @@
+/* =============================================================== */
+/* CSS RIÊNG CHO TRANG QUẢN LÝ ĐƠN HÀNG (admin-orders.css)        */
+/* =============================================================== */
+
+/* Màu nền chung */
+body {
+    background-color: #f4f5f8;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- 4 THẺ THỐNG KÊ (STATS CARDS) --- */
+.card-stats {
+    transition: transform 0.2s;
+}
+.card-stats:hover {
+    transform: translateY(-3px);
+}
+
+/* --- CÁC BADGE TRẠNG THÁI --- */
+.badge-status {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.badge-status-pending {
+    background-color: #fff3cd; 
+    color: #856404;
+}
+.badge-status-approved {
+    background-color: #d1e7dd; 
+    color: #0f5132;
+}
+.badge-status-completed {
+    background-color: #198754; 
+    color: #fff;
+}
+.badge-status-cancelled {
+    background-color: #f8d7da; 
+    color: #842029;
+}
+.badge-status-pending_approval {
+    background-color: #ffe5e5; 
+    color: #c00000;
+}
+
+/* --- BẢNG ĐƠN HÀNG --- */
+.table-orders th, 
+.table-orders td,
+.table-orders-cancel th, 
+.table-orders-cancel td {
+    padding: 16px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.table-orders thead th,
+.table-orders-cancel thead th {
+    background-color: #f8f9fa;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+    border-bottom: none;
+}
+.table-orders tbody tr:hover,
+.table-orders-cancel tbody tr:hover {
+    background-color: #f8f9ff;
+}
+
+/* -- Cột Mã đơn hàng -- */
+.order-id {
+    font-weight: 700;
+    color: #dc3545;
+}
+/* -- Cột Khách hàng -- */
+.customer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.customer-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #555;
+    font-size: 14px;
+}
+.customer-name {
+    font-weight: 600;
+    color: #333;
+}
+
+/* -- Cột Sản phẩm -- */
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.product-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.product-name {
+    font-size: 14px;
+    color: #555;
+}
+
+/* -- Cột Tổng tiền -- */
+.order-total {
+    font-weight: 700;
+    color: #333;
+}
+
+/* -- Cột Thao tác -- */
+.action-btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.btn-action-icon {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: 0.2s;
+    color: #6c757d;
+}
+.btn-action-icon:hover {
+    background-color: #f1f1f1;
+}
+.btn-action-icon.text-danger:hover {
+    background-color: #ffe6e6;
+    color: #c00000 !important;
+}
+
+/* --- BẢNG YÊU CẦU HỦY --- */
+.card-header h4 {
+    font-size: 20px;
+}
+.cancel-reason {
+    font-size: 13px;
+    color: #555;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.btn-process-cancel {
+    background-color: #c00000;
+    color: #fff;
+    border: none;
+    padding: 4px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-process-cancel:hover {
+    background-color: #a00000;
+}
+.btn-ignore-cancel {
+    background-color: #e9ecef;
+    color: #333;
+    border: none;
+    padding: 4px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-ignore-cancel:hover {
+    background-color: #dee2e6;
+}
+
+/* --- PAGINATION --- */
+.pagination .page-item.active .page-link {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.pagination .page-link {
+    color: #333;
+}
+.pagination .page-link:hover {
+    color: #dc3545;
+}

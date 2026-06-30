@@ -1,0 +1,38 @@
+[
+  {
+    "id": "DH001",
+    "customerName": "Nguyễn Thị Mai",
+    "customerAvatar": "NM",
+    "product": "Bộ KIT Mùa Hè",
+    "date": "24/10/2024",
+    "total": 250000,
+    "status": "pending"
+  },
+  {
+    "id": "DH002",
+    "customerName": "Trần Minh Anh",
+    "customerAvatar": "TA",
+    "product": "Móc khóa Pixel Art",
+    "date": "23/10/2024",
+    "total": 35000,
+    "status": "approved"
+  },
+  {
+    "id": "DH003",
+    "customerName": "Lê Khánh Linh",
+    "customerAvatar": "LK",
+    "product": "Lót ly thủ công",
+    "date": "23/10/2024",
+    "total": 45000,
+    "status": "completed"
+  },
+  {
+    "id": "DH004",
+    "customerName": "Phạm Hoàng Nam",
+    "customerAvatar": "HN",
+    "product": "Tranh Pixel Art",
+    "date": "22/10/2024",
+    "total": 850000,
+    "status": "cancelled"
+  }
+]
