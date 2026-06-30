@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Bộ Hạt Nhựa Ủi Perler Beads 24 Màu",
+    "category": "hat-nhua",
+    "status": "hot",
+    "price": 185000,
+    "stock": 50,
+    "image": "https://picsum.photos/id/101/200"
+  },
+  {
+    "id": 2,
+    "name": "Khuôn Nhựa Định Hình Size Lớn (Vuông)",
+    "category": "dung-cu",
+    "status": "new",
+    "price": 35000,
+    "stock": 12,
+    "image": "https://picsum.photos/id/102/200"
+  },
+  {
+    "id": 3,
+    "name": "Nhíp Gắp Hạt Hợp Kim Chống Tĩnh Điện",
+    "category": "dung-cu",
+    "status": "sap-het",
+    "price": 25000,
+    "stock": 3,
+    "image": "https://picsum.photos/id/103/200"
+  },
+  {
+    "id": 4,
+    "name": "Móc Khóa Handmade Gấu Con Perler Bead",
+    "category": "handmade",
+    "status": "het-hang",
+    "price": 45000,
+    "stock": 0,
+    "image": "https://picsum.photos/id/104/200"
+  },
+  {
+    "id": 5,
+    "name": "Giấy Ủi Chuyên Dụng Chịu Nhiệt Cao",
+    "category": "dung-cu",
+    "status": "normal",
+    "price": 15000,
+    "stock": 100,
+    "image": "https://picsum.photos/id/105/200"
+  }
+]
