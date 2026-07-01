@@ -57,6 +57,14 @@ img {
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 48px;
+  /* --- THÊM BACKGROUND ẢNH --- */
+  background-image: url('../assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--blog-radius);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
 }
 .blog-hero__content {
   flex: 1 1 50%;

@@ -32,15 +32,27 @@
   margin: 0;
 }
 
+/* Background ảnh cho toàn bộ trang auth */
+.auth-page {
+  background-image: url('../assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+
 /* -------------------- Main Content --------------------------- */
 .auth-main {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 128px 24px 48px;
+  padding: 80px 24px 40px; /* GIẢM padding top và bottom */
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 /* Background decorations (blur circles) */
@@ -64,22 +76,22 @@
   height: 320px;
   bottom: 80px;
   left: -10%;
-  background: #805062; /* secondary */
+  background: #805062;
   opacity: 0.05;
 }
 
 /* -------------------- Auth Card ------------------------------ */
 .auth-card {
   width: 100%;
-  max-width: 448px;
-  padding: 47px 48px 48px;
+  max-width: 420px; /* GIẢM max-width từ 448px */
+  padding: 32px 36px 36px; /* GIẢM padding từ 47px 48px 48px */
   background: var(--auth-surface-lowest);
   border: 1px solid var(--auth-border);
   border-radius: var(--auth-radius);
   box-shadow: 0 4px 12px var(--auth-shadow);
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 28px; /* GIẢM gap từ 48px */
   position: relative;
   z-index: 2;
 }
@@ -88,13 +100,13 @@
 .auth-header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px; /* GIẢM gap từ 4px */
   text-align: center;
 }
 .auth-title {
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 24px; /* GIẢM từ 28px */
   line-height: 1.3;
   color: var(--auth-on-surface);
   margin: 0;
@@ -105,8 +117,8 @@
 .auth-subtitle {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.4;
   color: var(--auth-on-surface-variant);
   margin: 0;
 }
@@ -115,21 +127,21 @@
 .toggle-tabs {
   display: flex;
   background: var(--auth-surface-container-low);
-  padding: 4px;
+  padding: 3px; /* GIẢM từ 4px */
   border-radius: var(--auth-radius-sm);
   gap: 0;
 }
 
 .toggle-tab {
   flex: 1;
-  padding: 8px 0;
+  padding: 6px 0; /* GIẢM từ 8px 0 */
   border: none;
   background: transparent;
   border-radius: 6px;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.4;
   color: var(--auth-on-surface-variant);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -152,8 +164,8 @@
   text-decoration: none;
   color: var(--auth-on-surface-variant);
   font-weight: 400;
-  font-size: 16px;
-  padding: 8px 0;
+  font-size: 14px; /* GIẢM từ 16px */
+  padding: 6px 0; /* GIẢM từ 8px 0 */
   border-radius: 6px;
   transition: all 0.2s ease;
   background: transparent;
@@ -171,13 +183,13 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px; /* GIẢM từ 16px */
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px; /* GIẢM từ 4px */
 }
 
 .input-label-row {
@@ -189,14 +201,14 @@
 .input-label {
   font-family: 'Segoe UI', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.4;
   color: var(--auth-on-surface-variant);
 }
 
 .input-label--register {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px; /* GIẢM từ 14px */
   letter-spacing: 0.02em;
   color: var(--auth-on-surface);
 }
@@ -204,7 +216,7 @@
 .forgot-link {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px; /* GIẢM từ 12px */
   color: var(--auth-primary);
   text-decoration: none;
 }
@@ -214,13 +226,13 @@
 
 .input-field {
   width: 100%;
-  padding: 9px 16px;
+  padding: 8px 14px; /* GIẢM từ 9px 16px */
   background: var(--auth-surface-lowest);
   border: 1px solid var(--auth-outline-variant);
   border-radius: var(--auth-radius-sm);
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.375;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.3;
   color: var(--auth-on-surface);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -240,11 +252,11 @@
   width: 100%;
 }
 .password-input-wrapper .input-field {
-  padding-right: 48px;
+  padding-right: 44px; /* GIẢM từ 48px */
 }
 .password-toggle {
   position: absolute;
-  right: 12px;
+  right: 10px; /* GIẢM từ 12px */
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -261,28 +273,28 @@
   color: var(--auth-primary);
 }
 .password-toggle .material-symbols-outlined {
-  font-size: 22px;
+  font-size: 20px; /* GIẢM từ 22px */
 }
 
 /* -------------------- Password Requirements (tick xanh) -------------------- */
 .password-requirements {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
-  margin-top: 8px;
-  font-size: 13px;
+  gap: 6px 14px; /* GIẢM từ 8px 16px */
+  margin-top: 6px; /* GIẢM từ 8px */
+  font-size: 12px; /* GIẢM từ 13px */
 }
 .password-requirements .req-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px; /* GIẢM từ 6px */
   color: var(--auth-on-surface-variant);
   transition: color 0.3s;
 }
 .password-requirements .req-item .req-circle {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 16px; /* GIẢM từ 18px */
+  height: 16px;
   border-radius: 50%;
   border: 2px solid #ccc;
   background: transparent;
@@ -302,7 +314,7 @@
   width: 100%;
   height: 100%;
   color: #fff;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: bold;
   line-height: 1;
 }
@@ -319,16 +331,16 @@
 
 /* Password match feedback (dùng ô tròn) */
 .password-match-feedback {
-  margin-top: 6px;
-  font-size: 13px;
+  margin-top: 4px; /* GIẢM từ 6px */
+  font-size: 12px; /* GIẢM từ 13px */
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px; /* GIẢM từ 6px */
 }
 .password-match-feedback .match-circle {
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 16px; /* GIẢM từ 18px */
+  height: 16px;
   border-radius: 50%;
   border: 2px solid #ccc;
   background: transparent;
@@ -348,7 +360,7 @@
   width: 100%;
   height: 100%;
   color: #fff;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: bold;
   line-height: 1;
 }
@@ -367,7 +379,7 @@
   width: 100%;
   height: 100%;
   color: var(--error);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: bold;
   line-height: 1;
 }
@@ -378,14 +390,14 @@
 /* -------------------- Auth Button ---------------------------- */
 .auth-btn {
   width: 100%;
-  padding: 16px 0;
+  padding: 12px 0; /* GIẢM từ 16px 0 */
   background: var(--auth-primary-container);
   color: var(--auth-on-primary);
   border: none;
   border-radius: var(--auth-radius-sm);
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px; /* GIẢM từ 16px */
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.15s;
@@ -406,7 +418,7 @@
 .divider {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px; /* GIẢM từ 8px */
 }
 .divider-line {
   flex: 1;
@@ -416,7 +428,7 @@
 .divider-text {
   font-family: 'Segoe UI', sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 11px; /* GIẢM từ 12px */
   color: var(--auth-on-surface-variant);
   white-space: nowrap;
 }
@@ -428,22 +440,22 @@
 /* -------------------- Social Logins -------------------------- */
 .social-logins {
   display: flex;
-  gap: 16px;
+  gap: 12px; /* GIẢM từ 16px */
 }
 .social-btn {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px; /* GIẢM từ 8px */
+  padding: 6px 10px; /* GIẢM từ 8px 12px */
   border: 2px solid var(--auth-outline-variant);
   border-radius: var(--auth-radius-sm);
   background: transparent;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.4;
   color: var(--auth-on-surface);
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
@@ -463,8 +475,8 @@
 .auth-help {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* GIẢM từ 16px */
+  line-height: 1.4;
   color: var(--auth-on-surface-variant);
   text-align: center;
   margin: 0;
@@ -484,19 +496,19 @@
 
 /* Đặc thù riêng cho Register */
 .auth-main--register {
-  padding-top: 120px;
+  padding-top: 80px; /* GIẢM từ 120px */
 }
 .auth-card--register {
-  gap: 40px;
+  gap: 24px; /* GIẢM từ 40px */
 }
 
 /* Reset password card */
 .reset-card {
-  gap: 32px;
+  gap: 20px; /* GIẢM từ 32px */
 }
 .reset-back-link {
   text-align: center;
-  margin-top: 4px;
+  margin-top: 2px; /* GIẢM từ 4px */
 }
 .reset-back-link__anchor {
   display: inline-flex;
@@ -504,7 +516,7 @@
   gap: 4px;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px; /* GIẢM từ 14px */
   letter-spacing: 0.28px;
   color: var(--auth-primary);
   text-decoration: none;
@@ -515,7 +527,7 @@
   text-decoration: underline;
 }
 .reset-back-link__anchor .material-symbols-outlined {
-  font-size: 18px;
+  font-size: 16px; /* GIẢM từ 18px */
 }
 
 /* -------------------- Modal -------------------- */
@@ -565,13 +577,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 14px 20px; /* GIẢM từ 16px 24px */
   border-bottom: 1px solid var(--auth-outline-variant);
 }
 .modal-header .modal-title {
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px; /* GIẢM từ 20px */
   line-height: 1.3;
   color: var(--auth-on-surface);
   margin: 0;
@@ -592,37 +604,37 @@
   background: var(--auth-surface-container-low);
 }
 .modal-close .material-symbols-outlined {
-  font-size: 24px;
+  font-size: 22px; /* GIẢM từ 24px */
 }
 
 .modal-body {
-  padding: 20px 24px;
+  padding: 16px 20px; /* GIẢM từ 20px 24px */
 }
 .modal-body .modal-desc {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px; /* GIẢM từ 16px */
   line-height: 1.5;
   color: var(--auth-on-surface-variant);
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0; /* GIẢM từ 16px */
 }
 
 .modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 12px 24px;
+  gap: 10px; /* GIẢM từ 12px */
+  padding: 10px 20px; /* GIẢM từ 12px 24px */
   background: var(--auth-surface-container-low);
   border-top: 1px solid var(--auth-outline-variant);
   border-radius: 0 0 var(--auth-radius) var(--auth-radius);
 }
 
 .modal-btn {
-  padding: 10px 24px;
+  padding: 8px 20px; /* GIẢM từ 10px 24px */
   border-radius: var(--auth-radius-sm);
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px; /* GIẢM từ 16px */
   line-height: 1;
   cursor: pointer;
   transition: all 0.2s;
@@ -646,7 +658,7 @@
 }
 
 .modal-content--forgot .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 12px; /* GIẢM từ 16px */
 }
 .modal-content--forgot .form-group:last-child {
   margin-bottom: 0;
@@ -655,18 +667,18 @@
   display: block;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px; /* GIẢM từ 14px */
   letter-spacing: 0.02em;
   color: var(--auth-on-surface);
   margin-bottom: 4px;
 }
 .modal-content--forgot .form-input {
   width: 100%;
-  padding: 10px 16px;
+  padding: 8px 14px; /* GIẢM từ 10px 16px */
   border: 1px solid var(--auth-outline-variant);
   border-radius: var(--auth-radius-sm);
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 16px;
+  font-size: 14px; /* GIẢM từ 16px */
   color: var(--auth-on-surface);
   background: var(--auth-surface-lowest);
   outline: none;
@@ -694,12 +706,12 @@
 
 .toast {
   background: #ffffff;
-  padding: 16px 20px;
+  padding: 14px 18px; /* GIẢM từ 16px 20px */
   border-radius: var(--auth-radius-sm);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px; /* GIẢM từ 12px */
   border-left: 4px solid var(--success);
   animation: toastSlideIn 0.4s ease;
   pointer-events: auto;
@@ -716,12 +728,12 @@
 }
 
 .toast-icon {
-  font-size: 24px;
+  font-size: 20px; /* GIẢM từ 24px */
   line-height: 1;
 }
 .toast-message {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 15px;
+  font-size: 14px; /* GIẢM từ 15px */
   font-weight: 500;
   color: var(--auth-on-surface);
   flex: 1;
@@ -749,14 +761,14 @@
 /* -------------------- Responsive -------------------- */
 @media (max-width: 640px) {
   .auth-main {
-    padding: 100px 16px 32px;
+    padding: 60px 16px 24px; /* GIẢM từ 100px 16px 32px */
   }
   .auth-card {
-    padding: 32px 24px;
-    gap: 32px;
+    padding: 24px 20px; /* GIẢM từ 32px 24px */
+    gap: 20px; /* GIẢM từ 32px */
   }
   .auth-title {
-    font-size: 24px;
+    font-size: 20px; /* GIẢM từ 24px */
   }
   .social-logins {
     flex-direction: column;
@@ -774,6 +786,6 @@
     left: -20%;
   }
   .reset-card {
-    gap: 24px;
+    gap: 16px; /* GIẢM từ 24px */
   }
 }
