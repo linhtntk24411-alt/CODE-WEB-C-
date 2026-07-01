@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const targetId = urlParams.get('id');
 
-    // if (!targetId) {
-    //     window.location.href = "gallery.html";
-    //     return;
-    // }
-
     fetch("../data/gallery-detail.json")
         .then(response => {
             if (!response.ok) throw new Error("Không thể tải dữ liệu.");
@@ -36,7 +31,6 @@ function renderProductDetails(product) {
     document.getElementById("meta-level").textContent = `Cấp độ: ${product.difficulty || "--"}`;
     document.getElementById("req-pegboard").textContent = product.pegboard || "--";
 
-    // Khởi tạo điểm sao
     const ratingContainer = document.getElementById("rating-stars-container");
     ratingContainer.innerHTML = "";
     const score = parseInt(product.rating) || 5;
@@ -50,8 +44,6 @@ function renderProductDetails(product) {
     scoreBadge.className = "text-xs font-bold ml-1";
     scoreBadge.textContent = `${score}/5`;
     ratingContainer.appendChild(scoreBadge);
-
-    // Khởi tạo bảng danh sách màu hạt
     const colorContainer = document.getElementById("color-list-container");
     colorContainer.innerHTML = "";
     if (product.colors && Array.isArray(product.colors)) {
@@ -62,8 +54,6 @@ function renderProductDetails(product) {
             colorContainer.appendChild(item);
         });
     }
-
-    // Khởi tạo 4 bước tiến trình dọc có hố trục nối
     const stepsContainer = document.getElementById("steps-timeline-container");
     stepsContainer.innerHTML = "";
     if (product.steps && Array.isArray(product.steps)) {
@@ -92,7 +82,6 @@ function renderProductDetails(product) {
         });
     }
 
-    // Khởi tạo khối hình ảnh cộng đồng ở Sidebar
     const showcaseContainer = document.getElementById("community-showcase");
     showcaseContainer.innerHTML = "";
     if (product.showcase && Array.isArray(product.showcase.images)) {
@@ -106,5 +95,29 @@ function renderProductDetails(product) {
         moreBadge.className = "count-badge-more";
         moreBadge.textContent = `+${product.showcase.moreCount || 12}`;
         showcaseContainer.appendChild(moreBadge);
+    }
+    renderRelatedProducts(product.products);
+}
+
+function renderRelatedProducts(products) {
+    const container = document.getElementById('related-products-container');
+    container.innerHTML = ""; // Xóa dữ liệu cũ
+
+    if (products && Array.isArray(products) && products.length > 0) {
+        products.forEach(item => {
+            const productCard = document.createElement("a");
+            productCard.className = "product-card";
+            productCard.href = "#";
+            productCard.innerHTML = `
+                <img src="${item.image}" alt="${item.title}">
+                <div class="product-info">
+                    <h4>${item.title}</h4>
+                    <span class="product-price">${item.price}</span>
+                </div>
+            `;
+            container.appendChild(productCard);
+        });
+    } else {
+        container.innerHTML = "<p style='text-align:center; color:#888;'>Chưa có sản phẩm gợi ý.</p>";
     }
 }

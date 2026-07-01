@@ -207,7 +207,7 @@ function updateSidebarCounts() {
         "Hoạt hình": 0,
         "Logo": 0,
         "Trang trí": 0,
-        "Trái cây": 0 
+        "Hoa quả": 0 
     };
 
     allProducts.forEach(product => {

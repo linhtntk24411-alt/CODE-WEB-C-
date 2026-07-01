@@ -552,7 +552,6 @@ button {
 .btn-icon-view {
     border: 1px solid var(--outline-color);
 }
-
 .btn-icon-view:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
@@ -615,16 +614,4 @@ button {
     padding: 24px;
     text-align: center;
     font-weight: 600;
-}
-
-.main-footer {
-    background-color: var(--primary-color);
-    margin-top: 48px;
-    padding: 24px 0;
-}
-
-.footer-copyright {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
 }

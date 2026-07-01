@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Urii Chatbot</title>
+    <!-- Cài đặt font chữ và icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/chatbot-widget.css">
+</head>
+<body>
+
+    <div class="chatbot-wrapper">
+        <section id="chat-window" class="chat-window hidden">
+
+            <header class="chat-header">
+                <div class="avatar-container">
+                    <img alt="Urii Mascot" class="bot-avatar-main" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCfogwmg9DqaHtDqBGDh2EszSFoIZZh0_VFx8XTmsJvJQ6DvK6lTFpYUUQs4gkh03sU5B-CdJyukuKQI3rhRuKYPk2pen2JL5L9V5UXot14qDw1uz15BgBW1Jh-_7sxS2iwTvcE1_UVMGC7Wu4F-C4-vvBpA-xS01AIjeDjyDacX277JxX4u6OEYYqLtZWfvfEzFCFrgr5UPRDjkM8VL5YkMrne_f-MHbFHDpbTcGg_2j3mJ9MsLj1Od2yBZT76XH2Av_mLj0vLZu">
+                    <span class="status-dot"></span>
+                </div>
+                <div class="header-info">
+                    <h2 class="bot-name">Trợ lý ảo Urii</h2>
+                    <p class="bot-status">Đang trực tuyến</p>
+                </div>
+                <nav class="header-actions">
+                    <button id="btn-minimize" class="action-btn"><span class="material-symbols-outlined">remove</span></button>
+                    <button id="btn-close" class="action-btn"><span class="material-symbols-outlined">close</span></button>
+                </nav>
+            </header>
+
+            <main id="chat-body" class="chat-body">
+                <div class="date-separator"><span>Hôm nay</span></div>
+                
+                <article class="message bot-message">
+                    <img alt="AI Icon" class="bot-avatar-chat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCfogwmg9DqaHtDqBGDh2EszSFoIZZh0_VFx8XTmsJvJQ6DvK6lTFpYUUQs4gkh03sU5B-CdJyukuKQI3rhRuKYPk2pen2JL5L9V5UXot14qDw1uz15BgBW1Jh-_7sxS2iwTvcE1_UVMGC7Wu4F-C4-vvBpA-xS01AIjeDjyDacX277JxX4u6OEYYqLtZWfvfEzFCFrgr5UPRDjkM8VL5YkMrne_f-MHbFHDpbTcGg_2j3mJ9MsLj1Od2yBZT76XH2Av_mLj0vLZu">
+                    <div class="message-content-wrapper">
+                        <div class="message-bubble">
+                            <p>Xin chào, Urii có thể giúp gì cho bạn?</p>
+                            
+                        </div>
+                        <div class="suggested-chips">
+                            <button class="chip" onclick="handleChipClick('Xem giá bộ Kit')">Xem giá bộ Kit</button>
+                            <button class="chip" onclick="handleChipClick('Màu sắc có sẵn')">Màu sắc có sẵn</button>
+                        </div>
+                        <time class="timestamp">14:05</time>
+                    </div>
+                </article>
+
+                <div id="typing-indicator" class="typing-indicator hidden">
+                    <div class="typing-bubble">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="chat-footer">
+                <div class="input-container">
+                    <button class="icon-btn"><span class="material-symbols-outlined">add_circle</span></button>
+                    <button class="icon-btn"><span class="material-symbols-outlined">mood</span></button>
+                    <input id="chat-input" type="text" placeholder="Nhập tin nhắn...">
+                    <button id="btn-send" class="send-btn">
+                        <span class="material-symbols-outlined filled-icon">send</span>
+                    </button>
+                </div>
+                <p class="credits">Cung cấp bởi Urii AI Engine v2.0</p>
+            </footer>
+        </section>
+
+        <aside class="fab-container">
+            <button id="chat-fab" class="chat-fab">
+                <span class="material-symbols-outlined filled-icon">auto_awesome</span>
+                <span class="pulse-ring"></span>
+            </button>
+        </aside>
+
+    </div>
+
+    <script src="../js/chatbot-widget.js"></script>
+</body>
+</html>
