@@ -1,0 +1,182 @@
+/* ============================================================
+   support.css – Trang Hỗ trợ khách hàng
+   ============================================================ */
+
+/* ---- Nội dung hỗ trợ ---- */
+.support-content {
+  background: var(--profile-surface-lowest);
+  border-radius: var(--profile-radius);
+  padding: 48px;
+  box-shadow: var(--profile-shadow);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.support-content__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.support-content__title {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700; /* TĂNG LÊN 700 để đậm hơn */
+  font-size: 32px; /* TĂNG KÍCH THƯỚC */
+  line-height: 1.3;
+  color: var(--profile-primary); /* THÊM MÀU ĐỎ */
+  margin: 0;
+}
+
+.support-content__body {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--profile-on-surface-variant);
+}
+
+.support-content__body h2 {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700; /* ĐẬM HƠN */
+  font-size: 24px; /* TĂNG KÍCH THƯỚC */
+  color: var(--profile-primary);
+  margin: 32px 0 12px;
+}
+
+.support-content__body h3 {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700; /* ĐẬM HƠN */
+  font-size: 20px; /* TĂNG KÍCH THƯỚC */
+  color: var(--profile-on-surface);
+  margin: 24px 0 8px;
+}
+
+.support-content__body p {
+  margin-bottom: 16px;
+}
+
+.support-content__body ul,
+.support-content__body ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.support-content__body li {
+  margin-bottom: 8px;
+}
+
+.support-content__body .highlight-box {
+  background: var(--profile-surface-container-low);
+  padding: 16px 20px;
+  border-radius: var(--profile-radius-sm);
+  border-left: 4px solid var(--profile-primary);
+  margin: 16px 0;
+}
+
+.support-content__body .highlight-box--success {
+  border-left-color: var(--success);
+}
+
+.support-content__body .highlight-box--warning {
+  border-left-color: #f9a825;
+}
+
+.support-content__body .highlight-box--error {
+  border-left-color: var(--error);
+}
+
+/* ---- FAQ Accordion ---- */
+.faq-item {
+  border-bottom: 1px solid var(--profile-outline-variant);
+  padding: 16px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700; /* ĐẬM HƠN */
+  font-size: 18px; /* TĂNG KÍCH THƯỚC */
+  color: var(--profile-on-surface);
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+
+.faq-question:hover {
+  color: var(--profile-primary);
+}
+
+.faq-question i {
+  transition: transform 0.3s ease;
+  color: var(--profile-on-surface-variant);
+  font-size: 20px;
+}
+
+.faq-item.active .faq-question i {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 0 0 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--profile-on-surface-variant);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding: 12px 0 4px 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .support-content {
+    padding: 24px;
+  }
+  .support-content__title {
+    font-size: 26px;
+  }
+  .support-content__body {
+    font-size: 15px;
+  }
+  .support-content__body h2 {
+    font-size: 20px;
+  }
+  .support-content__body h3 {
+    font-size: 18px;
+  }
+  .faq-question {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .support-content {
+    padding: 16px;
+  }
+  .support-content__title {
+    font-size: 22px;
+  }
+  .faq-question {
+    font-size: 15px;
+  }
+  .support-content__body h2 {
+    font-size: 18px;
+  }
+  .support-content__body h3 {
+    font-size: 16px;
+  }
+}
