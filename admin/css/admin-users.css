@@ -1,0 +1,153 @@
+/* =============================================================== */
+/* CSS RIÊNG CHO TRANG QUẢN LÝ NGƯỜI DÙNG (admin-users.css)      */
+/* =============================================================== */
+
+body {
+    background-color: #f4f5f8;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- BADGE VAI TRÒ 
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.role-badge-admin {
+    background-color: #f8d7da; color: #842029;
+}
+.role-badge-customer {
+    background-color: #d1e7dd; color: #0f5132;
+}
+/* Màu sắc cho các cấp độ Vai trò */
+.role-badge {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+/* Quản trị viên - Màu đỏ đậm nổi bật */
+.role-badge-admin {
+    background-color: #dc3545; 
+    color: #ffffff; /* Chữ trắng */
+}
+/* Khách hàng - Màu xanh dương dịu */
+.role-badge-customer {
+    background-color: #9dcbf8; 
+    color: #003a74; /* Chữ xanh biển đậm */
+    border: 1px solid #979797;
+}
+/* Màu sắc cho các cấp độ Thành viên (Giữ nguyên) */
+.role-badge-bronze {
+    background-color: #fae1cc; 
+    color: #7c3a00; 
+    border: 1px solid #d97706;
+}
+.role-badge-silver {
+    background-color: #e5e7eb; 
+    color: #374151; 
+    border: 1px solid #9ca3af;
+}
+.role-badge-gold {
+    background-color: #fef3c7; 
+    color: #92400e; 
+    border: 1px solid #f59e0b;
+}
+
+/* --- BADGE TRẠNG THÁI --- */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.status-badge-active {
+    background-color: #d1e7dd; color: #0f5132;
+}
+.status-badge-pending {
+    background-color: #fff3cd; color: #856404;
+}
+.status-badge-locked {
+    background-color: #f8d7da; color: #842029;
+}
+
+/* --- BẢNG NGƯỜI DÙNG --- */
+.table-users th, .table-users td {
+    padding: 16px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.table-users thead th {
+    background-color: #f8f9fa;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+    border-bottom: none;
+}
+.table-users tbody tr:hover {
+    background-color: #f8f9ff;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user-name {
+    font-weight: 600;
+    color: #333;
+    display: block;
+}
+.user-email {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* --- CỘT THAO TÁC --- */
+.action-btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.btn-action-icon {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: 0.2s;
+    color: #6c757d;
+}
+.btn-action-icon:hover {
+    background-color: #f1f1f1;
+}
+.btn-action-icon.text-danger:hover {
+    background-color: #ffe6e6;
+    color: #c00000 !important;
+}
+
+/* --- PAGINATION --- */
+.pagination .page-item.active .page-link {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.pagination .page-link {
+    color: #333;
+}
+.pagination .page-link:hover {
+    color: #dc3545;
+}
+
+/* --- CỘT SỐ ĐIỆN THOẠI --- */
+.phone-number {
+    font-weight: 500;
+    color: #333;
+}
