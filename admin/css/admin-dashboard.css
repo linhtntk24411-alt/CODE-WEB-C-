@@ -1,0 +1,31 @@
+/* Custom CSS bổ trợ cho giao diện Admin Portal - Urii DIY */
+
+body {
+    background-color: #fbf9f8;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Định dạng thanh cuộn mượt cho danh mục dọc sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e5bdb7;
+    border-radius: 10px;
+}
+
+/* Tinh chỉnh Icon của Google Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+}
+
+/* Hiệu ứng nổi nhẹ khi di chuyển chuột qua khối thống kê */
+.stat-card {
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
