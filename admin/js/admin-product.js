@@ -11,54 +11,50 @@ const statusMap = {
   "hot": { text: "Bán chạy", class: "badge-status-hot" }
 };
 
-
 // ========================================================
-// HÀM KHỞI TẠO DỮ LIỆU (QUAN TRỌNG NHẤT)
+// HÀM KHỞI TẠO DỮ LIỆU: Ưu tiên localStorage
 // ========================================================
 async function initData() {
-    // 1. Kiểm tra xem trong localStorage có dữ liệu chưa
     const localData = localStorage.getItem('products');
     
     if (localData) {
-        // Nếu có dữ liệu trong localStorage -> Dùng luôn (Để hiện sản phẩm vừa thêm)
-        console.log("Lấy dữ liệu từ localStorage");
         products = JSON.parse(localData);
-        updateStats();
-        renderProducts();
-    } else {
-        // Nếu localStorage rỗng (Lần đầu chạy) -> Tải từ file JSON
-        console.log("LocalStorage rỗng, bắt đầu tải từ product.json");
-        await loadProductsFromJson();
+        if (products.length > 0) {
+            updateStats();
+            renderProducts();
+            return;
+        }
     }
+    
+    await loadProductsFromJson();
 }
 
-// Hàm tải dữ liệu từ JSON (Chỉ gọi khi lần đầu chạy)
+// Hàm tải dữ liệu từ JSON (Đường dẫn đã sửa)
 async function loadProductsFromJson() {
     try {
-        const baseUrl = window.location.origin + '/WEBKINHDOANH';
-        const response = await fetch(`${baseUrl}/product.json`);
-        
+        // Đã sửa đường dẫn thành ../data/product.json
+        const response = await fetch('../data/product.json');
         if (!response.ok) throw new Error(`Lỗi HTTP: ${response.status}`);
-        
         const data = await response.json();
         products = data; 
-        
-        if(products.length === 0) {
-            products = getDefaultProducts();
+        if (products.length === 0) {
+            console.warn("File product.json đang rỗng.");
         }
-
-        // Lưu vào localStorage để lần sau tải nhanh hơn
         localStorage.setItem('products', JSON.stringify(products));
-        
         updateStats();
         renderProducts();
-        
     } catch (error) {
-        console.error("Lỗi khi load product.json:", error);
-        products = getDefaultProducts();
-        localStorage.setItem('products', JSON.stringify(products));
-        updateStats();
-        renderProducts();
+        console.error("❌ LỖI:", error.message);
+        document.getElementById('product-list').innerHTML = `<tr><td colspan="7" class="text-center text-danger py-5">
+            <i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i>
+            <strong>LỖI TẢI DỮ LIỆU</strong><br>
+            Không thể tải file <code>../data/product.json</code>.
+        </td></tr>`;
+        document.getElementById('stat-total').innerText = "0";
+        document.getElementById('stat-warning').innerText = "0";
+        document.getElementById('stat-danger').innerText = "0";
+        document.getElementById('stat-new').innerText = "0";
+        document.getElementById('stat-hot').innerText = "0";
     }
 }
 
@@ -80,7 +76,6 @@ function renderProducts() {
     const matchName = p.name.toLowerCase().includes(searchName);
     const matchCat = !catFilter || p.category === catFilter;
     const matchStatus = !statusFilter || p.status === statusFilter;
-    
     let matchPrice = true;
     if (priceFilter) {
       const [min, max] = priceFilter.split('-').map(Number);
@@ -161,7 +156,4 @@ document.querySelectorAll('#pagination-controls .page-link').forEach(el => {
   el.addEventListener('click', function(e) { e.preventDefault(); });
 });
 
-// ========================================================
-// KHỞI CHẠY
-// ========================================================
 initData();
