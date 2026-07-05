@@ -540,7 +540,7 @@
     renderAllComments();
   }
 
-  // ===== XỬ LÝ SUBMIT COMMENT CHÍNH =====
+    // ===== XỬ LÝ SUBMIT COMMENT CHÍNH =====
   function handleMainCommentSubmit() {
     const submitBtn = document.getElementById('submitComment');
     const commentInput = document.getElementById('commentInput');
@@ -569,10 +569,14 @@
       renderAllComments();
     });
 
-    // Cho phép Ctrl+Enter để gửi
+    // Cho phép Enter (không cần Ctrl) để gửi, nhưng chỉ khi textarea không rỗng
     commentInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-        submitBtn.click();
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault(); // Ngăn xuống dòng
+        const text = this.value.trim();
+        if (text) {
+          submitBtn.click();
+        }
       }
     });
   }

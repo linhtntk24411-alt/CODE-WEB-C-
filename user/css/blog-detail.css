@@ -248,19 +248,48 @@ body {
   flex-shrink: 0;
 }
 .blog-detail-comments__textarea {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid var(--blog-detail-outline-variant);
-  border-radius: var(--blog-detail-radius-sm);
-  font-family: inherit;
-  font-size: 16px;
-  resize: vertical;
-  min-height: 80px;
-  transition: border 0.2s;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5d5d5;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+    background: #fff;
+    color: #222;
+    /* THÊM CÁC DÒNG NÀY */
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.6;
 }
+
 .blog-detail-comments__textarea:focus {
-  outline: none;
-  border-color: var(--blog-detail-primary);
+    outline: none;
+    border-color: var(--urii-red, #840001);
+    box-shadow: 0 0 0 3px rgba(132, 0, 1, 0.1);
+}
+
+.blog-detail-comments__textarea::placeholder {
+    color: #bbb;
+}
+.blog-detail-comments__textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5d5d5;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+    background: #fff;
+    color: #222;
+    /* THÊM CÁC DÒNG NÀY */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
 }
 .blog-detail-comments__submit {
   padding: 10px 24px;
