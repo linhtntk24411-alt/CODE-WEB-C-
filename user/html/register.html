@@ -127,5 +127,20 @@
   <script src="../js/main.js"></script>
   <script src="../js/auth.js"></script>
   <script src="../js/header.js"></script>
+
+  <!-- ===== FETCH HEADER / FOOTER ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
 </body>
 </html>

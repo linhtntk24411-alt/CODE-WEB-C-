@@ -49,7 +49,12 @@
             <label for="password" class="input-label">Mật khẩu</label>
             <a href="#" class="forgot-link" id="forgotPasswordLink">Quên mật khẩu?</a>
           </div>
-          <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" data-target="password" aria-label="Hiện mật khẩu">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
         </div>
         <button type="submit" class="auth-btn">Tiếp tục</button>
       </form>
@@ -118,5 +123,20 @@
   <script src="../js/main.js"></script>
   <script src="../js/auth.js"></script>
   <script src="../js/header.js"></script>
+
+  <!-- ===== FETCH HEADER / FOOTER ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
 </body>
 </html>

@@ -129,24 +129,55 @@
   // --- Xử lý form login ---
   const loginForm = document.getElementById('auth-form');
   if (loginForm) {
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = loginForm.querySelector('.auth-btn');
       const originalText = btn.textContent;
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+
       btn.textContent = 'Đang xử lý...';
       btn.disabled = true;
       btn.classList.add('loading');
 
-      setTimeout(() => {
+      try {
+        const response = await fetch('../data/users.json');
+        if (!response.ok) throw new Error('Không thể tải thông tin người dùng');
+        const data = await response.json();
+        const user = data.user || {};
+        const enteredEmail = (emailInput?.value || '').trim().toLowerCase();
+        const enteredPassword = (passwordInput?.value || '').trim();
+
+        const validEmail = (user.email || '').trim().toLowerCase();
+        const validPassword = '12345678';
+
+        if (enteredEmail === validEmail && enteredPassword === validPassword) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userName', user.name || 'Người dùng');
+          localStorage.setItem('userEmail', user.email || enteredEmail);
+          localStorage.setItem('userAvatar', user.avatar || '');
+
+          showToast('Đăng nhập thành công! Chào mừng bạn trở lại.', 'success');
+
+          // === CẬP NHẬT HEADER NGAY LẬP TỨC ===
+          if (typeof window.initHeader === 'function') {
+            window.initHeader();
+          }
+
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        } else {
+          showToast('Email hoặc mật khẩu không đúng. Vui lòng thử lại.', 'error');
+        }
+      } catch (error) {
+        console.error(error);
+        showToast('Đã có lỗi khi đăng nhập. Vui lòng thử lại.', 'error');
+      } finally {
         btn.textContent = originalText;
         btn.disabled = false;
         btn.classList.remove('loading');
-        showToast('Đăng nhập thành công! Chào mừng bạn trở lại.', 'success');
-        // Chuyển hướng về trang chủ sau 1.5s
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1500);
-      }, 1500);
+      }
     });
   }
 
@@ -252,7 +283,6 @@
           submitBtn.disabled = false;
           closeModal();
           showToast('✅ Liên kết đặt lại mật khẩu đã được gửi đến email của bạn!', 'success');
-          // Trong thực tế, link sẽ được gửi qua email
           console.log('Link reset: http://localhost:5500/user/html/reset-password.html');
         }, 1500);
       });

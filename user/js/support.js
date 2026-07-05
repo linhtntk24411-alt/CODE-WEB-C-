@@ -99,8 +99,10 @@
 
   // ===== KHỞI TẠO =====
   document.addEventListener('DOMContentLoaded', function() {
-    // Khôi phục tab đã lưu
-    const savedTab = localStorage.getItem('supportTab');
+    const params = new URLSearchParams(window.location.search);
+    const tabFromUrl = params.get('tab');
+    const savedTab = tabFromUrl || localStorage.getItem('supportTab');
+
     if (savedTab && document.querySelector(`[data-tab="${savedTab}"]`)) {
       currentTab = savedTab;
       navItems.forEach(i => {

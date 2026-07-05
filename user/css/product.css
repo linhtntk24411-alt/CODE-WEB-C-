@@ -44,6 +44,11 @@
             border-color: rgba(132, 0, 1, 0.1);
         }
 
+        .product-filter-panel {
+            z-index: 1;
+            position: sticky;
+        }
+
         /* Image Container */
         .product-image-wrapper {
             position: relative;

@@ -35,7 +35,8 @@
         function getCategoryContext() {
             const params = new URLSearchParams(window.location.search);
             return {
-                category: params.get('category') || ''
+                category: params.get('category') || '',
+                search: params.get('search') || ''
             };
         }
 
@@ -53,17 +54,25 @@
             const infoBox = document.getElementById('categoryInfo');
             if (!infoBox) return;
 
-            const { category } = getCategoryContext();
-            const matchedIds = filteredProducts.map(product => product.id);
+            const { category, search } = getCategoryContext();
 
-            if (!category) {
+            if (!category && !search) {
                 infoBox.innerHTML = '';
                 infoBox.style.display = 'none';
                 return;
             }
 
             infoBox.style.display = 'block';
-            let message = `<strong>Danh mục:</strong> ${getCategoryLabel(category)}`;
+            let message = '';
+
+            if (category) {
+                message += `<strong>Danh mục:</strong> ${getCategoryLabel(category)}`;
+            }
+
+            if (search) {
+                message += message ? ' · ' : '';
+                message += `<strong>Từ khóa:</strong> ${search}`;
+            }
 
             infoBox.innerHTML = message;
         }
@@ -84,12 +93,22 @@
             })
             .then(function(data) {
                 allProducts = data.products || data;
-                const { category } = getCategoryContext();
+                const { category, search } = getCategoryContext();
 
                 filteredProducts = [...allProducts];
 
                 if (category) {
                     filteredProducts = filteredProducts.filter(product => product.category === category);
+                }
+
+                if (search) {
+                    const term = search.toLowerCase();
+                    filteredProducts = filteredProducts.filter(product => {
+                        const name = (product.name || '').toLowerCase();
+                        const categoryName = (product.category || '').toLowerCase();
+                        const description = (product.description || '').toLowerCase();
+                        return name.includes(term) || categoryName.includes(term) || description.includes(term);
+                    });
                 }
 
                 renderProducts();

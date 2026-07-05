@@ -2,7 +2,7 @@
   "user": {
     "name": "Nguyễn Minh Anh",
     "joinDate": "15/03/2024",
-    "avatar": "avatar_user.jpeg",
+    "avatar": "../assets/avatar_user.jpeg",
     "orders": 12,
     "maps": 45,
     "phone": "0901 234 567",
