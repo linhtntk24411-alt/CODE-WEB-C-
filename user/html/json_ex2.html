@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link href="../css/framework.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/icon.css">
+    <style>
+    
+        body{
+            background:#f3f3f3;
+        }
+
+        .product-list{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:space-between;
+            gap:20px;
+        }
+
+        .product-card{
+            width:calc(25% - 15px);
+            background:white;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,.15);
+            position:relative;
+            overflow:hidden;
+            transition:.3s;
+            cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+        }
+
+        .product-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .discount{
+            position:absolute;
+            left:10px;
+            top:10px;
+            background:#dc3545; /* Đổi màu đỏ giống ảnh mẫu của bạn */
+            color:white;
+            padding:2px 8px;
+            border-radius:5px;
+            font-size:12px;
+            font-weight: bold;
+        }
+
+        .heart{
+            position:absolute;
+            right:15px;
+            top:10px;
+            color:rgb(76, 74, 74);
+            font-size:22px;
+        }
+
+        .product-image{
+            width:100%;
+            height:220px;
+            object-fit:contain;
+            padding:15px;
+        }
+
+        .product-info{
+            padding:15px;
+        }
+
+        .product-title{
+            font-size:15px;
+            font-weight:600;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        .price{
+            color:#dc3545;
+            font-size:15px;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .info{
+            display:flex;
+            justify-content:space-between;
+            color:gray;
+            margin-bottom:15px;
+        }
+
+        /* --- CSS CHO POPUP (MODAL) --- */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Nền mờ phía sau */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .custom-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .custom-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            gap: 30px;
+            transform: scale(0.8);
+            transition: 0.3s ease;
+        }
+
+        .custom-modal-overlay.active .custom-modal-content {
+            transform: scale(1);
+        }
+
+        .modal-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-left img {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+        }
+
+        .modal-right {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-product-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #212529;
+            text-align: left;
+        }
+
+        .modal-product-price {
+            font-size: 18px;
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .modal-product-desc {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 20px;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .modal-qty {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        @media(max-width:992px){
+            .product-card{ width:calc(50% - 10px); }
+        }
+
+        @media(max-width:576px){
+            .product-card{ width:100%; }
+
+            .custom-modal-content {
+                flex-direction: column; 
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .modal-actions {
+                justify-content: flex-start;
+                margin-top: 15px;
+                text-align: left;
+            }
+        }
+    </style>
+
+    <script>
+    let productListData = [];
+
+    window.onload = function() {
+        loadJson();
+    };
+
+    function loadJson(){
+        fetch("https://fakestoreapi.com/products")
+        .then(function(res){
+            if(!res.ok){ throw new Error("Cannot load data"); }
+            return res.json();
+        })
+        .then(function(data){
+            productListData = data; // Lưu data vào biến toàn cục
+            let html="";
+            data.forEach((p, index) => {
+                html += `
+                <div class="product-card" onclick="openModal(${index})">
+                    <span class="discount">-12.16%</span>
+                    <span class="heart"><i class="bi bi-heart"></i></span>
+                    <img src="${p.image}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-title">${p.title}</div>
+                        <div class="price">$${p.price}</div>
+                        <div class="info">
+                            <span><i class="bi bi-star-fill text-warning"></i> ${p.rating.rate}</span>
+                            <span>Stock: ${p.rating.count}</span>
+                        </div>
+                        <button class="btn btn-dark w-100 py-2 fw-semibold">Buy Now</button>
+                    </div>
+                </div>
+                `;
+            });
+            document.getElementById("content").innerHTML = html;
+        })
+        .catch(function(error){
+            alert(error.message);
+        });
+    }
+
+    //  POPUP
+    function openModal(index) {
+        const product = productListData[index];
+        if(!product) return;
+
+        document.getElementById("modalImg").src = product.image;
+        document.getElementById("modalTitle").innerText = product.title;
+        document.getElementById("modalPrice").innerText = `$${product.price}`;
+        document.getElementById("modalDesc").innerText = product.description;
+        document.getElementById("modalQty").value = 1; // reset số lượng bằng 1
+
+        document.getElementById("productModal").classList.add("active");
+    }
+
+    // CLOSE POPUP
+    function closeModal() {
+        document.getElementById("productModal").classList.remove("active");
+    }
+    </script>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark py-3 px-4" style="background-color: #cc001b; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        
+        <a class="navbar-brand fw-bold fs-4" href="#">My Website</a>
+        
+        <div class="navbar-nav d-md-flex flex-row gap-4">
+            <a class="nav-link active text-white" href="#">Home</a>
+            <a class="nav-link text-white" href="#">About</a>
+            <a class="nav-link text-white" href="#">Services</a>
+            <a class="nav-link text-white" href="#">Contact</a>
+        </div>
+        
+        <form class="d-flex">
+            <input class="form-control rounded-pill px-3" type="search" placeholder="Search..." aria-label="Search" style="width: 250px;">
+        </form>
+        
+    </div>
+</nav>
+
+<div class="container my-4">
+    <div id="content" class="product-list"></div>
+</div>
+
+<div id="productModal" class="custom-modal-overlay" onclick="closeModal()">
+    <div class="custom-modal-content" onclick="event.stopPropagation()">
+        
+        <div class="modal-left">
+            <img id="modalImg" src="" alt="Product Image">
+        </div>
+        
+        <div class="modal-right">
+            <div id="modalTitle" class="modal-product-title"></div>
+            <div id="modalPrice" class="modal-product-price"></div>
+            <div id="modalDesc" class="modal-product-desc"></div>
+            
+            <div class="modal-actions">
+                <input id="modalQty" type="number" class="modal-qty" value="1" min="1">
+                <button class="btn btn-dark px-3 fw-medium">Add to cart</button>
+                <button class="btn btn-outline-secondary px-3" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

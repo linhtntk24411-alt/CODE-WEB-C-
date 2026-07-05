@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Urii DIY Admin - Quản lý sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Nunito Sans"', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/admin/admin-dashboard.css"
+</head>
+<body class="font-sans antialiased text-[#1b1c1c] bg-[#fbf9f8]">
+
+    <aside class="h-screen w-64 fixed left-0 top-0 bg-white shadow-sm flex flex-col py-6 px-4 z-50 border-r border-gray-100">
+        <div class="flex flex-col items-center mb-8">
+            <img alt="Urii Logo" class="w-40 h-auto mb-2 object-contain" src="../assets/Urii-logo.png">
+            <h1 class="font-poppins font-bold text-xl text-[#840001] tracking-wide">Urii</h1>
+        </div>
+        <nav class="flex-1 space-y-1 overflow-y-auto custom-scrollbar">
+            <a class="flex items-center gap-3 p-3 rounded-xl text-gray-600 hover:text-[#840001] hover:bg-gray-50 transition-all" href="dashboard.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="text-sm font-medium">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 rounded-xl text-[#840001] font-bold bg-[#840001]/5 border-r-4 border-[#840001] transition-all" href="#">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="text-sm font-medium">Quản lý sản phẩm</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 rounded-xl text-gray-600 hover:text-[#840001] hover:bg-gray-50 transition-all" href="#">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span class="text-sm font-medium">Quản lý đơn hàng</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 rounded-xl text-gray-600 hover:text-[#840001] hover:bg-gray-50 transition-all" href="#">
+                <span class="material-symbols-outlined">confirmation_number</span>
+                <span class="text-sm font-medium">Quản lý coupon</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 rounded-xl text-gray-600 hover:text-[#840001] hover:bg-gray-50 transition-all" href="#">
+                <span class="material-symbols-outlined">group</span>
+                <span class="text-sm font-medium">Quản lý user</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 rounded-xl text-gray-600 hover:text-[#840001] hover:bg-gray-50 transition-all" href="#">
+                <span class="material-symbols-outlined">article</span>
+                <span class="text-sm font-medium">Quản lý blog</span>
+            </a>
+        </nav>
+        <div class="mt-auto space-y-1 pt-4 border-t border-gray-100">
+            <a class="flex items-center gap-3 p-3 text-gray-500 hover:text-[#840001] transition-colors rounded-xl text-sm" href="#">
+                <span class="material-symbols-outlined">help</span>
+                <span>Trung tâm trợ giúp</span>
+            </a>
+            <a class="flex items-center gap-3 p-3 text-gray-500 hover:text-red-600 transition-colors rounded-xl text-sm" href="#">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Đăng xuất</span>
+            </a>
+        </div>
+    </aside>
+
+    <header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex justify-between items-center px-6 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="flex items-center gap-4 flex-1">
+            <div class="relative w-96 group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">search</span>
+                <input class="w-full pl-11 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#840001]/50 focus:ring-2 focus:ring-[#840001]/10 transition-all" placeholder="Tìm kiếm sản phẩm..." type="text">
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 text-gray-600 relative transition-all">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-[#840001] rounded-full"></span>
+            </button>
+            <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 text-gray-600 transition-all">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+            <div class="h-6 w-[1px] bg-gray-200 mx-1"></div>
+            <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-1.5 pr-3 rounded-full transition-all">
+                <div class="text-right">
+                    <p class="text-xs font-bold text-gray-800">Admin Urii</p>
+                    <p class="text-[10px] text-gray-400">Quản trị viên</p>
+                </div>
+                <div class="w-9 h-9 rounded-full overflow-hidden border border-gray-200 shadow-sm">
+                    <img alt="Admin Avatar" class="w-full h-full object-cover" src="../assets/avatar-non.jpg">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="ml-64 pt-24 px-8 pb-8 space-y-6 max-w-[1600px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h2 class="font-poppins font-bold text-2xl text-gray-800 tracking-wide">Quản lý sản phẩm</h2>
+                <p class="text-xs text-gray-400 mt-1">Quản lý toàn bộ sản phẩm hạt nhựa ủi, bộ kit DIY và sản phẩm handmade của cửa hàng. Tối ưu hóa tồn kho và danh mục để tăng doanh số.</p>
+            </div>
+            <button class="flex items-center gap-2 bg-[#840001] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#840001]/95 transition-all shadow-md active:scale-95 flex-shrink-0">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>Thêm sản phẩm</span>
+            </button>
+        </div>
+
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="stat-card bg-white p-5 rounded-2xl border-l-4 border-red-800 shadow-sm flex flex-col justify-between">
+                <div>
+                    <p class="text-gray-500 text-xs font-semibold mb-1">Tổng sản phẩm</p>
+                    <h3 class="font-poppins font-bold text-2xl text-gray-800">1,248</h3>
+                </div>
+                <div class="flex items-center gap-1 mt-3 text-green-600 text-xs font-bold">
+                    <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                    <span>+12% tháng này</span>
+                </div>
+            </div>
+            <div class="stat-card bg-white p-5 rounded-2xl border-l-4 border-green-600 shadow-sm flex flex-col justify-between">
+                <div>
+                    <p class="text-gray-500 text-xs font-semibold mb-1">Đang kinh doanh</p>
+                    <h3 class="font-poppins font-bold text-2xl text-gray-800">1,120</h3>
+                </div>
+                <div class="mt-3 text-gray-400 text-xs font-medium">
+                    <span>90% tổng danh mục</span>
+                </div>
+            </div>
+            <div class="stat-card bg-white p-5 rounded-2xl border-l-4 border-amber-500 shadow-sm flex flex-col justify-between">
+                <div>
+                    <p class="text-gray-500 text-xs font-semibold mb-1">Sắp hết hàng</p>
+                    <h3 class="font-poppins font-bold text-2xl text-gray-800">42</h3>
+                </div>
+                <div class="mt-3 text-amber-600 text-xs font-bold">
+                    <span>Cần nhập thêm ngay</span>
+                </div>
+            </div>
+            <div class="stat-card bg-white p-5 rounded-2xl border-l-4 border-red-500 shadow-sm flex flex-col justify-between">
+                <div>
+                    <p class="text-gray-500 text-xs font-semibold mb-1">Hết hàng</p>
+                    <h3 class="font-poppins font-bold text-2xl text-gray-800">15</h3>
+                </div>
+                <div class="mt-3 text-red-600 text-xs font-bold">
+                    <span>Đang tạm ngừng hiển thị</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-wrap gap-4 items-center justify-between">
+            <div class="flex flex-wrap gap-3 flex-1 items-center">
+                <div class="relative w-full max-w-xs">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
+                    <input class="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#840001] focus:ring-1 focus:ring-[#840001]" placeholder="Tìm theo tên, SKU..." type="text">
+                </div>
+                <select class="bg-gray-50 border border-gray-200 rounded-lg text-xs font-medium text-gray-600 py-2 pl-3 pr-8 focus:ring-[#840001] focus:border-[#840001]">
+                    <option>Tất cả danh mục</option>
+                    <option>Bộ KIT DIY</option>
+                    <option>Móc khóa</option>
+                    <option>Đồ thủ công</option>
+                    <option>Tranh trang trí</option>
+                </select>
+                <select class="bg-gray-50 border border-gray-200 rounded-lg text-xs font-medium text-gray-600 py-2 pl-3 pr-8 focus:ring-[#840001] focus:border-[#840001]">
+                    <option>Trạng thái kho</option>
+                    <option>Còn hàng</option>
+                    <option>Sắp hết hàng</option>
+                    <option>Hết hàng</option>
+                </select>
+                <select class="bg-gray-50 border border-gray-200 rounded-lg text-xs font-medium text-gray-600 py-2 pl-3 pr-8 focus:ring-[#840001] focus:border-[#840001]">
+                    <option>Mới cập nhật</option>
+                    <option>Giá từ thấp đến cao</option>
+                    <option>Giá từ cao đến thấp</option>
+                </select>
+            </div>
+            <div>
+                <button class="flex items-center gap-1.5 border border-[#840001] text-[#840001] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#840001]/5 transition-all">
+                    <span class="material-symbols-outlined text-[16px]">tune</span>
+                    <span>Lọc</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-gray-50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100">
+                        <tr>
+                            <th class="px-6 py-4 text-center w-24">Hình ảnh</th>
+                            <th class="px-6 py-4">Tên sản phẩm</th>
+                            <th class="px-6 py-4 w-36">Danh mục</th>
+                            <th class="px-6 py-4 w-32">Giá bán</th>
+                            <th class="px-6 py-4 w-28 text-center">Tồn kho</th>
+                            <th class="px-6 py-4 w-32 text-center">Trạng thái</th>
+                            <th class="px-6 py-4 w-32">Cập nhật</th>
+                            <th class="px-6 py-4 w-24 text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <tr class="hover:bg-gray-50/70 transition-colors">
+                            <td class="px-6 py-4 text-center">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-100 mx-auto bg-gray-50">
+                                    <img alt="Bộ KIT Hạt Nhựa" class="w-full h-full object-cover" src="../assets/product1.png">
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-800">Bộ KIT Hạt Nhựa Ủi Mùa Hè</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs">Bộ KIT DIY</td>
+                            <td class="px-6 py-4 font-bold text-[#840001]">199.000đ</td>
+                            <td class="px-6 py-4 text-center font-medium">150</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-md bg-green-50 text-green-700 text-[11px] font-bold">Còn hàng</span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-400">10/10/2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="material-symbols-outlined text-gray-400 hover:text-gray-600 transition-colors cursor-pointer card-action-btn">more_vert</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50/70 transition-colors">
+                            <td class="px-6 py-4 text-center">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-100 mx-auto bg-gray-50">
+                                    <img alt="Móc khóa Pixel Art" class="w-full h-full object-cover" src="../assets/product2.png">
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-800">Móc khóa Pixel Art</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs">Móc khóa</td>
+                            <td class="px-6 py-4 font-bold text-[#840001]">45.000đ</td>
+                            <td class="px-6 py-4 text-center font-medium">12</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold">Sắp hết hàng</span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-400">08/10/2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="material-symbols-outlined text-gray-400 hover:text-gray-600 transition-colors cursor-pointer card-action-btn">more_vert</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50/70 transition-colors">
+                            <td class="px-6 py-4 text-center">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-100 mx-auto bg-gray-50">
+                                    <img alt="Lót ly thủ công" class="w-full h-full object-cover" src="../assets/product3.png">
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-800">Lót ly thủ công</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs">Đồ thủ công</td>
+                            <td class="px-6 py-4 font-bold text-[#840001]">35.000đ</td>
+                            <td class="px-6 py-4 text-center font-medium">0</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-md bg-red-50 text-red-700 text-[11px] font-bold">Hết hàng</span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-400">05/10/2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="material-symbols-outlined text-gray-400 hover:text-gray-600 transition-colors cursor-pointer card-action-btn">more_vert</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50/70 transition-colors">
+                            <td class="px-6 py-4 text-center">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-100 mx-auto bg-gray-50">
+                                    <img alt="Tranh Pixel Art" class="w-full h-full object-cover" src="../assets/product4.png">
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-800">Tranh Pixel Art theo yêu cầu</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs">Tranh trang trí</td>
+                            <td class="px-6 py-4 font-bold text-[#840001]">450.000đ</td>
+                            <td class="px-6 py-4 text-center font-medium">99</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-[11px] font-bold">Nhận làm</span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-400">12/10/2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="material-symbols-outlined text-gray-400 hover:text-gray-600 transition-colors cursor-pointer card-action-btn">more_vert</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50/70 transition-colors">
+                            <td class="px-6 py-4 text-center">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden border border-gray-100 mx-auto bg-gray-50">
+                                    <img alt="Khung ảnh Pixel" class="w-full h-full object-cover" src="../assets/product5.png">
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-800">Khung ảnh Pixel Handmade</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs">Quà tặng</td>
+                            <td class="px-6 py-4 font-bold text-[#840001]">85.000đ</td>
+                            <td class="px-6 py-4 text-center font-medium">24</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-2.5 py-1 rounded-md bg-green-50 text-green-700 text-[11px] font-bold">Còn hàng</span>
+                            </td>
+                            <td class="px-6 py-4 text-xs text-gray-400">09/10/2023</td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="material-symbols-outlined text-gray-400 hover:text-gray-600 transition-colors cursor-pointer card-action-btn">more_vert</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="p-5 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white">
+                <span class="text-xs text-gray-400">Hiển thị 1-5 của 1,248 sản phẩm</span>
+                <div class="flex items-center gap-1.5">
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50 transition-all text-sm"><span class="material-symbols-outlined text-base">chevron_left</span></button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-lg font-bold text-xs bg-[#840001] text-white shadow-sm">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all font-semibold text-xs">2</button>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all font-semibold text-xs">3</button>
+                    <span class="text-gray-400 px-1 text-xs">...</span>
+                    <button class="w-10 h-8 flex items-center justify-center border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all font-semibold text-xs">250</button>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50 transition-all text-sm"><span class="material-symbols-outlined text-base">chevron_right</span></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/admin/admin-dashboard.js"></script>
+</body>
+</html>
