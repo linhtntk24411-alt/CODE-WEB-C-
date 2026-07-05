@@ -1,0 +1,51 @@
+{
+  "orders": [
+    {
+      "id": "UR-82941",
+      "date": "20/05/2024",
+      "status": "Đang xử lý",
+      "statusType": "pending",
+      "total": "1.250.000đ",
+      "icon": "package_2",
+      "detailId": "UR-82941"
+    },
+    {
+      "id": "UR-82755",
+      "date": "15/05/2024",
+      "status": "Đang giao hàng",
+      "statusType": "shipping",
+      "total": "850.000đ",
+      "icon": "local_shipping",
+      "detailId": "UR-82755"
+    },
+    {
+      "id": "UR-81023",
+      "date": "02/05/2024",
+      "status": "Hoàn thành",
+      "statusType": "completed",
+      "total": "2.100.000đ",
+      "icon": "task_alt",
+      "detailId": "UR-81023",
+      "showReview": true
+    },
+    {
+      "id": "UR-81045",
+      "date": "30/06/2024",
+      "status": "Hoàn thành",
+      "statusType": "completed",
+      "total": "200.000đ",
+      "icon": "task_alt",
+      "detailId": "UR-81045",
+      "showReview": false
+    },
+    {
+      "id": "UR-80912",
+      "date": "28/04/2024",
+      "status": "Đã hủy",
+      "statusType": "cancelled",
+      "total": "450.000đ",
+      "icon": "cancel",
+      "detailId": "UR-80912"
+    }
+  ]
+}

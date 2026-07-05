@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hồ sơ của tôi | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- CropperJS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />   <!-- THÊM DÒNG NÀY -->
+  <link rel="stylesheet" href="../css/profile.css" />
+</head>
+<body class="profile-page">
+
+  <!-- HEADER (sẽ fetch từ components/header.html) -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="profile-main">
+    <div class="profile-container">
+      <!-- Sidebar Navigation -->
+      <aside class="profile-sidebar">
+        <nav class="profile-nav">
+          <a href="#" class="profile-nav-item active">
+            <span class="material-symbols-outlined">person</span>
+            <span>Hồ sơ của tôi</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Đơn hàng của tôi</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">edit_square</span>
+            <span>Yêu cầu thiết kế</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>Kho map đã lưu</span>
+          </a>
+          <a href="#" class="profile-nav-item">
+            <span class="material-symbols-outlined">grade</span>
+            <span>Đánh giá của tôi</span>
+          </a>
+          <div class="profile-nav-divider"></div>
+          <a href="#" class="profile-nav-item profile-nav-item--logout" id="logoutTrigger">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Đăng xuất</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Right Content -->
+      <div class="profile-content">
+        <!-- Section 1: User Summary -->
+        <section class="profile-summary">
+          <div class="profile-avatar">
+            <img src="../assets/avatar-non.jpg" alt="Avatar người dùng" class="profile-avatar-img" id="profileAvatar" />
+            <button class="profile-avatar-upload" id="avatarUploadTrigger">
+              <span class="material-symbols-outlined">photo_camera</span>
+            </button>
+          </div>
+          <div class="profile-user-info">
+            <h1 class="profile-user-name" id="profileUserName">Đang tải...</h1>
+            <div class="profile-user-badges">
+              <span class="profile-join-date" id="profileJoinDate">Đang tải...</span>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <p class="profile-stat-number" id="orderCount">0</p>
+              <p class="profile-stat-label">Đơn hàng</p>
+            </div>
+            <div class="profile-stat">
+              <p class="profile-stat-number" id="mapCount">0</p>
+              <p class="profile-stat-label">Map đã lưu</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Personal Information -->
+        <section class="profile-info">
+          <div class="profile-info-header">
+            <h2 class="profile-info-title">Thông tin cá nhân</h2>
+            <div class="profile-info-actions-header">
+              <button class="profile-info-edit" id="editToggle">
+                <span class="material-symbols-outlined">edit</span>
+                Chỉnh sửa
+              </button>
+              <button class="profile-change-password" id="changePasswordTrigger">
+                <span class="material-symbols-outlined">lock</span>
+                Đổi mật khẩu
+              </button>
+            </div>
+          </div>
+
+          <div class="profile-info-grid">
+            <div class="profile-info-group">
+              <label class="profile-info-label">Họ và tên</label>
+              <input type="text" class="profile-info-input" id="fullName" readonly />
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Số điện thoại</label>
+              <input type="tel" class="profile-info-input" id="phoneNumber" readonly />
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Email</label>
+              <input type="email" class="profile-info-input" id="emailAddress" readonly />
+            </div>
+            <div class="profile-info-group">
+              <label class="profile-info-label">Ngày sinh</label>
+              <input type="text" class="profile-info-input" id="birthDate" readonly />
+            </div>
+            <div class="profile-info-group profile-info-group--full">
+              <label class="profile-info-label">Địa chỉ giao hàng</label>
+              <textarea class="profile-info-textarea" id="shippingAddress" readonly rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="profile-info-actions">
+            <button class="profile-save-btn">Lưu thay đổi</button>
+          </div>
+        </section>
+
+        <!-- Section 3: Recent Activity -->
+        <section class="profile-activity" id="activitySection"></section>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- ===== MODALS ===== -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+
+  <!-- Popup Thông báo -->
+  <div class="modal" id="modalNotification">
+    <div class="modal-content modal-content--notification">
+      <div class="modal-icon modal-icon--info" id="notificationIcon">
+        <span class="material-symbols-outlined">check_circle</span>
+      </div>
+      <h3 class="modal-title" id="notificationTitle">Thông báo</h3>
+      <p class="modal-desc" id="notificationMessage">Nội dung thông báo</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--primary" id="notificationOkBtn">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Đăng xuất -->
+  <div class="modal" id="modalLogout">
+    <div class="modal-content modal-content--logout">
+      <div class="modal-icon modal-icon--error">
+        <span class="material-symbols-outlined">logout</span>
+      </div>
+      <h3 class="modal-title">Bạn có chắc chắn muốn đăng xuất?</h3>
+      <p class="modal-desc">Mọi thay đổi chưa lưu có thể bị mất.</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--cancel" data-close="modalLogout">Hủy</button>
+        <button class="modal-btn modal-btn--danger" id="confirmLogout">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Đổi mật khẩu -->
+  <div class="modal" id="modalChangePassword">
+    <div class="modal-content modal-content--password">
+      <div class="modal-header">
+        <h2 class="modal-title">Đổi mật khẩu</h2>
+        <button class="modal-close" data-close="modalChangePassword">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Vui lòng nhập mật khẩu hiện tại và mật khẩu mới để cập nhật bảo mật tài khoản.</p>
+        <form id="changePasswordForm">
+          <div class="form-group">
+            <label class="form-label" for="currentPassword">Mật khẩu hiện tại</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="currentPassword" class="form-input" placeholder="••••••••" required />
+              <button type="button" class="password-toggle" data-target="currentPassword">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="newPassword">Mật khẩu mới</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="newPassword" class="form-input" placeholder="••••••••" required />
+              <button type="button" class="password-toggle" data-target="newPassword">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+            </div>
+            <div class="password-requirements" id="passwordRequirements">
+              <span class="req-item" data-req="length">
+                <span class="req-circle"></span> Ít nhất 8 ký tự
+              </span>
+              <span class="req-item" data-req="uppercase">
+                <span class="req-circle"></span> Chữ hoa (A-Z)
+              </span>
+              <span class="req-item" data-req="lowercase">
+                <span class="req-circle"></span> Chữ thường (a-z)
+              </span>
+              <span class="req-item" data-req="number">
+                <span class="req-circle"></span> Số (0-9)
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Xác nhận mật khẩu mới</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••" required />
+              <button type="button" class="password-toggle" data-target="confirmPassword">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+            </div>
+            <div class="password-match-feedback" id="passwordMatchFeedback"></div>
+          </div>
+          <div class="form-group">
+            <button type="button" class="forgot-password-link" id="forgotPasswordLink">Quên mật khẩu?</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" data-close="modalChangePassword">Hủy</button>
+        <button class="modal-btn modal-btn--primary" type="submit" form="changePasswordForm" id="submitChangePassword">Cập nhật</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Quên mật khẩu -->
+  <div class="modal" id="modalForgotPassword">
+    <div class="modal-content modal-content--forgot">
+      <div class="modal-header">
+        <h2 class="modal-title">Khôi phục mật khẩu</h2>
+        <button class="modal-close" data-close="modalForgotPassword">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Nhập email của bạn để nhận liên kết đặt lại mật khẩu.</p>
+        <form id="forgotPasswordForm">
+          <div class="form-group">
+            <label class="form-label" for="resetEmail">Email</label>
+            <input type="email" id="resetEmail" class="form-input" placeholder="example@gmail.com" required />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" data-close="modalForgotPassword">Hủy</button>
+        <button class="modal-btn modal-btn--primary" type="submit" form="forgotPasswordForm" id="submitForgotPassword">Gửi yêu cầu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL CẬP NHẬT AVATAR ===== -->
+  <div class="modal" id="modalAvatar">
+    <div class="modal-content modal-content--avatar">
+      <div class="modal-header">
+        <h2 class="modal-title">Cập nhật ảnh đại diện</h2>
+        <button class="modal-close" data-close="modalAvatar">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="avatar-preview-wrapper">
+          <div class="avatar-preview">
+            <img src="../assets/avatar-non.jpg" alt="Avatar preview" id="avatarPreview" />
+            <label class="avatar-upload-overlay" for="avatarFileInput">
+              <span class="material-symbols-outlined">edit</span>
+            </label>
+          </div>
+          <input type="file" id="avatarFileInput" accept="image/*" />
+        </div>
+        <p class="modal-desc">Ảnh đại diện giúp mọi người nhận ra bạn trong cộng đồng Urii.</p>
+        <p class="modal-hint">Định dạng hỗ trợ: JPG, PNG, GIF. Tối đa 5MB.</p>
+        <div class="avatar-actions">
+          <button class="avatar-btn avatar-btn--upload" id="avatarUploadBtn">
+            <span class="material-symbols-outlined">upload</span>
+            Tải ảnh mới
+          </button>
+          <button class="avatar-btn avatar-btn--delete" id="avatarDeleteBtn">
+            <span class="material-symbols-outlined">delete</span>
+            Xóa ảnh
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" data-close="modalAvatar">Hủy</button>
+        <button class="modal-btn modal-btn--primary" id="saveAvatarBtn">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Xác nhận xóa avatar -->
+  <div class="modal" id="modalDeleteAvatar">
+    <div class="modal-content modal-content--delete">
+      <div class="modal-icon modal-icon--warning">
+        <span class="material-symbols-outlined">warning</span>
+      </div>
+      <h3 class="modal-title">Xác nhận xóa</h3>
+      <p class="modal-desc">Bạn có chắc chắn muốn xóa ảnh đại diện này không? Hành động này không thể hoàn tác.</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--cancel" id="cancelDeleteAvatar">Hủy</button>
+        <button class="modal-btn modal-btn--danger" id="confirmDeleteAvatar">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Crop Ảnh -->
+  <div class="modal" id="modalCrop">
+    <div class="modal-content modal-content--crop">
+      <div class="modal-header">
+        <h2 class="modal-title">Cắt ảnh đại diện</h2>
+        <button class="modal-close" data-close="modalCrop">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="crop-container">
+          <img id="cropImage" src="" alt="Crop Image" style="max-width: 100%;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" data-close="modalCrop">Hủy</button>
+        <button class="modal-btn modal-btn--primary" id="cropSaveBtn">Cắt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/profile.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

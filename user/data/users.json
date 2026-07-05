@@ -1,0 +1,31 @@
+{
+  "user": {
+    "name": "Nguyễn Minh Anh",
+    "joinDate": "15/03/2024",
+    "avatar": "avatar_user.jpeg",
+    "orders": 12,
+    "maps": 45,
+    "phone": "0901 234 567",
+    "email": "minhanh.uri@gmail.com",
+    "birth": "12/08/1998",
+    "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+  },
+  "activities": [
+    {
+      "type": "order",
+      "id": "UR-10928",
+      "description": "Bộ Perler Beads 72 màu + Khuôn chữ nhật lớn",
+      "price": "850.000đ",
+      "status": "Hoàn thành",
+      "statusType": "completed"
+    },
+    {
+      "type": "request",
+      "id": "REQ-8821",
+      "description": "Chuyển đổi chân dung 15x15cm (Beads 2.6mm)",
+      "date": "Gửi vào: 10:45 - 20/05/2024",
+      "status": "Đang chờ xử lý",
+      "statusType": "pending"
+    }
+  ]
+}
