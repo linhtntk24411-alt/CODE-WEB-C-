@@ -24,13 +24,17 @@
 
         function saveStoredCartItems(items) {
             localStorage.setItem('cartItems', JSON.stringify(items));
+            window.dispatchEvent(new CustomEvent('cart:updated', { detail: items }));
+            window.dispatchEvent(new Event('storage'));
         }
 
         function updateCartBadge() {
             const cartCount = document.getElementById('cartCount');
             if (cartCount) {
                 const items = getStoredCartItems();
-                cartCount.textContent = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                const total = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                cartCount.textContent = total;
+                cartCount.style.display = total > 0 ? 'flex' : 'none';
             }
         }
 
@@ -107,6 +111,7 @@
             const displayPrice = product.currentPrice || product.originalPrice;
             
             document.getElementById('currentPrice').textContent = formatPrice(displayPrice);
+            renderSaleCountdown(product);
             
             if (hasDiscount) {
                 document.getElementById('originalPrice').textContent = formatPrice(product.originalPrice);
@@ -159,6 +164,42 @@
 
             document.getElementById('productDescription').innerHTML = product.description || 'Chưa có mô tả cho sản phẩm này.';
             document.getElementById('reviewCount').textContent = allReviews.length || 0;
+        }
+
+        function renderSaleCountdown(product) {
+            const wrap = document.getElementById('saleCountdownWrap');
+            if (!wrap) return;
+
+            if (!product.isSale || !product.timer) {
+                wrap.innerHTML = '';
+                return;
+            }
+
+            const endTime = new Date(product.timer).getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+
+                if (distance <= 0) {
+                    wrap.innerHTML = '<div class="alert alert-warning py-2 mb-0">Ưu đãi đã kết thúc.</div>';
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                wrap.innerHTML = `
+                    <div class="alert alert-danger py-2 mb-0 d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history"></i>
+                        <span><strong>Ưu đãi kết thúc sau:</strong> ${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s</span>
+                    </div>
+                `;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         }
 
         // Render Stars

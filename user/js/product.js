@@ -18,13 +18,17 @@
 
         function saveStoredCartItems(items) {
             localStorage.setItem('cartItems', JSON.stringify(items));
+            window.dispatchEvent(new CustomEvent('cart:updated', { detail: items }));
+            window.dispatchEvent(new Event('storage'));
         }
 
         function updateCartBadge() {
             const cartCount = document.getElementById('cartCount');
             if (cartCount) {
                 const items = getStoredCartItems();
-                cartCount.textContent = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                const total = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                cartCount.textContent = total;
+                cartCount.style.display = total > 0 ? 'flex' : 'none';
             }
         }
 
@@ -165,9 +169,11 @@
                 }
 
                 html += `
-                <div class="product-card" onclick="openModal(${globalIndex})">
+                <div class="product-card">
                     <div class="product-image-wrapper">
-                        <img src="${p.image}" alt="${p.name}" loading="lazy">
+                        <a href="productdetail.html?id=${p.id}" class="d-block" onclick="event.stopPropagation();" aria-label="Xem chi tiết ${p.name}">
+                            <img src="${p.image}" alt="${p.name}" loading="lazy">
+                        </a>
                         ${badgeHtml}
                         
                         <button class="cart-icon" onclick="event.stopPropagation(); addToCartDirect(${globalIndex})">
@@ -370,11 +376,11 @@
             renderCategoryInfo();
         }
 
-        // Open modal
+        // Open detail page
         function openModal(index) {
             const product = allProducts[index];
             if (!product) return;
-            alert(`Xem chi tiết: ${product.name}`);
+            window.location.href = `productdetail.html?id=${product.id}`;
         }
 
         // Add to cart

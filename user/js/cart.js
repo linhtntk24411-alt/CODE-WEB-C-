@@ -34,30 +34,38 @@ async function loadData() {
 // Load cart from localStorage
 function loadCartFromStorage() {
     const saved = localStorage.getItem('cartItems');
+    let parsedItems = [];
+
     if (saved) {
         try {
-            cartItems = JSON.parse(saved);
+            parsedItems = JSON.parse(saved);
         } catch {
-            cartItems = getDefaultCart();
+            parsedItems = [];
         }
-    } else {
-        cartItems = getDefaultCart();
     }
-    cartItems.forEach((item, index) => selectedItems.add(index));
+
+    const hasLegacyDemoItems = Array.isArray(parsedItems) && parsedItems.some(item =>
+        [12, 30, 40].includes(item.productId) ||
+        ['Bánh Donut', 'Trứng vui vẻ', 'Combo 3 gấu'].includes(item.variant)
+    );
+
+    cartItems = Array.isArray(parsedItems) ? parsedItems : [];
+    if (hasLegacyDemoItems) {
+        cartItems = [];
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        window.dispatchEvent(new CustomEvent('cart:updated', { detail: cartItems }));
+        window.dispatchEvent(new Event('storage'));
+    }
+
+    selectedItems = new Set(cartItems.map((_, index) => index));
 }
 
-// Get default cart items
-function getDefaultCart() {
-    return [
-        { productId: 12, variant: 'Bánh Donut', quantity: 1 },
-        { productId: 30, variant: 'Trứng vui vẻ', quantity: 2 },
-        { productId: 40, variant: 'Combo 3 gấu', quantity: 1 }
-    ];
-}
 
 // Save cart to localStorage
 function saveCartToStorage() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    window.dispatchEvent(new CustomEvent('cart:updated', { detail: cartItems }));
+    window.dispatchEvent(new Event('storage'));
 }
 
 // Get product by ID
@@ -501,6 +509,15 @@ function scrollSuggested(direction) {
         behavior: 'smooth'
     });
 }
+
+function refreshCartView() {
+    loadCartFromStorage();
+    renderCart();
+    renderSuggestedProducts(suggestedCategory);
+}
+
+window.addEventListener('cart:updated', refreshCartView);
+window.addEventListener('storage', refreshCartView);
 
 // Load data on page load
 document.addEventListener('DOMContentLoaded', loadData);

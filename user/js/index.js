@@ -2,6 +2,42 @@
 // MAIN.JS - TẤT CẢ JAVASCRIPT CỦA WEB
 // ============================================
 
+let homepageProducts = [];
+
+function getStoredCartItems() {
+    try {
+        const saved = localStorage.getItem('cartItems');
+        const parsed = saved ? JSON.parse(saved) : [];
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+        console.error('Không thể đọc giỏ hàng:', error);
+        return [];
+    }
+}
+
+function saveStoredCartItems(items) {
+    localStorage.setItem('cartItems', JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent('cart:updated', { detail: items }));
+    window.dispatchEvent(new Event('storage'));
+}
+
+window.addCurrentProductToCart = function(productId) {
+    const product = homepageProducts.find(item => item.id === productId);
+    if (!product) return;
+
+    const cartItems = getStoredCartItems();
+    const existingItem = cartItems.find(item => item.productId === product.id && (item.variant || null) === null);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cartItems.push({ productId: product.id, variant: null, quantity: 1 });
+    }
+
+    saveStoredCartItems(cartItems);
+    alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // ===== DATA =====
     const valuesData = [
@@ -93,7 +129,9 @@ document.addEventListener('DOMContentLoaded', function() {
         grid.innerHTML = products.map(item => `
             <article class="product-card">
                 <div class="product-card__media">
-                    <img src="${item.image}" alt="${item.name}">
+                    <a href="productdetail.html?id=${item.id}" class="d-block" aria-label="Xem chi tiết ${item.name}">
+                        <img src="${item.image}" alt="${item.name}">
+                    </a>
                     ${item.isSale ? `<span class="product-card__badge product-card__badge--sale">${item.badge}</span>` : ''}
                 </div>
                 <div class="product-card__body">
@@ -118,8 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span class="price">${item.originalPrice.toLocaleString()}đ</span>
                             `}
                         </div>
-                        <button class="btn btn-urii btn-sm" type="button">
-                            <i class="bi bi-plus-lg"></i>
+                        <button class="btn btn-urii btn-sm" type="button" onclick="addCurrentProductToCart(${item.id})">
+                            <i class="bi bi-cart"></i>
                         </button>
                     </div>
                 </div>
@@ -224,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // Lọc sản phẩm đang sale để hiển thị
                 const bestSellers = data.products.filter(p => p.isSale === true).slice(0, 4);
+                homepageProducts = bestSellers;
                 renderProducts(bestSellers);
                 renderBestSellerTimer(bestSellers);
                 initCountdownTimers();
@@ -263,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         seconds: 10
                     }
                 ];
+                homepageProducts = fallbackProducts;
                 renderProducts(fallbackProducts);
                 renderBestSellerTimer(fallbackProducts);
                 initCountdownTimers();
