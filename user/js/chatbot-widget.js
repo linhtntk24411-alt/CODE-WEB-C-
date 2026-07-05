@@ -18,6 +18,15 @@ function initChatbot() {
         return;
     }
 
+    appendMessage({
+        text: "Xin chào, Urii có thể giúp gì cho bạn?",
+        chips: [
+            { label: 'Xem giá bộ Kit', action: 'Xem giá bộ Kit' },
+            { label: 'Màu sắc có sẵn', action: 'Màu sắc có sẵn' }
+        ]
+    }, 'bot');
+    // ----------------------------------------
+
     chatFab.addEventListener('click', () => {
         chatWindow.classList.toggle('hidden');
         scrollToBottom();
@@ -34,7 +43,6 @@ function initChatbot() {
         }
     });
 }
-
 async function handleUserSend() {
     const text = chatInput.value.trim();
     if (!text) return;
@@ -50,6 +58,14 @@ async function handleUserSend() {
 }
 
 async function handleChipClick(chipText) {
+    // Nếu người dùng nhấn vào nút đặt hàng
+    if (chipText === 'Đặt hàng yêu cầu' || chipText === '🛒 Đặt hàng theo yêu cầu') {
+        // Thay đường dẫn dưới đây bằng đường dẫn tới file/trang đặt hàng của bạn
+        window.location.href = 'custom-order-request.html'; 
+        return; // Dừng hàm lại, không cần gửi tin nhắn vào khung chat nữa
+    }
+
+    // Các xử lý mặc định cũ cho các nút khác
     appendMessage(chipText, 'user');
     showTyping(true);
     const replyData = await askRealAI(chipText);
@@ -106,7 +122,14 @@ function getFallbackReply(userMessage) {
 
     // FIX LỖI: Thu hẹp từ khóa Giá (thay 'bao nhieu' chung chung bằng từ rõ nghĩa hơn)
     if (containsAny(text, ['gia', 'bao nhieu tien', 'bao nhieu k', 'price', 'phi', 'tien', 'ton kem'])) {
-        return 'Bộ Kit Urii Standard 24 màu hiện có giá 499.000đ.\n\nGồm:\n• 4800 hạt beads cao cấp\n• Bảng khuôn 15x15cm\n• Nhíp sắt chuyên dụng\n• Giấy ủi & Hướng dẫn sử dụng chi tiết';
+    return 'Dạ hiện tại bên Urii có sẵn đầy đủ 24 màu hạt nhựa lẻ cho bạn thoải mái lựa chọn ạ. Tất cả các màu đều đồng giá như nhau:\n\n' +
+           '🛍️ Giá gói hạt nhựa lẻ: 35.000đ/gói (Mỗi gói có khoảng 500 hạt)\n\n' +
+           'Ngoài ra bên mình còn có các phụ kiện bán rời nếu bạn cần mua thêm:\n' +
+           '• Bảng khuôn nhựa lẻ (15x15cm): 50.000đ/cái\n' +
+           '• Nhíp sắt chuyên dụng: 25.000đ/cái\n' +
+           '• Giấy ủi chịu nhiệt: 10.000đ/xấp (5 tờ)\n\n' +
+           '🎁 Đặc biệt: Khi bạn đặt mua nhiều gói hạt hoặc mua combo kèm phụ kiện, Urii sẽ TẶNG KÈM thêm giấy ủi miễn phí cho mình nha!\n\n' +
+           'Bạn muốn lấy những màu nào hoặc cần mua thêm phụ kiện gì không, nhắn em lên đơn cho mình liền nhé! ✨';
     }
 
     if (containsAny(text, ['dat', 'mua', 'order', 'đặt'])) {

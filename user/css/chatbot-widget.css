@@ -147,7 +147,11 @@ body {
     flex: 1;
     padding: 16px;
     overflow-y: auto;
-    background-color: var(--bg-light);
+   
+    background-image: linear-gradient(rgba(251, 249, 248, 0.737), rgba(251, 249, 248, 0.666)), url('../assets/nen-chat-box.png'); 
+    background-size: cover;        /* Đảm bảo ảnh phủ kín toàn bộ khung chat */
+    background-position: center;  /* Căn ảnh ở chính giữa khung */
+    background-repeat: no-repeat;  /* Không lặp lại ảnh */
     display: flex;
     flex-direction: column;
     gap: 20px;
