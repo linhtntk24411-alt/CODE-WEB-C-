@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho map đã lưu | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/saved-maps.css" />
+</head>
+<body class="saved-maps-page">
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="saved-maps-main">
+    <div class="saved-maps-container">
+      <!-- Sidebar Navigation -->
+      <aside class="saved-maps-sidebar">
+        <nav class="saved-maps-nav">
+          <a href="profile.html" class="saved-maps-nav-item">
+            <span class="material-symbols-outlined">person</span>
+            <span>Hồ sơ của tôi</span>
+          </a>
+          <a href="orders.html" class="saved-maps-nav-item">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Đơn hàng của tôi</span>
+          </a>
+          <a href="#" class="saved-maps-nav-item">
+            <span class="material-symbols-outlined">edit_square</span>
+            <span>Yêu cầu thiết kế</span>
+          </a>
+          <a href="saved-maps.html" class="saved-maps-nav-item active">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>Kho map đã lưu</span>
+          </a>
+          <a href="#" class="saved-maps-nav-item">
+            <span class="material-symbols-outlined">grade</span>
+            <span>Đánh giá của tôi</span>
+          </a>
+          <div class="saved-maps-nav-divider"></div>
+          <a href="#" class="saved-maps-nav-item saved-maps-nav-item--logout" id="logoutTrigger">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Đăng xuất</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Right Content -->
+      <div class="saved-maps-content">
+        <!-- Header -->
+        <div class="saved-maps-header">
+          <div>
+            <h1 class="saved-maps-title">Kho map đã lưu</h1>
+            <p class="saved-maps-subtitle">Quản lý và xem lại các mẫu thiết kế bạn đã yêu thích.</p>
+          </div>
+          <button class="saved-maps-filter-btn" id="filterBtn">
+            <span class="material-symbols-outlined">filter_list</span>
+            Lọc
+          </button>
+        </div>
+
+        <!-- Grid -->
+        <div class="saved-maps-grid" id="mapsGrid">
+          <!-- Dữ liệu sẽ render từ JS -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="saved-maps-pagination" id="paginationContainer">
+          <!-- Render từ JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- ===== MODALS ===== -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+
+  <!-- Modal Đăng xuất -->
+  <div class="modal" id="modalLogout">
+    <div class="modal-content modal-content--logout">
+      <div class="modal-icon modal-icon--error">
+        <span class="material-symbols-outlined">logout</span>
+      </div>
+      <h3 class="modal-title">Bạn có chắc chắn muốn đăng xuất?</h3>
+      <p class="modal-desc">Mọi thay đổi chưa lưu có thể bị mất.</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--cancel" data-close="modalLogout">Hủy</button>
+        <button class="modal-btn modal-btn--danger" id="confirmLogout">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL LỌC ===== -->
+  <div class="modal" id="modalFilter">
+    <div class="modal-content modal-content--filter">
+      <div class="modal-header">
+        <h2 class="modal-title">Lọc map đã lưu</h2>
+        <button class="modal-close" data-close="modalFilter">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Sắp xếp theo</label>
+          <div class="filter-options">
+            <label>
+              <input type="radio" name="sortBy" value="rating" checked /> Đánh giá cao nhất
+            </label>
+            <label>
+              <input type="radio" name="sortBy" value="title" /> Tên A-Z
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tác giả</label>
+          <select class="form-select" id="filterAuthor">
+            <option value="all">Tất cả</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Đánh giá</label>
+          <select class="form-select" id="filterRating">
+            <option value="all">Tất cả</option>
+            <option value="4.5">4.5 sao trở lên</option>
+            <option value="4.8">4.8 sao trở lên</option>
+            <option value="5">5 sao</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--cancel" id="resetFilterBtn">Đặt lại</button>
+        <button class="modal-btn modal-btn--primary" id="applyFilterBtn">Áp dụng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/saved-maps.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

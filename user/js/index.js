@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const categoriesData = [
-        { name: 'Bộ KIT DIY', image: '../assets/index/kit.jpg' },
-        { name: 'Dụng Cụ', image: '../assets/index/dungcu.png' },
-        { name: 'Hạt Lẻ Các Loại', image: '../assets/index/hatrefill.png' },
-        { name: 'Phụ Kiện Handmade', image: '../assets/index/handmade.jpg' }
+        { name: 'Bộ KIT DIY', image: '../assets/index/kit.jpg', category: 'kit' },
+        { name: 'Dụng Cụ', image: '../assets/index/dungcu.png', category: 'tool' },
+        { name: 'Hạt Lẻ Các Loại', image: '../assets/index/hatrefill.png', category: 'bead' },
+        { name: 'Phụ Kiện Handmade', image: '../assets/index/handmade.jpg', category: 'accessory' }
     ];
 
     const stepsData = [
@@ -76,12 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const grid = document.getElementById('categoryGrid');
         if (!grid) return;
         grid.innerHTML = categoriesData.map(item => `
-            <article class="category-card img-hover-effect">
-                <div class="category-card__media">
-                    <img src="${item.image}" alt="${item.name}">
-                </div>
-                <h3>${item.name}</h3>
-            </article>
+            <a href="product.html?category=${item.category}" class="category-card-link" aria-label="Xem ${item.name}">
+                <article class="category-card img-hover-effect">
+                    <div class="category-card__media">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <h3>${item.name}</h3>
+                </article>
+            </a>
         `).join('');
     }
 

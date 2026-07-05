@@ -10,6 +10,49 @@
         let currentRelatedCategory = 'all';
         let maxStock = 0;
 
+        function getStoredCartItems() {
+            try {
+                const saved = localStorage.getItem('cartItems');
+                if (!saved) return [];
+                const parsed = JSON.parse(saved);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                console.error('Không thể đọc giỏ hàng:', error);
+                return [];
+            }
+        }
+
+        function saveStoredCartItems(items) {
+            localStorage.setItem('cartItems', JSON.stringify(items));
+        }
+
+        function updateCartBadge() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const items = getStoredCartItems();
+                cartCount.textContent = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+            }
+        }
+
+        function addCurrentProductToCart() {
+            if (!productData) return;
+
+            const quantity = parseInt(document.getElementById('qtyInput').value, 10) || 1;
+            const variantName = currentVariant ? currentVariant.name : null;
+            const cartItems = getStoredCartItems();
+            const existingItem = cartItems.find(item => item.productId === productData.id && (item.variant || null) === (variantName || null));
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({ productId: productData.id, variant: variantName, quantity });
+            }
+
+            saveStoredCartItems(cartItems);
+            updateCartBadge();
+            alert(`Đã thêm "${productData.name}" vào giỏ hàng!`);
+        }
+
         // Load data
         async function loadProductData() {
             try {
