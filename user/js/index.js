@@ -185,14 +185,46 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderGallery() {
-        const grid = document.getElementById('galleryGrid');
-        if (!grid) return;
-        grid.innerHTML = galleryData.map(img => `
-            <article class="gallery-item img-hover-effect">
-                <img src="${img}" alt="Góc sáng tạo">
-            </article>
-        `).join('');
-    }
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    
+    // Lấy dữ liệu từ blogs.json
+    fetch('../data/blogs.json')
+        .then(response => response.json())
+        .then(data => {
+            const blogs = data.blogs || [];
+            // Lấy 6 bài viết có isFeatured = true, nếu không đủ thì lấy thêm bài thường
+            let featuredBlogs = blogs.filter(b => b.isFeatured === true);
+            if (featuredBlogs.length < 6) {
+                const normalBlogs = blogs.filter(b => !b.isFeatured);
+                const needMore = 6 - featuredBlogs.length;
+                featuredBlogs = [...featuredBlogs, ...normalBlogs.slice(0, needMore)];
+            }
+            const galleryItems = featuredBlogs.slice(0, 6);
+            
+            grid.innerHTML = galleryItems.map(item => `
+                <article class="gallery-item img-hover-effect" onclick="window.location.href='blog-detail.html?slug=${item.slug}'" style="cursor: pointer;">
+                    <img src="${item.image}" alt="${item.title}">
+                </article>
+            `).join('');
+        })
+        .catch(() => {
+            // Fallback nếu không load được JSON
+            const galleryData = [
+                '../assets/index/stcd1.png',
+                '../assets/index/stcd2.png',
+                '../assets/index/stcd3.png',
+                '../assets/index/stcd4.png',
+                '../assets/index/stcd5.png',
+                '../assets/index/stcd6.png'
+            ];
+            grid.innerHTML = galleryData.map(img => `
+                <article class="gallery-item img-hover-effect">
+                    <img src="${img}" alt="Góc sáng tạo">
+                </article>
+            `).join('');
+        });
+}
 
     function renderBestSellerTimer(products) {
         const wrapper = document.getElementById('bestSellerTimerWrap');
