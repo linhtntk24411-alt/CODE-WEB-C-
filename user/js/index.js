@@ -96,17 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="product-card__body">
                     <h3>${item.name}</h3>
-                    
-                    ${item.isSale ? `
-                    <div class="product-card__timer">
-                        <span class="timer-label"><i class="bi bi-clock"></i> Kết thúc sau:</span>
-                        <span class="timer-countdown" data-end="${item.timer}">
-                            <span class="timer-hours">${String(item.hours).padStart(2, '0')}</span>:
-                            <span class="timer-minutes">${String(item.minutes).padStart(2, '0')}</span>:
-                            <span class="timer-seconds">${String(item.seconds).padStart(2, '0')}</span>
-                        </span>
-                    </div>
-                    ` : ''}
 
                     <div class="product-card__stock">
                         <div class="stock-info">
@@ -165,6 +154,34 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+    function renderBestSellerTimer(products) {
+        const wrapper = document.getElementById('bestSellerTimerWrap');
+        if (!wrapper) return;
+
+        const primaryProduct = products.find(item => item.isSale) || null;
+        if (!primaryProduct) {
+            wrapper.innerHTML = '';
+            return;
+        }
+
+        const hours = primaryProduct.hours ?? 0;
+        const minutes = primaryProduct.minutes ?? 0;
+        const seconds = primaryProduct.seconds ?? 0;
+
+        wrapper.innerHTML = `
+            <div class="section-header__timer">
+                <span class="section-header__timer-label"><i class="bi bi-clock-history"></i> Flash sale</span>
+                <span class="timer-countdown section-timer-countdown" data-end="${primaryProduct.timer}">
+                    <span class="timer-hours">${String(hours).padStart(2, '0')}</span>
+                    <span class="timer-separator">:</span>
+                    <span class="timer-minutes">${String(minutes).padStart(2, '0')}</span>
+                    <span class="timer-separator">:</span>
+                    <span class="timer-seconds">${String(seconds).padStart(2, '0')}</span>
+                </span>
+            </div>
+        `;
+    }
+
     // ===== COUNTDOWN TIMER =====
     function initCountdownTimers() {
         const timers = document.querySelectorAll('.timer-countdown');
@@ -206,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Lọc sản phẩm đang sale để hiển thị
                 const bestSellers = data.products.filter(p => p.isSale === true).slice(0, 4);
                 renderProducts(bestSellers);
+                renderBestSellerTimer(bestSellers);
                 initCountdownTimers();
             })
             .catch(error => {
@@ -244,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 ];
                 renderProducts(fallbackProducts);
+                renderBestSellerTimer(fallbackProducts);
                 initCountdownTimers();
             });
     }

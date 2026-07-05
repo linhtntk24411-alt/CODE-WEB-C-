@@ -13,7 +13,7 @@
       "currentPrice": 103000,
       "stock": 15,
       "stockPercent": 30,
-      "timer": "2026-07-10 23:59:59",
+      "timer": "2026-07-01 23:59:59",
       "hours": 12,
       "minutes": 30,
       "seconds": 45,
@@ -21,6 +21,14 @@
       "reviews": 8,
       "colors": ["red", "blue", "yellow"],
       "description": "<p>Bộ kit <strong>Set Cơ Bản 24 Màu</strong> là lựa chọn hoàn hảo cho người mới bắt đầu làm quen với nghệ thuật Perler Beads. Với 24 màu sắc cơ bản, bạn có thể dễ dàng tạo ra những tác phẩm đầu tay đầy màu sắc.</p><h5>Đặc điểm nổi bật:</h5><ul><li>24 màu sắc đa dạng, phù hợp cho mọi tác phẩm</li><li>Hạt nhựa 5mm chất lượng cao, không mùi</li><li>Bao gồm bảng ghim và giấy ủi</li><li>Hướng dẫn chi tiết cho người mới bắt đầu</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước hạt": "5mm",
+        "Số màu": "24 màu",
+        "Trọng lượng": "200g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Minh Anh", "avatar": "MA", "rating": 5, "date": "2024-12-20T10:30:00", "content": "Bộ kit này rất phù hợp cho người mới. Màu sắc đẹp, hạt đều, hướng dẫn dễ hiểu.", "helpful": 5},
         {"user": "Hoàng Nam", "avatar": "HN", "rating": 5, "date": "2024-12-18T14:20:00", "content": "Giao hàng nhanh, chất lượng tốt. Sẽ mua thêm các màu khác.", "helpful": 3},
@@ -40,7 +48,7 @@
       "currentPrice": 55000,
       "stock": 8,
       "stockPercent": 16,
-      "timer": "2026-07-11 23:59:59",
+      "timer": "2026-07-01 23:59:59",
       "hours": 8,
       "minutes": 20,
       "seconds": 10,
@@ -48,6 +56,13 @@
       "reviews": 6,
       "colors": ["red", "yellow", "green"],
       "description": "<p>Móc khóa <strong>Worldcup</strong> với thiết kế độc đáo, lấy cảm hứng từ giải bóng đá lớn nhất hành tinh. Sản phẩm được làm thủ công tỉ mỉ từ hạt Perler, thể hiện đam mê bóng đá của bạn.</p><h5>Đặc điểm:</h5><ul><li>Thiết kế hình quả bóng và cúp vàng</li><li>Màu sắc nổi bật, bắt mắt</li><li>Phụ kiện thời trang cho người hâm mộ bóng đá</li><li>Quà tặng ý nghĩa cho các fan bóng đá</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5cm",
+        "Trọng lượng": "10g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Minh Đức", "avatar": "MD", "rating": 5, "date": "2024-12-19T16:00:00", "content": "Móc khóa đẹp, chi tiết sắc nét. Mình đeo bên balo rất nổi bật.", "helpful": 4},
         {"user": "Hải Yến", "avatar": "HY", "rating": 4, "date": "2024-12-17T11:30:00", "content": "Sản phẩm đẹp nhưng dây móc hơi ngắn.", "helpful": 2}
@@ -66,7 +81,7 @@
       "currentPrice": 76500,
       "stock": 25,
       "stockPercent": 50,
-      "timer": "2026-07-12 23:59:59",
+      "timer": "2026-07-02 23:59:59",
       "hours": 24,
       "minutes": 15,
       "seconds": 30,
@@ -74,6 +89,14 @@
       "reviews": 5,
       "colors": ["white", "yellow", "blue"],
       "description": "<p>Hộp đựng hạt nhựa ủi đa năng với thiết kế thông minh, nhiều ngăn chia giúp bạn sắp xếp hạt theo màu sắc một cách khoa học. Sản phẩm được làm từ nhựa cao cấp, bền bỉ.</p><h5>Tính năng:</h5><ul><li>Nhiều ngăn chia linh hoạt</li><li>Nắp đậy kín, chống ẩm</li><li>Dễ dàng tháo rời và vệ sinh</li><li>Phù hợp cho mọi loại hạt</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa PP",
+        "Kích thước": "25x15x5cm",
+        "Số ngăn": "12 ngăn",
+        "Trọng lượng": "300g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Linh Chi", "avatar": "LC", "rating": 5, "date": "2024-12-20T08:00:00", "content": "Hộp đựng rất tiện lợi, sắp xếp hạt gọn gàng. Chất lượng nhựa tốt.", "helpful": 3},
         {"user": "Quang Huy", "avatar": "QH", "rating": 4, "date": "2024-12-18T13:00:00", "content": "Hộp tốt nhưng các ngăn hơi nhỏ.", "helpful": 2}
@@ -92,7 +115,7 @@
       "currentPrice": 127600,
       "stock": 3,
       "stockPercent": 6,
-      "timer": "2026-07-13 23:59:59",
+      "timer": "2026-07-01 23:59:59",
       "hours": 5,
       "minutes": 45,
       "seconds": 20,
@@ -100,6 +123,13 @@
       "reviews": 3,
       "colors": ["red", "black", "white"],
       "description": "<p>Bàn ủi đa năng với nhiều kích thước và hình dạng khác nhau, đáp ứng mọi nhu cầu sáng tạo của bạn. Sản phẩm chất lượng cao, chịu nhiệt tốt.</p><h5>Đặc điểm:</h5><ul><li>Kích thước đa dạng</li><li>Chịu nhiệt tốt, bền bỉ</li><li>Dễ dàng vệ sinh</li><li>Phù hợp với mọi loại hạt Perler</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Kim loại",
+        "Kích thước": "20cm",
+        "Trọng lượng": "500g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Tuấn Anh", "avatar": "TA", "rating": 5, "date": "2024-12-19T15:00:00", "content": "Bàn ủi chắc chắn, ủi đều. Rất hài lòng với sản phẩm.", "helpful": 2}
       ]
@@ -125,6 +155,14 @@
       "reviews": 10,
       "colors": ["red", "blue", "yellow", "green", "purple"],
       "description": "<p>Set cơ bản 48 màu sắc đa dạng, phù hợp cho người chơi ở trình độ trung cấp. Bộ màu phong phú giúp bạn thỏa sức sáng tạo với nhiều tác phẩm nghệ thuật.</p><h5>Đặc điểm nổi bật:</h5><ul><li>48 màu sắc đa dạng</li><li>Bao gồm bảng ghim lớn</li><li>Sách hướng dẫn 20 mẫu</li><li>Hạt chất lượng cao, màu bền</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "48 màu",
+        "Trọng lượng": "400g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Phương Thảo", "avatar": "PT", "rating": 5, "date": "2024-12-22T10:00:00", "content": "Bộ màu đẹp, nhiều lựa chọn. Đã làm được rất nhiều tác phẩm đẹp.", "helpful": 6},
         {"user": "Minh Hoàng", "avatar": "MH", "rating": 5, "date": "2024-12-20T14:00:00", "content": "Chất lượng tuyệt vời, màu sắc đúng như quảng cáo.", "helpful": 4},
@@ -152,6 +190,13 @@
       "reviews": 7,
       "colors": ["blue", "white", "black"],
       "description": "<p>Bộ dụng cụ cơ bản bao gồm đầy đủ các vật dụng cần thiết cho người mới bắt đầu: nhíp, bàn ủi, giấy ủi, và các phụ kiện khác. Sản phẩm giúp bạn bắt đầu hành trình sáng tạo một cách dễ dàng.</p><h5>Bao gồm:</h5><ul><li>01 Nhíp gắp hạt</li><li>02 Bàn ủi kích thước khác nhau</li><li>05 Tờ giấy ủi</li><li>01 Hộp đựng hạt</li><li>Sách hướng dẫn chi tiết</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Đa dạng",
+        "Kích thước": "30x20x10cm",
+        "Trọng lượng": "800g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Đức Mạnh", "avatar": "DM", "rating": 5, "date": "2024-12-21T11:00:00", "content": "Dụng cụ đầy đủ, chất lượng tốt. Rất phù hợp cho người mới.", "helpful": 4},
         {"user": "Ngọc Trinh", "avatar": "NT", "rating": 4, "date": "2024-12-19T16:00:00", "content": "Sản phẩm tốt nhưng nhíp hơi to tay.", "helpful": 2}
@@ -178,6 +223,14 @@
       "reviews": 4,
       "colors": ["pink", "white"],
       "description": "<p>Hạt Refill mã E18 với màu sắc tươi sáng, chất lượng cao. Sản phẩm phù hợp để bổ sung cho bộ sưu tập của bạn khi hết màu.</p><h5>Đặc điểm:</h5><ul><li>Màu sắc tươi sáng, bền đẹp</li><li>Hạt đều, không bị vỡ</li><li>Bao bì tiện lợi, dễ bảo quản</li><li>Phù hợp với mọi loại bàn ủi</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "100 hạt",
+        "Trọng lượng": "50g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hương Giang", "avatar": "HG", "rating": 5, "date": "2024-12-20T09:00:00", "content": "Hạt đẹp, màu sắc chuẩn. Giao hàng nhanh.", "helpful": 3},
         {"user": "Văn Toàn", "avatar": "VT", "rating": 4, "date": "2024-12-18T15:00:00", "content": "Sản phẩm tốt, nhưng giá hơi cao so với số lượng.", "helpful": 1}
@@ -204,6 +257,13 @@
       "reviews": 5,
       "colors": ["red", "pink", "blue"],
       "description": "<p>Móc khóa chibi dễ thương với thông điệp chúc mừng tốt nghiệp. Món quà ý nghĩa cho ngày trọng đại của bạn bè và người thân.</p><h5>Đặc điểm:</h5><ul><li>Thiết kế chibi đáng yêu</li><li>Thông điệp tốt nghiệp ý nghĩa</li><li>Màu sắc tươi sáng</li><li>Chất liệu bền đẹp</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "6cm",
+        "Trọng lượng": "12g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Mỹ Linh", "avatar": "ML", "rating": 5, "date": "2024-12-21T14:00:00", "content": "Quà tặng tốt nghiệp cho bạn cực kỳ ý nghĩa. Ai cũng khen đẹp.", "helpful": 5},
         {"user": "Hoàng Phúc", "avatar": "HP", "rating": 4, "date": "2024-12-19T10:00:00", "content": "Sản phẩm đẹp, nhưng dây móc hơi mỏng.", "helpful": 2}
@@ -230,6 +290,14 @@
       "reviews": 9,
       "colors": ["red", "blue", "yellow", "green", "pink", "purple", "orange"],
       "description": "<p>Hạt Refill mã C7 với bộ màu pastel nhẹ nhàng, thích hợp cho các tác phẩm mang phong cách vintage và dễ thương. Bộ màu đa dạng giúp bạn thỏa sức sáng tạo.</p><h5>Bộ màu bao gồm:</h5><ul><li>Màu hồng phấn</li><li>Màu xanh bạc hà</li><li>Màu tím lavender</li><li>Màu vàng kem</li><li>Màu xanh mint</li><li>Màu cam peach</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "500 hạt",
+        "Trọng lượng": "200g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Bảo Trân", "avatar": "BT", "rating": 5, "date": "2024-12-22T08:00:00", "content": "Màu pastel đẹp quá! Làm nhiều tác phẩm vintage rất đẹp.", "helpful": 7},
         {"user": "Thanh Tùng", "avatar": "TT", "rating": 5, "date": "2024-12-20T13:00:00", "content": "Hạt đều, màu đẹp. Đã mua lần 2 rồi.", "helpful": 4},
@@ -257,6 +325,13 @@
       "reviews": 3,
       "colors": ["pink", "red"],
       "description": "<p>Nhíp đơn gắp hạt nhựa ủi với thiết kế tinh tế, đầu nhọn giúp bạn dễ dàng gắp và sắp xếp hạt. Sản phẩm được làm từ kim loại không gỉ, bền bỉ.</p><h5>Đặc điểm:</h5><ul><li>Đầu nhọn chính xác</li><li>Chất liệu inox không gỉ</li><li>Tay cầm chống trơn</li><li>Phù hợp với mọi loại hạt</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Kim loại Inox",
+        "Kích thước": "12cm",
+        "Trọng lượng": "20g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Thùy Dương", "avatar": "TD", "rating": 5, "date": "2024-12-19T09:00:00", "content": "Nhíp nhỏ gọn, gắp hạt dễ dàng. Chất lượng tốt.", "helpful": 3},
         {"user": "Quốc Anh", "avatar": "QA", "rating": 4, "date": "2024-12-17T14:00:00", "content": "Nhíp tốt nhưng giá hơi cao.", "helpful": 1}
@@ -283,6 +358,14 @@
       "reviews": 6,
       "colors": ["blue", "red", "yellow", "green"],
       "description": "<p>Set cao cấp 24 màu với chất lượng vượt trội, màu sắc bền đẹp. Sản phẩm đáp ứng nhu cầu của người chơi chuyên nghiệp và những ai yêu thích sự tỉ mỉ.</p><h5>Đặc điểm:</h5><ul><li>24 màu cao cấp, bền màu</li><li>Hạt đều, chất lượng cao</li><li>Bao gồm bàn ủi chuyên nghiệp</li><li>Hộp đựng sang trọng</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "24 màu",
+        "Trọng lượng": "250g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Đăng Khoa", "avatar": "DK", "rating": 5, "date": "2024-12-21T10:00:00", "content": "Set cao cấp chất lượng tuyệt vời. Màu sắc đẹp và bền.", "helpful": 4},
         {"user": "Mai Lan", "avatar": "ML", "rating": 4, "date": "2024-12-19T15:00:00", "content": "Sản phẩm tốt nhưng đắt hơn các set khác.", "helpful": 2}
@@ -314,6 +397,13 @@
         {"name": "Kem Ốc Quế", "price": 89000, "stock": 1},
         {"name": "Pizza", "price": 95000, "stock": 2}
       ],
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5-7cm",
+        "Trọng lượng": "15g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Ngọc Anh", "avatar": "NA", "rating": 5, "date": "2024-12-22T09:00:00", "content": "Sản phẩm siêu dễ thương, chất lượng tốt. Mình đã mua làm quà tặng bạn.", "helpful": 8},
         {"user": "Hồng Nhung", "avatar": "HN", "rating": 5, "date": "2024-12-20T16:00:00", "content": "Bánh Donut đẹp hơn hình. Chất lượng tuyệt vời.", "helpful": 5},
@@ -341,6 +431,14 @@
       "reviews": 8,
       "colors": ["red", "blue", "yellow", "green", "pink", "purple"],
       "description": "<p>Hạt Refill mã C1 với bộ màu neon nổi bật, tạo điểm nhấn cho các tác phẩm nghệ thuật của bạn. Màu sắc rực rỡ, thu hút mọi ánh nhìn.</p><h5>Đặc điểm:</h5><ul><li>Màu neon nổi bật</li><li>Hạt đều, chất lượng cao</li><li>Bền màu theo thời gian</li><li>Phù hợp cho các tác phẩm nổi bật</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "500 hạt",
+        "Trọng lượng": "300g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Quang Minh", "avatar": "QM", "rating": 5, "date": "2024-12-21T14:00:00", "content": "Màu neon quá đẹp! Làm các tác phẩm nổi bật lắm.", "helpful": 6},
         {"user": "Thảo Nhi", "avatar": "TN", "rating": 5, "date": "2024-12-19T09:00:00", "content": "Hạt đều, chất lượng tốt. Sẽ mua thêm.", "helpful": 4},
@@ -368,6 +466,13 @@
       "reviews": 4,
       "colors": ["white"],
       "description": "<p>Nhíp kép gắp hạt nhựa ủi với thiết kế thông minh giúp gắp nhiều hạt cùng lúc, tăng hiệu quả làm việc. Sản phẩm phù hợp cho những người làm nhiều sản phẩm.</p><h5>Đặc điểm:</h5><ul><li>Gắp được nhiều hạt cùng lúc</li><li>Tiết kiệm thời gian</li><li>Chất liệu bền bỉ</li><li>Dễ sử dụng</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Kim loại",
+        "Kích thước": "15cm",
+        "Trọng lượng": "30g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hoàng Long", "avatar": "HL", "rating": 4, "date": "2024-12-20T08:00:00", "content": "Nhíp kép tiện lợi, gắp được nhiều hạt. Tuy nhiên cần làm quen một chút.", "helpful": 3},
         {"user": "Minh Thư", "avatar": "MT", "rating": 3, "date": "2024-12-18T12:00:00", "content": "Sản phẩm ok nhưng không thích hợp cho người mới.", "helpful": 1}
@@ -399,6 +504,13 @@
         {"name": "Ngôi sao", "price": 82000, "stock": 4},
         {"name": "Cầu vồng", "price": 89000, "stock": 3}
       ],
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "20x25cm",
+        "Trọng lượng": "200g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hà My", "avatar": "HM", "rating": 5, "date": "2024-12-21T16:00:00", "content": "Khung ảnh đẹp, chắc chắn. Dùng chụp ảnh kỷ yếu cực xinh.", "helpful": 6},
         {"user": "Đức Anh", "avatar": "DA", "rating": 4, "date": "2024-12-19T10:00:00", "content": "Sản phẩm đẹp nhưng hơi nặng.", "helpful": 3},
@@ -426,6 +538,14 @@
       "reviews": 5,
       "colors": ["pink", "blue", "yellow", "green", "purple"],
       "description": "<p>Bộ hạt trộn lẫn màu - Bảng H với sự kết hợp ngẫu nhiên của nhiều màu sắc, tạo nên sự bất ngờ và sáng tạo cho mỗi tác phẩm.</p><h5>Đặc điểm:</h5><ul><li>Màu sắc đa dạng</li><li>Số lượng lớn</li><li>Phù hợp cho các tác phẩm phong phú</li><li>Giá trị tiết kiệm</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "300 hạt",
+        "Trọng lượng": "150g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Vân Khánh", "avatar": "VK", "rating": 5, "date": "2024-12-20T10:00:00", "content": "Bộ hạt trộn màu rất hữu ích. Đủ màu để sáng tạo.", "helpful": 4},
         {"user": "Trọng Nghĩa", "avatar": "TN", "rating": 4, "date": "2024-12-18T14:00:00", "content": "Sản phẩm tốt nhưng không biết chính xác màu nào.", "helpful": 2}
@@ -452,6 +572,14 @@
       "reviews": 6,
       "colors": ["white", "black"],
       "description": "<p>Hộp lẻ đựng hạt nhựa ủi cao cấp với thiết kế sang trọng, nhiều ngăn, giúp bảo quản hạt tốt nhất. Sản phẩm phù hợp cho người chơi chuyên nghiệp.</p><h5>Đặc điểm:</h5><ul><li>Thiết kế sang trọng</li><li>Nhiều ngăn chia</li><li>Chất liệu cao cấp</li><li>Dễ dàng tháo lắp vệ sinh</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa PP",
+        "Kích thước": "30x20x8cm",
+        "Số ngăn": "24 ngăn",
+        "Trọng lượng": "500g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hữu Phước", "avatar": "HP", "rating": 5, "date": "2024-12-21T11:00:00", "content": "Hộp đựng cao cấp, đẹp, nhiều ngăn. Sắp xếp hạt gọn gàng.", "helpful": 5},
         {"user": "Quỳnh Như", "avatar": "QN", "rating": 5, "date": "2024-12-19T16:00:00", "content": "Sản phẩm chất lượng, xứng đáng với giá tiền.", "helpful": 3}
@@ -478,6 +606,14 @@
       "reviews": 5,
       "colors": ["red", "blue", "yellow", "green", "orange"],
       "description": "<p>Set cao cấp 96 màu, bộ sưu tập đầy đủ nhất, đáp ứng mọi nhu cầu sáng tạo của người chơi Perler Beads. Sản phẩm phù hợp cho cả người mới và người chơi lâu năm.</p><h5>Đặc điểm:</h5><ul><li>96 màu sắc phong phú</li><li>Hạt chất lượng cao</li><li>Bao gồm đầy đủ dụng cụ</li><li>Hộp đựng tiện lợi</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "96 màu",
+        "Trọng lượng": "800g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Chí Công", "avatar": "CC", "rating": 5, "date": "2024-12-20T09:00:00", "content": "Set 96 màu rất đầy đủ. Làm được đủ loại tác phẩm.", "helpful": 4},
         {"user": "Diễm My", "avatar": "DM", "rating": 4, "date": "2024-12-18T13:00:00", "content": "Sản phẩm tốt nhưng quá nhiều màu khó lựa chọn.", "helpful": 2}
@@ -504,6 +640,13 @@
       "reviews": 9,
       "colors": ["brown", "beige", "black"],
       "description": "<p>Móc khóa Hello Kitty dễ thương được làm từ hạt Perler với chi tiết tỉ mỉ, màu sắc bắt mắt. Sản phẩm phù hợp làm quà tặng cho người yêu thích nhân vật này.</p><h5>Đặc điểm:</h5><ul><li>Thiết kế Hello Kitty chính xác</li><li>Màu sắc đẹp, bền</li><li>Chi tiết tinh tế</li><li>Quà tặng ý nghĩa</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "6cm",
+        "Trọng lượng": "15g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Kim Ngân", "avatar": "KN", "rating": 5, "date": "2024-12-22T14:00:00", "content": "Hello Kitty siêu dễ thương. Chất lượng tuyệt vời.", "helpful": 7},
         {"user": "Minh Tú", "avatar": "MT", "rating": 5, "date": "2024-12-20T10:00:00", "content": "Mình là fan Hello Kitty, sản phẩm quá đẹp.", "helpful": 5},
@@ -531,6 +674,14 @@
       "reviews": 7,
       "colors": ["red", "blue", "yellow", "green", "pink", "purple", "orange"],
       "description": "<p>Bộ hạt trộn lẫn màu - Bảng E với các màu sắc ấm áp, tạo cảm giác gần gũi và ấm cúng cho các tác phẩm nghệ thuật của bạn.</p><h5>Đặc điểm:</h5><ul><li>Màu sắc ấm áp</li><li>Số lượng lớn</li><li>Phù hợp cho các tác phẩm tình cảm</li><li>Tiết kiệm chi phí</li></ul>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "300 hạt",
+        "Trọng lượng": "180g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Mỹ Duyên", "avatar": "MD", "rating": 5, "date": "2024-12-21T08:00:00", "content": "Bộ màu ấm áp, làm tác phẩm rất đẹp.", "helpful": 5},
         {"user": "Thanh Hà", "avatar": "TH", "rating": 4, "date": "2024-12-19T14:00:00", "content": "Sản phẩm tốt, màu sắc đa dạng.", "helpful": 3}
@@ -557,6 +708,13 @@
       "reviews": 3,
       "colors": ["silver", "black"],
       "description": "<p>Bảng ghim hình vuông với chất liệu cao cấp, giúp bạn dễ dàng tạo ra các tác phẩm hình học chính xác. Sản phẩm phù hợp cho mọi loại hạt Perler.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa",
+        "Kích thước": "10x10cm",
+        "Trọng lượng": "50g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Đình Đạt", "avatar": "DD", "rating": 4, "date": "2024-12-19T09:00:00", "content": "Bảng ghim tốt, sử dụng được cho nhiều loại hạt.", "helpful": 2},
         {"user": "Hồng Vân", "avatar": "HV", "rating": 3, "date": "2024-12-17T14:00:00", "content": "Sản phẩm bình thường, giá thành hợp lý.", "helpful": 1}
@@ -583,6 +741,14 @@
       "reviews": 6,
       "colors": ["pink", "blue", "white", "red"],
       "description": "<p>Set cao cấp 120 màu, bộ sưu tập khổng lồ, đáp ứng mọi ý tưởng sáng tạo của bạn. Sản phẩm dành cho người chơi đam mê và chuyên nghiệp.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "120 màu",
+        "Trọng lượng": "1000g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Nguyễn Vũ", "avatar": "NV", "rating": 5, "date": "2024-12-21T13:00:00", "content": "Set 120 màu rất đầy đủ, tha hồ sáng tạo.", "helpful": 4},
         {"user": "Thùy Trang", "avatar": "TT", "rating": 4, "date": "2024-12-19T09:00:00", "content": "Sản phẩm tốt nhưng quá nhiều màu.", "helpful": 2}
@@ -609,6 +775,14 @@
       "reviews": 4,
       "colors": ["gold", "silver", "yellow"],
       "description": "<p>Bộ hạt trộn lẫn màu - Bảng M với các màu sắc tươi sáng, phù hợp cho các tác phẩm nổi bật và bắt mắt.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "100 hạt",
+        "Trọng lượng": "50g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Quốc Huy", "avatar": "QH", "rating": 5, "date": "2024-12-20T11:00:00", "content": "Màu vàng gold đẹp lấp lánh, rất thích.", "helpful": 3},
         {"user": "Mỹ Hạnh", "avatar": "MH", "rating": 4, "date": "2024-12-18T16:00:00", "content": "Sản phẩm tốt, màu sắc nổi bật.", "helpful": 1}
@@ -635,6 +809,13 @@
       "reviews": 3,
       "colors": ["red", "blue", "white"],
       "description": "<p>Băng keo giấy chất lượng cao, dùng để cố định hạt trước khi ủi, giúp tác phẩm hoàn thiện hơn và không bị xô lệch.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Giấy",
+        "Kích thước": "5cm x 20m",
+        "Trọng lượng": "100g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Tấn Phát", "avatar": "TP", "rating": 4, "date": "2024-12-19T13:00:00", "content": "Băng keo tốt, dễ sử dụng.", "helpful": 2}
       ]
@@ -660,6 +841,14 @@
       "reviews": 8,
       "colors": ["red", "blue", "yellow", "green", "purple", "orange"],
       "description": "<p>Set bộ cơ bản 24 màu, lựa chọn hoàn hảo cho người mới bắt đầu khám phá thế giới Perler Beads với những màu sắc cơ bản nhất.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "24 màu",
+        "Trọng lượng": "200g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Bảo Châu", "avatar": "BC", "rating": 5, "date": "2024-12-22T10:00:00", "content": "Set cơ bản đầy đủ màu, phù hợp cho người mới.", "helpful": 6},
         {"user": "Đức Huy", "avatar": "DH", "rating": 4, "date": "2024-12-20T14:00:00", "content": "Sản phẩm tốt, hướng dẫn dễ hiểu.", "helpful": 3}
@@ -686,6 +875,13 @@
       "reviews": 5,
       "colors": ["red", "blue", "yellow", "green"],
       "description": "<p>Móc khóa Kitty hồng dễ thương với màu sắc nổi bật, chi tiết tinh tế. Sản phẩm phù hợp làm quà tặng cho các bé gái.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5cm",
+        "Trọng lượng": "12g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hương Thảo", "avatar": "HT", "rating": 5, "date": "2024-12-21T15:00:00", "content": "Móc khóa hồng xinh xắn, con gái mình rất thích.", "helpful": 4},
         {"user": "Tuấn Kiệt", "avatar": "TK", "rating": 4, "date": "2024-12-19T10:00:00", "content": "Sản phẩm đẹp, giao hàng nhanh.", "helpful": 2}
@@ -712,6 +908,14 @@
       "reviews": 10,
       "colors": ["red", "blue", "yellow", "green", "pink", "purple", "orange", "white"],
       "description": "<p>Bộ hạt trộn lẫn màu - Bảng G với bộ sưu tập màu sắc phong phú nhất, đáp ứng mọi ý tưởng sáng tạo của bạn.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "500 hạt",
+        "Trọng lượng": "400g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Thanh Mai", "avatar": "TM", "rating": 5, "date": "2024-12-22T08:00:00", "content": "Bộ trộn màu quá đa dạng. Sáng tạo không giới hạn.", "helpful": 8},
         {"user": "Minh Quân", "avatar": "MQ", "rating": 5, "date": "2024-12-20T16:00:00", "content": "Chất lượng tuyệt vời, màu sắc đẹp.", "helpful": 5},
@@ -739,6 +943,13 @@
       "reviews": 4,
       "colors": ["green", "red", "yellow"],
       "description": "<p>Combo 3 bảng ghim màu hồng với chất liệu cao cấp, giúp bạn dễ dàng sáng tạo các tác phẩm đa dạng và phong phú.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa",
+        "Kích thước": "8x8cm",
+        "Trọng lượng": "150g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Kim Ngọc", "avatar": "KN", "rating": 5, "date": "2024-12-20T10:00:00", "content": "Combo bảng ghim đa dạng, mình làm được nhiều hình.", "helpful": 3},
         {"user": "Trung Kiên", "avatar": "TK", "rating": 4, "date": "2024-12-18T15:00:00", "content": "Sản phẩm tốt, giá hợp lý.", "helpful": 1}
@@ -765,6 +976,14 @@
       "reviews": 7,
       "colors": ["white", "black", "brown"],
       "description": "<p>Set cơ bản 120 màu với bộ sưu tập đa dạng, phù hợp cho người chơi ở mọi trình độ. Đáp ứng mọi nhu cầu sáng tạo.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số màu": "120 màu",
+        "Trọng lượng": "900g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Mỹ Tiên", "avatar": "MT", "rating": 5, "date": "2024-12-21T11:00:00", "content": "Set này đủ màu để làm mọi tác phẩm.", "helpful": 6},
         {"user": "Quang Đạt", "avatar": "QD", "rating": 4, "date": "2024-12-19T16:00:00", "content": "Sản phẩm tốt, nhiều màu.", "helpful": 3}
@@ -796,6 +1015,13 @@
         {"name": "Trứng ngủ", "price": 92000, "stock": 3},
         {"name": "Trứng ngạc nhiên", "price": 95000, "stock": 4}
       ],
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "4-6cm",
+        "Trọng lượng": "12g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hoài An", "avatar": "HA", "rating": 5, "date": "2024-12-22T14:00:00", "content": "Bộ trứng lười siêu dễ thương. Mỗi con một biểu cảm.", "helpful": 7},
         {"user": "Nhật Minh", "avatar": "NM", "rating": 5, "date": "2024-12-20T09:00:00", "content": "Chất lượng tốt, màu sắc đẹp.", "helpful": 4},
@@ -823,6 +1049,14 @@
       "reviews": 6,
       "colors": ["red", "orange", "yellow", "green", "blue", "purple"],
       "description": "<p>Hạt Refill mã B7 với bộ màu trung tính thanh lịch, thích hợp cho các tác phẩm phong cách hiện đại và sang trọng.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "300 hạt",
+        "Trọng lượng": "250g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Phương Anh", "avatar": "PA", "rating": 5, "date": "2024-12-21T12:00:00", "content": "Màu trung tính đẹp, thanh lịch.", "helpful": 4},
         {"user": "Hoàng Phương", "avatar": "HP", "rating": 4, "date": "2024-12-19T17:00:00", "content": "Sản phẩm tốt, màu sắc đa dạng.", "helpful": 2}
@@ -849,6 +1083,13 @@
       "reviews": 3,
       "colors": ["red", "blue", "yellow", "green", "pink"],
       "description": "<p>Combo 3 bảng ghim màu xanh với chất liệu bền đẹp, giúp bạn thỏa sức sáng tạo các tác phẩm độc đáo.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa",
+        "Kích thước": "8x8cm",
+        "Trọng lượng": "150g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Văn Hùng", "avatar": "VH", "rating": 4, "date": "2024-12-20T08:00:00", "content": "Bảng ghim đa dạng, sử dụng tốt.", "helpful": 2}
       ]
@@ -874,6 +1115,13 @@
       "reviews": 7,
       "colors": ["white", "brown", "green", "red"],
       "description": "<p>Set cho người mới bắt đầu với bao gồm đầy đủ hạt, dụng cụ và hướng dẫn chi tiết, giúp bạn dễ dàng làm quen với nghệ thuật Perler Beads.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Đa dạng",
+        "Kích thước": "25x20x8cm",
+        "Trọng lượng": "600g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Gia Hân", "avatar": "GH", "rating": 5, "date": "2024-12-21T09:00:00", "content": "Set cho người mới rất đầy đủ, hướng dẫn dễ hiểu.", "helpful": 5},
         {"user": "Anh Thư", "avatar": "AT", "rating": 4, "date": "2024-12-19T14:00:00", "content": "Sản phẩm tốt, phù hợp cho người mới.", "helpful": 3}
@@ -900,6 +1148,14 @@
       "reviews": 4,
       "colors": ["brown", "white", "black", "orange"],
       "description": "<p>Hạt Refill mã E14 với bộ màu tươi sáng, giúp bạn hoàn thiện các tác phẩm của mình một cách dễ dàng.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "100 hạt",
+        "Trọng lượng": "60g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Minh Châu", "avatar": "MC", "rating": 5, "date": "2024-12-20T14:00:00", "content": "Hạt đều, màu đẹp.", "helpful": 3},
         {"user": "Đăng Khoa", "avatar": "DK", "rating": 4, "date": "2024-12-18T11:00:00", "content": "Sản phẩm ok, giá hợp lý.", "helpful": 1}
@@ -926,6 +1182,13 @@
       "reviews": 10,
       "colors": ["red", "black", "white"],
       "description": "<p>Bàn ủi chuyên nghiệp với chất lượng cao cấp, giúp bạn tạo ra nhiều tác phẩm đẹp mắt và hoàn hảo. Sản phẩm dành cho người chơi chuyên nghiệp.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Kim loại",
+        "Kích thước": "25cm",
+        "Trọng lượng": "800g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Đức Thịnh", "avatar": "DT", "rating": 5, "date": "2024-12-22T15:00:00", "content": "Bàn ủi chuyên nghiệp, ủi đều và đẹp.", "helpful": 8},
         {"user": "Minh Nguyệt", "avatar": "MN", "rating": 5, "date": "2024-12-20T10:00:00", "content": "Sản phẩm chất lượng, xứng đáng với giá tiền.", "helpful": 5},
@@ -953,6 +1216,13 @@
       "reviews": 8,
       "colors": ["red", "blue", "gold", "silver"],
       "description": "<p>Bùa may mắn handmade với phong cách Bohemian, mang đến may mắn và năng lượng tích cực cho người sử dụng. Sản phẩm được làm thủ công tỉ mỉ.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5cm",
+        "Trọng lượng": "10g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Quỳnh Anh", "avatar": "QA", "rating": 5, "date": "2024-12-21T16:00:00", "content": "Bùa may mắn đẹp, mang lại cảm giác an lành.", "helpful": 6},
         {"user": "Bảo Ngọc", "avatar": "BN", "rating": 5, "date": "2024-12-19T09:00:00", "content": "Sản phẩm handmade tỉ mỉ, màu sắc đẹp.", "helpful": 4},
@@ -980,6 +1250,14 @@
       "reviews": 6,
       "colors": ["purple", "gold", "silver", "pink", "blue"],
       "description": "<p>Hạt Refill mã B18 với bộ màu đa dạng, giúp bạn sáng tạo không giới hạn với nhiều tác phẩm độc đáo.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "400 hạt",
+        "Trọng lượng": "300g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hoàng Vy", "avatar": "HV", "rating": 5, "date": "2024-12-21T10:00:00", "content": "Màu sắc đa dạng, chất lượng tốt.", "helpful": 4},
         {"user": "Tuấn Hải", "avatar": "TH", "rating": 4, "date": "2024-12-19T15:00:00", "content": "Sản phẩm tốt, giao hàng nhanh.", "helpful": 2}
@@ -1006,6 +1284,14 @@
       "reviews": 4,
       "colors": ["red", "blue", "yellow", "green", "pink", "purple"],
       "description": "<p>Set refill đầy đủ các mã màu và dụng cụ, giúp bạn bổ sung hạt cho bộ sưu tập của mình một cách tiện lợi.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5mm",
+        "Số lượng": "200 hạt",
+        "Trọng lượng": "150g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Minh Khôi", "avatar": "MK", "rating": 4, "date": "2024-12-20T11:00:00", "content": "Set refill đầy đủ, tiện lợi.", "helpful": 2},
         {"user": "Thảo Nguyên", "avatar": "TN", "rating": 3, "date": "2024-12-18T16:00:00", "content": "Sản phẩm bình thường, không có gì đặc biệt.", "helpful": 1}
@@ -1032,6 +1318,13 @@
       "reviews": 5,
       "colors": ["white", "black", "blue"],
       "description": "<p>Bút rải hạt tự động giúp bạn rải hạt nhanh chóng và chính xác, tiết kiệm thời gian và công sức khi làm tác phẩm.</p>",
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Nhựa",
+        "Kích thước": "15cm",
+        "Trọng lượng": "50g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Hoàng Long", "avatar": "HL", "rating": 5, "date": "2024-12-21T08:00:00", "content": "Bút rải hạt tiện lợi, rải nhanh và đều.", "helpful": 4},
         {"user": "Minh Thư", "avatar": "MT", "rating": 4, "date": "2024-12-19T13:00:00", "content": "Sản phẩm tốt nhưng cần làm quen.", "helpful": 2}
@@ -1064,17 +1357,18 @@
         {"name": "Ice Bear", "price": 105000, "stock": 1},
         {"name": "Combo 3 gấu", "price": 300000, "stock": 1}
       ],
+      "specifications": {
+        "Thương hiệu": "Urii Perler",
+        "Chất liệu": "Hạt Perler 5mm",
+        "Kích thước": "5-8cm",
+        "Trọng lượng": "20g",
+        "Xuất xứ": "Việt Nam"
+      },
       "reviews_list": [
         {"user": "Ngọc Hân", "avatar": "NH", "rating": 5, "date": "2024-12-22T16:00:00", "content": "Bộ Wearebears quá đỉnh! Chi tiết sắc nét, chất lượng tuyệt vời.", "helpful": 8},
         {"user": "Phúc Khang", "avatar": "PK", "rating": 5, "date": "2024-12-20T11:00:00", "content": "Mình là fan của phim, sản phẩm làm mình cực kỳ hài lòng.", "helpful": 5},
         {"user": "Hà My", "avatar": "HM", "rating": 5, "date": "2024-12-18T09:00:00", "content": "Gấu Panda dễ thương quá! Sẽ giới thiệu cho bạn bè.", "helpful": 4}
       ]
     }
-  ],
-  "categories": {
-    "kit": "Bộ KIT DIY",
-    "tool": "Dụng Cụ",
-    "bead": "Hạt Lẻ Các Loại",
-    "accessory": "Phụ Kiện Handmade"
-  }
+  ]
 }

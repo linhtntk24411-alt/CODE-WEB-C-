@@ -63,9 +63,94 @@ a {
 .section-header {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.section-header__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+.section-header__timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.65rem 0.95rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #fff5f3 0%, #ffe9e2 100%);
+    color: var(--urii-red);
+    font-weight: 700;
+    border: 1px solid #ffd7ce;
+    box-shadow: 0 8px 20px rgba(132, 0, 1, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header__timer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: translateX(-100%);
+    animation: flash-shimmer 2.2s infinite;
+}
+
+.section-header__timer-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+}
+
+.section-header__timer-label i {
+    font-size: 0.95rem;
+}
+
+.section-header__timer .timer-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.24rem 0.55rem;
+    border-radius: 999px;
+    background: var(--urii-red);
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.section-header__timer .timer-countdown span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.section-header__timer .timer-countdown .timer-separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.5rem;
+    margin: 0 0.05rem;
+    font-weight: 800;
+    color: inherit;
+}
+
+@keyframes flash-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 .section-header--center {

@@ -1,381 +1,349 @@
-// ===========================
-// 📦 STATE
-// ===========================
-let allProducts = [];
-let filteredProducts = [];
-let currentPage = 1;
-const itemsPerPage = 8;
-let selectedColors = new Set();
-let selectedPrices = new Set();
-let searchTerm = '';
-let currentSort = 'popular';
+        // Global variables
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
 
-// ===========================
-// 📥 LOAD DATA
-// ===========================
-async function loadProducts() {
-    try {
-        const response = await fetch('../da');
-        const data = await response.json();
-        allProducts = data.products;
-        filteredProducts = [...allProducts];
-        render();
-    } catch (error) {
-        console.error('Lỗi tải dữ liệu:', error);
-        // Fallback: dùng dữ liệu mẫu
-        allProducts = getFallbackData();
-        filteredProducts = [...allProducts];
-        render();
-    }
-}
+        // Load products when page loads
+        window.onload = function() {
+            loadProducts();
+        };
 
-// Fallback data (để test khi chưa có file JSON)
-function getFallbackData() {
-    return [
-        {
-            "id": 1,
-            "name": "Set Cơ Bản 24 Màu",
-            "slug": "set-co-ban-24-mau",
-            "category": "kit",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuATEOl-5AfBgCYPaU8rH7TB4YOyYf2v43qXOijRPCZv1IudmAXnGdIwUpOIBSXkDz4x_ZyByQvsbdQs8HbhyHIWuPqs1SI_-CMWfqcBKhRy1wQ7zK6MPB816rRYfXKWKHOupSEtBOy_4VYoaM7uJ30pGz6mz5mBcZkochkQ9qbI7rT7M3BrnpelBo6oY6FnIC0OfM90oFIHLaTg-VMDnYyvMYHg2KpqoOncK-ukxzzgwZ0sn_EyPGLGtGMmgpmABKPdDF2s0pU0TggJ",
-            "isSale": true,
-            "isHot": true,
-            "badge": "-20%",
-            "originalPrice": 150000,
-            "currentPrice": 120000,
-            "stock": 15,
-            "stockPercent": 30,
-            "sold": 245,
-            "rating": 5,
-            "reviewCount": 120,
-            "colors": ["red", "blue", "yellow", "green"]
-        },
-        // ... thêm các sản phẩm khác nếu cần
-    ];
-}
+        // Load products from JSON
+        function loadProducts() {
+            fetch('../data/product.json')
+            .then(function(res) {
+                if (!res.ok) {
+                    throw new Error('Không thể tải dữ liệu sản phẩm');
+                }
+                return res.json();
+            })
+            .then(function(data) {
+                allProducts = data.products || data;
+                filteredProducts = [...allProducts];
+                renderProducts();
+                updatePagination();
+            })
+            .catch(function(error) {
+                console.error('Lỗi:', error);
+                document.getElementById('content').innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <p class="text-danger">Có lỗi xảy ra khi tải sản phẩm.</p>
+                        <button class="btn btn-primary mt-3" onclick="loadProducts()">
+                            <i class="bi bi-arrow-repeat"></i> Thử lại
+                        </button>
+                    </div>
+                `;
+            });
+        }
 
-// ===========================
-// 🎨 RENDER FUNCTIONS
-// ===========================
-function render() {
-    applyFiltersAndSort();
-    renderProducts();
-    renderPagination();
-    updateInfoText();
-}
+        // Render products
+        function renderProducts() {
+            const container = document.getElementById('content');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = filteredProducts.slice(start, end);
 
-function applyFiltersAndSort() {
-    let result = [...allProducts];
-
-    // Filter by search
-    if (searchTerm.trim()) {
-        const term = searchTerm.toLowerCase().trim();
-        result = result.filter(p => p.name.toLowerCase().includes(term));
-    }
-
-    // Filter by price
-    if (selectedPrices.size > 0) {
-        result = result.filter(p => {
-            const price = p.isSale ? p.currentPrice : p.originalPrice;
-            for (const range of selectedPrices) {
-                if (range === 'under50' && price < 50000) return true;
-                if (range === '50-200' && price >= 50000 && price <= 200000) return true;
-                if (range === '200-500' && price > 200000 && price <= 500000) return true;
-                if (range === 'over500' && price > 500000) return true;
+            if (pageItems.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <p class="text-secondary">Không tìm thấy sản phẩm phù hợp</p>
+                    </div>
+                `;
+                updateProductCount();
+                return;
             }
-            return false;
-        });
-    }
 
-    // Filter by color
-    if (selectedColors.size > 0) {
-        result = result.filter(p => {
-            return p.colors && p.colors.some(c => selectedColors.has(c));
-        });
-    }
+            let html = '';
+            
+            pageItems.forEach((p) => {
+                const globalIndex = allProducts.indexOf(p);
+                const hasDiscount = p.isSale && p.currentPrice;
+                const discountPercent = hasDiscount ? 
+                    Math.round((1 - p.currentPrice / p.originalPrice) * 100) : 0;
+                const displayPrice = p.currentPrice || p.originalPrice;
 
-    // Sort
-    switch (currentSort) {
-        case 'price-asc':
-            result.sort((a, b) => {
-                const priceA = a.isSale ? a.currentPrice : a.originalPrice;
-                const priceB = b.isSale ? b.currentPrice : b.originalPrice;
-                return priceA - priceB;
-            });
-            break;
-        case 'price-desc':
-            result.sort((a, b) => {
-                const priceA = a.isSale ? a.currentPrice : a.originalPrice;
-                const priceB = b.isSale ? b.currentPrice : b.originalPrice;
-                return priceB - priceA;
-            });
-            break;
-        case 'name-asc':
-            result.sort((a, b) => a.name.localeCompare(b.name));
-            break;
-        case 'name-desc':
-            result.sort((a, b) => b.name.localeCompare(a.name));
-            break;
-        default: // popular
-            result.sort((a, b) => (b.sold || 0) - (a.sold || 0));
-    }
+                // Badges
+                let badgeHtml = '';
+                const hotStyle = 'background: linear-gradient(135deg, #ff6b35, #f7931e); padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 20px; box-shadow: 0 2px 10px rgba(255, 107, 53, 0.35); letter-spacing: 0.5px; border: 2px solid rgba(255,255,255,0.2); display: inline-flex; align-items: center; gap: 4px;';
 
-    filteredProducts = result;
-}
+                if (hasDiscount) {
+                    badgeHtml += `<span class="badge-discount">-${discountPercent}%</span>`;
+                    if (p.isHot) {
+                        badgeHtml += `<span class="badge-hot" style="${hotStyle}">
+                            <i class="bi bi-fire"></i> Hot
+                        </span>`;
+                    }
+                } else if (p.isHot) {
+                    badgeHtml += `<span class="badge-discount" style="${hotStyle}">
+                        <i class="bi bi-fire"></i> Hot
+                    </span>`;
+                }
 
-function renderProducts() {
-    const grid = document.getElementById('productGrid');
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = filteredProducts.slice(start, end);
+                // Rating
+                const starsHtml = renderStars(p.rating || 0);
 
-    if (pageItems.length === 0) {
-        grid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-                <i class="bi bi-box-seam"></i>
-                <h5>Không tìm thấy sản phẩm</h5>
-                <p class="text-muted">Vui lòng thử lại với bộ lọc khác</p>
-            </div>
-        `;
-        return;
-    }
+                // Price HTML
+                let priceHtml = '';
+                if (hasDiscount) {
+                    priceHtml = `
+                        <span class="current-price">${formatPrice(displayPrice)}</span>
+                        <span class="original-price">${formatPrice(p.originalPrice)}</span>
+                    `;
+                } else {
+                    priceHtml = `
+                        <span class="current-price no-discount">${formatPrice(displayPrice)}</span>
+                    `;
+                }
 
-    grid.innerHTML = pageItems.map(product => createProductCard(product)).join('');
-}
-
-function createProductCard(product) {
-    const isOnSale = product.isSale && product.currentPrice !== null;
-    const currentPrice = isOnSale ? product.currentPrice : product.originalPrice;
-    const originalPrice = isOnSale ? product.originalPrice : null;
-    
-    // Xác định badge
-    let badgeLeft = '';
-    let badgeRight = '';
-    
-    if (product.isSale && product.badge) {
-        badgeLeft = `<span class="badge-sale">${product.badge}</span>`;
-    }
-    
-    if (product.isHot) {
-        badgeRight = `<span class="badge-hot">Bán chạy</span>`;
-    }
-
-    // Timer
-    let timerHtml = '';
-    if (product.timer) {
-        timerHtml = `
-            <div class="product-card__timer">
-                <span class="timer-label">
-                    <i class="bi bi-clock"></i> Còn lại
-                </span>
-                <span class="timer-countdown" data-timer="${product.timer}">
-                    <span>${String(product.hours).padStart(2, '0')}</span>:
-                    <span>${String(product.minutes).padStart(2, '0')}</span>:
-                    <span>${String(product.seconds).padStart(2, '0')}</span>
-                </span>
-            </div>
-        `;
-    }
-
-    // Stock
-    const stockPercent = product.stockPercent || 0;
-    const stockHtml = `
-        <div class="product-card__stock">
-            <div class="stock-info">
-                <span class="stock-label"><i class="bi bi-box"></i></span>
-                <span class="stock-text">Đã bán: <strong class="stock-count">${product.sold || 0}</strong></span>
-            </div>
-            <div class="stock-bar">
-                <div class="stock-bar__fill" style="width: ${stockPercent}%"></div>
-            </div>
-        </div>
-    `;
-
-    // Rating
-    const rating = product.rating || 0;
-    const fullStars = Math.floor(rating);
-    const hasHalf = rating % 1 >= 0.5;
-    let starsHtml = '';
-    for (let i = 0; i < fullStars; i++) {
-        starsHtml += '<i class="bi bi-star-fill"></i>';
-    }
-    if (hasHalf) {
-        starsHtml += '<i class="bi bi-star-half"></i>';
-    }
-    const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
-    for (let i = 0; i < emptyStars; i++) {
-        starsHtml += '<i class="bi bi-star empty"></i>';
-    }
-
-    // Pricing
-    const priceHtml = `
-        <div class="product-card__pricing">
-            <span class="price-current">${formatCurrency(currentPrice)}</span>
-            ${originalPrice ? `<span class="price-original">${formatCurrency(originalPrice)}</span>` : ''}
-        </div>
-    `;
-
-    return `
-        <div class="product-card">
-            <div class="product-card__media">
-                <img src="${product.image}" alt="${product.name}" loading="lazy">
-                ${badgeLeft ? `<div class="product-card__badge product-card__badge--top-left">${badgeLeft}</div>` : ''}
-                ${badgeRight ? `<div class="product-card__badge product-card__badge--top-right">${badgeRight}</div>` : ''}
-            </div>
-            <div class="product-card__body">
-                <h3>${product.name}</h3>
-                <div class="stars mb-2">
-                    ${starsHtml}
-                    <span class="text-muted-urii ms-1">(${product.reviewCount || 0})</span>
+                html += `
+                <div class="product-card" onclick="openModal(${globalIndex})">
+                    <div class="product-image-wrapper">
+                        <img src="${p.image}" alt="${p.name}" loading="lazy">
+                        ${badgeHtml}
+                        
+                        <button class="cart-icon" onclick="event.stopPropagation(); addToCartDirect(${globalIndex})">
+                            <i class="bi bi-cart-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">${priceHtml}</div>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="bi bi-star"></i>
+                                <span><span class="rating-number">${p.rating}</span></span>
+                                <span class="review-count">(${p.reviews || 0})</span>
+                            </div>
+                            <div class="product-stock-info">
+                                <i class="bi bi-box-seam"></i>
+                                <span><span class="stock-number">${p.stock}</span></span>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${globalIndex})">
+                                <i class="bi bi-bag"></i> Mua ngay
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                ${timerHtml}
-                ${stockHtml}
-                <div class="product-card__footer">
-                    ${priceHtml}
-                    <button class="btn-urii btn-urii-sm" onclick="addToCart(${product.id})">
-                        <i class="bi bi-cart-plus"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-}
+                `;
+            });
 
-function renderPagination() {
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-    const pagination = document.getElementById('pagination');
-    
-    if (totalPages <= 1) {
-        pagination.innerHTML = '';
-        return;
-    }
+            container.innerHTML = html;
+            updateProductCount();
+        }
 
-    let html = '';
-    
-    // Previous
-    html += `
-        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-            <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
-                <i class="bi bi-chevron-left"></i>
-            </a>
-        </li>
-    `;
+        // Render stars
+        function renderStars(rating) {
+            let html = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                html += `<i class="bi bi-star-fill"></i>`;
+            }
+            if (hasHalfStar) {
+                html += `<i class="bi bi-star-half"></i>`;
+            }
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                html += `<i class="bi bi-star"></i>`;
+            }
+            return html;
+        }
 
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
-        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+        // Format price
+        function formatPrice(price) {
+            if (!price) return '0₫';
+            return price.toLocaleString('vi-VN') + '₫';
+        }
+
+        // Update product count
+        function updateProductCount() {
+            const countElement = document.getElementById('productCount');
+            const start = (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(currentPage * itemsPerPage, filteredProducts.length);
+            
+            if (filteredProducts.length === 0) {
+                countElement.textContent = 'Không có sản phẩm';
+            } else {
+                countElement.textContent = `Hiển thị ${start}-${end} trong số ${filteredProducts.length} sản phẩm`;
+            }
+        }
+
+        // Update pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            const container = document.getElementById('paginationContainer');
+            
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
             html += `
-                <li class="page-item ${i === currentPage ? 'active' : ''}">
-                    <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link rounded-3 border-0" href="#" onclick="changePage(${currentPage - 1}); return false;">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
                 </li>
             `;
-        } else if (i === currentPage - 2 || i === currentPage + 2) {
-            html += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+                    html += `
+                        <li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link rounded-3 ${i === currentPage ? '' : 'border-0'}" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                        </li>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    html += `<li class="page-item disabled"><a class="page-link border-0" href="#">...</a></li>`;
+                }
+            }
+
+            html += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link rounded-3 border-0" href="#" onclick="changePage(${currentPage + 1}); return false;">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            `;
+
+            container.innerHTML = html;
         }
-    }
 
-    // Next
-    html += `
-        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-            <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
-                <i class="bi bi-chevron-right"></i>
-            </a>
-        </li>
-    `;
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderProducts();
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-    pagination.innerHTML = html;
-}
+        // Apply filters
+        function applyFilters() {
+            let filtered = [...allProducts];
 
-function updateInfoText() {
-    const total = filteredProducts.length;
-    const start = Math.min((currentPage - 1) * itemsPerPage + 1, total);
-    const end = Math.min(currentPage * itemsPerPage, total);
-    
-    document.getElementById('startCount').textContent = total > 0 ? start : 0;
-    document.getElementById('endCount').textContent = end;
-    document.getElementById('totalCount').textContent = total;
-}
-
-// ===========================
-// 🛠 UTILITY FUNCTIONS
-// ===========================
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
-}
-
-// ===========================
-// 🎯 ACTIONS
-// ===========================
-function changePage(page) {
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-    if (page < 1 || page > totalPages) return;
-    currentPage = page;
-    renderProducts();
-    renderPagination();
-    updateInfoText();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function addToCart(productId) {
-    const product = allProducts.find(p => p.id === productId);
-    if (product) {
-        alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
-        // Có thể gọi API hoặc update giỏ hàng ở đây
-    }
-}
-
-// ===========================
-// 🔍 FILTER EVENTS
-// ===========================
-function setupFilters() {
-    // Price filters
-    document.querySelectorAll('.price-filter').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                selectedPrices.add(this.value);
-            } else {
-                selectedPrices.delete(this.value);
+            // Price filter
+            const selectedPrices = document.querySelectorAll('.filter-price:checked');
+            if (selectedPrices.length > 0) {
+                filtered = filtered.filter(product => {
+                    const price = product.currentPrice || product.originalPrice;
+                    return Array.from(selectedPrices).some(checkbox => {
+                        const value = checkbox.value;
+                        if (value === 'under-50') return price < 50000;
+                        if (value === '50-200') return price >= 50000 && price <= 200000;
+                        if (value === 'over-200') return price > 200000;
+                        return false;
+                    });
+                });
             }
-            currentPage = 1;
-            render();
-        });
-    });
 
-    // Color filters
-    document.querySelectorAll('.color-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const color = this.dataset.color;
-            if (selectedColors.has(color)) {
-                selectedColors.delete(color);
-                this.classList.remove('active');
-            } else {
-                selectedColors.add(color);
-                this.classList.add('active');
+            // Sale filter
+            const saleChecked = document.querySelector('.filter-sale:checked');
+            if (saleChecked) {
+                const value = saleChecked.value;
+                if (value === 'sale') {
+                    filtered = filtered.filter(p => p.isSale === true);
+                } else if (value === 'hot') {
+                    filtered = filtered.filter(p => p.isHot === true);
+                }
             }
+
+            // Rating filter với 5 khoảng: 4.5+, 4.0+, 3.5+, 3.0+, <3.0
+            const activeRating = document.querySelector('.rating-filter-btn.active');
+            if (activeRating) {
+                const rating = activeRating.dataset.rating;
+                if (rating === '4.5') {
+                    filtered = filtered.filter(p => (p.rating || 0) >= 4.5);
+                } else if (rating === '4.0') {
+                    filtered = filtered.filter(p => (p.rating || 0) >= 4.0);
+                } else if (rating === '3.5') {
+                    filtered = filtered.filter(p => (p.rating || 0) >= 3.5);
+                } else if (rating === '3.0') {
+                    filtered = filtered.filter(p => (p.rating || 0) >= 3.0);
+                } else if (rating === 'below-3') {
+                    filtered = filtered.filter(p => (p.rating || 0) < 3.0);
+                }
+                // 'all' không cần filter
+            }
+
+            // Sort
+            const sortValue = document.getElementById('sortSelect').value;
+            switch(sortValue) {
+                case 'price-asc':
+                    filtered.sort((a, b) => (a.currentPrice || a.originalPrice) - (b.currentPrice || b.originalPrice));
+                    break;
+                case 'price-desc':
+                    filtered.sort((a, b) => (b.currentPrice || b.originalPrice) - (a.currentPrice || a.originalPrice));
+                    break;
+                case 'sale':
+                    filtered.sort((a, b) => {
+                        const aDiscount = a.isSale && a.currentPrice ? ((a.originalPrice - a.currentPrice) / a.originalPrice) : 0;
+                        const bDiscount = b.isSale && b.currentPrice ? ((b.originalPrice - b.currentPrice) / b.originalPrice) : 0;
+                        return bDiscount - aDiscount;
+                    });
+                    break;
+                case 'popular':
+                default:
+                    filtered.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
+                    break;
+            }
+
+            filteredProducts = filtered;
             currentPage = 1;
-            render();
+            renderProducts();
+            updatePagination();
+        }
+
+        // Open modal
+        function openModal(index) {
+            const product = allProducts[index];
+            if (!product) return;
+            alert(`Xem chi tiết: ${product.name}`);
+        }
+
+        // Add to cart
+        function addToCartDirect(index) {
+            const product = allProducts[index];
+            if (!product) return;
+            alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+        }
+
+        // Buy now
+        function buyNow(index) {
+            const product = allProducts[index];
+            if (!product) return;
+            alert(`Đang xử lý đơn hàng cho "${product.name}"...`);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter events
+            document.querySelectorAll('.filter-price, .filter-sale').forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+
+            document.querySelectorAll('.rating-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.rating-filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilters();
+                });
+            });
+
+            document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+            document.getElementById('clearFilters').addEventListener('click', function() {
+                document.querySelectorAll('.filter-price').forEach(cb => cb.checked = false);
+                document.querySelectorAll('.filter-sale').forEach(cb => cb.checked = false);
+                document.querySelectorAll('.rating-filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('.rating-filter-btn[data-rating="all"]').classList.add('active');
+                document.getElementById('sortSelect').value = 'popular';
+                applyFilters();
+            });
         });
-    });
-
-    // Search
-    document.getElementById('searchInput').addEventListener('input', function() {
-        searchTerm = this.value;
-        currentPage = 1;
-        render();
-    });
-
-    // Sort
-    document.getElementById('sortSelect').addEventListener('change', function() {
-        currentSort = this.value;
-        currentPage = 1;
-        render();
-    });
-
-    // Clear filters
-    document.getElementById('clearFilters').addEventListener('click', function() {
-        // Clear price filters
-        document.querySelectorAll('.price-filter').forEach(cb => cb.checked = false);
-        selectedPrices.clear();
-        
-        // Clear color filters
-        document
