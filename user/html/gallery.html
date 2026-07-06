@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Thư viện map mẫu Perler Beads - Urii</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <link rel="stylesheet" href="../css/gallery.css">
+</head>
+<body>
+
+    <div id="global-header">
+        <header class="main-header" data-include="../components/header.html"></header>
+    </div>
+
+
+    <main class="container">
+        
+        <nav class="breadcrumb-nav">
+            <a class="breadcrumb-link" href="#">Trang chủ</a>
+            <span class="material-symbols-outlined icon-arrow-nav">chevron_right</span>
+            <span class="breadcrumb-current">Thư viện map mẫu</span>
+        </nav>
+
+        <div class="page-title-block">
+            <div class="title-left">
+                <h1 class="page-main-title">Thư viện Hướng dẫn Perler Beads</h1>
+                <p class="page-subtitle">Khám phá hàng ngàn mẫu thiết kế sáng tạo từ cộng đồng Urii. Từ đơn giản đến phức tạp, bắt đầu hành trình sáng tạo của bạn ngay hôm nay.</p>
+            </div>
+            <div class="title-right">
+                <select id="sort-select" class="sort-select-dropdown">
+                    <option value="default"> Sắp xếp mặc định</option>
+                    <option value="name-az">Sắp xếp theo tên</option>
+                    <option value="beads-asc">Sắp xếp theo số lượng hạt</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layout-sidebar-grid">
+            
+            <aside class="filter-sidebar">
+                <div class="sticky-wrapper">
+                    <section class="filter-section">
+                        <h3 class="filter-section-title">Danh mục</h3>
+                        <ul class="filter-menu-list">
+                            <li>
+                                <button class="menu-btn menu-btn-active">
+                                    Tất cả mẫu <span class="count-badge" data-category="Tất cả mẫu">0</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">
+                                    Con vật <span class="count-badge" data-category="Con vật">0</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">
+                                    Hoạt hình <span class="count-badge" data-category="Hoạt hình">0</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">
+                                    Logo <span class="count-badge" data-category="Logo">0</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">
+                                    Trang trí <span class="count-badge" data-category="Trang trí">0</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="menu-btn">
+                                    Trái cây<span class="count-badge" data-category="Hoa quả">0</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="filter-section">
+                        <h3 class="filter-section-title">Độ khó</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span>Dễ</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span>Trung bình</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span>Khó</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <div class="designer-promo-card">
+                        <h3 class="promo-title">Trở thành Designer?</h3>
+                        <p class="promo-text">Chia sẻ mẫu thiết kế của bạn và nhận hoa hồng từ mỗi lượt tải.</p>
+                        <button class="btn-promo-action">Tìm hiểu ngay</button>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="products-container">
+                
+                <div class="products-items-grid" id="products-grid-target"></div>
+
+                <div class="pagination-row" id="pagination-target"></div>
+
+            </div>
+        </div>
+    </main>
+
+     <div id="global-footer">
+        <footer class="main-footer" data-include="../components/footer.html"></footer>
+    </div>
+
+    <script src="../js/gallery.js"></script>
+</body>
+</html>
