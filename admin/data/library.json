@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Mèo Chibi Pastel",
+    "author": "Linh Ruby",
+    "rating": 4.8,
+    "image": "https://picsum.photos/seed/meo/400/400",
+    "description": "Mẫu mèo chibi dễ thương, phối màu pastel nhẹ nhàng, phù hợp cho người mới bắt đầu."
+  },
+  {
+    "id": 2,
+    "name": "Mèo cá chua 3D",
+    "author": "Urii Team",
+    "rating": 5.0,
+    "image": "https://picsum.photos/seed/meo3d/400/400",
+    "description": "Mẫu mèo 3D cực kỳ chi tiết, thiết kế dạng không gian 3 chiều, thách thức tay nghề."
+  },
+  {
+    "id": 3,
+    "name": "Cá vàng pastel",
+    "author": "Nam Trần",
+    "rating": 4.5,
+    "image": "https://picsum.photos/seed/cavang/400/400",
+    "description": "Cá vàng uyển chuyển với tông màu pastel dịu mắt, dễ xếp."
+  },
+  {
+    "id": 4,
+    "name": "Lá thư Joke Bear",
+    "author": "Hoàng Yến",
+    "rating": 4.9,
+    "image": "https://picsum.photos/seed/gau/400/400",
+    "description": "Chú gấu cầm lá thư, mẫu đính kèm hướng dẫn chi tiết từng bước."
+  },
+  {
+    "id": 5,
+    "name": "Trái táo pastel",
+    "author": "Minh Anh",
+    "rating": 4.7,
+    "image": "https://picsum.photos/seed/tao/400/400",
+    "description": "Trái táo tròn trịa, phối màu pastel ngọt ngào, thích hợp làm móc khóa."
+  },
+  {
+    "id": 6,
+    "name": "Bó hoa đơn giản",
+    "author": "Urii Team",
+    "rating": 4.6,
+    "image": "https://picsum.photos/seed/hoa/400/400",
+    "description": "Bó hoa nhỏ xinh, thiết kế tối giản nhưng vẫn đẹp, dành cho người mới tập xếp."
+  }
+]
