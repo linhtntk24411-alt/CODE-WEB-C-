@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Bình luận - Perler Beads</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../css/admin-comments.css">
+</head>
+<body>
+
+<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+
+    <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
+
+    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
+        
+        <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
+
+        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px; display: flex; justify-content: center; align-items: flex-start;">
+            
+            <div style="width: 100%; max-width: 1400px;">
+                
+                <!-- HEADER -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="fw-bold mb-1" style="font-size: 28px;">Quản lý bình luận</h1>
+                        <p class="text-muted small m-0">Quản lý đánh giá sản phẩm và kiểm duyệt bình luận blog.</p>
+                    </div>
+                </div>
+
+                <!-- Stats Cards (Tổng quan) -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-3">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary fs-4"><i class="bi bi-chat-dots"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Tổng bình luận</h6><h3 class="fw-bold mb-0 text-dark" id="stat-total">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success fs-4"><i class="bi bi-check-circle"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Đã duyệt / Đã trả lời</h6><h3 class="fw-bold mb-0 text-success" id="stat-approved">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4"><i class="bi bi-clock"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Chờ duyệt / Chưa trả lời</h6><h3 class="fw-bold mb-0 text-warning" id="stat-pending">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-flag"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Bị gắn cờ vi phạm</h6><h3 class="fw-bold mb-0 text-danger" id="stat-flagged">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bar Chung -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
+                    <div class="card-body p-0">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                                    <input type="text" id="search-keyword" class="form-control border-start-0 ps-0" placeholder="Tìm nội dung, tác giả...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="filter-type" class="form-select bg-light border-0">
+                                    <option value="">Tất cả loại</option>
+                                    <option value="product">Đánh giá sản phẩm</option>
+                                    <option value="order">Phản hồi đơn hàng</option>
+                                    <option value="blog">Bình luận blog</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="filter-status" class="form-select bg-light border-0">
+                                    <option value="">Tất cả trạng thái</option>
+                                    <option value="approved">Đã duyệt / Đã trả lời</option>
+                                    <option value="pending">Chờ duyệt / Chưa trả lời</option>
+                                    <option value="flagged">Vi phạm</option>
+                                </select>
+                            </div>
+                            <div class="col-md-auto">
+                                <button class="btn btn-danger w-100 fw-bold px-4" id="btn-filter">
+                                    <i class="bi bi-funnel me-1"></i> Lọc
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- BẢNG 1: ĐÁNH GIÁ SẢN PHẨM & PHẢN HỒI ĐƠN HÀNG                 -->
+                <!-- ============================================================ -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-5">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                        <h4 class="fw-bold text-primary m-0"><i class="bi bi-star"></i> Đánh giá sản phẩm & Phản hồi đơn hàng</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive p-0">
+                            <table class="table table-hover align-middle mb-0 table-comments">
+                                <thead class="text-muted small fw-bold bg-light">
+                                    <tr>
+                                        <th class="ps-4 py-3">Nội dung</th>
+                                        <th class="py-3">Tác giả</th>
+                                        <th class="py-3">Thuộc về</th>
+                                        <th class="py-3">Ngày gửi</th>
+                                        <th class="py-3">Trạng thái</th>
+                                        <th class="pe-4 text-end py-3">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reviews-list" class="fs-6"></tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="text-muted small" id="reviews-pagination-info">Hiển thị...</div>
+                            <nav>
+                                <ul class="pagination pagination-sm m-0" id="reviews-pagination"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- BẢNG 2: BÌNH LUẬN BLOG                                        -->
+                <!-- ============================================================ -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-5">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                        <h4 class="fw-bold text-success m-0"><i class="bi bi-pencil-square"></i> Bình luận Blog</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive p-0">
+                            <table class="table table-hover align-middle mb-0 table-comments">
+                                <thead class="text-muted small fw-bold bg-light">
+                                    <tr>
+                                        <th class="ps-4 py-3">Nội dung</th>
+                                        <th class="py-3">Tác giả</th>
+                                        <th class="py-3">Blog</th>
+                                        <th class="py-3">Ngày gửi</th>
+                                        <th class="py-3">Trạng thái</th>
+                                        <th class="pe-4 text-end py-3">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="blogs-list" class="fs-6"></tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="text-muted small" id="blogs-pagination-info">Hiển thị...</div>
+                            <nav>
+                                <ul class="pagination pagination-sm m-0" id="blogs-pagination"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function loadComponent(url, targetId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Lỗi tải file: " + url);
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById(targetId).innerHTML = data;
+                    if(targetId === 'layout-sidebar') {
+                        setTimeout(highlightActiveMenu, 100);
+                    }
+                })
+                .catch(err => console.warn('Không thể tải layout:', err));
+        }
+
+        loadComponent('../components/admin-sidebar.html', 'layout-sidebar');
+        loadComponent('../components/admin-topbar.html', 'layout-topbar');
+
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll(".admin-sidebar .nav-item");
+            navLinks.forEach(link => {
+                const hrefAttribute = link.getAttribute("href");
+                if (hrefAttribute && hrefAttribute.includes(currentPage)) {
+                    navLinks.forEach(item => item.classList.remove("active"));
+                    link.classList.add("active");
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#adminLogoutBtn')) {
+                e.preventDefault();
+                if (confirm("Bạn có chắc muốn đăng xuất?")) {
+                    window.location.href = "../../user/html/login.html";
+                }
+            }
+        });
+    });
+</script>
+
+<script src="../js/admin-comments.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

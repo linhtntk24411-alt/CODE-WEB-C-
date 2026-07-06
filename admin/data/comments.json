@@ -1,0 +1,62 @@
+[
+  {
+    "id": "CMT001",
+    "authorName": "Nguyễn Thị Mai",
+    "authorAvatar": "NM",
+    "content": "Sản phẩm đẹp quá! Mình đã mua về và rất hài lòng. Chất lượng vượt trội so với giá tiền.",
+    "targetType": "product",
+    "targetName": "Bộ KIT Mùa Hè",
+    "date": "24/10/2024",
+    "status": "published"
+  },
+  {
+    "id": "CMT002",
+    "authorName": "Trần Minh Anh",
+    "authorAvatar": "TA",
+    "content": "Bài viết rất bổ ích, mình đã học được nhiều thứ từ blog của các bạn. Hy vọng sẽ có thêm nhiều bài viết hay nữa.",
+    "targetType": "blog",
+    "targetName": "Hướng dẫn làm móc khóa hạt nhựa",
+    "date": "23/10/2024",
+    "status": "published"
+  },
+  {
+    "id": "CMT003",
+    "authorName": "Lê Khánh Linh",
+    "authorAvatar": "LK",
+    "content": "Giao hàng chậm quá! Đặt từ 3 hôm trước mà đến giờ vẫn chưa thấy đâu. Không hài lòng chút nào!",
+    "targetType": "product",
+    "targetName": "Lót ly thủ công",
+    "date": "23/10/2024",
+    "status": "flagged"
+  },
+  {
+    "id": "CMT004",
+    "authorName": "Phạm Hoàng Nam",
+    "authorAvatar": "HN",
+    "content": "Móc khóa bị lỗi một chút ở phần mắt, nhưng tổng thể cũng ổn. Mong shop khắc phục lỗi này ở lô hàng sau.",
+    "targetType": "product",
+    "targetName": "Móc khóa Pixel Art",
+    "date": "22/10/2024",
+    "status": "published"
+  },
+  {
+    "id": "CMT005",
+    "authorName": "Lê Văn Tùng",
+    "authorAvatar": "LT",
+    "content": "Bài viết này spam quảng cáo linh tinh, đề nghị admin xóa giúp!",
+    "targetType": "blog",
+    "targetName": "Cẩm nang mua sắm hạt nhựa cho người mới",
+    "date": "25/10/2024",
+    "status": "flagged"
+  },
+  {
+    "id": "CMT006",
+    "authorName": "Hoàng Bảo Anh",
+    "authorAvatar": "HA",
+    "content": "Đơn hàng của mình đã được giao đúng hẹn, cảm ơn shop nhiều. Sẽ ủng hộ shop dài dài!",
+    "targetType": "order",
+    "targetName": "Đơn hàng #DH003",
+    "date": "Vừa xong",
+    "status": "published"
+  }
+]
