@@ -1,0 +1,282 @@
+[
+  {
+    "id": "#URII-9842",
+    "image": "../assets/gallery_assets/mau-banh-kem.webp",
+    "name": "Mẫu Bánh Kem Sinh Nhật",
+    "size": "48x48cm",
+    "date": "12/10/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  },
+  {
+    "id": "#URII-9811",
+    "image": "../assets/gallery_assets/mau-ca-heo.webp",
+    "name": "Cá Heo Xanh Pixel Art",
+    "size": "20x20cm",
+    "date": "10/10/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9755",
+    "image": "../assets/gallery_assets/mau-cam.webp",
+    "name": "Trái Cam Và Lát Cắt Ngọt Ngào",
+    "size": "30x30cm",
+    "date": "05/10/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9620",
+    "image": "../assets/gallery_assets/mau-ca-map-cute.webp",
+    "name": "Cá Mập Đi Phao Cute",
+    "size": "60x60cm",
+    "date": "28/09/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9599",
+    "image": "../assets/gallery_assets/mau-ca-vang.webp",
+    "name": "Chú Cá Vàng Mắt To",
+    "size": "38x33cm",
+    "date": "25/09/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9541",
+    "image": "../assets/gallery_assets/mau-chau-hoa.webp",
+    "name": "Chậu Hoa Ba Màu Sắc",
+    "size": "40x40cm",
+    "date": "20/09/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9512",
+    "image": "../assets/gallery_assets/mau-chim-canh-cut.webp",
+    "name": "Chim Cánh Cụt Và Trái Tim",
+    "size": "25x25cm",
+    "date": "18/09/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  },
+  {
+    "id": "#URII-9488",
+    "image": "../assets/gallery_assets/mau-co-bon-la.webp",
+    "name": "Cỏ Bốn Lá May Mắn",
+    "size": "30x30cm",
+    "date": "15/09/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9450",
+    "image": "../assets/gallery_assets/mau-doraemon.webp",
+    "name": "Doraemon Chong Chóng Tre",
+    "size": "50x50cm",
+    "date": "10/09/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9412",
+    "image": "../assets/gallery_assets/mau-hoa-huong-duong.webp",
+    "name": "Hoa Hướng Dương Đón Nắng",
+    "size": "20x20cm",
+    "date": "05/09/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  },
+  {
+    "id": "#URII-9413",
+    "image": "../assets/gallery_assets/mau-bach-tuoc.webp",
+    "name": "Bạch Tuộc Tím Đáng Yêu",
+    "size": "20x20cm",
+    "date": "12/10/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9414",
+    "image": "../assets/gallery_assets/mau-ca-ngua.webp",
+    "name": "Cá Ngựa Vàng Tinh Nghịch",
+    "size": "20x20cm",
+    "date": "15/10/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9416",
+    "image": "../assets/gallery_assets/mau-cherry.webp",
+    "name": "Quả Cherry Đôi Ngọt Ngào",
+    "size": "15x15cm",
+    "date": "22/10/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9417",
+    "image": "../assets/gallery_assets/mau-no.webp",
+    "name": "Nơ Xanh Đại Dương Cách Điệu",
+    "size": "40x60cm",
+    "date": "05/11/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9418",
+    "image": "../assets/gallery_assets/mau-sua.webp",
+    "name": "Sứa Biển Xanh Huyền Ảo",
+    "size": "40x50cm",
+    "date": "10/11/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9419",
+    "image": "../assets/gallery_assets/mau-tho.webp",
+    "name": "Thỏ Trắng Tinh Nghịch Ăn Cà Rốt",
+    "size": "25x25cm",
+    "date": "18/11/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9420",
+    "image": "../assets/gallery_assets/mau-vet.webp",
+    "name": "Vẹt Đỏ Đuôi Dài Nam Mỹ",
+    "size": "20x30cm",
+    "date": "25/11/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9421",
+    "image": "../assets/gallery_assets/mau-vit.webp",
+    "name": "Vịt Con Say Đắm Yêu Thương",
+    "size": "20x20cm",
+    "date": "01/12/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9422",
+    "image": "../assets/gallery_assets/mau-xuong-rong.webp",
+    "name": "Xương Rồng Nở Hoa Ngập Nắng",
+    "size": "20x25cm",
+    "date": "05/12/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9423",
+    "image": "../assets/gallery_assets/mau-ca-heo.webp",
+    "name": "Cá Heo Xanh Vui Đùa Sóng Biển",
+    "size": "20x20cm",
+    "date": "10/12/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  },
+  {
+    "id": "#URII-9424",
+    "image": "../assets/gallery_assets/mau-cam.webp",
+    "name": "Lát Cam Mọng Nước Pixel Art",
+    "size": "15x15cm",
+    "date": "12/12/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9425",
+    "image": "../assets/gallery_assets/mau-cao.webp",
+    "name": "Cáo Đỏ Cuộn Tròn Ngủ Đông",
+    "size": "25x25cm",
+    "date": "15/12/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9426",
+    "image": "../assets/gallery_assets/mau-ca-vang.webp",
+    "name": "Cá Vàng Đuôi Xòe May Mắn",
+    "size": "20x20cm",
+    "date": "18/12/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9427",
+    "image": "../assets/gallery_assets/mau-chim-canh-cut.webp",
+    "name": "Chim Cánh Cụt Đội Mũ Len",
+    "size": "15x20cm",
+    "date": "20/12/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  },
+  {
+    "id": "#URII-9428",
+    "image": "../assets/gallery_assets/mau-dua-hau.webp",
+    "name": "Miếng Dưa Hấu Ngày Hè Rực Rỡ",
+    "size": "15x15cm",
+    "date": "22/12/2024",
+    "statusClass": "status-processing",
+    "statusText": "Đang gia công",
+    "actionType": ""
+  },
+  {
+    "id": "#URII-9429",
+    "image": "../assets/gallery_assets/mau-hellokitty.webp",
+    "name": "Mẫu Hello Kitty Nơ Hồng Dễ Thương",
+    "size": "30x30cm",
+    "date": "25/12/2024",
+    "statusClass": "status-completed",
+    "statusText": "Đã hoàn thành",
+    "actionType": "review-btn"
+  },
+  {
+    "id": "#URII-9430",
+    "image": "../assets/gallery_assets/mau-hong-hac.webp",
+    "name": "Chim Hồng Hạc Kiêu Sa",
+    "size": "30x40cm",
+    "date": "28/12/2024",
+    "statusClass": "status-quoted",
+    "statusText": "Đã báo giá",
+    "actionType": "quote-btn"
+  },
+  {
+    "id": "#URII-9431",
+    "image": "../assets/gallery_assets/mau-le.webp",
+    "name": "Trái Lê Xanh Tươi Mát Mùa Thu",
+    "size": "15x20cm",
+    "date": "30/12/2024",
+    "statusClass": "status-pending",
+    "statusText": "Đang chờ duyệt",
+    "actionType": "view-delete"
+  }
+]

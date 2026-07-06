@@ -1,0 +1,130 @@
+/* Hệ màu chuẩn 100% theo giao diện Urii */
+:root {
+    --bg-sidebar: #FBF9F8;         /* Màu nền trắng xám kem cực nhẹ của UI */
+    --color-active: #840001;       /* Màu đỏ đô thương hiệu khi active */
+    --color-text-normal: #5C403B;  /* Màu nâu trầm của chữ menu thường */
+    --font-main: 'Poppins', 'Nunito Sans', sans-serif;
+}
+
+/* Định dạng bao quát Sidebar */
+.admin-sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 24px 0; /* Khoảng cách trên dưới */
+    box-sizing: border-box;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    border-right: 1px solid rgba(0, 0, 0, 0.03); /* Đường chia vách siêu mờ */
+}
+
+/* Ẩn/Hiện thanh cuộn tùy biến */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #E5BDB7; border-radius: 10px; }
+
+/* Khu vực Logo căn giữa và có khoảng cách vừa vặn */
+.sidebar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 48px;
+    padding: 0 24px;
+}
+.sidebar-logo img {
+    height: 200px; /* Kích thước logo Urii cân đối theo mẫu */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Khối Menu điều hướng */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; 
+    flex: 1;
+}
+
+/* Cấu trúc từng dòng Menu */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    text-decoration: none;
+    color: var(--color-text-normal);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.nav-text {
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.icon-md {
+    font-size: 22px !important;
+    color: inherit;
+}
+
+/* Hover nhẹ nhàng không làm đổi màu nền quá lố */
+.nav-item:hover {
+    color: var(--color-active);
+    background-color: rgba(132, 0, 1, 0.02);
+}
+
+/* Trạng thái Active - Giống 100% hình mẫu */
+.nav-item.active {
+    color: var(--color-active) !important;
+}
+
+.nav-item.active .nav-text {
+    font-weight: 700; /* Chữ đậm hẳn lên */
+}
+
+/* Thanh vạch dọc màu đỏ đô bo tròn ở sát rìa phải */
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    width: 4px;
+    height: 80%;
+    background-color: var(--color-active);
+    border-radius: 4px 0 0 4px;
+}
+
+/* Khu vực Footer (Trợ giúp & Đăng xuất) */
+.sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 16px;
+}
+
+.footer-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    text-decoration: none;
+    color: var(--color-text-normal);
+    transition: color 0.2s ease;
+}
+
+.footer-text {
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.footer-link:hover {
+    color: var(--color-active);
+}

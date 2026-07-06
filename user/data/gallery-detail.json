@@ -1,0 +1,1743 @@
+{
+  "M01": {
+    "map_id": "M01",
+    "title": "Bạch Tuộc Tím Cute",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-bach-tuoc.webp",
+    "duration": "15-20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 242,
+    "download_link": "files/map-bach-tuoc-tim.pdf",
+    "description": "Mẫu bạch tuộc nhỏ màu tím pastel dễ thương với các icon trái tim xung quanh, cực kỳ thích hợp cho các bạn mới bắt đầu tập làm quen với bảng pegboard vuông.",
+    "colors": [
+      { "code": "#01", "name": "Tím pastel", "quantity": 180 },
+      { "code": "#02", "name": "Trắng", "quantity": 40 },
+      { "code": "#03", "name": "Hồng nhạt", "quantity": 22 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị phôi và hạt", "text": "Đặt bảng pegboard 32x32 lên mặt phẳng. Chuẩn bị sẵn khay hạt màu tím pastel, trắng và hồng nhạt cùng nhíp gắp.", "image": "../assets/images/octopus-step1.jpg" },
+      { "number": 2, "title": "Xếp khung viền và thân", "text": "Sử dụng hạt màu tím pastel để đi khung viền ngoài và xếp toàn bộ phần thân tròn của chú bạch tuộc.", "image": "../assets/images/octopus-step2.jpg" },
+      { "number": 3, "title": "Thêm mắt và icon trái tim", "text": "Dùng hạt màu trắng để tạo điểm mắt bắt sáng và xếp các icon trái tim nhỏ màu hồng xung quanh xúc tu.", "tip": "Xếp các chi tiết nhỏ từ trong ra ngoài để không làm lệch form dáng chính." },
+      { "number": 4, "title": "Ủi nhiệt hoàn thiện", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ trung bình di chuyển đều tay theo hình tròn trong 20-30 giây.", "image": "../assets/images/octopus-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 12 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-pegboard.webp" },
+      { "product_id": "nhip-chuyen-dung", "title": "Nhíp gắp hạt chuyên dụng", "price": "15.000đ", "image": "assets/gallery_assets/item-nhip.webp" }
+    ]
+  },
+  "M02": {
+    "map_id": "M02",
+    "title": "Bánh Kem Dâu Ngọt Ngào",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-banh-kem.webp",
+    "duration": "60-75 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Trang trí", "Ẩm thực"],
+    "pegboard": "48 x 48 ô (Midi 5mm)",
+    "total_beads": 1146,
+    "download_link": "files/map-banh-kem-dau.pdf",
+    "description": "Sơ đồ mã màu chi tiết của một chiếc bánh kem dâu tây nhiều tầng đại bản phối màu phức tạp. Thách thức kỹ năng phối màu và tính kiên nhẫn của các nghệ nhân.",
+    "colors": [
+      { "code": "#01", "name": "Hồng đậm", "quantity": 420 },
+      { "code": "#02", "name": "Trắng kem", "quantity": 380 },
+      { "code": "#03", "name": "Đỏ dâu", "quantity": 210 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hệ thống pegboard lớn", "text": "Ghép 2 tấm pegboard lớn lại với nhau để tạo không gian 48x48 ô. Phân loại hạt theo các tone hồng và đỏ dâu.", "image": "../assets/images/cake-step1.jpg" },
+      { "number": 2, "title": "Dựng khung đế bánh kem", "text": "Xếp phần chân đế và các tầng bánh cơ bản bằng hạt màu hồng đậm để định hình bố cục tổng thể.", "image": "../assets/images/cake-step2.jpg" },
+      { "number": 3, "title": "Điểm kem nền và dâu tây", "text": "Phối các hạt trắng kem để tạo hiệu ứng lớp kem chảy mềm mại, sau đó xếp các hạt đỏ dâu làm topping trang trí phía trên cùng.", "tip": "Với các mảng lớn, hãy xếp từ trái qua phải để kiểm soát số lượng hạt chính xác." },
+      { "number": 4, "title": "Ủi nhiệt hai mặt", "text": "Ủi mặt đầu tiên qua giấy nến trong 45 giây. Đợi nguội bớt, lật mặt lại và ủi nhẹ mặt thứ hai để tăng độ bền liên kết cho khối lớn.", "image": "../assets/images/cake-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 8 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-pegboard.webp" },
+      { "product_id": "hat-do-tuoi", "title": "Hạt Perler đỏ tươi", "price": "15.000đ", "image": "assets/gallery_assets/item-red.webp" }
+    ]
+  },
+  "M03": {
+    "map_id": "M03",
+    "title": "Quả Bơ Tình Yêu",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-bo.webp",
+    "duration": "20-25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Trang trí", "Hoa quả"],
+    "pegboard": "28 x 35 ô (Midi 5mm)",
+    "total_beads": 428,
+    "download_link": "files/map-qua-bo-love.pdf",
+    "description": "Thiết kế quả bơ bổ đôi với phần hạt bơ hình trái tim dễ thương độc đáo. Thích hợp làm móc khóa đôi hoặc quà tặng handmade ý nghĩa.",
+    "colors": [
+      { "code": "#01", "name": "Xanh bơ", "quantity": 220 },
+      { "code": "#02", "name": "Nâu", "quantity": 90 },
+      { "code": "#03", "name": "Hồng", "quantity": 36 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Cố định bản vẽ ma trận", "text": "Mở file map quả bơ trên điện thoại hoặc in ra giấy. Đặt pegboard lên trên một bề mặt không bị rung lắc.", "image": "../assets/images/avocado-step1.jpg" },
+      { "number": 2, "title": "Đi khung viền vỏ xanh", "text": "Sử dụng các hạt màu xanh bơ đậm để xếp đường viền ngoài hình quả bơ bo tròn.", "image": "../assets/images/avocado-step2.jpg" },
+      { "number": 3, "title": "Tạo hạt bơ hình trái tim", "text": "Dùng hạt màu nâu và hồng để lấp đầy phần hạt bơ hình trái tim ở chính giữa ruột quả bơ.", "tip": "Đặt hạt phần lõi trước rồi mới lấp đầy khoảng trống xung quanh để màu sắc không bị lem." },
+      { "number": 4, "title": "Ủi phẳng và ép vật nặng", "text": "Ủi đều tay từ 30-40 giây. Sau khi tháo sản phẩm ra khỏi pegboard, đặt một cuốn sách dày đè lên trên để tác phẩm không bị cong vênh.", "image": "../assets/images/avocado-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-pegboard.webp" },
+      { "product_id": "hat-xanh-bo", "title": "Hạt Perler xanh bơ", "price": "15.000đ", "image": "assets/gallery_assets/item-avocado.webp" }
+    ]
+  },
+  "M04": {
+    "map_id": "M04",
+    "title": "Bó Hoa Đa Sắc",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-bo-hoa.webp",
+    "duration": "75-90 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Trang trí", "Quà tặng"],
+    "pegboard": "69 x 69 ô (Midi 5mm)",
+    "total_beads": 2420,
+    "download_link": "files/map-bo-hoa-pixel.pdf",
+    "description": "Bản vẽ đại cảnh một bó hoa phối hợp nhiều sắc độ hồng, xanh dương và vàng rực rỡ, đi kèm bảng định lượng hạt chi tiết ở chân map.",
+    "colors": [
+      { "code": "#01", "name": "Hồng", "quantity": 620 },
+      { "code": "#02", "name": "Xanh dương", "quantity": 540 },
+      { "code": "#03", "name": "Vàng", "quantity": 410 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Bố trí khu vực làm việc lớn", "text": "Ghép nối liên kết 4 tấm pegboard lớn để tạo diện tích 69x69 ô. Đảm bảo các chốt khóa giữa các tấm khít nhau.", "image": "../assets/images/flower-step1.jpg" },
+      { "number": 2, "title": "Xếp phần giấy gói phía dưới", "text": "Tạo nền móng cho bó hoa bằng cách xếp các hạt màu tạo hình nơ và nếp gấp giấy gói hoa trước.", "image": "../assets/images/flower-step2.jpg" },
+      { "number": 3, "title": "Phối màu đan xen cánh hoa", "text": "Gắp các hạt màu hồng, vàng và xanh dương xen kẽ theo sơ đồ để tạo hiệu ứng các bông hoa xếp lớp có chiều sâu thị giác.", "tip": "Nên hoàn thiện từng cụm hoa một để tránh nhầm lẫn giữa các mảng màu lớn." },
+      { "number": 4, "title": "Ủi nhiệt diện rộng bảo an", "text": "Di chuyển bàn ủi liên tục theo các vòng tròn lớn đè lên toàn bộ tác phẩm trong vòng 60 giây để đảm bảo không bỏ sót vùng liên kết nào.", "image": "../assets/images/flower-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 14 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M05": {
+    "map_id": "M05",
+    "title": "Bướm Đêm Dạ Quang",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-buom.webp",
+    "duration": "35-45 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật", "Trang trí"],
+    "pegboard": "26 x 20 ô (Midi 5mm)",
+    "total_beads": 315,
+    "download_link": "files/map-buom-da-quang.pdf",
+    "description": "Mẫu thiết kế đối xứng hoàn hảo của chú bướm mang sắc tím và xanh dương huyền biến, tạo điểm nhấn tuyệt vời cho các mảng tường trang trí.",
+    "colors": [
+      { "code": "#01", "name": "Tím đậm", "quantity": 160 },
+      { "code": "#02", "name": "Xanh dương", "quantity": 120 },
+      { "code": "#03", "name": "Đen", "quantity": 35 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt màu đối xứng", "text": "Lấy lượng hạt tím đậm và xanh dương tương đương nhau ra khay để tiện cho việc xếp đối xứng hai bên.", "image": "../assets/images/moth-step1.jpg" },
+      { "number": 2, "title": "Xếp cánh trái", "text": "Hoàn thiện chi tiết hoa văn sắc nét và outline của nửa đôi cánh bên trái trước.", "image": "../assets/images/moth-step2.jpg" },
+      { "number": 3, "title": "Tái hiện đối xứng cánh phải", "text": "Nhìn theo cấu trúc cánh trái để xếp nửa cánh phải sao cho các vị trí hạt màu đen và tím trùng khớp hoàn hảo.", "tip": "Đếm số ô lưới từ trục giữa thân bướm ra ngoài để đảm bảo tính đối xứng tuyệt đối." },
+      { "number": 4, "title": "Ủi liên kết tạo phom", "text": "Dùng bàn ủi nhiệt độ vừa di chuyển đều tay trên giấy nến để các hạt dính vừa phải, giữ được các lỗ pixel thông thoáng thẩm mỹ.", "image": "../assets/images/moth-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M06": {
+    "map_id": "M06",
+    "title": "Cá Heo Xanh Tinh Nghịch",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-ca-heo.webp",
+    "duration": "15 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "25 x 22 ô (Midi 5mm)",
+    "total_beads": 198,
+    "download_link": "files/map-ca-heo-cute.pdf",
+    "description": "Chú cá heo xanh đang nhảy múa trên sóng nước với bố cục tinh giản tối đa, cực kỳ nhanh chóng để hoàn thành trong vòng 20 phút.",
+    "colors": [
+      { "code": "#01", "name": "Xanh biển", "quantity": 150 },
+      { "code": "#02", "name": "Trắng", "quantity": 28 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Định vị vùng sóng nước", "text": "Đặt các hạt màu xanh biển ở hàng dưới cùng của pegboard để làm phần nền sóng nước nhấp nhô.", "image": "../assets/images/dolphin-step1.jpg" },
+      { "number": 2, "title": "Dựng outline thân cá heo", "text": "Đi các hạt viền ngoài để mô tả dáng cá heo đang uốn cong người nhảy lên khỏi mặt nước.", "image": "../assets/images/dolphin-step2.jpg" },
+      { "number": 3, "title": "Lấp đầy thân và tạo mắt", "text": "Điền các hạt xanh biển vào trong thân cá, chừa lại 1 ô trống duy nhất để đặt hạt trắng làm mắt.", "tip": "Gắp hạt từ phần đuôi lên đầu để tránh tay đè làm đổ hạt." },
+      { "number": 4, "title": "Ủi nhiệt nhanh", "text": "Vì mẫu nhỏ nên chỉ cần ủi nhẹ tay trong 15-20 giây là các hạt đã có thể bám dính chắc chắn vào nhau.", "image": "../assets/images/dolphin-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M07": {
+    "map_id": "M07",
+    "title": "Trái Cam Chín Mọng",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-cam.webp",
+    "duration": "30-40 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả"],
+    "pegboard": "34 x 34 ô (Midi 5mm)",
+    "total_beads": 580,
+    "download_link": "files/map-trai-cam.pdf",
+    "description": "Thiết kế kết hợp giữa một quả cam nguyên vẹn và một lát cam cắt góc 1/4 sinh động, tạo hiệu ứng thị giác mọng nước đổ bóng pixel xuất sắc.",
+    "colors": [
+      { "code": "#01", "name": "Cam tươi", "quantity": 310 },
+      { "code": "#02", "name": "Cam đậm", "quantity": 180 },
+      { "code": "#03", "name": "Xanh lá", "quantity": 55 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt màu phân cấp", "text": "Tách riêng hạt cam tươi và cam đậm ra hai ngăn để không bị nhầm khi phối hiệu ứng bóng đổ.", "image": "../assets/images/orange-step1.jpg" },
+      { "number": 2, "title": "Xếp lát cam cắt trước", "text": "Xếp lát cam nhỏ nằm nghiêng phía trước bằng cách đi viền vỏ cam tươi và các múi cam bên trong.", "image": "../assets/images/orange-step2.jpg" },
+      { "number": 3, "title": "Xếp quả cam tròn và cuống lá", "text": "Hoàn thiện quả quả cam lớn phía sau, dùng hạt cam đậm ở vùng đáy quả để tạo khối, thêm lá xanh trên đỉnh.", "tip": "Phối hạt cam đậm xen kẽ cam tươi ở ranh giới đổ bóng giúp lát cắt trông mọng nước hơn." },
+      { "number": 4, "title": "Ủi nhiệt kết khối", "text": "Phủ giấy nến lên toàn bộ cụm cam, di chuyển bàn ủi nhiệt độ trung bình đều khắp bề mặt trong khoảng 35 giây.", "image": "../assets/images/orange-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M08": {
+    "map_id": "M08",
+    "title": "Cá Mập Ôm Phao",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-ca-map-cute.webp",
+    "duration": "70-85 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "60 x 60 ô (Midi 5mm)",
+    "total_beads": 1450,
+    "download_link": "files/map-ca-map-phao.pdf",
+    "description": "Thiết kế chú cá mập xám thân thiện đang cuộn mình trong chiếc phao cứu sinh sọc đỏ trắng, sơ đồ chuẩn hóa ký tự số giúp dễ định vị.",
+    "colors": [
+      { "code": "#01", "name": "Xám", "quantity": 620 },
+      { "code": "#02", "name": "Đỏ", "quantity": 240 },
+      { "code": "#03", "name": "Trắng", "quantity": 180 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị không gian pegboard ghép", "text": "Chuẩn bị một bàn đinh lớn hoặc ghép các tấm nhỏ lại. Sắp sẵn lượng hạt màu xám chủ đạo.", "image": "../assets/images/shark-step1.jpg" },
+      { "number": 2, "title": "Tạo hình chiếc phao cứu sinh", "text": "Xếp khối tròn của chiếc phao nằm ở phần bụng cá mập, đan xen các sọc màu đỏ và trắng sữa.", "image": "../assets/images/shark-step2.jpg" },
+      { "number": 3, "title": "Dựng thân cá mập xám", "text": "Xếp phần đầu, vây cá mập nhô lên phía trên và phần đuôi lộ ra dưới chiếc phao bằng hạt xám.", "tip": "Sử dụng sơ đồ ký tự số đi kèm trong file PDF để không bị đếm lệch số ô vây cá." },
+      { "number": 4, "title": "Ủi chắc hai mặt", "text": "Với kích thước lớn, bạn cần ủi kỹ mặt trên, sau đó lật mặt đằng sau lại ủi lướt thêm 15 giây để tác phẩm không bị gãy khi cầm.", "image": "../assets/images/shark-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 9 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M09": {
+    "map_id": "M09",
+    "title": "Cam Cười Tinh Nghịch",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-cam-cute.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả", "Hoạt hình"],
+    "pegboard": "38 x 33 ô (Midi 5mm)",
+    "total_beads": 712,
+    "download_link": "files/map-cam-cuoi.pdf",
+    "description": "Quả cam phong cách hoạt hình ngộ nghĩnh với đôi mắt to tròn biểu cảm sinh động, bảng map lưới có thước đo tọa độ dọc ngang rõ ràng.",
+    "colors": [
+      { "code": "#01", "name": "Cam", "quantity": 340 },
+      { "code": "#02", "name": "Đen", "quantity": 40 },
+      { "code": "#03", "name": "Trắng", "quantity": 28 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Đo tọa độ bàn đinh", "text": "Căn chỉnh thước đo trục dọc trục ngang trên pegboard trùng với bản vẽ để dễ kiểm soát vị trí khuôn mặt.", "image": "../assets/images/orangecute-step1.jpg" },
+      { "number": 2, "title": "Xếp biểu cảm mắt miệng trước", "text": "Sử dụng hạt màu đen và trắng để xếp đôi mắt chibi to tròn bắt sáng và khuôn miệng đang cười tinh nghịch.", "image": "../assets/images/orangecute-step2.jpg" },
+      { "number": 3, "title": "Lập nền quả cam tròn", "text": "Xếp phủ các hạt màu cam xung quanh phần biểu cảm khuôn mặt để hoàn thiện khối tròn của quả cam.", "tip": "Luôn chừa các khoảng trống nhỏ cho phần lá xanh trên đỉnh đầu nếu có." },
+      { "number": 4, "title": "Ủi gia nhiệt tròn", "text": "Phủ giấy nến, đi bàn ủi theo chuyển động xoáy tròn nhẹ nhàng trong 30 giây cho đến khi các lỗ hạt khít lại đều nhau.", "image": "../assets/images/orangecute-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M10": {
+    "map_id": "M10",
+    "title": "Cá Ngựa Đại Dương",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-ca-ngua.webp",
+    "duration": "20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 218,
+    "download_link": "files/map-ca-ngua-vang.pdf",
+    "description": "Mẫu thiết kế chú cá ngựa nhỏ nhắn sở hữu chiếc vây xanh ngọc bích và icon trái tim hồng ngọt ngào, tạo hình mềm mại tối giản.",
+    "colors": [
+      { "code": "#01", "name": "Vàng", "quantity": 150 },
+      { "code": "#02", "name": "Xanh ngọc", "quantity": 60 },
+      { "code": "#03", "name": "Hồng", "quantity": 15 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt tone màu nổi", "text": "Đổ hạt màu vàng tươi làm thân, xanh ngọc làm vây và một ít hạt hồng ra các khay riêng.", "image": "../assets/images/seahorse-step1.jpg" },
+      { "number": 2, "title": "Tạo dáng thân cong cá ngựa", "text": "Dùng hạt màu vàng xếp đường outline uốn lượn hình chữ S của thân cá ngựa từ đầu xuống đuôi.", "image": "../assets/images/seahorse-step2.jpg" },
+      { "number": 3, "title": "Gắn vây xanh và tim hồng", "text": "Điền hạt xanh ngọc tạo chiếc vây nhỏ dọc lưng, thêm các hạt hồng tạo hình icon trái tim nhỏ bay phía trước mỏ.", "tip": "Phần đuôi cá ngựa cuộn tròn rất dễ lệch, hãy nhìn kỹ bản vẽ ô lưới." },
+      { "number": 4, "title": "Ủi nhiệt cố định dáng", "text": "Ủi nhẹ nhàng qua lớp giấy nến trong 20 giây để giữ phom dáng thanh mảnh của cá ngựa không bị biến dạng.", "image": "../assets/images/seahorse-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 1 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+"M11": {
+    "map_id": "M11",
+    "title": "Cáo Lửa Rực Rỡ",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-cao.webp",
+    "duration": "20-25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 286,
+    "download_link": "files/map-cao-lua-love.pdf",
+    "description": "Chú cáo nhỏ màu cam tươi tắn với điểm nhấn icon trái tim hồng phía trên đầu. Thiết kế có đường viền đen rõ ràng, rất dễ xếp cho các bạn mới.",
+    "colors": [
+      { "code": "#01", "name": "Cam tươi", "quantity": 210 },
+      { "code": "#02", "name": "Trắng", "quantity": 45 },
+      { "code": "#03", "name": "Đen", "quantity": 26 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị phôi và bản vẽ", "text": "Đặt bảng đinh Pegboard lên mặt phẳng cố định. Chuẩn bị sẵn các khay hạt màu cam tươi, trắng và đen theo sơ đồ.", "image": "../assets/images/fox-step1.jpg" },
+      { "number": 2, "title": "Xếp phần đầu và tai cáo", "text": "Sử dụng hạt màu đen để đi khung viền sắc nét, sau đó dùng hạt cam tươi dựng phom tai và khuôn mặt chính.", "image": "../assets/images/fox-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện trái tim và má trắng", "text": "Phối các hạt màu trắng ở hai bên má để tạo điểm nhấn má bông, đồng thời bổ sung chi tiết trái tim nhỏ màu hồng phía trên đầu chú cáo.", "tip": "Gắp các hạt viền đen trước sẽ giúp bạn dễ định vị các mảng màu cam bên trong mà không bị đếm lệch ô." },
+      { "number": 4, "title": "Ủi nhiệt hoàn thiện tác phẩm", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 25-30 giây cho đến khi hạt dính kết.", "image": "../assets/images/fox-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M12": {
+    "map_id": "M12",
+    "title": "Capybara Lực Sĩ",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-capybara-cute.webp",
+    "duration": "80-90 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Con vật", "Hoạt hình"],
+    "pegboard": "58 x 58 ô (Midi 5mm)",
+    "total_beads": 1380,
+    "download_link": "files/map-capybara-musculosa.pdf",
+    "description": "Bộ trưởng ngoại giao Capybara phiên bản tập tạ cực kỳ lầy lội và độc đáo. Bản vẽ có ký hiệu lưới tọa độ chi tiết tương đương tranh chữ thập.",
+    "colors": [
+      { "code": "#01", "name": "Nâu đậm", "quantity": 620 },
+      { "code": "#02", "name": "Xám", "quantity": 280 },
+      { "code": "#03", "name": "Đen", "quantity": 96 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hệ thống pegboard lớn", "text": "Ghép các tấm pegboard nhỏ lại để đạt kích thước tối thiểu 58x58 ô. Sắp đặt hạt màu nâu đậm, xám và đen ra khay lớn.", "image": "../assets/images/capybara-step1.jpg" },
+      { "number": 2, "title": "Dựng phom dáng thân capybara", "text": "Tập trung xếp mảng thân lớn của capybara bằng hạt màu nâu, chú ý tạo hình các khối cơ bắp lực sĩ theo sơ đồ lưới tọa độ.", "image": "../assets/images/capybara-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện tạ tay và phụ kiện", "text": "Sử dụng hạt màu xám và đen để xếp chi tiết chiếc tạ đòn gym mà chú capybara đang nâng, sau đó đi các đường viền bao quanh.", "tip": "Bản vẽ có ma trận khối lớn, hãy sử dụng thước kẻ để gióng hàng trên màn hình điện thoại/tablet tránh xếp nhầm dòng." },
+      { "number": 4, "title": "Ủi nhiệt hai mặt bảo an", "text": "Do tác phẩm có kích thước lớn, cần ủi kỹ mặt trước qua giấy nến trong 50 giây, chờ nguội rồi lật mặt sau ủi lướt để tăng độ bền liên kết.", "image": "../assets/images/capybara-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 11 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M13": {
+    "map_id": "M13",
+    "title": "Cá Vàng Béo Tròn",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-ca-vang.webp",
+    "duration": "45 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "38 x 33 ô (Midi 5mm)",
+    "total_beads": 812,
+    "download_link": "files/map-ca-vang-beo.pdf",
+    "description": "Mẫu cá vàng mắt to siêu đáng yêu sở hữu bảng phối màu gradient từ đỏ rực sang cam và vàng nghệ ở phần đuôi, kèm ký hiệu mã hạt trực quan.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ", "quantity": 260 },
+      { "code": "#02", "name": "Cam", "quantity": 210 },
+      { "code": "#03", "name": "Vàng", "quantity": 160 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Phân loại bộ ba hạt gradient", "text": "Chuẩn bị sẵn bảng pegboard vuông. Xếp riêng ba tone màu đỏ, cam, vàng ra ba ngăn khay kế nhau.", "image": "../assets/images/goldfish-step1.jpg" },
+      { "number": 2, "title": "Xếp mắt và phần đầu cá", "text": "Tạo hình đôi mắt lồi to tròn đặc trưng bằng hạt đen trắng, sau đó dùng hạt màu đỏ xếp trọn vẹn phần đầu và nửa thân trên.", "image": "../assets/images/goldfish-step2.jpg" },
+      { "number": 3, "title": "Phối đuôi hiệu ứng gradient", "text": "Tiến hành xếp phần đuôi cá xòe rộng bằng cách chuyển màu mượt mà: xen kẽ hạt đỏ chuyển sang cam, rồi kết thúc bằng sắc vàng nghệ ở rìa đuôi.", "tip": "Để hiệu ứng gradient tự nhiên, hãy xếp xen kẽ 1 hạt đỏ - 1 hạt cam ở vùng ranh giới màu sắc." },
+      { "number": 4, "title": "Ủi nhiệt tạo phom mềm", "text": "Phủ giấy nến và di bàn ủi nhiệt độ vừa theo hình vòng tròn đều đặn trong 35 giây để phần đuôi mỏng không bị quá chảy.", "image": "../assets/images/goldfish-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M14": {
+    "map_id": "M14",
+    "title": "Quả Chanh Tây",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-chanh.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả"],
+    "pegboard": "34 x 34 ô (Midi 5mm)",
+    "total_beads": 620,
+    "download_link": "files/map-qua-chanh-vang.pdf",
+    "description": "Quả chanh vàng (Lemon) với các mảng màu đổ bóng từ vàng chanh sang vàng đậm và nâu đất, mô tả chân thực cấu trúc khối tròn pixel.",
+    "colors": [
+      { "code": "#01", "name": "Vàng chanh", "quantity": 310 },
+      { "code": "#02", "name": "Vàng đậm", "quantity": 120 },
+      { "code": "#03", "name": "Nâu", "quantity": 55 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị dụng cụ xếp hạt", "text": "Đặt tấm pegboard 34x34 ô lên bàn học. Chuẩn bị nhíp gắp cùng các tone màu vàng chanh, vàng đậm và một ít hạt nâu làm cuống.", "image": "../assets/images/lemon-step1.jpg" },
+      { "number": 2, "title": "Tạo khung trái chanh", "text": "Dùng hạt màu vàng đậm đi outline viền ngoài hình quả chanh tây thuôn dài ở hai đầu và tạo bố cục múi ruột bên trong.", "image": "../assets/images/lemon-step2.jpg" },
+      { "number": 3, "title": "Đổ bóng khối và lấp đầy", "text": "Lấp đầy các múi chanh bằng hạt màu vàng chanh tươi. Sử dụng các hạt màu nâu đất ở phần góc để tạo hiệu ứng đổ bóng pixel.", "tip": "Hãy xếp từ phần cuống quả đi xuống dưới để phom quả chanh được cân đối nhất." },
+      { "number": 4, "title": "Ủi phẳng và ép vật nặng", "text": "Đặt giấy nến lên, di chuyển bàn ủi đều khắp bề mặt trong 30 giây. Khi tháo ra, ép bằng một vật nặng phẳng để thành phẩm không bị vênh.", "image": "../assets/images/lemon-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M15": {
+    "map_id": "M15",
+    "title": "Chậu Hoa Ba Sắc",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-chau-hoa.webp",
+    "duration": "40 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Trang trí"],
+    "pegboard": "36 x 36 ô (Midi 5mm)",
+    "total_beads": 745,
+    "download_link": "files/map-chau-hoa-pixel.pdf",
+    "description": "Một chậu cây đất nung gồm ba bông hoa rực rỡ sắc màu hồng, đỏ và xanh dương. Rất thích hợp làm tranh đóng khung treo bàn học.",
+    "colors": [
+      { "code": "#01", "name": "Hồng", "quantity": 220 },
+      { "code": "#02", "name": "Xanh dương", "quantity": 180 },
+      { "code": "#03", "name": "Đỏ", "quantity": 170 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Sắp xếp khay hạt đa sắc", "text": "Chuẩn bị pegboard vuông lớn. Chia hạt màu hồng, xanh dương, đỏ và nâu đất ra các ô khay riêng biệt.", "image": "../assets/images/pot-step1.jpg" },
+      { "number": 2, "title": "Dựng hình chậu cây đất nung", "text": "Sử dụng hạt màu nâu xếp phần chậu cây hình thang ở phía dưới cùng, sau đó đi các hạt xanh lá làm cành thân đi lên.", "image": "../assets/images/pot-step2.jpg" },
+      { "number": 3, "title": "Tạo hình ba đóa hoa rực rỡ", "text": "Lần lượt xếp ba bông hoa lớn ở phía trên bằng ba màu khác nhau (hồng, đỏ, xanh dương) theo đúng sơ đồ pixel.",
+        "tip": "Nên hoàn thiện bông hoa ở giữa trước để làm tâm đối xứng cho hai bông hoa hai bên." },
+      { "number": 4, "title": "Ủi nhiệt kết dính bề mặt", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ trung bình đi vòng tròn đều tay trong 40 giây cho các hạt liên kết chắc chắn.", "image": "../assets/images/pot-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M16": {
+    "map_id": "M16",
+    "title": "Cherry Đôi Mini",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-cherry.webp",
+    "duration": "10-15 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoa quả"],
+    "pegboard": "26 x 26 ô (Midi 5mm)",
+    "total_beads": 124,
+    "download_link": "files/map-cherry-mini.pdf",
+    "description": "Cặp quả cherry đỏ nhỏ nhắn có cuống lá xanh. Thiết kế siêu tối giản, hoàn thành cực nhanh trong 10-15 phút để làm móc treo chìa khóa.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ cherry", "quantity": 80 },
+      { "code": "#02", "name": "Xanh lá", "quantity": 20 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị bàn đinh cỡ nhỏ", "text": "Đặt tấm pegboard 26x26 ô lên bàn. Chuẩn bị sẵn một ít hạt màu đỏ cherry tươi và hạt màu xanh lá cây.", "image": "../assets/images/cherry-step1.jpg" },
+      { "number": 2, "title": "Xếp hai quả cherry tròn", "text": "Sử dụng nhíp gắp các hạt màu đỏ cherry xếp hai khối tròn nhỏ nằm sát cạnh nhau ở phần dưới của bảng.", "image": "../assets/images/cherry-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện cuống lá xanh", "text": "Dùng các hạt màu xanh lá xếp hai đường thẳng chéo đi lên hội tụ lại một điểm để làm cuống và lá cherry.", "tip": "Vì mẫu rất nhỏ, hãy gắp nhẹ tay để tránh nhíp va quẹt làm đổ các hạt đỏ đã xếp bên dưới." },
+      { "number": 4, "title": "Ủi nhiệt nhanh tạo móc khóa", "text": "Phủ giấy nến và ấn nhẹ bàn ủi trong vòng 10-15 giây. Thành phẩm rất thích hợp để luồn khoen làm móc khóa handmade.", "image": "../assets/images/cherry-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M17": {
+    "map_id": "M17",
+    "title": "Cherry Đôi Cười",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-cherry-cute.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả", "Hoạt hình"],
+    "pegboard": "36 x 32 ô (Midi 5mm)",
+    "total_beads": 680,
+    "download_link": "files/map-cherry-mat-cuoi.pdf",
+    "description": "Vẫn là cặp quả quả sơ-ri nhưng được thổi hồn bằng phong cách chibi hoạt hình với hai biểu cảm mắt tròn xoe và mắt híp cười tinh nghịch.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ đậm", "quantity": 260 },
+      { "code": "#02", "name": "Đen", "quantity": 36 },
+      { "code": "#03", "name": "Trắng", "quantity": 22 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị map và định vị", "text": "Mở bản vẽ ma trận cherry cười trên màn hình. Đặt pegboard 36x32 ô sẵn sàng cùng hạt đỏ, đen, trắng.", "image": "../assets/images/cherrycute-step1.jpg" },
+      { "number": 2, "title": "Xếp tạo hình hai quả cherry lớn", "text": "Dùng hạt màu đỏ đậm đi viền và điền kín phom dáng hai quả cherry lớn đối xứng, tạo diện tích rộng hơn mẫu mini.", "image": "../assets/images/cherrycute-step2.jpg" },
+      { "number": 3, "title": "Thêm biểu cảm khuôn mặt Chibi", "text": "Chừa các khoảng trống để đặt hạt đen và trắng làm một bên mắt tròn xoe bắt sáng, một bên mắt híp cười dễ thương cùng khuôn miệng nhỏ.", "tip": "Hãy đặt các hạt màu trắng tạo điểm long lanh của mắt thật chuẩn theo map để biểu cảm được hồn nhiên nhất." },
+      { "number": 4, "title": "Ủi nhiệt liên kết khối", "text": "Phủ giấy nến lên bề mặt, dùng bàn ủi nhiệt độ trung bình đi đều khắp trong 30 giây để bề mặt phẳng mịn.", "image": "../assets/images/cherrycute-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M18": {
+    "map_id": "M18",
+    "title": "Chim Cánh Cụt Ôm Tim",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-chim-canh-cut.webp",
+    "duration": "20-25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 312,
+    "download_link": "files/map-chim-canh-cut.pdf",
+    "description": "Chú chim cánh cụt mập mạp má hồng với những icon trái tim nhỏ bay quanh, tone màu chủ đạo là xám đen, trắng và mỏ vàng chân cam.",
+    "colors": [
+      { "code": "#01", "name": "Đen", "quantity": 180 },
+      { "code": "#02", "name": "Trắng", "quantity": 110 },
+      { "code": "#03", "name": "Hồng", "quantity": 24 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị bảng đinh và hạt core", "text": "Đặt pegboard vuông lên mặt bàn phẳng. Chuẩn bị khay hạt màu đen chủ đạo, màu trắng làm bụng và màu hồng tạo tim.", "image": "../assets/images/penguin-step1.jpg" },
+      { "number": 2, "title": "Dựng outline thân chim cánh cụt", "text": "Sử dụng các hạt màu đen xếp viền bao quanh tạo hình thân chú chim cánh cụt mập mạp cùng đôi cánh nhỏ hai bên.", "image": "../assets/images/penguin-step2.jpg" },
+      { "number": 3, "title": "Lấp đầy bụng trắng và thêm trái tim", "text": "Điền các hạt màu trắng làm mảng bụng lớn, dùng hạt màu hồng xếp khối trái tim nhỏ ngay trước ngực như đang ôm.", "tip": "Đừng quên điểm hai hạt màu hồng nhạt ở hai bên má để tạo hiệu ứng má hồng thẹn thùng cho chú chim." },
+      { "number": 4, "title": "Ủi nhiệt đều phom dáng", "text": "Di chuyển bàn ủi nhẹ nhàng theo vòng tròn qua lớp giấy nến trong 25 giây để hạt dính đều mà không bị méo phom.", "image": "../assets/images/penguin-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M19": {
+    "map_id": "M19",
+    "title": "Alphabet Hồng",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-chu-cai.webp",
+    "duration": "90 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Trang trí", "Logo"],
+    "pegboard": "50 x 70 ô (Midi 5mm)",
+    "total_beads": 1850,
+    "download_link": "files/map-alphabet-pink.pdf",
+    "description": "Trọn bộ sơ đồ thiết kế 26 chữ cái từ A đến Z theo font chữ vuông pixel art màu hồng cánh sen cực đẹp. Phù hợp để ghép tên làm biển cửa phòng hoặc quà tặng.",
+    "colors": [
+      { "code": "#01", "name": "Hồng cánh sen", "quantity": 980 },
+      { "code": "#02", "name": "Trắng", "quantity": 240 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị khu vực ghép chữ cái", "text": "Chuẩn bị bàn đinh Pegboard lớn (hoặc ghép nhiều tấm). Sắp xếp khay hạt màu hồng cánh sen số lượng lớn.", "image": "../assets/images/alphabet-step1.jpg" },
+      { "number": 2, "title": "Xếp khung ký tự theo hàng lưới", "text": "Tiến hành xếp từng chữ cái A, B, C... theo thứ tự từ trên xuống dưới, sử dụng hạt hồng cánh sen tạo font chữ vuông pixel.", "image": "../assets/images/alphabet-step2.jpg" },
+      { "number": 3, "title": "Thêm viền trắng phân tách", "text": "Dùng các hạt màu trắng đi viền lót hoặc tạo điểm nhấn đổ bóng bên trong lòng chữ để tăng độ nổi bật cho ký tự.", "tip": "Hãy để khoảng cách giữa các chữ cái ít nhất là 2 ô trống để sau khi ủi xong bạn có thể dễ dàng cắt rời từng chữ." },
+      { "number": 4, "title": "Ủi nhiệt mảng lớn cẩn thận", "text": "Ủi đều tay diện rộng trong vòng 60 giây qua giấy nến, đảm bảo tất cả các chữ cái đều được gia nhiệt đồng đều không bị rời rạc.", "image": "../assets/images/alphabet-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 16 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M20": {
+    "map_id": "M20",
+    "title": "Chuối Chín Bóc Vỏ",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-chuoi.webp",
+    "duration": "25 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả"],
+    "pegboard": "28 x 28 ô (Midi 5mm)",
+    "total_beads": 296,
+    "download_link": "files/map-qua-chuoi.pdf",
+    "description": "Thiết kế tạo hình quả chuối đang bóc dở vỏ độc đáo, sử dụng các tone màu chuyển tiếp từ vàng tươi, vàng đậm cho đến trắng sữa của ruột chuối.",
+    "colors": [
+      { "code": "#01", "name": "Vàng", "quantity": 180 },
+      { "code": "#02", "name": "Trắng sữa", "quantity": 70 },
+      { "code": "#03", "name": "Nâu", "quantity": 20 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị khay màu vỏ và ruột", "text": "Chuẩn bị pegboard vuông vừa. Phân tách hạt màu vàng vỏ, hạt trắng sữa làm ruột chuối và hạt nâu làm cuống quả.", "image": "../assets/images/banana-step1.jpg" },
+      { "number": 2, "title": "Xếp phần vỏ chuối cong", "text": "Sử dụng các hạt màu vàng tươi xếp phần vỏ chuối uốn cong phía dưới và các dải vỏ bóc mở bung sang hai bên.", "image": "../assets/images/banana-step2.jpg" },
+      { "number": 3, "title": "Lấp đầy ruột trắng sữa", "text": "Dùng hạt màu trắng sữa điền kín phần ruột chuối lộ ra ở phía trên, điểm thêm vài hạt nâu ở đầu cuống quả để tạo độ chân thực.", "tip": "Đi phối một vài hạt vàng đậm ở vùng nếp gấp vỏ sẽ tạo hiệu ứng bóng đổ 3D rất đẹp mắt." },
+      { "number": 4, "title": "Ủi nhiệt cố định phom quả", "text": "Phủ giấy nến lên, dùng bàn ủi nhiệt độ vừa di chuyển nhẹ nhàng trong 25 giây, sau đó ép phẳng bằng vật nặng.", "image": "../assets/images/banana-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M21": {
+    "map_id": "M21",
+    "title": "Cỏ Bốn Lá May Mắn",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-co-bon-la.webp",
+    "duration": "30 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Trang trí", "Thực vật"],
+    "pegboard": "36 x 38 ô (Midi 5mm)",
+    "total_beads": 532,
+    "download_link": "files/map-co-bon-la.pdf",
+    "description": "Biểu tượng của sự may mắn với các sắc độ chuyển màu từ xanh lá đậm, xanh neon đến điểm xuyết chút vàng nhạt tạo hiệu ứng bắt sáng sinh động.",
+    "colors": [
+      { "code": "#01", "name": "Xanh lá", "quantity": 260 },
+      { "code": "#02", "name": "Xanh neon", "quantity": 120 },
+      { "code": "#03", "name": "Vàng nhạt", "quantity": 28 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận ô lưới", "text": "Đặt tấm Pegboard lên bàn phẳng. Bố trí các mã hạt màu xanh lá đậm, xanh neon và vàng nhạt gọn gàng.", "image": "../assets/images/clover-step1.jpg" },
+      { "number": 2, "title": "Dựng hình đối xứng 4 cánh lá", "text": "Sử dụng hạt màu xanh lá đi khung viền ngoài và xếp phom dáng đối xứng hoàn hảo cho cả 4 cánh của cỏ bốn lá.", "image": "../assets/images/clover-step2.jpg" },
+      { "number": 3, "title": "Phối sắc neon và thêm cuống", "text": "Điền hạt xanh neon vào lòng cánh hoa để tạo độ sáng. Dùng hạt xanh đậm kéo đường cong làm cuống và điểm vài hạt vàng nhạt bắt sáng.", "tip": "Xếp từ trục tâm chữ thập ra ngoài bốn hướng sẽ giúp các cánh hoa đều tăm tắp." },
+      { "number": 4, "title": "Ủi nhiệt phẳng đều tác phẩm", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ trung bình di chuyển đều tay theo hình tròn trong 30 giây.", "image": "../assets/images/clover-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M22": {
+    "map_id": "M22",
+    "title": "Quả Đào Tiên",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-dao.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả"],
+    "pegboard": "34 x 34 ô (Midi 5mm)",
+    "total_beads": 680,
+    "download_link": "files/map-qua-dao.pdf",
+    "description": "Mẫu quả đào chín mọng với nền xanh dương tương phản nổi bật. Kỹ thuật đổ màu chuyển tiếp (gradient) mượt mà giúp tác phẩm trông rất có chiều sâu.",
+    "colors": [
+      { "code": "#01", "name": "Hồng đào", "quantity": 320 },
+      { "code": "#02", "name": "Vàng cam", "quantity": 90 },
+      { "code": "#03", "name": "Xanh lá", "quantity": 35 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Sắp xếp hệ màu chuyển tiếp", "text": "Định vị tấm pegboard. Sắp xếp hạt màu hồng đào, vàng cam và xanh lá cây gần nhau để tiện thao tác đổ màu.", "image": "../assets/images/peach-step1.jpg" },
+      { "number": 2, "title": "Tạo hình khối quả đào tiên", "text": "Xếp các hạt viền ngoài hình trái đào bo cong nhẹ ở đáy và thuôn nhọn ở phần chóp quả đặc trưng.", "image": "../assets/images/peach-step2.jpg" },
+      { "number": 3, "title": "Đổ màu Gradient và thêm lá", "text": "Điền mảng màu hồng đào chủ đạo, phối hạt vàng cam ở vùng ranh giới để tạo hiệu ứng chuyển màu chín mọng. Thêm nhành lá xanh trên đỉnh.", "tip": "Kỹ thuật gradient yêu cầu xếp xen kẽ các hạt hồng và vàng ở vùng giữa quả để màu sắc trông mềm mại." },
+      { "number": 4, "title": "Ủi nhiệt mượt bề mặt", "text": "Đặt giấy nến lên quả đào, di chuyển bàn ủi nhiệt độ vừa liên tục trong 35 giây. Ép vật nặng phẳng ngay sau khi ủi.", "image": "../assets/images/peach-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M23": {
+    "map_id": "M23",
+    "title": "Dâu Tây Ngọt Ngào",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-dau.webp",
+    "duration": "15 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoa quả"],
+    "pegboard": "28 x 28 ô (Midi 5mm)",
+    "total_beads": 315,
+    "download_link": "files/map-dau-tay-mini.pdf",
+    "description": "Thiết kế trái dâu tây đỏ tươi cơ bản kết hợp phần cuống xanh lá, đốm hạt trắng sữa nổi bật. Cực kỳ đơn giản, phù hợp cho các bé hoặc người mới tập xếp.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ", "quantity": 180 },
+      { "code": "#02", "name": "Xanh lá", "quantity": 42 },
+      { "code": "#03", "name": "Trắng", "quantity": 16 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị phôi đinh nhỏ", "text": "Chuẩn bị tấm pegboard vuông vừa vặn. Bố trí hạt màu đỏ tươi, xanh lá làm cuống và một vài hạt trắng sữa.", "image": "../assets/images/strawberry-step1.jpg" },
+      { "number": 2, "title": "Xếp phom dáng hình tam giác", "text": "Dùng hạt màu đỏ xếp phom dáng hình tam giác bo tròn đặc trưng của phần thân quả dâu tây.", "image": "../assets/images/strawberry-step2.jpg" },
+      { "number": 3, "title": "Điểm hạt dâu và xếp cuống lá", "text": "Chừa khoảng cách để chèn các đốm hạt trắng sữa nổi bật lên thân dâu, sau đó xếp lớp cuống lá màu xanh lá ở phía trên.", "tip": "Xếp các hạt trắng chấm bi rải rác đều nhau để quả dâu nhìn tự nhiên hơn." },
+      { "number": 4, "title": "Ủi nhiệt nhanh cố định", "text": "Ủi lướt nhẹ tay qua giấy nến trong vòng 15-20 giây. Vì mẫu đơn giản nên hạt bám dính cực nhanh.", "image": "../assets/images/strawberry-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M24": {
+    "map_id": "M24",
+    "title": "Doraemon Tinh Nghịch",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-doraemon.webp",
+    "duration": "45-60 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoạt hình"],
+    "pegboard": "44 x 50 ô (Midi 5mm)",
+    "total_beads": 940,
+    "download_link": "files/map-doraemon-chong-chong.pdf",
+    "description": "Mèo máy Doraemon đang cười rạng rỡ với chiếc chong chóng tre trên đầu. Một trong những mẫu bán chạy nhất thuộc chủ đề nhân vật hoạt hình.",
+    "colors": [
+      { "code": "#01", "name": "Xanh dương", "quantity": 420 },
+      { "code": "#02", "name": "Trắng", "quantity": 260 },
+      { "code": "#03", "name": "Đỏ", "quantity": 60 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận nhân vật", "text": "Đặt bảng đinh ghép lớn lên bàn phẳng. Mở sơ đồ mã màu Doraemon trên thiết bị hoặc in sẵn.", "image": "../assets/images/doraemon-step1.jpg" },
+      { "number": 2, "title": "Dựng khuôn mặt mèo máy", "text": "Sử dụng hạt màu xanh dương đi khung đầu, xếp đôi mắt to tròn và phần mặt nền màu trắng.", "image": "../assets/images/doraemon-step2.jpg" },
+      { "number": 3, "title": "Thêm chong chóng tre và mũi đỏ", "text": "Hoàn thiện chiếc chong chóng tre màu vàng trên đỉnh đầu, thêm chiếc mũi đỏ rực và chiếc vòng cổ nhỏ sinh động.", "tip": "Nhớ xếp chi tiết các sợi ria mép bằng hạt đen thật cân đối hai bên má." },
+      { "number": 4, "title": "Ủi nhiệt diện rộng đồng đều", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi di chuyển liên tục theo vòng tròn khắp ma trận trong 45 giây để không bị rời hạt.", "image": "../assets/images/doraemon-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 8 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M25": {
+    "map_id": "M25",
+    "title": "Hai Miếng Dưa Hấu",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-dua-hau.webp",
+    "duration": "20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoa quả"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 342,
+    "download_link": "files/map-dua-hau-doi.pdf",
+    "description": "Cặp lát dưa hấu xếp lớp nghiêng cá tính đem lại cảm giác mát lạnh ngày hè, viền vỏ sử dụng hai tone xanh lá đậm và nhạt đan xen.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ", "quantity": 210 },
+      { "code": "#02", "name": "Xanh lá", "quantity": 95 },
+      { "code": "#03", "name": "Đen", "quantity": 24 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Sắp xếp khay hạt màu hè", "text": "Chuẩn bị sẵn tấm pegboard vuông. Phân chia hạt màu đỏ ruột, xanh lá viền vỏ và các hạt đen làm hạt dưa.", "image": "../assets/images/watermelon-step1.jpg" },
+      { "number": 2, "title": "Xếp khối ruột dưa tam giác", "text": "Sử dụng hạt màu đỏ để tạo hình mảng tam giác của hai lát dưa hấu xếp lớp hơi nghiêng đan xen nhau.", "image": "../assets/images/watermelon-step2.jpg" },
+      { "number": 3, "title": "Viền lớp vỏ và chèn hạt đen", "text": "Dùng hạt xanh lá đi viền vỏ cong phía dưới đáy, chèn các hạt màu đen rải rác trong mảng đỏ để mô tả hạt dưa hấu.", "tip": "Điểm một đường viền hạt màu trắng mỏng giữa lớp vỏ xanh và ruột đỏ sẽ tạo cảm giác lát dưa chân thực hơn." },
+      { "number": 4, "title": "Ủi gia nhiệt hoàn thiện", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 25 giây.", "image": "../assets/images/watermelon-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M26": {
+    "map_id": "M26",
+    "title": "Hello Kitty Ôm Dâu",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-hellokitty.webp",
+    "duration": "60 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "42 x 46 ô (Midi 5mm)",
+    "total_beads": 1120,
+    "download_link": "files/map-hello-kitty-strawberry.pdf",
+    "description": "Nàng mèo Hello Kitty thắt nơ hồng điệu đà đang ôm một quả dâu tây siêu lớn. Bố cục chi tiết, đường nét viền bao quanh liền mạch sắc nét.",
+    "colors": [
+      { "code": "#01", "name": "Trắng", "quantity": 520 },
+      { "code": "#02", "name": "Hồng", "quantity": 180 },
+      { "code": "#03", "name": "Đỏ", "quantity": 220 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị không gian bàn đinh lớn", "text": "Ghép nối liên kết các tấm pegboard để đủ không gian 42x46 ô. Chuẩn bị lượng lớn hạt màu trắng và đỏ dâu tây.", "image": "../assets/images/kitty-step1.jpg" },
+      { "number": 2, "title": "Tạo hình khuôn mặt và nơ Kitty", "text": "Xếp mảng đầu lớn của Hello Kitty bằng hạt màu trắng, chú ý đi chi tiết chiếc nơ hồng điệu đà bên góc tai.", "image": "../assets/images/kitty-step2.jpg" },
+      { "number": 3, "title": "Xếp quả dâu tây siêu lớn phía trước", "text": "Sử dụng hạt màu đỏ để tạo hình quả dâu tây lớn nằm trước ngực như chú mèo đang ôm trọn lấy quả quả.", "tip": "Sử dụng nhíp gắp đầu nhọn để dễ dàng len hạt vào các góc hẹp giữa nơ và tai mèo." },
+      { "number": 4, "title": "Ủi bảo an hai mặt mảng khối", "text": "Ủi mặt đầu qua giấy nến trong 45 giây, để nguội bớt rồi lật mặt đằng sau ủi lướt thêm để giữ phom dáng mảng khối lớn bền chắc.", "image": "../assets/images/kitty-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 7 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M27": {
+    "map_id": "M27",
+    "title": "Hoa Hướng Dương",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-hoa-huong-duong.webp",
+    "duration": "15-20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Trang trí", "Thực vật"],
+    "pegboard": "26 x 26 ô (Midi 5mm)",
+    "total_beads": 215,
+    "download_link": "files/map-hoa-huong-duong.pdf",
+    "description": "Đóa hướng dương luôn hướng về phía mặt trời với nhị nâu, cánh vàng rực rỡ cùng hai nhành lá to bản đối xứng phía dưới.",
+    "colors": [
+      { "code": "#01", "name": "Vàng", "quantity": 150 },
+      { "code": "#02", "name": "Nâu", "quantity": 40 },
+      { "code": "#03", "name": "Xanh lá", "quantity": 36 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt màu hướng dương", "text": "Đặt tấm pegboard nhỏ lên mặt phẳng. Chuẩn bị sẵn hạt màu vàng rực làm cánh hoa và màu nâu đậm làm nhị hoa.", "image": "../assets/images/sunflower-step1.jpg" },
+      { "number": 2, "title": "Xếp nhụy hoa vòng tròn chính giữa", "text": "Dùng các hạt màu nâu xếp một khối hình tròn hoặc hình đa giác đều ở chính tâm của bảng đinh để làm nhụy hoa.", "image": "../assets/images/sunflower-step2.jpg" },
+      { "number": 3, "title": "Xếp các cánh hoa vàng bao quanh", "text": "Sử dụng hạt màu vàng xếp các nhánh cánh hoa tỏa đều ra xung quanh nhị nâu, thêm hai nhành lá xanh đối xứng bên dưới.", "tip": "Xếp cánh hoa theo quy tắc đối đỉnh (trên - dưới, trái - phải) để bông hoa tỏa tròn đều đặn nhất." },
+      { "number": 4, "title": "Ủi cố định phom đóa hoa", "text": "Phủ giấy nến, dùng bàn ủi nhiệt độ vừa ấn nhẹ xoay tròn trong 20 giây. Đợi nguội rồi nhẹ nhàng tháo khỏi bàn đinh.", "image": "../assets/images/sunflower-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M28": {
+    "map_id": "M28",
+    "title": "Hồng Hạc Kiêu Sa",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-hong-hac.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật"],
+    "pegboard": "24 x 34 ô (Midi 5mm)",
+    "total_beads": 385,
+    "download_link": "files/map-flamingo.pdf",
+    "description": "Tạo dáng đứng một chân kinh điển của loài chim hồng hạc (Flamingo) thanh lịch trên nền hồng pastel dịu mắt. Mỏ chim có điểm nhấn phối trắng đen cá tính.",
+    "colors": [
+      { "code": "#01", "name": "Hồng pastel", "quantity": 220 },
+      { "code": "#02", "name": "Đen", "quantity": 22 },
+      { "code": "#03", "name": "Trắng", "quantity": 16 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị mã hạt hồng pastel", "text": "Đặt bảng đinh dọc theo phom đứng của chim. Chuẩn bị lượng hạt hồng pastel làm thân và hạt đen, trắng làm chi tiết mỏ.", "image": "../assets/images/flamingo-step1.jpg" },
+      { "number": 2, "title": "Xếp phần cổ cong dài kiêu sa", "text": "Dùng hạt hồng pastel đi đường line uốn cong tinh tế hình dấu hỏi để tạo dáng phần cổ dài đặc trưng của hồng hạc.", "image": "../assets/images/flamingo-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện phom thân và chân đứng", "text": "Xếp tiếp mảng khối thân bầu bĩnh, kéo dài hàng hạt xuống dưới làm dáng đứng một chân co một chân duỗi kiêu sa. Điểm phối mỏ đen trắng.", "tip": "Đoạn cổ chim rất thanh mảnh, hãy điền hạt thật khít theo map lưới để tránh bị gãy phom sau khi ủi." },
+      { "number": 4, "title": "Ủi gia nhiệt phom dáng đứng", "text": "Phủ giấy nến lên toàn bộ phom chim đứng, di chuyển bàn ủi nhẹ nhàng đều tay trong 25 giây rồi đặt vật nặng lên đè phẳng.", "image": "../assets/images/flamingo-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M29": {
+    "map_id": "M29",
+    "title": "Combo Emoji",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-icon.webp",
+    "duration": "70 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình", "Trang trí"],
+    "pegboard": "48 x 48 ô (Midi 5mm)",
+    "total_beads": 1280,
+    "download_link": "files/map-emoji-icons.pdf",
+    "description": "Bảng tổng hợp sơ đồ 9 biểu tượng cảm xúc quen thuộc như: cười khóc, thả tim, đeo kính ngầu... Thước đo tọa độ chuẩn giúp bạn tách rời từng icon làm móc khóa cực kỳ tiện lợi.",
+    "colors": [
+      { "code": "#01", "name": "Vàng", "quantity": 720 },
+      { "code": "#02", "name": "Đen", "quantity": 160 },
+      { "code": "#03", "name": "Đỏ", "quantity": 85 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Căn chia lưới tọa độ combo", "text": "Ghép các bảng đinh lớn lại với nhau. Căn thước đo gióng hàng ma trận để chia khu vực cho từng icon riêng biệt.", "image": "../assets/images/emoji-step1.jpg" },
+      { "number": 2, "title": "Xếp nền khối tròn màu vàng", "text": "Lần lượt điền các hạt màu vàng tươi tạo thành các khối tròn nền cho từng biểu tượng cảm xúc trên bảng lưới.", "image": "../assets/images/emoji-step2.jpg" },
+      { "number": 3, "title": "Điểm chi tiết biểu cảm sắc thái", "text": "Dùng hạt đen và đỏ chèn vào lõi để tạo hình mắt kính ngầu, giọt nước mắt cười khóc hay các khối tim thả tình cảm sinh động.", "tip": "Chừa khoảng cách ít nhất 2 hàng hạt trống giữa các icon để thuận tiện cho việc cắt rời làm móc khóa sau này." },
+      { "number": 4, "title": "Ủi diện rộng và phân tách", "text": "Ủi đều diện rộng trong 50 giây qua giấy nến, đợi nguội hoàn toàn rồi tháo nguyên mảng lớn ra trước khi dùng kéo phân tách.", "image": "../assets/images/emoji-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 11 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M30": {
+    "map_id": "M30",
+    "title": "Khinh Khí Cầu Đêm Sao",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-khinh-khi-cau.webp",
+    "duration": "85 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Trang trí", "Phong cảnh"],
+    "pegboard": "34 x 46 ô (Midi 5mm)",
+    "total_beads": 1564,
+    "download_link": "files/map-khinh-khi-cau.pdf",
+    "description": "Tác phẩm phong cảnh pixel tuyệt đẹp miêu tả chiếc khinh khí cầu rực rỡ bay giữa bầu trời đêm lấp lánh ngàn sao và những dải mây xanh nhẹ nhẹ.",
+    "colors": [
+      { "code": "#01", "name": "Xanh navy", "quantity": 420 },
+      { "code": "#02", "name": "Vàng", "quantity": 160 },
+      { "code": "#03", "name": "Đỏ", "quantity": 120 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận phong cảnh", "text": "Bố trí không gian bảng đinh lớn. Phân loại dải hạt màu xanh navy đêm trời, hạt vàng làm sao và hạt đỏ khinh khí cầu.", "image": "../assets/images/balloon-step1.jpg" },
+      { "number": 2, "title": "Xếp dải nền bầu trời đêm sao", "text": "Điền các hạt màu xanh navy làm mảng trời đêm rộng lớn, chừa khoảng trống xen kẽ đặt hạt vàng làm những vì sao lấp lánh.", "image": "../assets/images/balloon-step2.jpg" },
+      { "number": 3, "title": "Dựng khối quả khinh khí cầu rực rỡ", "text": "Sử dụng hạt màu đỏ kết hợp các dải màu rực rỡ xếp khối quả khí cầu lớn nổi bật ở trung tâm ma trận phong cảnh.", "tip": "Giao thoa giữa viền khí cầu và nền trời đêm rất chi tiết, hãy check kĩ tọa độ ma trận lưới tránh bị lem màu." },
+      { "number": 4, "title": "Ủi bảo an mảng tranh lớn", "text": "Ủi kỹ mặt trên qua giấy nến trong 50 giây bằng chuyển động xoáy tròn, ép phẳng thành phẩm làm tranh đóng khung treo tường học.", "image": "../assets/images/balloon-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 10 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M31": {
+    "map_id": "M31",
+    "title": "Lá Thông Thỏ Miffy",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-la-thong-tho.webp",
+    "duration": "45 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật", "Trang trí"],
+    "pegboard": "42 x 43 ô (Midi 5mm)",
+    "total_beads": 820,
+    "download_link": "files/map-la-thong-miffy.pdf",
+    "description": "Sự kết hợp độc đáo giữa chiếc lá phong mùa thu tone màu nâu cam và chú thỏ Miffy cute ở chính giữa. Bản dịch lưới hiển thị rõ ràng trên tablet.",
+    "colors": [
+      { "code": "#01", "name": "Nâu cam", "quantity": 310 },
+      { "code": "#02", "name": "Trắng", "quantity": 150 },
+      { "code": "#03", "name": "Đen", "quantity": 24 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận lá phong", "text": "Đặt tấm Pegboard lên mặt phẳng cố định. Chuẩn bị các ngăn hạt màu nâu cam tạo phom lá và hạt màu trắng làm thỏ.", "image": "../assets/images/miffyleaf-step1.jpg" },
+      { "number": 2, "title": "Dựng hình răng cưa lá phong", "text": "Sử dụng hạt màu nâu cam đi khung viền ngoài với các đường răng cưa đối xứng đặc trưng của chiếc lá phong mùa thu.", "image": "../assets/images/miffyleaf-step2.jpg" },
+      { "number": 3, "title": "Xếp thỏ Miffy ở trung tâm", "text": "Dùng hạt màu trắng lấp đầy khoảng trống ở chính giữa để tạo phom chú thỏ Miffy, thêm hai hạt đen làm mắt và dấu x làm miệng.", "tip": "Hãy hoàn thiện chú thỏ trước khi lấp đầy phần nền nâu cam còn lại để không bị đếm nhầm dòng." },
+      { "number": 4, "title": "Ủi nhiệt hoàn thiện phom dáng", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 35 giây.", "image": "../assets/images/miffyleaf-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M32": {
+    "map_id": "M32",
+    "title": "Quả Lê Xanh Thanh Mát",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-le.webp",
+    "duration": "20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoa quả"],
+    "pegboard": "26 x 34 ô (Midi 5mm)",
+    "total_beads": 340,
+    "download_link": "files/map-qua-le.pdf",
+    "description": "Quả lê xanh mượt với điểm bắt sáng màu vàng nhạt tinh tế trên thân quả. Thích hợp cho các bạn luyện tập kỹ thuật tạo khối pixel mượt mà.",
+    "colors": [
+      { "code": "#01", "name": "Xanh lá", "quantity": 180 },
+      { "code": "#02", "name": "Vàng nhạt", "quantity": 45 },
+      { "code": "#03", "name": "Nâu", "quantity": 16 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị đinh và hạt core", "text": "Đặt tấm pegboard 26x34 ô dọc theo phom đứng. Sắp đặt hạt màu xanh lá cây chủ đạo và hạt vàng nhạt bắt sáng.", "image": "../assets/images/pear-step1.jpg" },
+      { "number": 2, "title": "Xếp phom thân quả lê", "text": "Dùng hạt màu xanh lá xếp phom dáng hình quả lê thuôn nhỏ ở nửa trên và phình tròn đều ở nửa phần dưới đáy.", "image": "../assets/images/pear-step2.jpg" },
+      { "number": 3, "title": "Tạo điểm bắt sáng và cuống", "text": "Chèn cụm hạt màu vàng nhạt ở góc bên trái thân quả để tạo hiệu ứng bóng đổ, dùng hạt màu nâu xếp chiếc cuống nhỏ trên đỉnh.", "tip": "Xếp mảng bắt sáng vàng chéo góc giúp quả lê pixel trông tròn trịa và có chiều sâu khối hơn." },
+      { "number": 4, "title": "Ủi nhiệt nhanh cố định phom", "text": "Đặt giấy nến lên, di chuyển bàn ủi nhiệt độ trung bình đều khắp trong 20 giây rồi đặt vật phẳng nặng đè lên.", "image": "../assets/images/pear-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 1 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M33": {
+    "map_id": "M33",
+    "title": "Loopy Đội Mũ Cún",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-loppy.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoạt hình"],
+    "pegboard": "36 x 38 ô (Midi 5mm)",
+    "total_beads": 685,
+    "download_link": "files/map-loopy-dog-hat.pdf",
+    "description": "Hải ly hồng Loopy phiên bản hot trend đang đội chiếc mũ len hình chú cún đen trắng cực kỳ ngộ nghĩnh và đáng yêu.",
+    "colors": [
+      { "code": "#01", "name": "Hồng loopy", "quantity": 380 },
+      { "code": "#02", "name": "Đen", "quantity": 185 },
+      { "code": "#03", "name": "Trắng", "quantity": 120 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Phân chia tone hồng và trắng đen", "text": "Chuẩn bị sẵn bàn đinh vuông vừa. Tách riêng hạt hồng hải ly, hạt đen và trắng làm chiếc mũ cún len.", "image": "../assets/images/smile-step1.jpg" },
+      { "number": 2, "title": "Xếp phom dáng mũ cún len trước", "text": "Sử dụng hạt màu đen và trắng đi khung viền ngoài và xếp trọn vẹn chiếc mũ len hình cún có hai tai rủ xuống ở nửa trên bảng.", "image": "../assets/images/smile-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện khuôn mặt hồng Loopy", "text": "Dùng hạt màu hồng loopy lấp đầy khuôn mặt bầu bĩnh phía dưới mũ, điểm hai hạt đen làm mắt và răng thỏ trắng đặc trưng.", "tip": "Hãy đặt hạt màu hồng sát đường viền mũ len để phom dáng nhân vật liền mạch khít nhau." },
+      { "number": 4, "title": "Ủi phẳng bề mặt nhân vật", "text": "Phủ giấy nến chuyên dụng, đi bàn ủi nhiệt độ trung bình xoáy tròn nhẹ nhàng trong 30 giây cho các hạt liên kết đều.", "image": "../assets/images/smile-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M34": {
+    "map_id": "M34",
+    "title": "Anh Em Mario Cổ Điển",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-mario.webp",
+    "duration": "45 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoạt hình", "Logo"],
+    "pegboard": "24 x 30 ô (Midi 5mm)",
+    "total_beads": 512,
+    "download_link": "files/map-mario-8bit.pdf",
+    "description": "Nhân vật thợ sửa ống nước Mario huyền thoại theo phong cách 8-bit chuẩn retro cổ điển, mang đầy tính biểu tượng game.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ tươi", "quantity": 210 },
+      { "code": "#02", "name": "Xanh dương", "quantity": 180 },
+      { "code": "#03", "name": "Màu da", "quantity": 122 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị grid ô lưới 8-bit", "text": "Đặt bảng đinh vuông phẳng. Chuẩn bị sẵn khay hạt màu đỏ tươi làm mũ/áo, màu xanh dương làm quần yếm và màu da.", "image": "../assets/images/moon-step1.jpg" },
+      { "number": 2, "title": "Xếp phần mũ và khuôn mặt", "text": "Dùng hạt màu đỏ xếp chiếc mũ lưỡi trai vuông vức phong cách 8-bit, sau đó phối hạt màu da làm phom mặt và hạt nâu làm bộ ria.", "image": "../assets/images/moon-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện bộ quần yếm yế", "text": "Sử dụng hạt màu xanh dương kết hợp hạt đỏ để hoàn thiện dáng đứng giơ tay đặc trưng của nhân vật thợ sửa ống nước.", "tip": "Mẫu retro 8-bit có các đường thẳng vuông vức, hãy gióng hàng đinh thật thẳng để không bị lệch phom vuông." },
+      { "number": 4, "title": "Ủi nhiệt giữ phom Retro", "text": "Phủ giấy nến lên, dùng bàn ủi nhiệt độ vừa di chuyển đều tay trong 25 giây để các hạt dính kết vuông vắn chuẩn phom game.", "image": "../assets/images/moon-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M35": {
+    "map_id": "M35",
+    "title": "Mèo Xám Đeo Chuông",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-meo.webp",
+    "duration": "25 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật"],
+    "pegboard": "36 x 40 ô (Midi 5mm)",
+    "total_beads": 640,
+    "download_link": "files/map-meo-xam.pdf",
+    "description": "Chú mèo con lông xám tro nghiêng đầu tinh nghịch, cổ đeo vòng xanh ngọc sinh động trên nền phông tím nhạt mộng mơ.",
+    "colors": [
+      { "code": "#01", "name": "Xám chuột", "quantity": 410 },
+      { "code": "#02", "name": "Trắng", "quantity": 180 },
+      { "code": "#03", "name": "Xanh ngọc", "quantity": 50 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị bảng đinh dọc", "text": "Đặt bảng đinh dọc theo phom 36x40 ô. Chuẩn bị sẵn khay hạt màu xám chuột, trắng sữa và một ít hạt màu xanh ngọc làm vòng cổ.", "image": "../assets/images/cat-step1.jpg" },
+      { "number": 2, "title": "Xếp tai và khuôn mặt nghiêng", "text": "Dùng hạt màu xám chuột đi khung viền ngoài đầu chú mèo hơi nghiêng tinh nghịch, chừa mảng trong xếp màu trắng làm má.", "image": "../assets/images/cat-step2.jpg" },
+      { "number": 3, "title": "Thêm vòng cổ chuông xanh", "text": "Xếp mảng thân phía dưới bằng hạt xám, sau đó đi đường hạt xanh ngọc ở phần cổ mô tả chiếc vòng chuông sinh động.", "tip": "Điểm một hạt màu vàng ở giữa hàng xanh ngọc để làm chiếc chuông vàng nổi bật cho chú mèo." },
+      { "number": 4, "title": "Ủi tạo phom dáng mèo cưng", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 30 giây.", "image": "../assets/images/cat-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M36": {
+    "map_id": "M36",
+    "title": "Bộ Ba Minions Tinh Quái",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-minion.webp",
+    "duration": "70 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "50 x 74 ô (Midi 5mm)",
+    "total_beads": 2150,
+    "download_link": "files/map-minions-trio.pdf",
+    "description": "Bản vẽ đại cảnh xếp chồng ngộ nghĩnh của bộ ba Minions tinh nghịch Kevin, Stuart và Bob. Thách thức kỹ năng xếp mảng khối lớn.",
+    "colors": [
+      { "code": "#01", "name": "Vàng chanh", "quantity": 1120 },
+      { "code": "#02", "name": "Xanh đen", "quantity": 740 },
+      { "code": "#03", "name": "Xám kính", "quantity": 290 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Ghép hệ thống ma trận lớn", "text": "Ghép nối các tấm pegboard vuông lại để đạt không gian tối thiểu 50x74 ô. Chuẩn bị lượng lớn hạt màu vàng chanh rực rỡ.", "image": "../assets/images/chefcat-step1.jpg" },
+      { "number": 2, "title": "Dựng phom quần yếm xanh đen", "text": "Xếp phần chân đế quần yếm bò của bộ ba nằm xếp chồng lên nhau ở phía dưới ma trận để làm điểm tựa vững chắc.", "image": "../assets/images/chefcat-step2.jpg" },
+      { "number": 3, "title": "Lấp đầy thân vàng và mắt kính", "text": "Dùng hạt vàng chanh xếp trọn vẹn thân của 3 chú Minions (Kevin cao, Stuart một mắt, Bob lùn), phối hạt xám tạo kính tròn lớn.", "tip": "Bản vẽ có quy mô khối lớn, hãy hoàn thiện phom dáng từng nhân vật từ dưới lên trên để không bị gióng lệch hàng đinh." },
+      { "number": 4, "title": "Ủi bảo an mảng khối lớn", "text": "Ủi kỹ mặt trên qua giấy nến trong 55 giây bằng bàn ủi nhiệt độ trung bình cao, lật mặt sau ủi lướt thêm để tranh kết dính hoàn hảo.", "image": "../assets/images/chefcat-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 15 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M37": {
+    "map_id": "M37",
+    "title": "Chùm Nho Tím Ngọt",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-nho.webp",
+    "duration": "32 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 480,
+    "download_link": "files/map-chum-nho.pdf",
+    "description": "Chùm nho chín mọng sắc tím đậm đà với những quả bóng đổ pixel bóng bẩy, đi kèm phần nhành lá xanh uốn lượn mềm mại.",
+    "colors": [
+      { "code": "#01", "name": "Tím đậm", "quantity": 290 },
+      { "code": "#02", "name": "Xanh lá", "quantity": 140 },
+      { "code": "#03", "name": "Trắng", "quantity": 50 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Bố trí bảng màu chùm nho", "text": "Đặt bảng đinh vuông sẵn sàng. Sắp xếp hạt màu tím đậm làm quả, màu xanh lá làm phần lá nhành và hạt trắng bắt sáng.", "image": "../assets/images/catfish-step1.jpg" },
+      { "number": 2, "title": "Xếp các quả nho tròn liên kết", "text": "Sử dụng hạt màu tím đậm xếp lần lượt từng khối tròn nhỏ kết chùm lại với nhau tạo phom chùm nho hình tam giác ngược.", "image": "../assets/images/catfish-step2.jpg" },
+      { "number": 3, "title": "Thêm nhành lá và bóng sáng", "text": "Dùng hạt xanh lá xếp phần cuống dính kết phía trên chùm quả, điểm 1-2 hạt màu trắng trên mỗi quả nho để tạo độ bóng mọng.", "tip": "Đặt các hạt trắng bắt sáng đồng nhất ở góc trên bên phải của từng quả nho để tạo hiệu ứng ánh sáng tự nhiên." },
+      { "number": 4, "title": "Ủi gia nhiệt hoàn thiện chùm quả", "text": "Phủ giấy nến lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 25 giây.", "image": "../assets/images/catfish-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M38": {
+    "map_id": "M38",
+    "title": "Nơ Xanh Tuyết Elsa",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-no.webp",
+    "duration": "45 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Trang trí", "Hoạt hình"],
+    "pegboard": "53 x 74 ô (Midi 5mm)",
+    "total_beads": 1820,
+    "download_link": "files/map-no-xanh-elsa.pdf",
+    "description": "Chiếc nơ lụa màu xanh tuyết lộng lẫy lấy cảm hứng từ Nữ hoàng băng giá Elsa. Bản thiết kế ma trận chuẩn ký tự mã hạt chuyên nghiệp.",
+    "colors": [
+      { "code": "#01", "name": "Xanh tuyết sky", "quantity": 960 },
+      { "code": "#02", "name": "Xanh dương", "quantity": 620 },
+      { "code": "#03", "name": "Trắng", "quantity": 240 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận thắt nơ", "text": "Ghép nối liên kết các tấm pegboard vuông lớn. Phân tách hạt màu xanh tuyết sky, xanh dương đậm và trắng lấp lánh.", "image": "../assets/images/spacecat-step1.jpg" },
+      { "number": 2, "title": "Dựng khung nút thắt trung tâm", "text": "Dùng hạt màu xanh dương đi khung nút thắt vuông ở chính giữa chiếc nơ để làm điểm định vị lan tỏa ra hai bên cánh nơ.", "image": "../assets/images/spacecat-step2.jpg" },
+      { "number": 3, "title": "Xếp cánh nơ và dải lụa rủ", "text": "Lấp đầy hai bên cánh nơ bằng hạt màu xanh tuyết sky, phối hạt trắng tạo họa tiết bông tuyết lấp lánh và kéo dải lụa mềm mại đi xuống.", "tip": "Sử dụng sơ đồ ký tự số đi kèm để đi chính xác các đường uốn lượn mềm mại của dải lụa Elsa." },
+      { "number": 4, "title": "Ủi gia nhiệt mảng khối lụa", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ vừa di chuyển liên tục diện rộng trong 50 giây để cố định toàn dải nơ.", "image": "../assets/images/spacecat-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 12 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M39": {
+    "map_id": "M39",
+    "title": "Chú Ong Mật Chăm Chỉ",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-ong-cute.webp",
+    "duration": "40 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật"],
+    "pegboard": "50 x 50 ô (Midi 5mm)",
+    "total_beads": 890,
+    "download_link": "files/map-bee-cute.pdf",
+    "description": "Chú ong vàng má hồng với đôi cánh trắng sữa trong suốt dang rộng, được căn tọa độ lưới vuông lớn tỉ lệ 10x10 rất dễ theo dõi.",
+    "colors": [
+      { "code": "#01", "name": "Vàng nghệ", "quantity": 460 },
+      { "code": "#02", "name": "Nâu cà phê", "quantity": 310 },
+      { "code": "#03", "name": "Trắng sữa", "quantity": 120 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị khung lưới sọc", "text": "Đặt bảng đinh vuông lớn lên bàn. Sắp xếp hạt màu vàng nghệ rực rỡ, hạt nâu cà phê làm sọc thân và màu trắng cánh.", "image": "../assets/images/milkcat-step1.jpg" },
+      { "number": 2, "title": "Xếp sọc thân ong mật", "text": "Sử dụng hạt màu vàng nghệ và nâu cà phê xếp đan xen các dải hàng ngang để tạo phom dáng sọc đặc trưng của chú ong chăm chỉ.", "image": "../assets/images/milkcat-step2.jpg" },
+      { "number": 3, "title": "Xếp đôi cánh trắng sữa dang rộng", "text": "Dùng hạt màu trắng sữa xếp hai mảng cánh lớn dang rộng đối xứng hai bên lưng ong, thêm hai hạt hồng làm má hồng chibi.", "tip": "Phần cánh thon mỏng ở gốc, hãy xếp hạt thật khít theo tọa độ 10x10 để cánh bám chắc vào thân sau khi gia nhiệt." },
+      { "number": 4, "title": "Ủi cố định phom ong mật", "text": "Phủ giấy nến lên bề mặt, dùng bàn ủi nhiệt độ trung bình đi vòng tròn đều tay trong 35 giây rồi đặt vật phẳng đè ép.", "image": "../assets/images/milkcat-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M40": {
+    "map_id": "M40",
+    "title": "Chim Phượng Hoàng Lửa",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-phuong-hoang.webp",
+    "duration": "60 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Động vật", "Trang trí"],
+    "pegboard": "60 x 60 ô (Midi 5mm)",
+    "total_beads": 2680,
+    "download_link": "files/map-phuong-hoang-lua.pdf",
+    "description": "Tác phẩm nghệ thuật đỉnh cao ghép từ 9 tấm pegboard nhỏ miêu tả phượng hoàng tung cánh. Sự phối trộn sắc độ từ vàng, cam sang đỏ rực cháy bốc lửa.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ rực", "quantity": 1240 },
+      { "code": "#02", "name": "Cam tươi", "quantity": 890 },
+      { "code": "#03", "name": "Vàng chanh", "quantity": 550 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Thiết lập bàn đinh đại cảnh", "text": "Liên kết chặt chẽ các tấm pegboard lớn lại với nhau. Sắp đặt khay hạt màu đỏ rực, cam tươi và vàng chanh số lượng cực lớn.", "image": "../assets/images/phoenix-step1.jpg" },
+      { "number": 2, "title": "Dựng bộ khung lông cánh đỏ rực", "text": "Sử dụng hạt màu đỏ rực đi outline viền bao quanh sải cánh lớn đang tung bay và phom dáng phần đầu phượng hoàng.", "image": "../assets/images/phoenix-step2.jpg" },
+      { "number": 3, "title": "Phối chuyển tone lửa cháy ở đuôi", "text": "Lấp đầy các lớp lông vũ bằng cách đổ màu chuyển tiếp từ đỏ sang cam tươi, và điểm hạt vàng chanh ở phần chóp đuôi lửa rực rỡ.", "tip": "Với tác phẩm siêu lớn này, nên xếp theo cụm từ lõi thân lan tỏa dần ra hai đầu cánh để kiểm soát phom dáng tốt nhất." },
+      { "number": 4, "title": "Ủi gia nhiệt hai mặt mảng khối lớn", "text": "Ủi mặt đầu qua giấy nến trong 60 giây bằng chuyển động xoáy liên tục, chờ nguội bớt rồi lật mặt đằng sau ủi lướt gia cố độ bền.", "image": "../assets/images/phoenix-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 20 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M41": {
+    "map_id": "M41",
+    "title": "Pikachu Tinh Nghịch",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-pikachu.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoạt hình"],
+    "pegboard": "40 x 40 ô (Midi 5mm)",
+    "total_beads": 784,
+    "download_link": "files/map-pikachu.pdf",
+    "description": "Chú chuột điện Pikachu quen thuộc với bộ lông vàng, đôi tai vạt đen và cặp má hồng phóng điện đặc trưng, đường nét đối xứng rất dễ xếp.",
+    "colors": [
+      { "code": "#01", "name": "Vàng chanh", "quantity": 520 },
+      { "code": "#02", "name": "Đen", "quantity": 184 },
+      { "code": "#03", "name": "Đỏ tươi", "quantity": 80 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Bố trí bảng đinh vuông", "text": "Đặt tấm Pegboard lên mặt phẳng cố định. Sắp đặt hạt màu vàng chanh chủ đạo, hạt đen đi viền và hạt đỏ tươi làm má hồng.", "image": "../assets/images/pika-step1.jpg" },
+      { "number": 2, "title": "Xếp khuôn mặt và đôi tai dài", "text": "Dùng hạt màu đen đi viền ngoài đầu, xếp phom đôi tai dài vạt đen đặc trưng của Pikachu bằng hạt vàng chanh.", "image": "../assets/images/pika-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện cặp má phóng điện", "text": "Lấp đầy khoảng trống khuôn mặt bằng hạt vàng chanh, chừa hai ô tròn đối xứng hai bên má để đặt hạt màu đỏ rực tạo điểm nhấn má hồng.", "tip": "Hãy đặt hai hạt màu trắng nhỏ ở lõi mắt đen để Pikachu có ánh nhìn long lanh tinh nghịch hơn." },
+      { "number": 4, "title": "Ủi nhiệt hoàn thiện nhân vật", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 30 giây.", "image": "../assets/images/pika-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M42": {
+    "map_id": "M42",
+    "title": "Rùa Con Cài Hoa",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-rua.webp",
+    "duration": "25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 248,
+    "download_link": "files/map-rua-con.pdf",
+    "description": "Mẫu chú rùa xanh pastel đội bông hoa hồng nhỏ trên đầu siêu ngộ nghĩnh, bố cục thưa và viền đen rõ nét thích hợp làm móc khóa.",
+    "colors": [
+      { "code": "#01", "name": "Xanh bo nhat", "quantity": 160 },
+      { "code": "#02", "name": "Hồng pastel", "quantity": 48 },
+      { "code": "#03", "name": "Đen viền", "quantity": 40 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt màu pastel", "text": "Chuẩn bị bảng đinh 32x32 ô vuông. Lấy lượng hạt màu xanh bơ nhạt làm thân rùa và hạt hồng pastel làm bông hoa nhỏ.", "image": "../assets/images/milk-step1.jpg" },
+      { "number": 2, "title": "Dựng hình mai và đầu rùa", "text": "Sử dụng hạt đen đi viền, sau đó dùng hạt màu xanh bơ nhạt xếp khối tròn tạo hình chiếc mai rùa mập mạp và phần đầu nhỏ phía trước.", "image": "../assets/images/milk-step2.jpg" },
+      { "number": 3, "title": "Cài bông hoa hồng trên đỉnh đầu", "text": "Dùng hạt màu hồng pastel thắt nơ hình bông hoa nhỏ 5 cánh nằm ngay phía trên chóp đầu chú rùa con để tạo nét ngộ nghĩnh.", "tip": "Xếp 4 chiếc chân nhỏ xòe ra ở 4 góc mai rùa thật đối xứng theo đúng sơ đồ ô lưới." },
+      { "number": 4, "title": "Ủi phẳng cố định móc khóa", "text": "Đặt giấy nến lên, di chuyển bàn ủi nhiệt độ vừa trong 20 giây. Sản phẩm rất nhẹ, phù hợp làm phụ kiện móc khóa balo.", "image": "../assets/images/milk-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M43": {
+    "map_id": "M43",
+    "title": "Shin Cậu Bé Bút Chì",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin.webp",
+    "duration": "25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoạt hình"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 310,
+    "download_link": "files/map-shin-classic.pdf",
+    "description": "Cu Shin tinh nghịch trong bộ trang phục áo đỏ quần vàng quen thuộc với biểu cảm chu mỏ lém lỉnh đặc trưng.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ tươi", "quantity": 150 },
+      { "code": "#02", "name": "Vàng chanh", "quantity": 90 },
+      { "code": "#03", "name": "Màu da", "quantity": 70 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Sắp xếp hệ hạt màu classic", "text": "Định vị tấm pegboard phẳng. Sắp sẵn hạt màu đỏ tươi làm áo, màu vàng chanh làm quần và hạt màu da khuôn mặt.", "image": "../assets/images/heart-step1.jpg" },
+      { "number": 2, "title": "Xếp đầu bầu và hàng lông mày rậm", "text": "Xếp phom đầu nghiêng bầu bĩnh bằng hạt màu da, điểm hai hàng hạt đen dày làm cặp lông mày sâu róm đặc trưng của cu Shin.", "image": "../assets/images/heart-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện combo áo đỏ quần vàng", "text": "Sử dụng hạt đỏ tươi xếp mảng áo phông phía dưới, nối tiếp bằng các hạt màu vàng chanh tạo hình chiếc quần đùi ngắn lém lỉnh.", "tip": "Hãy chừa một ô trống nhỏ ở tâm miệng chu ra để đặt hạt màu đen tạo biểu cảm chu mỏ chuẩn hoạt hình." },
+      { "number": 4, "title": "Ủi lướt giữ phom Chibi", "text": "Phủ giấy nến chuyên dụng, đi bàn ủi nhiệt độ vừa trong 20-25 giây. Ép phẳng bằng tập sách dày ngay sau khi tháo.", "image": "../assets/images/heart-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M44": {
+    "map_id": "M44",
+    "title": "Shin Mã Màu Gấu",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin-1.webp",
+    "duration": "60 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "72 x 72 ô (Midi 5mm)",
+    "total_beads": 1820,
+    "download_link": "files/map-shin-gau.pdf",
+    "description": "Bản vẽ ma trận mã ký tự chuẩn màu sắc cực kỳ chi tiết của Shin khi đang mặc bộ đồ gấu, chân bản vẽ đính kèm định lượng hạt cụ thể.",
+    "colors": [
+      { "code": "#01", "name": "Hồng dam", "quantity": 860 },
+      { "code": "#02", "name": "Kem", "quantity": 640 },
+      { "code": "#03", "name": "Màu da", "quantity": 320 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Ghép nối ma trận đinh lớn", "text": "Ghép liên kết các tấm pegboard vuông để tạo diện tích rộng 72x72 ô. Phân loại lượng lớn hạt hồng đậm làm vỏ bộ đồ gấu.", "image": "../assets/images/bee-step1.jpg" },
+      { "number": 2, "title": "Dựng khung mũ gấu trùm đầu", "text": "Xếp mảng đầu lớn mô tả chiếc mũ trùm đầu hình tai gấu bằng hạt màu hồng đậm, chừa mảng lõi ở giữa để đặt khuôn mặt cu Shin.", "image": "../assets/images/bee-step2.jpg" },
+      { "number": 3, "title": "Điền phom mặt da và bụng kem", "text": "Sử dụng hạt màu da điền phần lõi mặt, tiếp tục xếp khối thân phía dưới với mảng bụng màu kem lót bên trong bộ đồ gấu.", "tip": "Sử dụng sơ đồ ma trận mã kí tự đính kèm ở chân bản vẽ để xếp chính xác ranh giới giữa màu hồng và màu kem." },
+      { "number": 4, "title": "Ủi gia nhiệt mảng khối lớn", "text": "Phủ giấy nến diện rộng, di chuyển bàn ủi liên tục theo vòng tròn khắp ma trận trong 50 giây để hạt kết dính mượt mà bền chắc.", "image": "../assets/images/bee-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 11 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M45": {
+    "map_id": "M45",
+    "title": "Shin Mã Màu Khủng Long",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin-2.webp",
+    "duration": "55 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "61 x 61 ô (Midi 5mm)",
+    "total_beads": 1640,
+    "download_link": "files/map-shin-khung-long.pdf",
+    "description": "Sơ đồ ký tự pixel chuyên nghiệp của cậu bé Shin bút chì trong trang phục khủng long xanh, ma trận chuẩn từng vị trí hạt.",
+    "colors": [
+      { "code": "#01", "name": "Xanh khủng long", "quantity": 780 },
+      { "code": "#02", "name": "Xám nhạt", "quantity": 510 },
+      { "code": "#03", "name": "Màu da", "quantity": 350 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Căn tọa độ lưới khủng long", "text": "Chuẩn bị sẵn hệ thống bàn đinh ghép lớn. Bố trí khay hạt màu xanh khủng long chủ đạo và màu da khuôn mặt gần tay gắp.", "image": "../assets/images/pika-step1.jpg" },
+      { "number": 2, "title": "Xếp hàm răng nhọn mũ khủng long", "text": "Dựng phom chiếc mũ trùm đầu khủng long màu xanh, đi các hạt màu xám nhạt đan xen trắng tạo hình hàm răng nhọn ngộ nghĩnh.", "image": "../assets/images/pika-step2.jpg" },
+      { "number": 3, "title": "Lập phom mặt và đuôi khủng long", "text": "Xếp mảng mặt màu da lọt thỏm bên trong chiếc mũ, sau đó hoàn thiện phần thân phía dưới có chiếc đuôi khủng long xòe sang bên.", "tip": "Hãy gióng hàng thật kỹ ở các điểm răng cưa trên lưng khủng long để phom dáng nhân vật trông sắc nét chuẩn pixel." },
+      { "number": 4, "title": "Ủi nhiệt mảng lớn bảo an", "text": "Phủ giấy nến, dùng bàn ủi di chuyển đều khắp bề mặt trong 45 giây cho đến khi các lỗ hạt khít lại đều tăm tắp.", "image": "../assets/images/pika-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 13 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M46": {
+    "map_id": "M46",
+    "title": "Shin Mã Màu Ếch Xanh",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin-3.webp",
+    "duration": "65 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "76 x 74 ô (Midi 5mm)",
+    "total_beads": 2180,
+    "download_link": "files/map-shin-ech.pdf",
+    "description": "Bản vẽ đại cảnh lưới vuông lớn mô tả cu Shin khoác bộ đồ ếch xanh lá mầm độc đáo. Bản vẽ có độ nét cao, chuẩn mã màu.",
+    "colors": [
+      { "code": "#01", "name": "Xanh lá mầm", "quantity": 1150 },
+      { "code": "#02", "name": "Trắng sữa", "quantity": 610 },
+      { "code": "#03", "name": "Đỏ viền", "quantity": 420 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Thiết lập bàn đinh đại cảnh ếch", "text": "Ghép nối chặt chẽ các tấm pegboard lớn để tạo diện tích bao phủ 76x74 ô. Sắp đặt hạt màu xanh lá mầm số lượng lớn.", "image": "../assets/images/phoenix-step1.jpg" },
+      { "number": 2, "title": "Dựng đôi mắt ếch lồi to tròn", "text": "Sử dụng hạt màu xanh lá xếp viền bao quanh hai chiếc mắt ếch lồi lớn nằm ở đỉnh đầu chiếc mũ trùm, lót lõi trắng sữa.", "image": "../assets/images/phoenix-step2.jpg" },
+      { "number": 3, "title": "Xếp thân ếch bầu và phom mặt da", "text": "Điền phom mặt da cu Shin ở tâm mũ, kéo mảng hạt màu xanh lá mầm đi xuống tạo phom thân ếch bầu bĩnh dang tay vui nhộn.", "tip": "Với quy mô cực lớn, hãy hoàn thiện từ phần mũ ếch đi xuống dần để dễ kiểm soát tọa độ hàng đinh đếm ô." },
+      { "number": 4, "title": "Ủi chắc hai mặt mảng khối", "text": "Ủi kỹ mặt trên qua giấy nến trong 60 giây, chờ nguội rồi lật đằng sau gia cố lướt để mảng khối lớn luôn bền chắc cứng cáp.", "image": "../assets/images/phoenix-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 17 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M47": {
+    "map_id": "M47",
+    "title": "Shin Mã Màu Totoro",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin-4.webp",
+    "duration": "45 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "46 x 48 ô (Midi 5mm)",
+    "total_beads": 1240,
+    "download_link": "files/map-shin-totoro.pdf",
+    "description": "Sự giao thoa giữa cậu bé Shin và trang phục thần rừng Totoro xám ôm túi xanh dương, sơ đồ ký tự tương phản trực quan.",
+    "colors": [
+      { "code": "#01", "name": "Xám Totoro", "quantity": 610 },
+      { "code": "#02", "name": "Trắng bụng", "quantity": 380 },
+      { "code": "#03", "name": "Xanh dương túi", "quantity": 250 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị bảng đinh và tone xám", "text": "Đặt bảng đinh ghép lớn sẵn sàng. Sắp xếp hạt màu xám đặc trưng của Totoro và hạt trắng sữa làm mảng bụng lớn.", "image": "../assets/images/rabbit-step1.jpg" },
+      { "number": 2, "title": "Xếp tai Totoro dài và phom mặt da", "text": "Dùng hạt xám xếp đôi tai nhọn đặc trưng nhô lên, đi mảng mặt da cu Shin chu mỏ lém lỉnh lọt bên trong mũ trùm đầu.", "image": "../assets/images/rabbit-step2.jpg" },
+      { "number": 3, "title": "Thêm túi xanh dương đính trước bụng", "text": "Xếp phom thân bụng trắng sữa lớn phía dưới, chèn cụm hạt màu xanh dương tạo hình chiếc túi nhỏ xinh đính trước ngực.", "tip": "Điểm vài nốt hạt màu xám hình mũi tên ngược trên mảng bụng trắng để tái hiện đúng họa tiết lông của thần rừng Totoro." },
+      { "number": 4, "title": "Ủi gia nhiệt hoàn thiện nhân vật", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ trung bình đi vòng tròn đều tay trong 40 giây.", "image": "../assets/images/rabbit-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 8 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M48": {
+    "map_id": "M48",
+    "title": "Combo 6 Nhân Vật Kasukabe",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-shin-va-ban.webp",
+    "duration": "45 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoạt hình"],
+    "pegboard": "48 x 48 ô (Midi 5mm)",
+    "total_beads": 1150,
+    "download_link": "files/map-biet-doi-kasukabe.pdf",
+    "description": "Bảng tổng hợp mini pixel 6 nhân vật huyền thoại gồm: Shin, Himawari, Nene, Kazama, Masao và Bo. Dễ dàng tách lẻ làm quà tặng.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ áo", "quantity": 380 },
+      { "code": "#02", "name": "Màu da nhân vật", "quantity": 420 },
+      { "code": "#03", "name": "Đen viền tách", "quantity": 350 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Căn phân ô ma trận biệt đội", "text": "Ghép các bảng đinh lại phẳng đều. Sử dụng thước gióng hàng chia ma trận thành 6 phân khu nhỏ tương ứng với 6 nhân vật.", "image": "../assets/images/rainbow-step1.jpg" },
+      { "number": 2, "title": "Xếp phom mặt da từng bé", "text": "Lần lượt đi các hạt màu da tạo hình khuôn mặt bầu bĩnh Chibi của Shin, em gái Himawari, Nene và nhóm bạn thân.", "image": "../assets/images/rainbow-step2.jpg" },
+      { "number": 3, "title": "Phối sắc áo và điểm tóc đen", "text": "Dùng hạt màu đen đi tóc, phối màu áo đỏ, áo xanh dương đặc trưng cho từng bé, đặc biệt điểm hạt trong suốt làm giọt nước mũi của cu Bo.", "tip": "Luôn chừa ít nhất 2 hàng hạt đinh trống bao quanh mỗi nhân vật để sau khi ủi xong bạn có thể dễ dàng cắt rời mảng." },
+      { "number": 4, "title": "Ủi gia nhiệt diện rộng combo", "text": "Phủ giấy nến, dùng bàn ủi di chuyển liên tục diện rộng trong 45 giây để 6 nhân vật kết khối đều nhau không bị cong.", "image": "../assets/images/rainbow-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 9 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M49": {
+    "map_id": "M49",
+    "title": "Sóc Đuôi Bông Ăn Hạt",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-soc.webp",
+    "duration": "40 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật"],
+    "pegboard": "60 x 70 ô (Midi 5mm)",
+    "total_beads": 1340,
+    "download_link": "files/map-soc-an-hat.pdf",
+    "description": "Chú sóc chuột với chiếc đuôi bông xù to bản đang ôm hạt dẻ, sử dụng hệ màu đổ tone nâu đất và nâu gỗ óc chó cực mượt.",
+    "colors": [
+      { "code": "#01", "name": "Nâu nhạt vỏ", "quantity": 720 },
+      { "code": "#02", "name": "Nâu đậm gỗ", "quantity": 480 },
+      { "code": "#03", "name": "Vàng kem", "quantity": 140 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hệ tone nâu gỗ", "text": "Đặt hệ thống bàn đinh lớn dọc phom đứng 60x70 ô. Sắp đặt dải hạt tone nâu nhạt, nâu đậm gỗ óc chó và vàng kem nhạt.", "image": "../assets/images/starfish-step1.jpg" },
+      { "number": 2, "title": "Xếp mảng chiếc đuôi bông xù lớn", "text": "Dùng hạt màu nâu nhạt xếp mảng khối chiếc đuôi bông uốn cong cực lớn ở phía sau lưng chú sóc chuột.", "image": "../assets/images/starfish-step2.jpg" },
+      { "number": 3, "title": "Hoàn thiện thân và hạt dẻ ôm tay", "text": "Xếp phom thân nhỏ phía trước, dùng hạt màu nâu đậm kết hợp vàng kem xếp hình hạt dẻ nhỏ nằm ngay giữa hai tay chú sóc.", "tip": "Phối xen kẽ các hạt nâu đậm dọc theo đường cong của đuôi để tạo hiệu ứng các thớ lông bông xù tự nhiên." },
+      { "number": 4, "title": "Ủi gia nhiệt kết khối mảng đứng", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ vừa đi vòng tròn đều khắp mảng đuôi lớn trong 50 giây rồi đè ép phẳng.", "image": "../assets/images/starfish-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 10 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M50": {
+    "map_id": "M50",
+    "title": "Sứa Biển Dạ Quang",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-sua.webp",
+    "duration": "45 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Con vật", "Đại dương"],
+    "pegboard": "50 x 60 ô (Midi 5mm)",
+    "total_beads": 1420,
+    "download_link": "files/map-sua-bien.pdf",
+    "description": "Mẫu thiết kế sứa biển mộng mơ mang sắc độ xanh dương, tím và hồng pastel đan xen tinh tế, tạo dải xúc tu uốn lượn uyển chuyển.",
+    "colors": [
+      { "code": "#01", "name": "Xanh dương sky", "quantity": 680 },
+      { "code": "#02", "name": "Tím pastel", "quantity": 490 },
+      { "code": "#03", "name": "Hồng pastel", "quantity": 250 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Bố trí dải màu đại dương mộng mơ", "text": "Chuẩn bị hệ bàn đinh lớn. Sắp xếp dải hạt màu xanh dương sky, tím và hồng pastel mượt mà cạnh nhau.", "image": "../assets/images/stitch-step1.jpg" },
+      { "number": 2, "title": "Xếp khối đầu sứa hình vòm nấm", "text": "Sử dụng hạt màu xanh dương sky kết hợp tím đi khung và lấp đầy hình vòm nấm lớn của phần đầu sứa ở nửa trên bảng.", "image": "../assets/images/stitch-step2.jpg" },
+      { "number": 3, "title": "Kéo dải xúc tu uốn lượn uyển chuyển", "text": "Dùng hạt hồng pastel đan xen tím pastel kéo các đường line uốn lượn lỏng lẻo đi xuống dưới làm dải xúc tu sứa mềm mại.", "tip": "Các đường xúc tu mảnh rất dễ xê dịch, hãy dùng nhíp đầu nhọn đặt nhẹ nhàng từng hạt thẳng hàng đinh đứng." },
+      { "number": 4, "title": "Ủi liên kết mềm giữ phom sứa", "text": "Phủ giấy nến, dùng bàn ủi nhiệt độ vừa đi nhẹ tay khắp mảng vòm đầu và các dải xúc tu trong 40 giây để hạt dính vừa phải.", "image": "../assets/images/stitch-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 11 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M51": {
+    "map_id": "M51",
+    "title": "Quả Táo Cắn Dở",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tao.webp",
+    "duration": "25 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Hoa quả"],
+    "pegboard": "26 x 26 ô (Midi 5mm)",
+    "total_beads": 294,
+    "download_link": "files/map-qua-tao-can-do.pdf",
+    "description": "Biểu tượng quả táo đỏ tươi với một vết khuyết cắn dở sinh động. Thiết kế sử dụng các sắc độ đỏ đậm nhạt đan xen để tạo khối tròn hoàn hảo.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ tươi", "quantity": 180 },
+      { "code": "#02", "name": "Kem ruột táo", "quantity": 74 },
+      { "code": "#03", "name": "Nâu cuống", "quantity": 40 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị hạt màu tương phản", "text": "Đặt tấm Pegboard lên mặt phẳng cố định. Bố trí hạt màu đỏ tươi làm vỏ quả, hạt màu kem làm ruột táo và màu nâu.", "image": "../assets/images/sushi-step1.jpg" },
+      { "number": 2, "title": "Xếp phom viền quả táo đỏ", "text": "Sử dụng hạt màu đỏ tươi xếp viền ngoài hình quả táo tròn, chừa một khoảng khuyết hình vòng cung lớn ở bên cạnh phải.", "image": "../assets/images/sushi-step2.jpg" },
+      { "number": 3, "title": "Lấp đầy ruột kem cắn dở", "text": "Điền hạt màu kem vào vùng khuyết bên phải để tái hiện vết khuyết cắn dở của ruột quả táo, xếp thêm chiếc cuống và lá nâu trên đỉnh.", "tip": "Điểm một hạt màu nâu đen nhỏ ở vùng lòng ruột kem để làm hạt táo giúp lát cắn nhìn sinh động hơn." },
+      { "number": 4, "title": "Ủi phẳng bề mặt thành phẩm", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 20-25 giây.", "image": "../assets/images/sushi-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M52": {
+    "map_id": "M52",
+    "title": "Táo Vàng Má Hồng Cute",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tao-cute.webp",
+    "duration": "30 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Hoa quả", "Hoạt hình"],
+    "pegboard": "34 x 34 ô (Midi 5mm)",
+    "total_beads": 612,
+    "download_link": "files/map-tao-vang-cute.pdf",
+    "description": "Quả táo vàng phong cách chibi hoạt hình dễ thương với đôi mắt tròn xoe bắt sáng và cặp má hồng thẹn thùng, viền màu nâu rêu cá tính.",
+    "colors": [
+      { "code": "#01", "name": "Vàng chanh", "quantity": 390 },
+      { "code": "#02", "name": "Nâu rêu viền", "quantity": 142 },
+      { "code": "#03", "name": "Hồng má", "quantity": 80 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị đinh và hạt Chibi", "text": "Đặt tấm pegboard phẳng đều. Sắp xếp hạt màu vàng chanh rực rỡ, màu nâu rêu đi đường viền và khay hạt hồng làm má.", "image": "../assets/images/rabbitcarrot-step1.jpg" },
+      { "number": 2, "title": "Đi đường viền nâu rêu cá tính", "text": "Sử dụng hạt màu nâu rêu đi khung viền ngoài hình quả táo tròn và chiếc lá nhỏ trên chóp đầu theo sơ đồ tọa độ lưới.", "image": "../assets/images/rabbitcarrot-step2.jpg" },
+      { "number": 3, "title": "Lấp nền vàng và thêm má hồng", "text": "Lập phủ hạt màu vàng chanh đầy lòng quả táo, chừa các khoảng trống nhỏ xếp đôi mắt đen bắt sáng và cặp má hồng thẹn thùng.", "tip": "Xếp cặp má hồng bằng các hạt hồng pastel nằm ngang ngay dưới mắt để tạo biểu cảm thẹn thùng dễ thương." },
+      { "number": 4, "title": "Ủi gia nhiệt hoàn thiện phom quả", "text": "Đặt giấy nến lên quả táo, di chuyển bàn ủi nhiệt độ trung bình liên tục trong 30 giây rồi đặt vật phẳng nặng đè ép.", "image": "../assets/images/rabbitcarrot-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M53": {
+    "map_id": "M53",
+    "title": "Thỏ Trắng Há Mồm Ôm Cà Rốt",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tho.webp",
+    "duration": "30 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật", "Hoạt hình"],
+    "pegboard": "32 x 36 ô (Midi 5mm)",
+    "total_beads": 420,
+    "download_link": "files/map-tho-ha-mom.pdf",
+    "description": "Chú thỏ trắng với biểu cảm há hốc mồm siêu hài hước, một tay đang ôm củ cà rốt nhỏ, đường nét viền bao quanh liền mạch cực dễ thương.",
+    "colors": [
+      { "code": "#01", "name": "Trắng core", "quantity": 280 },
+      { "code": "#02", "name": "Cam cà rốt", "quantity": 95 },
+      { "code": "#03", "name": "Nâu viền", "quantity": 45 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Sắp xếp hệ hạt màu hoạt hình", "text": "Chuẩn bị sẵn tấm pegboard vuông. Phân chia hạt màu trắng chủ đạo thân thỏ, hạt cam làm củ cà rốt và hạt nâu viền.", "image": "../assets/images/minirabbit-step1.jpg" },
+      { "number": 2, "title": "Xếp tai dài và khuôn mặt há mồm", "text": "Dùng hạt nâu đi viền, xếp đôi tai dài thẳng đứng và khuôn mặt thỏ bằng hạt trắng, chừa cụm ô lớn ở tâm làm khuôn miệng há hốc.", "image": "../assets/images/minirabbit-step2.jpg" },
+      { "number": 3, "title": "Thêm củ cà rốt nhỏ ôm tay", "text": "Sử dụng hạt màu cam xếp phom hình củ cà rốt nằm chéo góc trước ngực như thỏ đang ôm lấy, đi viền nâu bao quanh.", "tip": "Dùng hạt màu đen điền kín lõi khuôn miệng há để làm nổi bật biểu cảm sốc hài hước của chú thỏ." },
+      { "number": 4, "title": "Ủi nhiệt nhanh cố định phom", "text": "Phủ giấy nến chuyên dụng, đi bàn ủi nhiệt độ trung bình xoáy tròn nhẹ nhàng trong 25 giây cho hạt kết dính đều.", "image": "../assets/images/minirabbit-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 3 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M54": {
+    "map_id": "M54",
+    "title": "Thỏ Miffy Trong Cốc Mật",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tho-cute.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật", "Hoạt hình"],
+    "pegboard": "36 x 38 ô (Midi 5mm)",
+    "total_beads": 690,
+    "download_link": "files/map-tho-miffy-honey.pdf",
+    "description": "Nàng thỏ trắng Miffy đang ngâm mình trong chiếc hũ mật ong vàng óng ánh ngọt ngào, bố cục vuông vắn dễ định vị.",
+    "colors": [
+      { "code": "#01", "name": "Vàng mật ong", "quantity": 360 },
+      { "code": "#02", "name": "Trắng thỏ", "quantity": 210 },
+      { "code": "#03", "name": "Nâu viền", "quantity": 120 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị khay hạt màu ngọt ngào", "text": "Đặt bảng đinh vuông phẳng. Chuẩn bị sẵn hạt màu vàng mật ong làm hũ, hạt trắng sữa làm thỏ Miffy và hạt nâu viền ngoài.", "image": "../assets/images/tulip-step1.jpg" },
+      { "number": 2, "title": "Dựng hình hũ mật ong vàng", "text": "Sử dụng hạt màu vàng mật ong xếp phom dáng chiếc hũ bầu bĩnh ở nửa phần dưới của bảng đinh pegboard.", "image": "../assets/images/tulip-step2.jpg" },
+      { "number": 3, "title": "Xếp thỏ Miffy nhô đầu trên hũ", "text": "Dùng hạt màu trắng xếp nửa thân trên khuôn mặt bầu và đôi tai dài thẳng của Miffy nhô lên từ miệng cốc mật ong ngọt ngào.", "tip": "Điểm hai nốt hạt màu đen làm mắt tinh giản đặc trưng của dòng nhân vật Miffy cổ điển." },
+      { "number": 4, "title": "Ủi gia nhiệt hoàn thiện nhân vật", "text": "Phủ giấy nến lên bề mặt, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 30 giây rồi đè ép phẳng.", "image": "../assets/images/tulip-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M55": {
+    "map_id": "M55",
+    "title": "Cặp Đôi Tom và Jerry",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tom-and-jery.webp",
+    "duration": "90 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "44 x 74 ô (Midi 5mm)",
+    "total_beads": 2240,
+    "download_link": "files/map-tom-and-jerry.pdf",
+    "description": "Bản vẽ đứng toàn thân của bộ đôi oan gia mèo Tom và chuột Jerry nghịch ngợm. Thách thức kỹ năng xếp mảng màu khối lớn theo tỷ lệ nhân vật.",
+    "colors": [
+      { "code": "#01", "name": "Xám chuột Tom", "quantity": 1180 },
+      { "code": "#02", "name": "Nâu cam Jerry", "quantity": 640 },
+      { "code": "#03", "name": "Trắng lót sữa", "quantity": 420 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Ghép nối ma trận đinh đại cảnh", "text": "Ghép liên kết các tấm pegboard vuông để tạo không gian đứng rộng 44x74 ô. Phân loại hạt màu xám và màu nâu cam ra khay lớn.", "image": "../assets/images/unicorn-step1.jpg" },
+      { "number": 2, "title": "Xếp phom dáng mèo xám Tom", "text": "Sử dụng hạt màu xám đi khung viền ngoài và xếp toàn bộ phom dáng đứng cao lớn của chú mèo Tom ở một bên bảng lưới.", "image": "../assets/images/unicorn-step2.jpg" },
+      { "number": 3, "title": "Dựng hình chú chuột nhỏ Jerry", "text": "Dùng hạt màu nâu cam xếp phom dáng chú chuột nhỏ Jerry tinh nghịch đứng ngay bên cạnh chân mèo Tom theo đúng tỷ lệ nhân vật.", "tip": "Check kĩ ranh giới các mảng màu mắt vàng, mỏ trắng của Tom để không bị lem màu sắc tổng thể." },
+      { "number": 4, "title": "Ủi chắc hai mặt mảng lớn", "text": "Phủ giấy nến diện rộng, di chuyển bàn ủi liên tục khắp ma trận trong 55 giây, lật mặt sau gia cố thêm để tăng độ bền liên kết.", "image": "../assets/images/unicorn-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 14 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M56": {
+    "map_id": "M56",
+    "title": "Thần Rừng Totoro Che Lá",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-tororo.webp",
+    "duration": "75 phút",
+    "difficulty": "Khó",
+    "difficultyClass": "badge-hard",
+    "categories": ["Hoạt hình"],
+    "pegboard": "50 x 54 ô (Midi 5mm)",
+    "total_beads": 1580,
+    "download_link": "files/map-totoro-leaf.pdf",
+    "description": "Thần rừng Totoro bụng béo tròn đang che chiếc lá sen xanh trên đầu tránh mưa, một tay xách hộp quà đỏ nhỏ xinh vô cùng ấm áp.",
+    "colors": [
+      { "code": "#01", "name": "Xám tiêu", "quantity": 790 },
+      { "code": "#02", "name": "Xanh sen lá", "quantity": 410 },
+      { "code": "#03", "name": "Trắng bụng", "quantity": 380 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Căn tọa độ lưới thần rừng", "text": "Chuẩn bị hệ thống bàn đinh ghép lớn vững chắc. Bố trí hạt màu xám tiêu chủ đạo thân và xanh lá mầm làm chiếc lá che mưa.", "image": "../assets/images/duck-step1.jpg" },
+      { "number": 2, "title": "Xếp chiếc lá sen lớn trên đỉnh", "text": "Sử dụng hạt màu xanh lá xếp phom dáng bản lá sen to che mưa nằm nghiêng ở vị trí hàng đinh trên cùng của ma trận.", "image": "../assets/images/duck-step2.jpg" },
+      { "number": 3, "title": "Dựng thân bụng béo tròn Totoro", "text": "Dùng hạt xám xếp phom thân bầu khổng lồ phía dưới lá, chừa mảng tâm điền hạt trắng sữa tạo hình vùng bụng lớn đáng yêu.", "tip": "Nhớ xếp chi tiết các vệt hạt xám hình mũi tên ngược đặc trưng trên nền bụng trắng sữa của Totoro." },
+      { "number": 4, "title": "Ủi diện rộng bảo an khối", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ trung bình cao di chuyển đều khắp ma trận trong 45 giây rồi đè ép phẳng.", "image": "../assets/images/duck-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 9 },
+    "products": [
+      { "product_id": "pk-pegboard-large", "title": "Pegboard ô ghép cực lớn", "price": "85.000đ", "image": "assets/gallery_assets/item-large-board.webp" }
+    ]
+  },
+  "M57": {
+    "map_id": "M57",
+    "title": "Hành Tinh Trái Đất",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-trai-dat.webp",
+    "duration": "35 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Trang trí", "Phong cảnh"],
+    "pegboard": "42 x 42 ô (Midi 5mm)",
+    "total_beads": 840,
+    "download_link": "files/map-hanh-tinh-xanh.pdf",
+    "description": "Mô hình quả địa cầu vũ trụ với các lục địa xanh lá và đại dương xanh dương, bao quanh bởi dải quỹ đạo bay của một chiếc tên lửa nhỏ.",
+    "colors": [
+      { "code": "#01", "name": "Xanh dương đại dương", "quantity": 480 },
+      { "code": "#02", "name": "Xanh lá lục địa", "quantity": 280 },
+      { "code": "#03", "name": "Đỏ tên lửa", "quantity": 80 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Bố trí bảng màu không gian", "text": "Chuẩn bị sẵn hệ thống bảng đinh ghép lớn. Phân chia hạt màu xanh dương làm nền biển, xanh lá và màu đỏ tên lửa.", "image": "../assets/images/duckfloat-step1.jpg" },
+      { "number": 2, "title": "Xếp khối địa cầu vòng tròn", "text": "Sử dụng hạt màu xanh dương xếp một vòng tròn lớn ở trung tâm để làm phom dáng cơ bản của quả địa cầu vũ trụ.", "image": "../assets/images/duckfloat-step2.jpg" },
+      { "number": 3, "title": "Tạo lục địa và dải tên lửa bay", "text": "Chèn các cụm hạt màu xanh lá rải rác tạo mảng bản đồ lục địa, dùng hạt đỏ xếp chi tiết chiếc tên lửa nhỏ đang bay quanh dải quỹ đạo.", "tip": "Xếp các viền vòng tròn địa cầu thật chuẩn dòng đinh cong để khối hành tinh pixel nhìn tròn trịa nhất." },
+      { "number": 4, "title": "Ủi nhiệt kết khối phẳng mịn", "text": "Phủ giấy nến chuyên dụng, dùng bàn ủi nhiệt độ vừa di chuyển đều tay theo hình tròn trong 35 giây để cố định phom dáng.", "image": "../assets/images/duckfloat-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 6 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M58": {
+    "map_id": "M58",
+    "title": "Vẹt Đỏ Nam Mỹ Đậu Cành",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-vet.webp",
+    "duration": "40 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Con vật"],
+    "pegboard": "34 x 42 ô (Midi 5mm)",
+    "total_beads": 560,
+    "download_link": "files/map-vet-macaw.pdf",
+    "description": "Chú vẹt đỏ Macaw Nam Mỹ mắt to tròn đang đậu trên một cành cây gỗ nâu, đôi cánh phối sắc xanh dương và vàng chanh bắt mắt.",
+    "colors": [
+      { "code": "#01", "name": "Đỏ rực thân", "quantity": 320 },
+      { "code": "#02", "name": "Xanh biển cánh", "quantity": 150 },
+      { "code": "#03", "name": "Nâu cành cây", "quantity": 90 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị phom đứng bảng màu vẹt", "text": "Đặt bảng đinh dọc theo phom 34x42 ô. Chuẩn bị ngăn hạt màu đỏ rực thân chim, màu xanh biển cánh và sắc nâu cành gỗ.", "image": "../assets/images/whale-step1.jpg" },
+      { "number": 2, "title": "Xếp cành cây gỗ nằm ngang trước", "text": "Sử dụng hạt màu nâu đất xếp thanh cành cây nằm ngang ở phần dưới bảng lưới để làm điểm đậu cố định chân chim.", "image": "../assets/images/whale-step2.jpg" },
+      { "number": 3, "title": "Dựng phom thân đỏ và cánh đa sắc", "text": "Dùng hạt đỏ tươi dựng phom đứng dài thân vẹt, phối dải màu hạt xanh biển đan xen vàng chanh tạo hình chiếc cánh sặc sỡ bên hông.", "tip": "Tạo vòng tròn viền mắt màu trắng lớn bao quanh hạt mắt đen để chú vẹt có biểu cảm mở to tròn lanh lợi." },
+      { "number": 4, "title": "Ủi phẳng bề mặt chim vẹt", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ trung bình đi vòng tròn đều tay trong 30 giây rồi đặt vật đè phẳng.", "image": "../assets/images/whale-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 4 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M59": {
+    "map_id": "M59",
+    "title": "Vịt Con Má Hồng Ôm Tim",
+    "author": "Urii Thiết kế",
+    "mainImage": "../assets/gallery_assets/mau-vit.webp",
+    "duration": "20 phút",
+    "difficulty": "Dễ",
+    "difficultyClass": "badge-easy",
+    "categories": ["Con vật"],
+    "pegboard": "32 x 32 ô (Midi 5mm)",
+    "total_beads": 210,
+    "download_link": "files/map-vit-con-cute.pdf",
+    "description": "Chú vịt trắng nhỏ nhắn sở hữu chiếc cánh màu hồng pastel đồng điệu với icon trái tim lơ lửng phía trên đầu, nét vẽ cực kỳ tối giản.",
+    "colors": [
+      { "code": "#01", "name": "Trắng sữa thân", "quantity": 140 },
+      { "code": "#02", "name": "Hồng tim cánh", "quantity": 50 },
+      { "code": "#03", "name": "Cam mỏ", "quantity": 20 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị phôi đinh nhỏ trắng hồng", "text": "Đặt tấm pegboard 32x32 ô vuông lên mặt bàn. Bố trí hạt màu trắng sữa làm thân vịt và ngăn hạt màu hồng tạo tim cánh.", "image": "../assets/images/yinyang-step1.jpg" },
+      { "number": 2, "title": "Xếp phom thân vịt tròn", "text": "Sử dụng các hạt màu trắng sữa xếp khối tròn béo ú tạo hình phom dáng chính phần đầu và thân của chú vịt con.", "image": "../assets/images/yinyang-step2.jpg" },
+      { "number": 3, "title": "Thêm mỏ cam và cánh hồng ôm tim", "text": "Dùng hạt cam xếp chiếc mỏ dẹt, phối các hạt màu hồng pastel thắt nơ hình cánh nhỏ ôm tim ngay bên hông thân vịt.", "tip": "Xếp icon trái tim hồng lơ lửng trên đỉnh đầu chừa cách phom tai 1 dòng đinh trống để tạo điểm nhấn bay bổng." },
+      { "number": 4, "title": "Ủi lướt tạo móc khóa phụ kiện", "text": "Đặt giấy nến lên, di bàn ủi nhiệt độ vừa trong vòng 15-20 giây. Thành phẩm nhỏ xinh cực kỳ phù hợp luồn dây treo chìa khóa.", "image": "../assets/images/yinyang-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 2 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  },
+  "M60": {
+    "map_id": "M60",
+    "title": "Xương Rồng Nở Hoa Bụi",
+    "author": "Sưu tầm",
+    "mainImage": "../assets/gallery_assets/mau-xuong-rong.webp",
+    "duration": "30 phút",
+    "difficulty": "Trung bình",
+    "difficultyClass": "badge-medium",
+    "categories": ["Trang trí", "Thực vật"],
+    "pegboard": "32 x 36 ô (Midi 5mm)",
+    "total_beads": 460,
+    "download_link": "files/map-xuong-rong-hoa.pdf",
+    "description": "Nhánh cây xương rồng xanh đậm gai góc được thắp sáng rực rỡ bởi những bông hoa nhỏ màu hồng cánh sen nở rộ xung quanh.",
+    "colors": [
+      { "code": "#01", "name": "Xanh lá đậm", "quantity": 280 },
+      { "code": "#02", "name": "Hồng cánh sen", "quantity": 120 },
+      { "code": "#03", "name": "Vàng nhạt hoa", "quantity": 60 }
+    ],
+    "steps": [
+      { "number": 1, "title": "Chuẩn bị ma trận xương rồng", "text": "Đặt bảng đinh dọc 32x36 ô lên phẳng bàn. Phân loại khay hạt xanh lá đậm làm nhánh cây và hạt hồng cánh sen tạo hoa.", "image": "../assets/images/zongzi-step1.jpg" },
+      { "number": 2, "title": "Dựng hình thân nhánh gai góc", "text": "Sử dụng các hạt màu xanh lá đậm đi khung viền răng cưa dọc đi lên tạo phom dáng nhánh cây xương rồng gai góc sinh động.", "image": "../assets/images/zongzi-step2.jpg" },
+      { "number": 3, "title": "Điểm chùm hoa nở rộ xung quanh", "text": "Dùng hạt màu hồng cánh sen phối nhụy vàng nhạt xếp các cụm hoa nhỏ nở rộ rải rác đính dọc bên rìa thân cây xanh.", "tip": "Nên đặt các hạt hồng hoa lấn nhẹ vào phom viền xanh thân cây 1 ô lưới để chùm hoa bám bám chắc chắc sau khi ủi." },
+      { "number": 4, "title": "Ủi phẳng gia nhiệt kết khối", "text": "Phủ giấy nến lên, dùng bàn ủi nhiệt độ trung bình đi xoáy tròn đều tay khắp ma trận trong 30 giây rồi đặt đè ép phẳng.", "image": "../assets/images/zongzi-step4.jpg" }
+    ],
+    "showcase": { "images": [], "moreCount": 5 },
+    "products": [
+      { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "assets/gallery_assets/item-board.webp" }
+    ]
+  }
+}
