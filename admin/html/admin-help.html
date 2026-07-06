@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm trợ giúp - Perler Beads</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../css/admin-help.css">
+</head>
+<body>
+
+<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+
+    <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
+
+    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
+        
+        <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
+
+        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px; display: flex; justify-content: center; align-items: flex-start;">
+            
+            <div style="width: 100%; max-width: 1400px;">
+                
+                <!-- HEADER -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="fw-bold mb-1" style="font-size: 28px;">Trung tâm trợ giúp</h1>
+                        <p class="text-muted small m-0">Hướng dẫn sử dụng, các câu hỏi thường gặp và hỗ trợ dành cho Quản trị viên.</p>
+                    </div>
+                </div>
+
+                <!-- ======================== -->
+<!-- 1. HƯỚNG DẪN CHI TIẾT    -->
+<!-- ======================== -->
+<div class="row g-4 mb-5">
+    
+    <!-- Dashboard -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-primary"><i class="bi bi-speedometer2 fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Dashboard</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Xem KPI tổng quan</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Theo dõi biểu đồ doanh thu</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Top sự kiện bán chạy</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sản phẩm -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-success"><i class="bi bi-box-seam fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý sản phẩm</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Thêm/Sửa/Xóa sản phẩm</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Lọc sản phẩm theo danh mục</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Quản lý tồn kho và giá bán</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Đơn hàng -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-warning"><i class="bi bi-ticket-perforated fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý đơn hàng</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Duyệt / Hủy đơn hàng</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Xem chi tiết đơn & phản hồi</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Lọc đơn theo trạng thái</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Người dùng -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-danger"><i class="bi bi-people fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý người dùng</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Đổi vai trò thành viên</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Khóa/Mở khóa tài khoản</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Xem lịch sử hoạt động</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coupon -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-info"><i class="bi bi-tags fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý Coupon</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tạo mã giảm giá mới</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Quản lý ngày hết hạn</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Theo dõi số lượt sử dụng</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bình luận -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-secondary"><i class="bi bi-chat-dots fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý bình luận</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Ẩn/Hiện bình luận</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Đổi trạng thái duyệt</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Xóa bình luận vi phạm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 help-card">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="help-icon text-primary-emphasis"><i class="bi bi-pencil-square fs-2"></i></div>
+                    <h5 class="fw-bold m-0">Quản lý Blog</h5>
+                </div>
+                <ul class="list-unstyled text-muted small ps-2">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tạo bài viết mới</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Duyệt/Từ chối bài viết</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tạm ẩn bài viết vi phạm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+                <!-- ======================== -->
+                <!-- 2. CÂU HỎI THƯỜNG GẶP  -->
+                <!-- ======================== -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-5">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                        <h4 class="fw-bold text-dark m-0"><i class="bi bi-question-lg text-danger me-2"></i> Câu hỏi thường gặp (FAQ)</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="accordion accordion-flush" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        Làm thế nào để duyệt đơn hàng?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body text-muted">Vào mục <strong>Quản lý đơn hàng</strong>, tìm đơn cần duyệt. Dùng nút bút chì ở cột Hành động để chuyển trạng thái thành "Đã xác nhận".</div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        Làm sao để ẩn một bình luận vi phạm?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body text-muted">Trong mục <strong>Quản lý bình luận</strong>, bấm nút con mắt bên cạnh bình luận đó. Con mắt sẽ chuyển sang trạng thái gạch chéo, báo hiệu bình luận đã bị ẩn.</div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        Tôi có thể đổi vai trò thành viên không?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body text-muted">Có. Vào <strong>Quản lý người dùng</strong>, dùng nút bút chì ở cột Hành động để chọn vai trò mới (Quản trị viên, Khách hàng, Đồng/Bạc/Vàng).</div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        Làm sao để liên hệ với đội ngũ hỗ trợ?
+                                    </button>
+                                </h2>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body text-muted">Sử dụng mẫu "Gửi câu hỏi hỗ trợ" ngay bên dưới. Điền thông tin và mô tả chi tiết vấn đề, đội ngũ sẽ liên hệ lại sớm nhất.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================== -->
+                <!-- 3. GỬI CÂU HỎI HỖ TRỢ  -->
+                <!-- ======================== -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                        <h4 class="fw-bold text-dark m-0"><i class="bi bi-envelope-paper text-danger me-2"></i> Gửi câu hỏi hỗ trợ</h4>
+                        <p class="text-muted small mt-1">Mô tả chi tiết vấn đề bạn đang gặp phải, chúng tôi sẽ liên hệ lại qua email sớm nhất có thể.</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="helpForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="helpName" class="form-label fw-bold">Tên của bạn <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="helpName" placeholder="Nhập tên của bạn" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="helpEmail" class="form-label fw-bold">Email liên hệ <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="helpEmail" placeholder="example@email.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="helpSubject" class="form-label fw-bold">Tiêu đề <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="helpSubject" placeholder="Tóm tắt ngắn gọn vấn đề" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="helpMessage" class="form-label fw-bold">Mô tả chi tiết vấn đề <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="helpMessage" rows="5" placeholder="Mô tả chi tiết bạn đang gặp lỗi gì, đang cần hỗ trợ gì..." required></textarea>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('helpForm').reset()">Xóa</button>
+                                <button type="submit" class="btn btn-danger px-4"><i class="bi bi-send"></i> Gửi câu hỏi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function loadComponent(url, targetId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Lỗi tải file: " + url);
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById(targetId).innerHTML = data;
+                    if(targetId === 'layout-sidebar') {
+                        setTimeout(highlightActiveMenu, 100);
+                    }
+                })
+                .catch(err => console.warn('Không thể tải layout:', err));
+        }
+
+        loadComponent('../components/admin-sidebar.html', 'layout-sidebar');
+        loadComponent('../components/admin-topbar.html', 'layout-topbar');
+
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll(".admin-sidebar .nav-item");
+            navLinks.forEach(link => {
+                const hrefAttribute = link.getAttribute("href");
+                if (hrefAttribute && hrefAttribute.includes(currentPage)) {
+                    navLinks.forEach(item => item.classList.remove("active"));
+                    link.classList.add("active");
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#adminLogoutBtn')) {
+                e.preventDefault();
+                if (confirm("Bạn có chắc muốn đăng xuất?")) {
+                    window.location.href = "../../user/html/login.html";
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    // Xử lý gửi form
+    document.getElementById('helpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('✅ Câu hỏi của bạn đã được gửi thành công! Đội ngũ hỗ trợ sẽ liên hệ lại sớm nhất.');
+        this.reset();
+    });
+</script>
+
+<script src="../js/admin-help.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
