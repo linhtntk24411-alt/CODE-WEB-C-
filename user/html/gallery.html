@@ -8,18 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-    
     <link rel="stylesheet" href="../css/gallery.css">
+    <script src="../js/header.js" defer></script>
 </head>
 <body>
-
-    <div id="global-header">
-        <header class="main-header" data-include="../components/header.html"></header>
-    </div>
-
-
-    <main class="container">
-        
+    <div id="header-placeholder"></div>
+    <main class="container">       
         <nav class="breadcrumb-nav">
             <a class="breadcrumb-link" href="#">Trang chủ</a>
             <span class="material-symbols-outlined icon-arrow-nav">chevron_right</span>
@@ -116,10 +110,21 @@
         </div>
     </main>
 
-     <div id="global-footer">
-        <footer class="main-footer" data-include="../components/footer.html"></footer>
-    </div>
-
+    
     <script src="../js/gallery.js"></script>
+    <div id="footer-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/header.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .catch(() => console.warn('Header not found'));
+
+            fetch('../components/footer.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(() => console.warn('Footer not found'));
+        });
+    </script>
 </body>
 </html>

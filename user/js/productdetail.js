@@ -38,22 +38,29 @@
             }
         }
 
+        function addProductToCart(product, quantity = 1, variantName = null) {
+            if (!product) return false;
+
+            const cartItems = getStoredCartItems();
+            const existingItem = cartItems.find(item => item.productId === product.id && (item.variant || null) === (variantName || null));
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({ productId: product.id, variant: variantName || null, quantity });
+            }
+
+            saveStoredCartItems(cartItems);
+            updateCartBadge();
+            return true;
+        }
+
         function addCurrentProductToCart() {
             if (!productData) return;
 
             const quantity = parseInt(document.getElementById('qtyInput').value, 10) || 1;
             const variantName = currentVariant ? currentVariant.name : null;
-            const cartItems = getStoredCartItems();
-            const existingItem = cartItems.find(item => item.productId === productData.id && (item.variant || null) === (variantName || null));
-
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cartItems.push({ productId: productData.id, variant: variantName, quantity });
-            }
-
-            saveStoredCartItems(cartItems);
-            updateCartBadge();
+            addProductToCart(productData, quantity, variantName);
             alert(`Đã thêm "${productData.name}" vào giỏ hàng!`);
         }
 
@@ -542,6 +549,7 @@
         function addToCartDirect(index) {
             const product = allProducts[index];
             if (!product) return;
+            addProductToCart(product, 1, null);
             alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
         }
 

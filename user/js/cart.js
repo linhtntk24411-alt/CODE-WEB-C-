@@ -104,7 +104,10 @@ function renderCart() {
         document.getElementById('summaryItemCount').textContent = '0';
         // Kiểm tra tồn tại của element trước khi set
         const cartCount = document.getElementById('cartCount');
-        if (cartCount) cartCount.textContent = '0';
+        if (cartCount) {
+            cartCount.textContent = '0';
+            cartCount.style.display = 'none';
+        }
         return;
     }
 
@@ -198,7 +201,11 @@ function renderCart() {
     
     // Kiểm tra tồn tại của element trước khi set
     const cartCount = document.getElementById('cartCount');
-    if (cartCount) cartCount.textContent = cartItems.length;
+    if (cartCount) {
+        const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        cartCount.textContent = totalQuantity;
+        cartCount.style.display = totalQuantity > 0 ? 'flex' : 'none';
+    }
     
     updateSummary(subtotal);
 }

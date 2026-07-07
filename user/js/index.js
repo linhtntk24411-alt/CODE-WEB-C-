@@ -21,20 +21,27 @@ function saveStoredCartItems(items) {
     window.dispatchEvent(new Event('storage'));
 }
 
+function addProductToCart(product, quantity = 1, variantName = null) {
+    if (!product) return false;
+
+    const cartItems = getStoredCartItems();
+    const existingItem = cartItems.find(item => item.productId === product.id && (item.variant || null) === (variantName || null));
+
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cartItems.push({ productId: product.id, variant: variantName || null, quantity });
+    }
+
+    saveStoredCartItems(cartItems);
+    return true;
+}
+
 window.addCurrentProductToCart = function(productId) {
     const product = homepageProducts.find(item => item.id === productId);
     if (!product) return;
 
-    const cartItems = getStoredCartItems();
-    const existingItem = cartItems.find(item => item.productId === product.id && (item.variant || null) === null);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cartItems.push({ productId: product.id, variant: null, quantity: 1 });
-    }
-
-    saveStoredCartItems(cartItems);
+    addProductToCart(product, 1, null);
     alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
 };
 
