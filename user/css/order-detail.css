@@ -124,6 +124,22 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* ===== Thêm màu cho các trạng thái mới ===== */
+.order-status--processing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.order-status--returned {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.order-status--delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
 .order-status--pending {
   background: #ffc1d6;
   color: #7b4c5d;

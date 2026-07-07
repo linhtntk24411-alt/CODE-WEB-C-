@@ -98,7 +98,6 @@
   });
 
   function populateFilterOptions() {
-    // Chỉ có 2 option: Urii Team và Người dùng
     filterAuthor.innerHTML = `
       <option value="all">Tất cả</option>
       <option value="urii">Urii Team</option>
@@ -126,19 +125,16 @@
 
     let result = [...mapsData];
 
-    // Lọc theo tác giả: urii = Urii Team, user = tất cả khác Urii Team
     if (authorFilter === 'urii') {
       result = result.filter(m => m.author === 'Urii Team');
     } else if (authorFilter === 'user') {
       result = result.filter(m => m.author !== 'Urii Team');
     }
 
-    // Lọc theo rating
     if (!isNaN(rating)) {
       result = result.filter(m => m.rating >= rating);
     }
 
-    // Sắp xếp
     if (sortBy === 'rating') {
       result.sort((a, b) => b.rating - a.rating);
     } else if (sortBy === 'title') {
@@ -207,7 +203,7 @@
     document.querySelectorAll('.map-card__favorite').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        const id = parseInt(this.dataset.id);
+        const id = this.dataset.id;
         const map = mapsData.find(m => m.id === id);
         if (map) {
           map.liked = !map.liked;
@@ -223,12 +219,11 @@
       });
     });
 
-    // Sự kiện nút "Xem chi tiết"
+    // ===== SỰ KIỆN NÚT "Xem chi tiết" – CHUYỂN ĐẾN gallery-detail.html =====
     document.querySelectorAll('.map-card__btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const id = this.dataset.id;
-        showToast('Chuyển đến chi tiết map #' + id, 'info', '📄');
-        // window.location.href = `map-detail.html?id=${id}`;
+        window.location.href = `gallery-detail.html?id=${id}`;
       });
     });
 

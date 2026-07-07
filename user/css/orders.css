@@ -243,6 +243,22 @@ body {
   color: #93000a;
 }
 
+/* ===== Thêm màu cho các trạng thái mới ===== */
+.order-status--processing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.order-status--returned {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.order-status--delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
 .order-card-footer {
   display: flex;
   justify-content: space-between;
@@ -466,4 +482,48 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.orders-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #840001;
+  color: #fff;
+  border-color: #840001;
+}
+
+.pagination-btn.active {
+  background: #840001;
+  color: #fff;
+  border-color: #840001;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-dots {
+  padding: 0 4px;
+  color: #999;
 }

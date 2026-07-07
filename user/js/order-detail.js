@@ -36,33 +36,30 @@
     return num.toLocaleString('vi-VN') + 'đ';
   }
 
-  // ===== Tải dữ liệu =====
+  // ===== Tải dữ liệu từ orders.json (dùng đường dẫn tương đối) =====
   async function loadOrderDetail() {
     const orderId = getOrderId();
+    console.log('orderId:', orderId);
     if (!orderId) {
       document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy mã đơn hàng.</p>';
       return;
     }
 
     try {
-      const [ordersRes, detailsRes] = await Promise.all([
-        fetch('../data/orders.json'),
-        fetch('../data/order-details.json')
-      ]);
-      if (!ordersRes.ok || !detailsRes.ok) throw new Error('Không thể tải dữ liệu');
+      const response = await fetch('../data/orders.json');
+      console.log('Fetch response status:', response.status);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      const ordersData = await ordersRes.json();
-      const detailsData = await detailsRes.json();
-
-      const orderMeta = ordersData.orders.find(o => o.id === orderId);
-      const orderDetail = detailsData.orders.find(o => o.id === orderId);
-
-      if (!orderMeta || !orderDetail) {
+      const data = await response.json();
+      console.log('Dữ liệu orders:', data);
+      const order = data.orders.find(o => o.id === orderId);
+      console.log('Tìm thấy order:', order);
+      if (!order) {
         document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng.</p>';
         return;
       }
 
-      renderOrderDetail(orderMeta, orderDetail);
+      renderOrderDetail(order);
 
     } catch (error) {
       console.error('Lỗi tải dữ liệu:', error);
@@ -71,25 +68,26 @@
   }
 
   // ===== Render =====
-  function renderOrderDetail(meta, detail) {
-    orderIdDisplay.textContent = `Đơn hàng #${detail.id}`;
-    orderTitle.textContent = `Đơn hàng #${detail.id}`;
-    orderDate.textContent = `Ngày đặt: ${formatDate(detail.createdAt)}`;
-    orderStatusBadge.textContent = detail.status;
-    orderStatusBadge.className = 'order-status order-status--' + detail.statusType;
+  function renderOrderDetail(order) {
+    orderIdDisplay.textContent = `Đơn hàng #${order.id}`;
+    orderTitle.textContent = `Đơn hàng #${order.id}`;
+    orderDate.textContent = `Ngày đặt: ${order.date || 'Không xác định'}`;
+    orderStatusBadge.textContent = order.status;
+    orderStatusBadge.className = 'order-status order-status--' + (order.statusType || 'pending');
 
-    renderTimeline(detail.timeline);
-    renderItems(detail.items);
-    renderPayment(detail.payment);
-    renderShipping(detail.shipping);
-    renderShippingTimeline(detail.shippingTimeline);
-    renderAddress(detail.address);
-    renderSummary(detail);
+    renderTimeline(order.timeline);
+    renderItems(order.items);
+    renderPayment(order.payment);
+    renderShipping(order.shipping);
+    renderAddress(order.address);
+    renderShippingTimeline(order.shippingTimeline);
+    renderSummary(order);
   }
 
+  // ===== RENDER TIMELINE =====
   function renderTimeline(timeline) {
     if (!timeline || timeline.length === 0) {
-      orderTimeline.innerHTML = '<p>Không có thông tin timeline.</p>';
+      orderTimeline.innerHTML = '<p>Chưa có thông tin timeline.</p>';
       return;
     }
 
@@ -110,6 +108,7 @@
     orderTimeline.innerHTML = html;
   }
 
+  // ===== RENDER ITEMS =====
   function renderItems(items) {
     if (!items || items.length === 0) {
       orderItems.innerHTML = '<p>Không có sản phẩm.</p>';
@@ -118,13 +117,20 @@
 
     let html = `<div class="order-items-list">`;
     items.forEach(item => {
+      const productLink = `productdetail.html?id=${item.productId}`;
       html += `
         <div class="order-item">
           <div class="order-item-image">
-            <img src="${item.image || '../assets/placeholder.jpg'}" alt="${item.name}" loading="lazy" />
+            <a href="${productLink}">
+              <img src="${item.image || '../assets/placeholder.jpg'}" alt="${item.name}" loading="lazy" />
+            </a>
           </div>
           <div class="order-item-info">
-            <div class="order-item-name">${item.name}</div>
+            <div class="order-item-name">
+              <a href="${productLink}" style="text-decoration: none; color: inherit; font-weight: 600;">
+                ${item.name}
+              </a>
+            </div>
             <div class="order-item-meta">Số lượng: ${item.quantity}</div>
           </div>
           <div class="order-item-price">${formatCurrency(item.price)}</div>
@@ -135,9 +141,10 @@
     orderItems.innerHTML = html;
   }
 
+  // ===== RENDER PAYMENT =====
   function renderPayment(payment) {
     if (!payment) {
-      orderPayment.innerHTML = '<p>Không có thông tin thanh toán.</p>';
+      orderPayment.innerHTML = '<p>Chưa có thông tin thanh toán.</p>';
       return;
     }
     orderPayment.innerHTML = `
@@ -148,9 +155,10 @@
     `;
   }
 
+  // ===== RENDER SHIPPING =====
   function renderShipping(shipping) {
     if (!shipping) {
-      orderShipping.innerHTML = '<p>Không có thông tin vận chuyển.</p>';
+      orderShipping.innerHTML = '<p>Chưa có thông tin vận chuyển.</p>';
       return;
     }
     orderShipping.innerHTML = `
@@ -164,15 +172,15 @@
     `;
   }
 
-  // ===== Shipping Timeline với icon Bootstrap =====
-  function renderShippingTimeline(timeline) {
-    if (!timeline || timeline.length === 0) {
-      shippingTimeline.innerHTML = '<p class="no-data">Chưa có thông tin vận chuyển.</p>';
+  // ===== RENDER SHIPPING TIMELINE =====
+  function renderShippingTimeline(shippingTimeline) {
+    if (!shippingTimeline || shippingTimeline.length === 0) {
+      shippingTimeline.innerHTML = '<p>Chưa có thông tin vận chuyển.</p>';
       return;
     }
     let html = '<div class="shipping-timeline-list">';
-    timeline.forEach((item, index) => {
-      const isLast = index === timeline.length - 1;
+    shippingTimeline.forEach((item, index) => {
+      const isLast = index === shippingTimeline.length - 1;
       const isActive = !isLast;
       html += `
         <div class="shipping-timeline-item ${isActive ? 'active' : ''}">
@@ -188,9 +196,10 @@
     shippingTimeline.innerHTML = html;
   }
 
+  // ===== RENDER ADDRESS =====
   function renderAddress(address) {
     if (!address) {
-      orderAddress.innerHTML = '<p>Không có địa chỉ nhận hàng.</p>';
+      orderAddress.innerHTML = '<p>Chưa có địa chỉ nhận hàng.</p>';
       return;
     }
     orderAddress.innerHTML = `
@@ -202,30 +211,32 @@
     `;
   }
 
-  function renderSummary(detail) {
-    if (!detail) {
+  // ===== RENDER SUMMARY =====
+  function renderSummary(order) {
+    if (!order) {
       orderSummary.innerHTML = '<p>Không có dữ liệu.</p>';
       return;
     }
-    const totalItems = detail.items ? detail.items.reduce((sum, item) => sum + parseInt(item.quantity), 0) : 0;
+    const totalItems = order.items ? order.items.reduce((sum, item) => sum + parseInt(item.quantity), 0) : 0;
+    const totalDisplay = order.total || formatCurrency(order.items ? order.items.reduce((sum, item) => sum + item.price * item.quantity, 0) : 0);
     orderSummary.innerHTML = `
       <div class="summary-row">
         <span>Tạm tính (${totalItems} sản phẩm)</span>
-        <span>${formatCurrency(detail.subtotal)}</span>
+        <span>${totalDisplay}</span>
       </div>
       <div class="summary-row">
         <span>Phí vận chuyển</span>
-        <span>${formatCurrency(detail.shippingFee)}</span>
+        <span>${formatCurrency(order.shippingFee || 0)}</span>
       </div>
-      ${detail.discount && parseInt(String(detail.discount).replace(/[.,]/g,'')) > 0 ? `
+      ${order.discount && parseInt(String(order.discount).replace(/[.,]/g,'')) > 0 ? `
         <div class="summary-row">
           <span>Giảm giá</span>
-          <span>-${formatCurrency(detail.discount)}</span>
+          <span>-${formatCurrency(order.discount)}</span>
         </div>
       ` : ''}
       <div class="summary-row total">
         <span>Tổng cộng</span>
-        <span class="amount">${detail.totalDisplay || formatCurrency(detail.total)}</span>
+        <span class="amount">${order.totalDisplay || totalDisplay}</span>
       </div>
     `;
   }

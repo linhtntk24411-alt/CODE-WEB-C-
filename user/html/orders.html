@@ -62,11 +62,17 @@
           <h1 class="orders-title">Đơn hàng của tôi</h1>
           <div class="orders-filter">
             <button class="orders-filter-btn active" data-filter="all">Tất cả</button>
-            <button class="orders-filter-btn" data-filter="pending">Đang xử lý</button>
+            <button class="orders-filter-btn" data-filter="pending">Chờ xác nhận</button>
+            <button class="orders-filter-btn" data-filter="processing">Chờ lấy hàng</button>
+            <button class="orders-filter-btn" data-filter="shipping">Chờ giao hàng</button>
             <button class="orders-filter-btn" data-filter="delivered">Đã giao</button>
+            <button class="orders-filter-btn" data-filter="returned">Trả hàng</button>
+            <button class="orders-filter-btn" data-filter="cancelled">Đã hủy</button>
           </div>
         </div>
         <div class="orders-list" id="ordersList"></div>
+        <!-- THÊM PHÂN TRANG -->
+        <div class="orders-pagination" id="ordersPagination"></div>
       </section>
     </div>
   </main>
@@ -75,7 +81,7 @@
   <div id="footer-placeholder"></div>
   <div id="chatbot-placeholder"></div>
 
-  <!-- ===== MODAL ĐĂNG XUẤT ===== -->
+  <!-- MODAL ĐĂNG XUẤT -->
   <div class="modal-overlay" id="modalOverlay"></div>
   <div class="modal" id="modalLogout">
     <div class="modal-content modal-content--logout">
