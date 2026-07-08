@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <header class="main-header" id="global-header"></header>
+    <div id="header-placeholder"></div>
 
     <main class="main-wrapper">
         
@@ -149,10 +149,23 @@
     </section>
     
 
-    <footer class="footer-primary-container" id="global-footer"></footer>
+    <div id="footer-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/header.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .catch(() => console.warn('Header not found'));
 
+            fetch('../components/footer.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(() => console.warn('Footer not found'));
+        });
+    </script>
 
-    <!-- <script src="../js/main.js"></script> -->
+    <script src="../js/main.js"></script>
+
     <script src="../js/gallery-detail.js"></script>
 </body>
 </html>
