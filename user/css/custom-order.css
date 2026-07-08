@@ -755,21 +755,28 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
 }
 .page-title {
-    font-family: var(--font-heading);
-    font-size: 36px;
+    font-family:  segeol UI, sans-serif;
+    font-size: 24px;
     color: var(--text-main);
     margin-bottom: 8px;
 }
 .page-subtitle {
     color: var(--text-muted);
-    font-size: 16px;
+    font-size: 14px;
 }
 .action-group {
     display: flex;
     gap: 16px;
+}
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
 }
 
 /* Nút bấm tổng quát */
@@ -793,16 +800,89 @@ a {
 
 /* Bento Layout */
 .bento-grid {
-    display: grid;
-    grid-template-columns: 10fr 3fr; /* Chuyển sidebar sang trái/phải theo ý muốn, tỷ lệ 1:3 */
-    grid-template-columns: 1fr 3fr;
-    gap: 24px;
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important; /* Cột trái cố định đúng 260px */
+    gap: 48px !important;                          /* Khoảng cách giữa 2 cột rộng chuẩn 48px như orders.css */
+    align-items: start;
 }
+
+/* 2. Cột bên trái bọc dọc (Xóa bỏ chiều rộng fix cứng để nó tự ăn theo grid cha 260px) */
+.left-sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;         /* Khoảng cách dọc giữa hộp Menu và hộp Thống kê số lượng */
+    width: 100% !important; 
+    flex-shrink: 0;
+}
+
 @media (max-width: 992px) {
     .bento-grid { grid-template-columns: 1fr; }
 }
 
-/* Sidebar Stats Cards */
+.left-sidebar-column .profile-sidebar {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 16px 0px !important; /* Padding dọc 16px, ngang 0px để nút chạm viền ngoài */
+    display: flex;
+    flex-direction: column;
+    border: none !important;
+}
+
+/* 2. Định dạng font chữ, cỡ chữ và khoảng cách của từng mục Menu */
+.left-sidebar-column .profile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px !important;          /* Khoảng cách chuẩn giữa icon và chữ */
+    padding: 16px 24px !important; /* Padding chuẩn giúp nút to thoáng sát mép */
+    color: #5c403b !important;     /* Màu chữ nâu trầm biến thể của hệ thống */
+    font-family: 'Segoe UI', sans-serif !important; /* Ép đúng font Segoe UI như hình 1 */
+    font-size: 16px !important;     /* Kích thước chữ chuẩn 16px */
+    font-weight: 600 !important;   /* Độ dày chữ chữ chuẩn */
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-right: 4px solid transparent !important; /* Tạo sẵn khung viền phải ẩn */
+    border-radius: 0 !important;   /* Loại bỏ hoàn toàn bo góc của nút */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 3. Định dạng kích thước Icon Material Symbols */
+.left-sidebar-column .profile-nav-item .material-symbols-outlined {
+    font-size: 20px !important;    /* Cỡ icon chuẩn 20px góc cạnh */
+    color: #5c403b !important;     /* Màu icon đi liền với màu chữ */
+    flex-shrink: 0;
+}
+
+/* 4. Hiệu ứng hover khi rà chuột qua nút */
+.left-sidebar-column .profile-nav-item:hover {
+    background: #f0eded !important; /* Nền xám nhạt nhẹ khi hover */
+    color: #1b1c1c !important;
+}
+
+/* 5. TRẠNG THÁI ACTIVE ĐỒNG BỘ 100% (Khi chọn Yêu cầu thiết kế) */
+.left-sidebar-column .profile-nav-item.active {
+    background: rgba(132, 0, 1, 0.05) !important; /* Nền đỏ mờ 5% tinh tế */
+    color: #840001 !important;                     /* Chữ chuyển sang đỏ Urii */
+    border-right: 4px solid #840001 !important;    /* Đường viền đỏ 4px thẳng tắp sát mép viền ngoài */
+}
+
+/* Đồng bộ luôn màu đỏ Urii cho icon khi mục đó đang active */
+.left-sidebar-column .profile-nav-item.active .material-symbols-outlined {
+    color: #840001 !important;
+}
+
+/* Xóa bỏ hoàn toàn hiệu ứng giả ::after cũ nếu có để tránh xung đột viền */
+.left-sidebar-column .profile-nav-item::after {
+    display: none !important;
+}
+/* Thiết lập responsive: Nếu màn hình nhỏ (Mobile/Tablet), xếp dọc toàn bộ */
+@media (max-width: 1024px) {
+    .left-sidebar-column {
+        width: 100%;    /* Tràn màn hình khi ở giao diện điện thoại */
+    }
+}
 .sidebar-stats {
     display: flex;
     flex-direction: column;
