@@ -561,6 +561,10 @@
         window.location.href = 'orders.html';
         return;
       }
+      if (text === 'Yêu cầu thiết kế') {
+        window.location.href = 'custom-order-list.html';
+        return;
+      }
       if (text === 'Kho map đã lưu') {
         window.location.href = 'saved-maps.html';
         return;
