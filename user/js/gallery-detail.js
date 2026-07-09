@@ -25,6 +25,31 @@ function renderProductDetails(product) {
     document.getElementById("project-title").textContent = `Hướng dẫn làm: ${product.title}`;
     document.getElementById("main-preview-img").src = product.mainImage;
     document.getElementById("main-preview-img").alt = product.title;
+    // --- CHÈN THÊM ĐOẠN CODE DƯỚI ĐÂY VÀO NGAY TẠI ĐÂY ---
+    const mainImg = document.getElementById("main-preview-img");
+    const modal = document.getElementById("image-lightbox-modal");
+    const lightboxImg = document.getElementById("lightbox-target-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    if (mainImg && modal && lightboxImg) {
+        mainImg.style.cursor = "zoom-in";
+        
+        // Click vào ảnh chính thì mở to
+        mainImg.onclick = () => {
+            modal.style.display = "flex";
+            lightboxImg.src = mainImg.src;
+        };
+
+        // Click vào nút X thì đóng
+        if (closeBtn) {
+            closeBtn.onclick = () => { modal.style.display = "none"; };
+        }
+
+        // Click ra vùng nền đen bên ngoài thì đóng
+        modal.onclick = (e) => {
+            if (e.target === modal) { modal.style.display = "none"; }
+        };
+    }
 
     document.getElementById("meta-time").textContent = product.duration || "--";
     document.getElementById("req-time").textContent = product.duration || "--";

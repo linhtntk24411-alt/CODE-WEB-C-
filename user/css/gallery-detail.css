@@ -100,6 +100,7 @@ h1, h2, h3, h4, .font-poppins {
   opacity: 0; 
   transition: opacity 0.2s; 
   cursor: zoom-in;
+  pointer-events: none;
 }
 .preview-card:hover .preview-overlay { opacity: 1; }
 .zoom-btn { 
@@ -127,7 +128,57 @@ h1, h2, h3, h4, .font-poppins {
   align-items: center; 
   gap: 4px; 
 }
+/* Giao diện hiển thị ảnh phóng to (Lightbox) */
+.lightbox-modal {
+    position: fixed !important;
+    z-index: 99999 !important; /* Đè lên toàn bộ header/footer */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    display: none; /* Mặc định ẩn, JS click mới hiện */
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    animation: lightboxFadeIn 0.2s ease-out;
+}
 
+.lightbox-content {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    animation: lightboxZoomIn 0.2s cubic-bezier(0.1, 0.8, 0.25, 1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 50px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1);
+    color: #ff9d9d;
+}
+
+@keyframes lightboxFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes lightboxZoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 /* Khối thông tin bên phải */
 .page-main-title { 
   font-size: 36px; 
