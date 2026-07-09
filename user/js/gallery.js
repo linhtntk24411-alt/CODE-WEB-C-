@@ -140,7 +140,7 @@ function renderPage(page) {
                             <span class="material-symbols-outlined">visibility</span>
                         </button>
                         <!-- Nút xem hướng dẫn (Quyển sách) -->
-                        <button class="btn-action-primary" onclick="window.location.href='gallery-detail.html?id=${product.map_id}'">
+                        <button class="btn-action-primary" onclick="saveMapToData('${product.map_id}')">
                             <span class="material-symbols-outlined">menu_book</span>
                         </button>
                     </div>
@@ -270,3 +270,34 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProductsData();  
     setupFilterEvents();  
 });
+// Hàm xử lý lưu map mẫu khi ấn nút quyển sách
+function saveMapToData(mapId) {
+    // Tìm thông tin map trong mảng allProducts dựa vào map_id
+    const product = allProducts.find(p => p.map_id === mapId);
+    if (!product) return;
+
+    // Lấy danh sách đã lưu từ localStorage (nếu chưa có thì tạo mảng rỗng)
+    let savedMaps = JSON.parse(localStorage.getItem('savedMaps')) || [];
+
+    // Kiểm tra xem map này đã được lưu trước đó chưa
+    const isExist = savedMaps.some(item => item.id === mapId);
+
+    if (!isExist) {
+        // Tạo object có cấu trúc tương thích với file saved-maps.json của bạn
+        const newSavedMap = {
+            id: product.map_id,
+            title: product.map_name,
+            author: "Urii Thiết kế", // Giá trị mặc định hoặc tùy chỉnh thêm nếu JSON gốc có author
+            image: product.main_image,
+            rating: 5.0, // Giá trị mặc định
+            liked: true
+        };
+
+        savedMaps.push(newSavedMap);
+        // Lưu lại vào localStorage
+        localStorage.setItem('savedMaps', JSON.stringify(savedMaps));
+        alert(`Đã lưu "${product.map_name}" vào danh sách của bạn!`);
+    } else {
+        alert(`Mẫu "${product.map_name}" đã tồn tại trong danh sách lưu.`);
+    }
+}
