@@ -122,6 +122,78 @@ function renderProductDetails(product) {
         showcaseContainer.appendChild(moreBadge);
     }
     renderRelatedProducts(product.products);
+
+    // --- ĐOẠN CODE THÊM MỚI TẠI ĐÂY ---
+    const downloadBtn = document.querySelector('.btn-action-download');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            const pdfContent = document.createElement('div');
+            pdfContent.style.width = '190mm'; 
+            pdfContent.style.padding = '15px';
+            pdfContent.style.fontFamily = '"Times New Roman", Times, serif';
+            pdfContent.style.fontSize = '13px'; 
+            pdfContent.style.boxSizing = 'border-box';
+            
+            // Xử lý dữ liệu các bước làm an toàn và sạch sẽ, hỗ trợ hiển thị cả thuộc tính "tip" nếu có
+            let stepsHtml = '';
+            if (product.steps && Array.isArray(product.steps)) {
+                product.steps.forEach(step => {
+                    let tipText = step.tip ? `<br><span style="color: #666; font-size: 11px; font-style: italic;">* Mẹo: ${step.tip}</span>` : '';
+                    stepsHtml += `
+                        <div style="margin-bottom: 8px; page-break-inside: avoid; break-inside: avoid;">
+                            <h4 style="color: #000000; margin: 2px 0; font-size: 13px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Bước ${step.number}: ${step.title}</h4>
+                            <p style="margin: 2px 0; color: #333333; font-size: 12px; line-height: 1.3; font-family: 'Times New Roman', Times, serif;">
+                                ${step.text}
+                                ${tipText}
+                            </p>
+                        </div>`;
+                });
+            }
+
+            // Giao diện cấu trúc dạng bảng/cột để tối ưu hóa không gian hiển thị, ngăn chặn lỗi nuốt bước
+            pdfContent.innerHTML = `
+                <div style="text-align: center; border-bottom: 2px solid #ff2222; padding-bottom: 6px; margin-bottom: 12px;">
+                    <img src="../assets/Logo.png" style="max-width: 100px; height: auto; display: inline-block;" alt="Logo Urii" />
+                    <p style="margin: 4px 0 0 0; font-size: 13px; color: #000000; letter-spacing: 1.5px; font-weight: 600; font-family: 'Times New Roman', Times, serif;">HƯỚNG DẪN LÀM MAP HẠT ỦI CHUẨN</p>
+                </div>
+                
+                <h2 style="color: #000000; text-align: center; margin: 5px 0 2px 0; font-size: 20px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">${product.title}</h2>
+                <p style="text-align: center; color: #444444; font-size: 12px; margin: 0 0 15px 0; font-family: 'Times New Roman', Times, serif;">Thời gian: ${product.duration || '--'} | Cấp độ: ${product.difficulty || '--'}</p>
+                
+                <table style="width: 100%; border-collapse: collapse; border: none; margin-top: 5px;">
+                    <tr>
+                        <td style="width: 45%; vertical-align: top; padding-right: 15px; text-align: center;">
+                            <p style="font-weight: bold; color: #ff2222; font-size: 12px; margin: 0 0 6px 0; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; text-transform: uppercase;">MAP MẪU (IMAGE MAP)</p>
+                            <img src="${product.mainImage}" style="width: 220px; height: 220px; object-fit: contain; border-radius: 8px; border: 2px solid #f0f0f0; display: inline-block;" />
+                        </td>
+                        
+                        <td style="width: 55%; vertical-align: top; border-left: 1px dashed #cccccc; padding-left: 15px; text-align: left;">
+                            <h3 style="color: #ff2222; border-left: 3px solid #ff2222; padding-left: 6px; margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Các bước thực hiện chi tiết</h3>
+                            <div>
+                                ${stepsHtml}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            `;
+            
+            const options = {
+                margin:       10,
+                filename:     `Urii-Map-${product.title.replace(/\s+/g, '-')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false, 
+                    scrollX: 0, 
+                    scrollY: 0 
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(options).from(pdfContent).save();
+        });
+    }
 }
 
 function renderRelatedProducts(products) {
