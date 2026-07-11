@@ -82,7 +82,7 @@ function initButtonInteractions(id) {
     const btnReject = document.getElementById('btn-reject');
     if (btnReject) {
         btnReject.addEventListener('click', () => {
-            if (confirm(`Bạn chắc chắn muốn hủy bỏ bảng báo giá của yêu cầu thiết kế ${id}?`)) {
+            if (confirm(`Bạn chắc chắn muốn từ chối bảng báo giá của yêu cầu thiết kế ${id}?`)) {
                 alert("Yêu cầu đã được đóng lại thành công.");
                 window.location.href = "custom-order-list.html";
             }
