@@ -138,6 +138,7 @@
     const currentEmail = localStorage.getItem('userEmail');
     let user = null;
     
+    // Kiểm tra cấu trúc dữ liệu
     if (data.users && Array.isArray(data.users)) {
       if (currentEmail) {
         user = data.users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
