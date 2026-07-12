@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Tạo Bài Viết Mới | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/blog-create.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN -->
+  <main class="blog-create-main">
+    <!-- Header Section -->
+    <div class="blog-create-header">
+      <div>
+        <nav class="blog-create-breadcrumb">
+          <a href="blog-list.html">Blog cộng đồng</a>
+          <span class="material-symbols-outlined">chevron_right</span>
+          <span>Tạo bài viết mới</span>
+        </nav>
+        <h1 class="blog-create-title">Viết cảm hứng mới</h1>
+        <p class="blog-create-subtitle">Chia sẻ kỹ thuật, mẫu map hoặc hành trình sáng tạo hạt nhựa của bạn.</p>
+      </div>
+      <div class="blog-create-actions">
+        <button class="btn-draft" id="saveDraftBtn">Lưu bản nháp</button>
+        <button class="btn-publish" id="publishBtn">Xuất bản</button>
+      </div>
+    </div>
+
+    <!-- Editor Container -->
+    <div class="blog-create-editor">
+      <!-- Metadata Section -->
+      <div class="blog-create-metadata">
+        <div class="blog-create-metadata__left">
+          <div class="form-group">
+            <label for="postTitle">Tiêu đề bài viết</label>
+            <input type="text" id="postTitle" placeholder="Ví dụ: Cách ủi hạt Perler đều và đẹp cho người mới..." />
+          </div>
+          <div class="form-group">
+            <label for="postCategory">Chuyên mục</label>
+            <select id="postCategory">
+              <option value="huong-dan-diy">Hướng dẫn DIY</option>
+              <option value="y-tuong-thiet-ke">Ý tưởng thiết kế</option>
+              <option value="goc-nghe-thuat">Góc nghệ thuật</option>
+              <option value="meo-vat">Mẹo vặt</option>
+            </select>
+          </div>
+        </div>
+        <!-- Thêm ảnh vào bài viết -->
+        <div class="blog-create-metadata__right">
+          <div class="upload-area" id="uploadArea">
+            <input type="file" id="imageUpload" accept="image/*" multiple />
+            <div class="upload-area__icon">
+              <span class="material-symbols-outlined">add_photo_alternate</span>
+            </div>
+            <div class="upload-area__text">
+              <p>Thêm ảnh vào bài viết</p>
+              <span>Kéo thả hoặc click để chọn ảnh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Khu vực preview ảnh (riêng biệt, bên dưới hộp tải) -->
+      <div class="upload-preview-area">
+        <div class="upload-preview__list" id="imagePreview"></div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="editor-toolbar" id="editorToolbar">
+        <button data-command="bold" title="In đậm"><span class="material-symbols-outlined">format_bold</span></button>
+        <button data-command="italic" title="In nghiêng"><span class="material-symbols-outlined">format_italic</span></button>
+        <button data-command="underline" title="Gạch chân"><span class="material-symbols-outlined">format_underlined</span></button>
+        <span class="divider"></span>
+        <button data-command="formatBlock" data-value="h2" title="Heading 2"><span class="material-symbols-outlined">format_h2</span></button>
+        <button data-command="formatBlock" data-value="h3" title="Heading 3"><span class="material-symbols-outlined">format_h3</span></button>
+        <span class="divider"></span>
+        <button data-command="insertUnorderedList" title="Danh sách bullet"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+        <button data-command="insertOrderedList" title="Danh sách số"><span class="material-symbols-outlined">format_list_numbered</span></button>
+        <span class="divider"></span>
+        <button data-command="createLink" title="Chèn link"><span class="material-symbols-outlined">link</span></button>
+        <button data-command="insertImage" title="Chèn ảnh từ URL"><span class="material-symbols-outlined">image</span></button>
+        <span class="divider"></span>
+        <button data-command="undo" title="Hoàn tác"><span class="material-symbols-outlined">undo</span></button>
+        <button data-command="redo" title="Làm lại"><span class="material-symbols-outlined">redo</span></button>
+        <span class="flex-grow"></span>
+        <button data-command="fullscreen" title="Toàn màn hình" id="fullscreenBtn"><span class="material-symbols-outlined">fullscreen</span></button>
+      </div>
+
+      <!-- Editor Area -->
+      <div class="editor-area" id="editorArea">
+        <div class="editor-content" id="editorContent" contenteditable="true"></div>
+      </div>
+
+      <!-- Editor Footer -->
+      <div class="editor-footer">
+        <div class="editor-footer__left">
+          <span id="wordCount">Từ ngữ: 0</span>
+          <span id="autoSave">Đã lưu tự động</span>
+        </div>
+        <div class="editor-footer__right">
+          <span class="material-symbols-outlined">check_circle</span>
+          <span>Sẵn sàng xuất bản</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO & Tags (tùy chọn) -->
+    <div class="blog-create-seo">
+      <button class="seo-toggle" id="seoToggle">
+        <span class="material-symbols-outlined">sell</span>
+        <span>Cấu hình SEO &amp; Thẻ bài viết (Tùy chọn)</span>
+        <span class="material-symbols-outlined seo-arrow">arrow_forward</span>
+      </button>
+      <div class="seo-panel" id="seoPanel" style="display:none;">
+        <div class="form-group">
+          <label for="seoTitle">Meta Title</label>
+          <input type="text" id="seoTitle" placeholder="Tiêu đề hiển thị trên công cụ tìm kiếm" />
+        </div>
+        <div class="form-group">
+          <label for="seoDesc">Meta Description</label>
+          <textarea id="seoDesc" rows="2" placeholder="Mô tả ngắn cho bài viết"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="postTags">Thẻ (tags) – cách nhau bằng dấu phẩy</label>
+          <input type="text" id="postTags" placeholder="Ví dụ: perler, handmade, hướng dẫn" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/blog-create.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

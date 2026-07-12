@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Urii | Danh sách yêu cầu đặt làm theo yêu cầu</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/custom-order.css">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <!-- Nội dung chính -->
+    <main class="main-content">
+        <div class="content-container">
+            
+            <!-- Tiêu đề trang & Nút hành động nhanh -->
+            
+
+            <!-- Bố cục Bento Grid -->
+            <div class="bento-grid">
+                <div class="left-sidebar-column">
+        
+                    <aside class="profile-sidebar">
+                        <nav class="profile-nav">
+                        <a href="profile.html" class="profile-nav-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Hồ sơ của tôi</span>
+                        </a>
+                        <a href="orders.html" class="profile-nav-item">
+                            <span class="material-symbols-outlined">shopping_bag</span>
+                            <span>Đơn hàng của tôi</span>
+                        </a>
+                        <a href="custom-order-list.html" class="profile-nav-item active">
+                            <span class="material-symbols-outlined">edit_square</span>
+                            <span>Yêu cầu thiết kế</span>
+                        </a>
+                        <a href="saved-maps.html" class="profile-nav-item">
+                            <span class="material-symbols-outlined">grid_view</span>
+                            <span>Kho map đã lưu</span>
+                        </a>
+                        <a href="myreview.html" class="profile-nav-item">
+                            <span class="material-symbols-outlined">grade</span>
+                            <span>Đánh giá của tôi</span>
+                        </a>
+                        </nav>
+                    </aside>
+                
+                <!-- Cột bên trái: Thống kê & Hỗ trợ -->
+                    <aside class="sidebar-stats">
+                        <div class="card stat-card total-req">
+                            <span class="stat-label">Tổng số yêu cầu</span>
+                            <div class="stat-number">0</div>
+                        </div>
+                        <div class="card stat-card processing-req">
+                            <span class="stat-label">Đang xử lý</span>
+                            <div class="stat-number">0</div>
+                        </div>
+                        <div class="card support-card">
+                            <h3>Cần hỗ trợ?</h3>
+                            <p>Nếu có thắc mắc về báo giá hoặc thời gian gia công, hãy nhắn tin trực tiếp cho đội ngũ thiết kế của Urii.</p>
+                            <button class="btn btn-white">Nhắn tin ngay</button>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- Cột bên phải: Bảng dữ liệu (Sẽ được JS đổ data vào đây) -->
+                <section class="main-table-area">
+                    <div class="page-header"><div>
+                        <h1 class="page-title">Theo dõi yêu cầu thiết kế</h1>
+                        <p class="page-subtitle">Quản lý và cập nhật tiến độ cho các mẫu Perler Beads bạn đã đặt thiết kế riêng.</p>
+                    </div>
+                    <div class="action-group">
+                        <div class="filter-wrapper">
+                            <span class="material-symbols-outlined filter-icon">filter_list</span>
+                            <select id="status-filter" class="status-select">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="status-pending">Đang chờ duyệt</option>
+                                <option value="status-quoted">Đã báo giá</option>
+                                <option value="status-processing">Đang gia công</option>
+                                <option value="status-completed">Đã hoàn thành</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">
+                            <span class="material-symbols-outlined">add</span> Tạo yêu cầu mới
+                        </button>
+                    </div>
+                </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã yêu cầu</th>
+                                    <th>Hình ảnh & Tên mẫu</th>
+                                    <th class="text-center">Ngày gửi</th>
+                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="request-table-body">
+                                <!-- Dữ liệu từ file JSON sẽ tự động đổ vào đây nhờ JS -->
+                            </tbody>
+                        </table>
+                        
+                        <!-- Phân trang -->
+                        <div class="pagination-area">
+                            <span class="pagination-info">Hiển thị 4 trên 12 yêu cầu</span>
+                            <div class="pagination-buttons">
+                                <button class="page-nav"><span class="material-symbols-outlined">chevron_left</span></button>
+                                <button class="page-num active">1</button>
+                                <button class="page-num">2</button>
+                                <button class="page-num">3</button>
+                                <button class="page-nav"><span class="material-symbols-outlined">chevron_right</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/header.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .catch(() => console.warn('Header not found'));
+
+            fetch('../components/footer.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(() => console.warn('Footer not found'));
+        });
+    </script>
+    <script src="../js/main.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/custom-order-list.js"></script>
+</body>
+</html>

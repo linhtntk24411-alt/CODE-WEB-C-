@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Chi tiết bài viết | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/blog-detail.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN -->
+  <main class="blog-detail-main">
+    <!-- Banner -->
+    <section class="blog-detail-banner" id="blogBanner" style="background-image: url('');">
+      <div class="blog-detail-banner__overlay">
+        <div class="blog-detail-banner__container">
+          <span class="blog-detail-banner__category" id="detailCategory">Danh mục</span>
+          <h1 class="blog-detail-banner__title" id="detailTitle">Tiêu đề bài viết</h1>
+          <div class="blog-detail-banner__author">
+            <img class="blog-detail-banner__avatar" id="detailAvatar" src="" alt="Avatar" />
+            <div>
+              <div class="blog-detail-banner__name" id="detailAuthor">Tác giả</div>
+              <div class="blog-detail-banner__date" id="detailDate">Ngày đăng</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nội dung bài viết -->
+    <article class="blog-detail-content" id="detailContent">
+      <!-- Render từ JS -->
+    </article>
+    
+    <!-- Like & Bookmark Actions -->
+    <div class="blog-detail-actions">
+      <button class="blog-detail-actions__btn" id="likeBtn">
+        <i class="bi bi-heart"></i>
+        <span id="likeCount">0</span>
+      </button>
+      <button class="blog-detail-actions__btn" id="bookmarkBtn">
+        <i class="bi bi-bookmark"></i>
+        <span>Lưu</span>
+      </button>
+    </div>
+    <!-- Tags -->
+    <div class="blog-detail-tags" id="detailTags">
+      <span class="blog-detail-tags__label">Tags:</span>
+    </div>
+
+    <!-- Author Bio -->
+    <div class="blog-detail-author" id="detailAuthorBio">
+      <img class="blog-detail-author__avatar" id="bioAvatar" src="" alt="Author" />
+      <div class="blog-detail-author__info">
+        <h3 class="blog-detail-author__name" id="bioName">Tác giả</h3>
+        <p class="blog-detail-author__desc" id="bioDesc">Mô tả tác giả</p>
+        <div class="blog-detail-author__social">
+          <a href="#"><i class="bi bi-globe"></i></a>
+          <a href="#"><i class="bi bi-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <section class="blog-detail-comments">
+      <h2 class="blog-detail-comments__title">Bình luận (<span id="commentCount">0</span>)</h2>
+
+      <!-- Form bình luận chính -->
+      <div class="blog-detail-comments__form">
+        <div class="blog-detail-comments__avatar-placeholder"></div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                <textarea class="blog-detail-comments__textarea" id="commentInput" placeholder="Chia sẻ ý kiến của bạn..." rows="3"></textarea>
+                <button class="blog-detail-comments__submit" id="submitComment" style="align-self:flex-end;">Gửi bình luận</button>
+            </div>
+        </div>
+
+      <!-- Danh sách bình luận -->
+      <div class="blog-detail-comments__list" id="commentList">
+        <!-- Render từ JS -->
+      </div>
+
+      <!-- Nút xem thêm -->
+      <div class="blog-detail-comments__loadmore">
+        <button class="blog-detail-comments__loadmore-btn">Xem thêm bình luận</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/blog.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

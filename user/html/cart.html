@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - Urii Perler Beads</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    <script src="../js/cart.js" defer></script>
+    <script src="../js/header.js" defer></script>
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb small mb-0 bg-white p-2 px-3 rounded-3 shadow-sm">
+                <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-secondary">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="product.html" class="text-decoration-none text-secondary">Sản phẩm</a></li>
+                <li class="breadcrumb-item active text-primary-custom fw-bold" aria-current="page">Giỏ hàng</li>
+            </ol>
+        </nav>
+
+        <!-- Page Title -->
+        <div class="mb-4">
+            <h1 class="fw-bold fs-2 mb-1" style="font-family: 'Poppins', sans-serif;">Giỏ hàng của bạn</h1>
+            <p class="text-secondary" id="cartSummary">Bạn đang có <span class="fw-bold text-primary-custom" id="itemCount">0</span> sản phẩm trong giỏ hàng</p>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner-border text-primary-custom" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Cart Content -->
+        <div id="cartContent" style="display: none;">
+            <!-- Empty Cart -->
+            <div id="emptyCart" class="cart-empty" style="display: none;">
+                <i class="bi bi-cart-x empty-icon"></i>
+                <h3 class="fw-bold mt-3">Giỏ hàng trống</h3>
+                <p class="text-secondary mb-3">Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
+                <a href="product.html" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                    <i class="bi bi-arrow-left me-2"></i>Tiếp tục mua sắm
+                </a>
+            </div>
+
+            <!-- Cart Table -->
+            <div id="cartTable">
+                <div class="row g-4">
+                    <!-- Cart Items -->
+                    <div class="col-lg-8">
+                        <div class="bg-white rounded-4 shadow-sm overflow-hidden">
+                            <div class="table-responsive">
+                                <table class="table table-borderless mb-0 cart-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40px;">
+                                                <input class="form-check-input" type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                                            </th>
+                                            <th>Sản phẩm</th>
+                                            <th style="min-width: 140px;">Phân loại</th>
+                                            <th style="text-align: center; min-width: 100px;">Đơn giá</th>
+                                            <th style="text-align: center; min-width: 120px;">Số lượng</th>
+                                            <th style="text-align: center; min-width: 100px;">Thành tiền</th>
+                                            <th style="width: 40px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cartItems">
+                                        <!-- Cart items will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Promo Code -->
+                        <div class="bg-white rounded-4 shadow-sm p-3 mt-3">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-5">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="bi bi-ticket-perforated text-primary-custom fs-5"></i>
+                                        <div>
+                                            <span class="fw-semibold small">Mã giảm giá</span>
+                                            <span class="d-block text-secondary" style="font-size: 12px;">Nhập mã để nhận thêm ưu đãi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="d-flex gap-2">
+                                        <input class="form-control promo-input flex-grow-1" placeholder="Nhập mã giảm giá..." id="promoCode">
+                                        <button class="btn btn-outline-primary-custom rounded-pill px-4" onclick="applyPromo()">Áp dụng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="col-lg-4">
+                        <div class="summary-card">
+                            <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif; font-size: 18px;">Tóm tắt đơn hàng</h5>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="summary-label">Tạm tính (<span id="summaryItemCount">0</span> sản phẩm)</span>
+                                <span class="summary-value" id="subtotal">0₫</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="summary-label">Phí vận chuyển</span>
+                                <span class="summary-value text-success">Miễn phí</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2" id="discountRow" style="display: none;">
+                                <span class="summary-label">Giảm giá</span>
+                                <span class="summary-value text-danger" id="discountAmount">-0₫</span>
+                            </div>
+                            
+                            <div class="summary-divider"></div>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="summary-total-label">Tổng cộng</span>
+                                <span class="summary-total-value" id="totalPrice">0₫</span>
+                            </div>
+
+                            <button class="btn btn-primary-custom w-100 py-3 rounded-pill fw-semibold fs-6">
+                                <i class="bi bi-credit-card me-2"></i>Tiến hành thanh toán
+                            </button>
+
+                            <div class="mt-3 text-center">
+                                <span class="text-secondary" style="font-size: 12px;">Chấp nhận thanh toán qua</span>
+                                <div class="d-flex justify-content-center gap-3 mt-1">
+                                    <i class="bi bi-credit-card fs-4 text-secondary"></i>
+                                    <i class="bi bi-wallet2 fs-4 text-secondary"></i>
+                                    <i class="bi bi-paypal fs-4 text-secondary"></i>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 p-2 bg-light rounded-3">
+                                <div class="d-flex align-items-center gap-2 text-secondary" style="font-size: 13px;">
+                                    <i class="bi bi-shield-check text-primary-custom"></i>
+                                    <span>Đảm bảo hàng chính hãng 100%</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 text-secondary" style="font-size: 13px;">
+                                    <i class="bi bi-arrow-repeat text-primary-custom"></i>
+                                    <span>Đổi trả dễ dàng trong 7 ngày</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Có thể bạn cũng thích -->
+        <section class="mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold" style="font-family: 'Poppins', sans-serif;">Có thể bạn cũng thích</h4>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-secondary rounded-circle" onclick="scrollSuggested(-1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-circle" onclick="scrollSuggested(1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Category filters -->
+            <div class="d-flex flex-wrap gap-2 mb-3" id="suggestedCategories">
+                <button class="category-filter-btn active" data-category="all" onclick="filterSuggested('all', this)">Tất cả</button>
+                <button class="category-filter-btn" data-category="kit" onclick="filterSuggested('kit', this)">Bộ KIT</button>
+                <button class="category-filter-btn" data-category="bead" onclick="filterSuggested('bead', this)">Hạt lẻ</button>
+                <button class="category-filter-btn" data-category="tool" onclick="filterSuggested('tool', this)">Dụng cụ</button>
+                <button class="category-filter-btn" data-category="accessory" onclick="filterSuggested('accessory', this)">Phụ kiện</button>
+            </div>
+
+            <div class="suggestion-scroll" id="suggestedProducts">
+                <!-- Suggested products will be loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/header.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .catch(() => console.warn('Header not found'));
+
+            fetch('../components/footer.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(() => console.warn('Footer not found'));
+        });
+    </script>
+</body>
+</html>

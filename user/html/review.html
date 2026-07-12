@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đánh giá đơn hàng | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/review.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <main class="review-main">
+    <div class="review-container">
+      <!-- Breadcrumb -->
+      <nav class="review-breadcrumb">
+        <a href="profile.html">Hồ sơ của tôi</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="orders.html">Đơn hàng của tôi</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Đánh giá</span>
+      </nav>
+
+      <div class="review-wrapper">
+        <div class="review-header">
+          <h1 class="review-title">Đánh giá sản phẩm</h1>
+          <p class="review-subtitle">Chia sẻ trải nghiệm của bạn về sản phẩm để giúp cộng đồng lựa chọn tốt hơn.</p>
+        </div>
+
+        <!-- Thông tin đơn hàng -->
+        <div class="review-order-info" id="reviewOrderInfo">
+          <!-- Render từ JS -->
+        </div>
+
+        <!-- Form đánh giá -->
+        <form id="reviewForm">
+          <div class="review-form-group">
+            <label class="review-label">Đánh giá của bạn <span class="required">*</span></label>
+            <div class="star-rating" id="starRating">
+              <i class="bi bi-star" data-value="1"></i>
+              <i class="bi bi-star" data-value="2"></i>
+              <i class="bi bi-star" data-value="3"></i>
+              <i class="bi bi-star" data-value="4"></i>
+              <i class="bi bi-star" data-value="5"></i>
+            </div>
+            <div class="rating-text" id="ratingText">Chọn số sao</div>
+          </div>
+
+          <div class="review-form-group">
+            <label class="review-label" for="reviewContent">Nội dung đánh giá <span class="required">*</span></label>
+            <textarea id="reviewContent" rows="5" placeholder="Mô tả chi tiết trải nghiệm của bạn với sản phẩm..." required></textarea>
+          </div>
+
+          <div class="review-form-group">
+            <label class="review-label">Hình ảnh (tùy chọn)</label>
+            <div class="review-upload-area" id="reviewUploadArea">
+              <input type="file" id="reviewImages" accept="image/*" multiple />
+              <div class="review-upload-icon">
+                <i class="bi bi-cloud-upload"></i>
+              </div>
+              <div class="review-upload-text">
+                <p>Kéo thả hoặc click để tải ảnh lên</p>
+                <span>JPG, PNG, GIF tối đa 5MB</span>
+              </div>
+            </div>
+            <div class="review-image-preview" id="reviewImagePreview"></div>
+          </div>
+
+          <div class="review-actions">
+            <button type="button" class="review-btn review-btn--cancel" onclick="window.history.back()">Hủy</button>
+            <button type="submit" class="review-btn review-btn--submit">Gửi đánh giá</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/review.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

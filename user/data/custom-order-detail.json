@@ -1,0 +1,82 @@
+{
+  "#URII-9811": {
+    "designFee": 50000,
+    "beadsFee": 120000,
+    "toolsFee": 25000,
+    "total": 195000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Thấp - Trung bình",
+    "beadCount": "Khoảng 1.200 hạt",
+    "stylistAdvice": "Mẫu Cá Heo Xanh có kích thước nhỏ gọn (20x20cm). Shop sử dụng dòng hạt Artkal Hard để thành phẩm sau khi ủi cứng cáp, cực kỳ phù hợp để bạn làm móc khóa hoặc phụ kiện treo balo phối đồ nhé."
+  },
+  "#URII-9541": {
+    "designFee": 100000,
+    "beadsFee": 220000,
+    "toolsFee": 50000,
+    "total": 370000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình (Nhiều tone màu phối)",
+    "beadCount": "Khoảng 3.500 hạt",
+    "stylistAdvice": "Chậu hoa ba màu sử dụng khá nhiều khối màu đối lập để tạo hiệu ứng nổi bật. Lời khuyên là bạn nên xếp hạt từ phần viền đáy chậu đi dần lên trên để không bị lệch form đối xứng của bình hoa."
+  },
+  "#URII-9418": {
+    "designFee": 180000,
+    "beadsFee": 380000,
+    "toolsFee": 85000,
+    "total": 645000,
+    "beadType": "Mini 2.6mm (Hạt mịn cao cấp)",
+    "complexity": "Cao (Đổ bóng mờ Gradient)",
+    "beadCount": "Khoảng 7.800 hạt",
+    "stylistAdvice": "Mẫu Sứa Biển Huyền Ảo có dải chuyển màu mờ rất phức tạp. Shop đặc biệt chuẩn bị bộ hạt Mini 2.6mm mịn để các hạt liên kết khít hơn, đồng thời phối thêm hạt dạ quang phát sáng nhẹ ban đêm ở phần râu sứa."
+  },
+  "#URII-9420": {
+    "designFee": 120000,
+    "beadsFee": 280000,
+    "toolsFee": 60000,
+    "total": 460000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình - Cao",
+    "beadCount": "Khoảng 4.200 hạt",
+    "stylistAdvice": "Mẫu Vẹt Đỏ Đuôi Dài Nam Mỹ cần độ chuyển màu rực rỡ ở cánh. Shop đã lọc sẵn các mã màu đỏ cherry, cam tươi và vàng chanh nguyên bản thuộc bảng màu Artkal Soft R-series để phần lông vẹt nhìn tự nhiên nhất."
+  },
+  "#URII-9422": {
+    "designFee": 80000,
+    "beadsFee": 160000,
+    "toolsFee": 40000,
+    "total": 280000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình",
+    "beadCount": "Khoảng 2.300 hạt",
+    "stylistAdvice": "Mẫu Xương Rồng Nở Hoa Ngập Nắng có tone xanh lục chủ đạo. Để tạo chiều sâu cho thân cây xù xì, shop mix thêm 3 sắc độ xanh (xanh rêu đậm, xanh lá mạ và xanh mint nhạt) kèm hạt hồng neon làm điểm nhấn hoa."
+  },
+  "#URII-9425": {
+    "designFee": 110000,
+    "beadsFee": 240000,
+    "toolsFee": 55000,
+    "total": 405000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình (Có bo viền shadow)",
+    "beadCount": "Khoảng 3.800 hạt",
+    "stylistAdvice": "Mẫu Cáo Đỏ Cuộn Tròn Ngủ Đông có phần viền đen bao quanh khá dày để làm nổi bật dáng nằm. Bạn nên chuẩn bị sẵn nhíp sắt đầu cong để gắp các hạt bo viền đen trước, sau đó mới lấp đầy các mảng màu cam bên trong."
+  },
+  "#URII-9430": {
+    "designFee": 150000,
+    "beadsFee": 320000,
+    "toolsFee": 85000,
+    "total": 555000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình - Cao (Dáng cao đối xứng)",
+    "beadCount": "Khoảng 4.800 hạt",
+    "stylistAdvice": "Mẫu Chim Hồng Hạc Kiêu Sa có kích thước dọc lớn (30x40cm). Kỹ thuật viên khuyên bạn khi ủi cần lướt bàn ủi đều tay theo hình vòng tròn nhỏ ở phần cổ chim để tránh làm hạt bị chảy quá mức, giữ được độ thanh mảnh của dáng chim."
+  },
+  "default": {
+    "designFee": 150000,
+    "beadsFee": 320000,
+    "toolsFee": 85000,
+    "total": 555000,
+    "beadType": "Midi 5.0mm (Tiêu chuẩn)",
+    "complexity": "Trung bình - Cao",
+    "beadCount": "Khoảng 4.800 hạt",
+    "stylistAdvice": "Mẫu bản vẽ custom riêng theo yêu cầu của khách hàng hệ thống. Vui lòng liên hệ trực tiếp với bộ phận chăm sóc khách hàng của Urii để được hỗ trợ kiểm tra chi tiết bảng phối màu."
+  }
+}

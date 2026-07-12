@@ -1,0 +1,356 @@
+        :root {
+            --bs-primary: #840001;
+            --bs-primary-rgb: 132, 0, 1;
+            --bs-primary-container: #b00103;
+            --bs-on-surface: #1b1c1c;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Nunito Sans', sans-serif;
+            color: var(--bs-on-surface);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .text-primary-custom {
+            color: var(--bs-primary);
+        }
+
+        /* Product List */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            width: calc(33.33% - 14px);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(132, 0, 1, 0.12);
+            border-color: rgba(132, 0, 1, 0.1);
+        }
+
+        .product-filter-panel {
+            z-index: 1;
+            position: sticky;
+        }
+
+        /* Image Container */
+        .product-image-wrapper {
+            position: relative;
+            padding-top: 100%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+            overflow: hidden;
+        }
+
+        .product-image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .product-card:hover .product-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        /* Badge Discount - Bên trái */
+        .badge-discount {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(220, 53, 69, 0.35);
+            letter-spacing: 0.5px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Badge Hot - Bên trái, dưới Discount */
+        .badge-hot {
+            position: absolute;
+            left: 12px;
+            top: 56px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.35);
+            letter-spacing: 0.5px;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-stock {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            z-index: 2;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-stock i {
+            font-size: 12px;
+        }
+
+        /* Cart Icon - Góc phải trên */
+        .cart-icon {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bs-primary);
+            font-size: 18px;
+            z-index: 3;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: none;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            background: var(--bs-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(132, 0, 1, 0.3);
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 14px 16px 16px;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
+            padding-right: 40px;
+        }
+
+        .product-title:hover {
+            color: var(--bs-primary);
+        }
+
+        /* Price */
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            color: #dc3545;
+        }
+
+        .product-price .current-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #dc3545;
+        }
+
+        .product-price .original-price {
+            font-size: 14px;
+            color: #adb5bd;
+            text-decoration: line-through;
+        }
+
+        .product-price .current-price.no-discount {
+            color: #dc3545;
+        }
+
+        /* Rating & Stock - Cùng hàng */
+        .product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-rating .stars {
+            color: #fcc419;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .product-rating .stars i {
+            margin-right: 1px;
+        }
+
+        .product-rating .rating-text {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .product-rating .review-count {
+            color: #adb5bd;
+        }
+
+        .product-stock-info {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #6c757d;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .product-stock-info i {
+            font-size: 14px;
+        }
+
+        .product-stock-info .stock-number {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        /* Buy Button */
+        .product-actions {
+            margin-top: 2px;
+        }
+
+        .product-actions .btn-buy {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            background: var(--bs-primary);
+            color: white;
+        }
+
+        .product-actions .btn-buy:hover {
+            background: var(--bs-primary-container);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(132, 0, 1, 0.3);
+        }
+
+        .product-actions .btn-buy i {
+            margin-right: 6px;
+        }
+
+        /* Rating filter - Dạng cột */
+        .rating-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .rating-filter-group .rating-filter-btn {
+            width: 100%;
+            text-align: left;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1.5px solid #e9ecef;
+            background: white;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .rating-filter-group .rating-filter-btn:hover {
+            border-color: var(--bs-primary);
+            background: #fff5f5;
+        }
+
+        .rating-filter-group .rating-filter-btn.active {
+            background: var(--bs-primary);
+            color: white;
+            border-color: var(--bs-primary);
+        }
+
+        .rating-filter-group .rating-filter-btn.active .stars {
+            color: white;
+        }
+
+        .rating-filter-group .rating-filter-btn .stars {
+            color: #fcc419;
+            margin-right: 4px;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 60px 0;
+        }
+
+        /* Responsive */
+        @media(max-width: 1200px) {
+            .product-card { width: calc(33.33% - 14px); }
+        }
+
+        @media(max-width: 992px) {
+            .product-card { width: calc(50% - 10px); }
+        }
+
+        @media(max-width: 576px) {
+            .product-card { width: 100%; }
+            
+            .product-actions .btn-buy {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .product-meta {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+        }

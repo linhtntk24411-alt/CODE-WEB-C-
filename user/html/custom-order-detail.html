@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Urii | Chi tiết báo giá thiết kế</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <!-- Link file CSS gộp tổng -->
+    <link rel="stylesheet" href="../css/custom-order.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- Nội dung chính dùng class bọc riêng biệt -->
+    <main class="detail-page-wrapper">
+        
+        <!-- Đường dẫn và Tiêu đề -->
+        <div class="page-top-detail">
+            <div class="breadcrumb-detail">
+                <a href="custom-order-list.html">Đơn hàng của tôi</a>
+                <span class="material-symbols-outlined icon-next-detail">chevron_right</span>
+                <span class="current-page-detail">Chi tiết báo giá <span id="title-request-id">#ID</span></span>
+            </div>
+            <div class="title-row-detail">
+                <h1 style="font-family: var(--font-title); font-size: 32px; font-weight: 700; margin: 0;">Chi tiết yêu cầu thiết kế</h1>
+                <div class="status-badge-detail">
+                    <span class="material-symbols-outlined">history_edu</span> Đã báo giá
+                </div>
+            </div>
+        </div>
+
+        <!-- Bố cục lưới 2 cột trái/phải -->
+        <div class="detail-grid-area">
+            
+            <!-- Cột bên trái: Thông tin ảnh -->
+            <section class="box-detail-card">
+                <div class="card-header-detail">
+                    <h2>Thông tin yêu cầu</h2>
+                    <span id="request-date" class="date-text">--/--/----</span>
+                </div>
+                <div class="card-body-detail">
+                    <div class="image-wrapper-detail">
+                        <img id="request-image" src="" alt="Mẫu Perler Beads Custom">
+                    </div>
+                    <div class="specs-list-detail">
+                        <div class="spec-item-detail">
+                            <span class="spec-label-detail">Tên mẫu:</span>
+                            <span id="spec-name" class="spec-value-detail">Loading...</span>
+                        </div>
+                        <div class="spec-item-detail">
+                            <span class="spec-label-detail">Loại hạt nhựa:</span>
+                            <span id="spec-bead-type" class="spec-value-detail">Loading...</span>
+                        </div>
+                        <div class="spec-item-detail">
+                            <span class="spec-label-detail">Kích thước:</span>
+                            <span id="spec-size" class="spec-value-detail">Loading...</span>
+                        </div>
+                        <div class="spec-item-detail">
+                            <span class="spec-label-detail">Số lượng hạt:</span>
+                            <span id="spec-bead-count" class="spec-value-detail">Loading...</span>
+                        </div>
+                        <div class="spec-item-detail">
+                            <span class="spec-label-detail">Độ phức tạp:</span>
+                            <span id="spec-complexity" class="spec-value-detail">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cột bên phải: Bảng báo giá -->
+            <section class="box-detail-card">
+                <div class="card-header-detail quote-header-detail">
+                    <h2><span class="material-symbols-outlined">verified</span> Bảng báo giá từ Urii Admin</h2>
+                </div>
+                <div class="card-body-detail">
+                    <div class="price-breakdown-detail">
+                        <div class="price-row-detail">
+                            <span class="price-label-detail">Chi phí thiết kế Map (Custom)</span>
+                            <span id="price-design" class="price-value-detail">0đ</span>
+                        </div>
+                        <div class="price-row-detail">
+                            <span class="price-label-detail">Gói hạt nhựa phối màu</span>
+                            <span id="price-beads" class="price-value-detail">0đ</span>
+                        </div>
+                        <div class="price-row-detail">
+                            <span class="price-label-detail">Khung pegboard & Phụ kiện</span>
+                            <span id="price-tools" class="price-value-detail">0đ</span>
+                        </div>
+                        <div class="price-total-row-detail">
+                            <span class="total-label-detail">Tổng cộng:</span>
+                            <span id="price-total" class="total-value-detail">0đ</span>
+                        </div>
+                        <p class="price-note-detail">*Giá đã bao gồm phí đóng gói chống sốc</p>
+                    </div>
+
+                    <!-- Lời khuyên stylist -->
+                    <div class="advice-box-detail">
+                        <span class="material-symbols-outlined advice-icon-detail">lightbulb</span>
+                        <div class="advice-content-detail">
+                            <h3>Lời khuyên từ Urii Stylist:</h3>
+                            <p id="advice-text">Đang tải đánh giá mẫu phối màu từ kỹ thuật viên...</p>
+                        </div>
+                    </div>
+
+                    <!-- Nhóm nút bấm hành động -->
+                    <div class="action-group-detail">
+                        <button id="btn-accept" class="btn btn-primary btn-primary-detail">
+                            <span class="material-symbols-outlined">shopping_cart_checkout</span> Xác nhận & Thanh toán
+                        </button>
+                        <div class="btn-sub-row-detail">
+                            <button id="btn-discuss" class="btn detail-btn-outline">
+                                <span class="material-symbols-outlined">chat</span> Thảo luận thêm
+                            </button>
+                            <button id="btn-reject" class="btn detail-btn-danger">
+                                <span class="material-symbols-outlined">close</span> Từ chối báo giá
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="quote-footer-detail">
+                        <p>Báo giá được cập nhật tự động theo thời gian thực trên hệ thống Urii Core và có hiệu lực trong vòng 72 giờ kể từ khi thông báo. Quý khách vui lòng phản hồi trong khoảng thời gian này để được áp dụng mức giá trên!</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+    <div class="help-section-detail">
+        <p class="help-text-detail">Bạn có thắc mắc về bảng báo giá này?</p>
+        <a class="help-link-detail" href="#">
+            Xem chính sách đặt hàng theo yêu cầu
+            <span class="material-symbols-outlined icon-open-detail">open_in_new</span>
+        </a>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/header.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .catch(() => console.warn('Header not found'));
+
+            fetch('../components/footer.html')
+                .then(res => res.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(() => console.warn('Footer not found'));
+        });
+    </script>
+    
+    <script src="../js/main.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/custom-order-detail.js"></script>
+    <script src="../js/global.js"></script>
+</body>
+</html>

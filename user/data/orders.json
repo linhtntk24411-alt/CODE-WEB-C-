@@ -1,0 +1,620 @@
+{
+  "orders": [
+    {
+      "id": "UR-82941",
+      "userName": "Nguyễn Minh Anh",
+      "date": "20/05/2024",
+      "status": "Chờ xác nhận",
+      "statusType": "pending",
+      "total": "218.400đ",
+      "icon": "package_2",
+      "detailId": "UR-82941",
+      "items": [
+        {
+          "productId": 7,
+          "name": "Hạt Refill - E18",
+          "price": 35000,
+          "quantity": 2,
+          "image": "../assets/product/7.png"
+        },
+        {
+          "productId": 9,
+          "name": "Hạt Refill - C7",
+          "price": 120000,
+          "quantity": 1,
+          "image": "../assets/product/9.png"
+        },
+        {
+          "productId": 13,
+          "name": "Hạt Refill - C1",
+          "price": 220000,
+          "quantity": 1,
+          "image": "../assets/product/13.png"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Chưa thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0520-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-05-25T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-05-20T10:00:00" },
+        { "status": "Chờ xác nhận", "time": "2024-05-20T14:30:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-05-20T15:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83001",
+      "userName": "Nguyễn Minh Anh",
+      "date": "01/07/2024",
+      "status": "Chờ xác nhận",
+      "statusType": "pending",
+      "total": "401.740đ",
+      "icon": "package_2",
+      "detailId": "UR-83001",
+      "items": [
+        {
+          "productId": 17,
+          "name": "Hộp lẻ đựng hạt nhựa ủi",
+          "price": 224000,
+          "quantity": 1,
+          "image": "../assets/product/17.png"
+        },
+        {
+          "productId": 22,
+          "name": "Set cao cấp 120 màu",
+          "price": 280000,
+          "quantity": 1,
+          "image": "../assets/product/22.png"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Chưa thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0701-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-07-05T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-01T09:00:00" },
+        { "status": "Chờ xác nhận", "time": "2024-07-01T11:30:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-01T12:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83003",
+      "userName": "Nguyễn Minh Anh",
+      "date": "05/07/2024",
+      "status": "Chờ lấy hàng",
+      "statusType": "processing",
+      "total": "156.800đ",
+      "icon": "inventory_2",
+      "detailId": "UR-83003",
+      "items": [
+        {
+          "productId": 10,
+          "name": "Nhíp đơn gắp hạt nhựa ủi",
+          "price": 58000,
+          "quantity": 1,
+          "image": "../assets/product/10.png"
+        },
+        {
+          "productId": 14,
+          "name": "Nhíp kép gắp hạt nhựa ủi",
+          "price": 47840,
+          "quantity": 2,
+          "image": "../assets/product/14.png"
+        }
+      ],
+      "payment": {
+        "method": "Chuyển khoản ngân hàng",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Viettel Post",
+        "method": "Giao hàng nhanh",
+        "trackingNumber": "VTP-2024-0705-001",
+        "fee": 20000,
+        "estimatedDelivery": "2024-07-08T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-05T08:00:00" },
+        { "status": "Chờ lấy hàng", "time": "2024-07-05T10:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-05T11:00:00" },
+        { "status": "Đang chuẩn bị hàng", "location": "Kho Urii", "time": "2024-07-05T13:00:00" }
+      ]
+    },
+    {
+      "id": "UR-82755",
+      "userName": "Nguyễn Minh Anh",
+      "date": "15/05/2024",
+      "status": "Chờ giao hàng",
+      "statusType": "shipping",
+      "total": "251.750đ",
+      "icon": "local_shipping",
+      "detailId": "UR-82755",
+      "items": [
+        {
+          "productId": 8,
+          "name": "Móc khóa chibi mừng tốt nghiệp",
+          "price": 80750,
+          "quantity": 1,
+          "image": "../assets/product/8.jpg"
+        },
+        {
+          "productId": 12,
+          "name": "Móc khóa đồ ăn dễ thương",
+          "price": 84000,
+          "quantity": 1,
+          "image": "../assets/product/12.jpg"
+        },
+        {
+          "productId": 19,
+          "name": "Móc khóa hello kitty dễ thương",
+          "price": 112500,
+          "quantity": 1,
+          "image": "../assets/product/19.jpg"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Chưa thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0515-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-05-20T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-05-15T14:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-05-15T16:30:00" },
+        { "status": "Đang giao hàng", "time": "2024-05-17T08:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-05-15T17:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-05-16T09:00:00" },
+        { "status": "Đang vận chuyển", "location": "Trung tâm phân loại", "time": "2024-05-17T08:30:00" }
+      ]
+    },
+    {
+      "id": "UR-83004",
+      "userName": "Nguyễn Minh Anh",
+      "date": "08/07/2024",
+      "status": "Chờ giao hàng",
+      "statusType": "shipping",
+      "total": "189.000đ",
+      "icon": "local_shipping",
+      "detailId": "UR-83004",
+      "items": [
+        {
+          "productId": 5,
+          "name": "Set Cơ Bản 48 Màu",
+          "price": 189000,
+          "quantity": 1,
+          "image": "../assets/index/kit.jpg"
+        }
+      ],
+      "payment": {
+        "method": "Ví điện tử Momo",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Viettel Post",
+        "method": "Giao hàng nhanh",
+        "trackingNumber": "VTP-2024-0708-001",
+        "fee": 25000,
+        "estimatedDelivery": "2024-07-11T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-08T10:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-07-08T12:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-07-09T14:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-08T13:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-07-09T09:00:00" }
+      ]
+    },
+    {
+      "id": "UR-81023",
+      "userName": "Nguyễn Minh Anh",
+      "date": "02/05/2024",
+      "status": "Đã giao",
+      "statusType": "completed",
+      "total": "335.000đ",
+      "icon": "task_alt",
+      "detailId": "UR-81023",
+      "showReview": true,
+      "items": [
+        {
+          "productId": 14,
+          "name": "Nhíp kép gắp hạt nhựa ủi",
+          "price": 47840,
+          "quantity": 1,
+          "image": "../assets/product/14.png"
+        },
+        {
+          "productId": 15,
+          "name": "Khung ảnh Photobooth Handmade",
+          "price": 75000,
+          "quantity": 1,
+          "image": "../assets/product/15.jpg"
+        },
+        {
+          "productId": 16,
+          "name": "Trộn lẫn màu - Bảng H",
+          "price": 83300,
+          "quantity": 2,
+          "image": "../assets/product/16.png"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0502-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-05-07T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-05-02T09:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-05-02T11:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-05-05T08:00:00" },
+        { "status": "Đã giao hàng", "time": "2024-05-07T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-05-02T12:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-05-03T09:00:00" },
+        { "status": "Đang vận chuyển", "location": "Trung tâm phân loại", "time": "2024-05-05T08:30:00" },
+        { "status": "Đã giao hàng", "location": "Địa chỉ nhận", "time": "2024-05-07T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-81045",
+      "userName": "Nguyễn Minh Anh",
+      "date": "30/06/2024",
+      "status": "Đã giao",
+      "statusType": "completed",
+      "total": "151.700đ",
+      "icon": "task_alt",
+      "detailId": "UR-81045",
+      "showReview": false,
+      "items": [
+        {
+          "productId": 11,
+          "name": "Set cao cấp 24 màu",
+          "price": 151700,
+          "quantity": 1,
+          "image": "../assets/product/11.png"
+        }
+      ],
+      "payment": {
+        "method": "Chuyển khoản ngân hàng",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Viettel Post",
+        "method": "Giao hàng nhanh",
+        "trackingNumber": "VTP-2024-0630-001",
+        "fee": 20000,
+        "estimatedDelivery": "2024-07-03T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-06-30T15:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-06-30T17:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-07-01T10:00:00" },
+        { "status": "Đã giao hàng", "time": "2024-07-03T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-06-30T18:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-07-01T09:00:00" },
+        { "status": "Đang vận chuyển", "location": "Trung tâm phân loại", "time": "2024-07-01T11:00:00" },
+        { "status": "Đã giao hàng", "location": "Địa chỉ nhận", "time": "2024-07-03T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83002",
+      "userName": "Nguyễn Minh Anh",
+      "date": "10/07/2024",
+      "status": "Đã giao",
+      "statusType": "completed",
+      "total": "287.640đ",
+      "icon": "task_alt",
+      "detailId": "UR-83002",
+      "showReview": false,
+      "items": [
+        {
+          "productId": 23,
+          "name": "Trộn lẫn màu - Bảng M",
+          "price": 32000,
+          "quantity": 2,
+          "image": "../assets/product/23.png"
+        },
+        {
+          "productId": 24,
+          "name": "Băng keo giấy",
+          "price": 153000,
+          "quantity": 1,
+          "image": "../assets/product/24.png"
+        },
+        {
+          "productId": 29,
+          "name": "Set Cơ Bản 120 Màu",
+          "price": 218400,
+          "quantity": 1,
+          "image": "../assets/product/29.png"
+        }
+      ],
+      "payment": {
+        "method": "Ví điện tử Momo",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0710-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-07-14T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-10T11:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-07-10T13:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-07-12T08:00:00" },
+        { "status": "Đã giao hàng", "time": "2024-07-14T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-10T14:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-07-11T09:00:00" },
+        { "status": "Đang vận chuyển", "location": "Trung tâm phân loại", "time": "2024-07-12T08:30:00" },
+        { "status": "Đã giao hàng", "location": "Địa chỉ nhận", "time": "2024-07-14T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83007",
+      "userName": "Nguyễn Minh Anh",
+      "date": "16/07/2024",
+      "status": "Đã giao",
+      "statusType": "completed",
+      "total": "112.500đ",
+      "icon": "task_alt",
+      "detailId": "UR-83007",
+      "showReview": true,
+      "items": [
+        {
+          "productId": 19,
+          "name": "Móc khóa hello kitty dễ thương",
+          "price": 112500,
+          "quantity": 1,
+          "image": "../assets/product/19.jpg"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Đã thanh toán"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0716-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-07-20T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-16T09:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-07-16T11:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-07-18T08:00:00" },
+        { "status": "Đã giao hàng", "time": "2024-07-20T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-16T12:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-07-17T09:00:00" },
+        { "status": "Đã giao hàng", "location": "Địa chỉ nhận", "time": "2024-07-20T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83005",
+      "userName": "Nguyễn Minh Anh",
+      "date": "12/07/2024",
+      "status": "Trả hàng",
+      "statusType": "returned",
+      "total": "273.000đ",
+      "icon": "undo",
+      "detailId": "UR-83005",
+      "items": [
+        {
+          "productId": 35,
+          "name": "Bàn ủi chuyên nghiệp",
+          "price": 273000,
+          "quantity": 1,
+          "image": "../assets/product/35.png"
+        }
+      ],
+      "payment": {
+        "method": "Chuyển khoản ngân hàng",
+        "status": "Đã hoàn tiền"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0712-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-07-16T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-12T10:00:00" },
+        { "status": "Đã xác nhận", "time": "2024-07-12T12:00:00" },
+        { "status": "Đang giao hàng", "time": "2024-07-14T08:00:00" },
+        { "status": "Yêu cầu trả hàng", "time": "2024-07-15T09:00:00" },
+        { "status": "Đã trả hàng", "time": "2024-07-16T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã tiếp nhận", "location": "Kho Urii", "time": "2024-07-12T13:00:00" },
+        { "status": "Đã xuất kho", "location": "Kho Urii", "time": "2024-07-13T09:00:00" },
+        { "status": "Đã giao hàng (sai)", "location": "Địa chỉ nhận", "time": "2024-07-15T08:00:00" },
+        { "status": "Hoàn trả hàng", "location": "Kho Urii", "time": "2024-07-16T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-80912",
+      "userName": "Nguyễn Minh Anh",
+      "date": "28/04/2024",
+      "status": "Đã hủy",
+      "statusType": "cancelled",
+      "total": "273.000đ",
+      "icon": "cancel",
+      "detailId": "UR-80912",
+      "items": [
+        {
+          "productId": 35,
+          "name": "Bàn ủi chuyên nghiệp",
+          "price": 273000,
+          "quantity": 1,
+          "image": "../assets/product/35.png"
+        }
+      ],
+      "payment": {
+        "method": "Thanh toán khi nhận hàng (COD)",
+        "status": "Đã hủy"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0428-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-05-03T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-04-28T14:00:00" },
+        { "status": "Đã hủy", "time": "2024-04-28T16:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã hủy", "location": "Hệ thống", "time": "2024-04-28T16:00:00" }
+      ]
+    },
+    {
+      "id": "UR-83006",
+      "userName": "Nguyễn Minh Anh",
+      "date": "15/07/2024",
+      "status": "Đã hủy",
+      "statusType": "cancelled",
+      "total": "65.800đ",
+      "icon": "cancel",
+      "detailId": "UR-83006",
+      "items": [
+        {
+          "productId": 2,
+          "name": "Móc Khóa Worldcup",
+          "price": 55000,
+          "quantity": 1,
+          "image": "../assets/index/worldcup.jpg"
+        },
+        {
+          "productId": 10,
+          "name": "Nhíp đơn gắp hạt nhựa ủi",
+          "price": 58000,
+          "quantity": 1,
+          "image": "../assets/product/10.png"
+        }
+      ],
+      "payment": {
+        "method": "Ví điện tử Momo",
+        "status": "Đã hoàn tiền"
+      },
+      "shipping": {
+        "carrier": "Giao hàng tiết kiệm",
+        "method": "Giao hàng tiêu chuẩn",
+        "trackingNumber": "GHK-2024-0715-001",
+        "fee": 0,
+        "estimatedDelivery": "2024-07-20T18:00:00"
+      },
+      "address": {
+        "name": "Nguyễn Minh Anh",
+        "phone": "0901 234 567",
+        "address": "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+      },
+      "timeline": [
+        { "status": "Đã đặt hàng", "time": "2024-07-15T08:00:00" },
+        { "status": "Đã hủy", "time": "2024-07-15T10:00:00" }
+      ],
+      "shippingTimeline": [
+        { "status": "Đơn hàng đã hủy", "location": "Hệ thống", "time": "2024-07-15T10:00:00" }
+      ]
+    }
+  ]
+}

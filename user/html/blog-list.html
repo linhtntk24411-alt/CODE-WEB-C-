@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Cộng Đồng | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/blog.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="blog-main">
+    <!-- Hero + CTA -->
+    <section class="blog-hero">
+      <div class="blog-hero__content">
+        <h1>Blog Cộng Đồng</h1>
+        <p>Khám phá thế giới sáng tạo đầy màu sắc với Perler Beads. Chia sẻ kinh nghiệm, hướng dẫn DIY và những mẫu thiết kế độc đáo từ cộng đồng Urii.</p>
+      </div>
+      <div class="blog-hero__cta">
+        <div class="blog-cta-hero">
+          <i class="bi bi-people-fill"></i>
+          <div class="blog-cta-hero__text">
+            <h3>Tham gia cùng chúng tôi</h3>
+            <p>Chia sẻ tác phẩm của bạn và nhận những ưu đãi độc quyền từ Urii.</p>
+          </div>
+          <button class="btn-cta" onclick="window.location.href='blog-create.html'">Đăng bài ngay</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories & Filter -->
+    <div class="blog-filter">
+      <div class="blog-filter__tabs" id="categoryTabs">
+        <button class="blog-filter__tab active" data-category="all">Tất cả</button>
+        <button class="blog-filter__tab" data-category="huong-dan-diy">Hướng dẫn DIY</button>
+        <button class="blog-filter__tab" data-category="meo-vat">Mẹo vặt</button>
+        <button class="blog-filter__tab" data-category="y-tuong-thiet-ke">Ý tưởng thiết kế</button>
+        <button class="blog-filter__tab" data-category="goc-nghe-thuat">Góc nghệ thuật</button>
+      </div>
+      <div class="blog-filter__sort">
+        <span>Sắp xếp:</span>
+        <select id="sortSelect">
+          <option value="newest">Mới nhất</option>
+          <option value="most-viewed">Xem nhiều nhất</option>
+          <option value="most-liked">Yêu thích nhất</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Featured + Sidebar (chỉ hiện khi tab 'Tất cả') -->
+    <div class="blog-featured" id="featuredContainer">
+      <!-- Render bằng JS -->
+    </div>
+
+    <!-- Main Blog Grid -->
+    <div class="blog-grid" id="blogGrid">
+      <!-- Render bằng JS -->
+    </div>
+
+    <!-- Pagination -->
+    <div class="blog-pagination" id="paginationContainer">
+      <!-- Render bằng JS -->
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/blog.js"></script>
+  <script>
+    // Load header/footer
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>

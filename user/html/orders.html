@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đơn hàng của tôi | Urii Perler Beads</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- CSS hệ thống -->
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/component.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/orders.css" />
+</head>
+<body class="orders-page">
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="orders-main">
+    <div class="orders-container">
+      <!-- Sidebar Navigation -->
+      <aside class="orders-sidebar">
+        <nav class="orders-nav">
+          <a href="profile.html" class="orders-nav-item">
+            <span class="material-symbols-outlined">person</span>
+            <span>Hồ sơ của tôi</span>
+          </a>
+          <a href="orders.html" class="orders-nav-item active">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span>Đơn hàng của tôi</span>
+          </a>
+          <a href="custom-order-list.html" class="orders-nav-item">
+            <span class="material-symbols-outlined">edit_square</span>
+            <span>Yêu cầu thiết kế</span>
+          </a>
+          <a href="saved-maps.html" class="orders-nav-item">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>Kho map đã lưu</span>
+          </a>
+          <a href="myreview.html" class="orders-nav-item">
+            <span class="material-symbols-outlined">grade</span>
+            <span>Đánh giá của tôi</span>
+          </a>
+          <div class="orders-nav-divider"></div>
+          <a href="login.html" class="orders-nav-item orders-nav-item--logout" id="logoutTrigger">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Đăng xuất</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Nội dung đơn hàng -->
+      <section class="orders-content">
+        <div class="orders-header">
+          <h1 class="orders-title">Đơn hàng của tôi</h1>
+          <div class="orders-filter">
+            <button class="orders-filter-btn active" data-filter="all">Tất cả</button>
+            <button class="orders-filter-btn" data-filter="pending">Chờ xác nhận</button>
+            <button class="orders-filter-btn" data-filter="processing">Chờ lấy hàng</button>
+            <button class="orders-filter-btn" data-filter="shipping">Chờ giao hàng</button>
+            <button class="orders-filter-btn" data-filter="delivered">Đã giao</button>
+            <button class="orders-filter-btn" data-filter="returned">Trả hàng</button>
+            <button class="orders-filter-btn" data-filter="cancelled">Đã hủy</button>
+          </div>
+        </div>
+        <div class="orders-list" id="ordersList"></div>
+        <!-- THÊM PHÂN TRANG -->
+        <div class="orders-pagination" id="ordersPagination"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER & CHATBOT -->
+  <div id="footer-placeholder"></div>
+  <div id="chatbot-placeholder"></div>
+
+  <!-- MODAL ĐĂNG XUẤT -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="modalLogout">
+    <div class="modal-content modal-content--logout">
+      <div class="modal-icon modal-icon--error">
+        <span class="material-symbols-outlined">logout</span>
+      </div>
+      <h3 class="modal-title">Bạn có chắc chắn muốn đăng xuất?</h3>
+      <p class="modal-desc">Mọi thay đổi chưa lưu có thể bị mất.</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--cancel" data-close="modalLogout">Hủy</button>
+        <button class="modal-btn modal-btn--danger" id="confirmLogout">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/orders.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../components/header.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(() => console.warn('Header not found'));
+
+      fetch('../components/footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(() => console.warn('Footer not found'));
+    });
+  </script>
+</body>
+</html>
