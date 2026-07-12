@@ -80,10 +80,12 @@ async function handleUserSend() {
 
 async function handleChipClick(chipText) {
     // Nếu người dùng nhấn vào nút đặt hàng
-    if (chipText === 'Đặt hàng yêu cầu' || chipText === '🛒 Đặt hàng theo yêu cầu') {
-        // Thay đường dẫn dưới đây bằng đường dẫn tới file/trang đặt hàng của bạn
+    if (chipText === 'Đặt hàng yêu cầu' || 
+        chipText === '🛒 Đặt hàng theo yêu cầu' || 
+        chipText === 'Yêu cầu đặt hàng') { // <-- Thêm điều kiện này để bắt đúng nút trong fallback
+        
         window.location.href = 'custom-order-request.html'; 
-        return; // Dừng hàm lại, không cần gửi tin nhắn vào khung chat nữa
+        return; // Dừng lại tại đây, không gửi tin nhắn hay gọi AI nữa
     }
 
     // Các xử lý mặc định cũ cho các nút khác

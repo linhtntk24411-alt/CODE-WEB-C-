@@ -622,3 +622,16 @@ button {
     text-align: center;
     font-weight: 600;
 }
+.breadcrumb-current {
+  color: var(--primary-color) !important; /* Sử dụng đúng biến màu #840001 của file gallery.css */
+  font-weight: 600;
+}
+
+/* Định dạng dấu gạch chéo thay cho icon cũ */
+.breadcrumb-nav .icon-arrow-nav {
+  font-family: 'Nunito Sans', sans-serif !important; /* Trả về font chữ thường */
+  font-size: 14px;
+  color: #a0a0a0; /* Màu xám nhẹ */
+  margin: 0 4px; /* Khoảng cách hai bên dấu gạch chéo */
+  user-select: none;
+}

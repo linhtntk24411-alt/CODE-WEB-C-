@@ -222,22 +222,28 @@ function initHeader() {
 
         headerNav.querySelectorAll('.nav-dropdown > .nav-link').forEach(toggle => {
             toggle.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
                 const parentDropdown = this.closest('.nav-dropdown');
                 if (!parentDropdown) return;
 
-                const shouldOpen = !parentDropdown.classList.contains('open');
+                const target = e.target;
+                const isSvg = target.closest('svg');
 
-                headerNav.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
-                    if (dropdown !== parentDropdown) {
-                        dropdown.classList.remove('open');
-                    }
-                });
+                // Nếu click vào SVG (mũi tên) -> toggle dropdown, chặn điều hướng
+                if (isSvg) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
 
-                parentDropdown.classList.toggle('open', shouldOpen);
-                this.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+                    const shouldOpen = !parentDropdown.classList.contains('open');
+                    headerNav.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
+                        if (dropdown !== parentDropdown) {
+                            dropdown.classList.remove('open');
+                        }
+                    });
+                    parentDropdown.classList.toggle('open', shouldOpen);
+                    this.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+                }
+                // Nếu click vào chữ (không phải SVG) -> để trình duyệt điều hướng bình thường
+                // Không chặn sự kiện, không gọi preventDefault()
             });
         });
 

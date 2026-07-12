@@ -1445,3 +1445,221 @@ hr {
     border-top: 1px solid rgba(115, 95, 95, 0.5);
     margin: 24px 0;
 }
+/* Trực quan hóa cấu trúc Grid của Bento khi ở màn hình lớn */
+.bento-grid {
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important;
+    gap: 48px !important;
+    align-items: start;
+}
+
+.left-sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100% !important;
+    flex-shrink: 0;
+}
+
+/* Định dạng Sidebar ở màn hình lớn */
+.orders-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+}
+
+.orders-nav {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.orders-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    color: #5c403b;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-right: 4px solid transparent;
+}
+
+.orders-nav-item .material-symbols-outlined {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.orders-nav-item:hover {
+    background: #f0eded;
+}
+
+.orders-nav-item.active {
+    background: rgba(132, 0, 1, 0.05);
+    color: #840001;
+    border-right-color: #840001;
+}
+
+.orders-nav-item--logout {
+    color: #ba1a1a !important;
+}
+
+.orders-nav-item--logout:hover {
+    background: #ffdad6 !important;
+}
+
+.orders-nav-divider {
+    height: 1px;
+    background: #e5bdb7;
+    margin: 8px 24px;
+    display: block;
+}
+
+/* --- MỐC 1: Maxwidth: 1200px and minwidth: 1025px --- */
+@media (max-width: 1200px) and (min-width: 1025px) {
+    .content-container {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .bento-grid {
+        gap: 24px !important; 
+    }
+}
+
+/* --- MỐC 2 & 3: TỪ 481px ĐẾN 1024px (BẺ HÀNG NGANG FLEX CHUẨN ĐỒNG BỘ) --- */
+@media (max-width: 1024px) and (min-width: 481px) {
+    .bento-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+    .profile-sidebar {
+        position: static !important;
+        width: 100% !important;
+    }
+
+    /* Ép khung điều hướng profile xếp hàng ngang flexbox */
+    .profile-nav {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        padding: 8px !important;
+        gap: 4px !important;
+    }
+
+    /* Các nút tự co giãn tự do lấp đầy hàng ngang y hệt orders.css */
+    .profile-nav-item {
+        padding: 10px 16px !important;
+        border-right: none !important;
+        border-bottom: 2px solid transparent !important; /* Chuyển thanh active xuống cạnh dưới chân */
+        flex: 1 0 auto !important; /* Đăng xuất và các nút tự điền khít hàng ngang */
+        justify-content: center !important;
+        font-size: 14px !important;
+        width: auto !important;
+    }
+
+    /* Hiệu ứng gạch chân đỏ khi active */
+    .profile-nav-item.active {
+        border-bottom: 2px solid #840001 !important;
+        border-right: none !important;
+    }
+
+    /* Ẩn vạch chia khi nằm ngang */
+    .orders-nav-divider {
+        display: none !important;
+    }
+
+    /* Ép nút đăng xuất bỏ gạch chân đỏ khi nằm cùng hàng ngang responsive */
+    .orders-nav-item--logout {
+        border-bottom-color: transparent !important;
+    }
+
+    .sidebar-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+        width: 100% !important;
+    }
+    .support-card { display: none !important; }
+
+    /* Chuyển table thành giao diện Card di động phù hợp */
+    .table-container {
+        border: none !important;
+        background: transparent !important;
+    }
+    .data-table, .data-table thead, .data-table tbody, .data-table tr, .data-table td {
+        display: block !important;
+        width: 100% !important;
+    }
+    .data-table thead { display: none !important; }
+    
+    .data-table tbody tr {
+        background: #ffffff !important;
+        border: 1px solid #e5bdb7 !important;
+        border-radius: 12px !important;
+        margin-bottom: 16px !important;
+        padding: 20px !important;
+        position: relative;
+    }
+    .data-table td {
+        border: none !important;
+        padding: 6px 0 !important;
+    }
+    .product-cell {
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+    }
+    td:nth-of-type(3)::before {
+        content: "Ngày gửi: ";
+        color: #916f6a;
+        font-weight: 600;
+    }
+    td:nth-of-type(4) {
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        width: auto !important;
+    }
+    td:nth-of-type(5) {
+        border-top: 1px dashed #e5bdb7 !important;
+        margin-top: 12px !important;
+        padding-top: 12px !important;
+    }
+    .table-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    .pagination-area {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+}
+
+/* --- MỐC 4: Maxwidth: 480px --- */
+@media (max-width: 480px) {
+    .action-group {
+        flex-direction: column-reverse !important; 
+        gap: 12px !important;
+    }
+    .filter-wrapper, .status-select {
+        width: 100% !important;
+    }
+    .btn-primary {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    .sidebar-stats {
+        grid-template-columns: 1fr !important; 
+    }
+    /* Chia lưới nhẹ trên màn di động siêu nhỏ để chữ không bị chen chúc */
+    .profile-nav-item {
+        flex: 1 1 40% !important;
+        font-size: 13px !important;
+        padding: 10px 8px !important;
+    }
+}
