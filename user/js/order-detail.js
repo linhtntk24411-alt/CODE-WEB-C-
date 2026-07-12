@@ -158,61 +158,118 @@
   }
 
   // ===== RENDER TIMELINE =====
-  function renderTimeline(timeline) {
-    if (!timeline || timeline.length === 0) {
-      orderTimeline.innerHTML = '<p>Chưa có thông tin timeline.</p>';
-      return;
+  function renderTimeline(timeline, statusType) {
+  if (!timeline || timeline.length === 0) {
+    orderTimeline.innerHTML = '<p>Chưa có thông tin timeline.</p>';
+    return;
+  }
+
+  // Xác định icon cho từng status
+  const getIcon = (status) => {
+    if (status.includes('Đã đặt hàng')) return 'bi-cart-check';
+    if (status.includes('Chờ xác nhận')) return 'bi-clock';
+    if (status.includes('Đã xác nhận')) return 'bi-check2-circle';
+    if (status.includes('Chờ lấy hàng') || status.includes('Đang xử lý')) return 'bi-clock-history';
+    if (status.includes('Chờ giao hàng') || status.includes('Đang giao hàng')) return 'bi-truck';
+    if (status.includes('Đã giao hàng') || status.includes('Đã nhận')) return 'bi-check2-all';
+    if (status.includes('Đã hủy')) return 'bi-x-circle';
+    if (status.includes('Trả hàng')) return 'bi-arrow-return-left';
+    return 'bi-clock';
+  };
+
+  // Xác định currentIndex
+  let currentIndex = timeline.length - 1; // mặc định bước cuối
+  let isCompleted = false;
+  if (statusType === 'completed') {
+    isCompleted = true;
+    // currentIndex vẫn là cuối, nhưng tất cả đều completed
+  } else if (statusType === 'cancelled') {
+    currentIndex = timeline.length - 1; // bước hủy là current
+  } else {
+    // Các trường hợp khác: pending, processing, shipping
+    // Bước cuối là current
+    currentIndex = timeline.length - 1;
+  }
+
+  let html = `<div class="timeline-horizontal">`;
+  
+  timeline.forEach((item, index) => {
+    const iconClass = getIcon(item.status);
+    let stepClass = '';
+    if (isCompleted || index < currentIndex) {
+      stepClass = 'completed';
+    } else if (index === currentIndex) {
+      stepClass = 'current';
+    } else {
+      stepClass = 'pending'; // chưa tới
     }
 
-    let html = '';
-    timeline.forEach((item, index) => {
-      const isLast = index === timeline.length - 1;
-      const isActive = !isLast;
-      html += `
-        <div class="timeline-item ${isActive ? 'active' : ''}">
-          <div class="timeline-content">
-            <div class="timeline-status">${item.status}</div>
-            <div class="timeline-time">${formatDate(item.time)}</div>
-            ${item.description ? `<div class="timeline-desc">${item.description}</div>` : ''}
-          </div>
+    html += `
+      <div class="timeline-step ${stepClass}">
+        <div class="step-icon">
+          <i class="bi ${iconClass}"></i>
+          ${stepClass === 'completed' ? `<span class="step-check"><i class="bi bi-check-lg"></i></span>` : ''}
         </div>
-      `;
-    });
-    orderTimeline.innerHTML = html;
+        <div class="step-content">
+          <div class="step-status">${item.status}</div>
+          <div class="step-time">${formatDate(item.time)}</div>
+          ${item.description ? `<div class="step-desc">${item.description}</div>` : ''}
+        </div>
+      </div>
+    `;
+  });
+
+  // Nếu đã hoàn thành, thêm bước "Đánh giá" (pending)
+  if (isCompleted) {
+    html += `
+      <div class="timeline-step pending">
+        <div class="step-icon">
+          <i class="bi bi-star"></i>
+        </div>
+        <div class="step-content">
+          <div class="step-status">Đánh giá</div>
+          <div class="step-time">Chờ bạn đánh giá</div>
+        </div>
+      </div>
+    `;
   }
+
+  html += `</div>`;
+  orderTimeline.innerHTML = html;
+}
 
   // ===== RENDER ITEMS =====
   function renderItems(items) {
-    if (!items || items.length === 0) {
-      orderItems.innerHTML = '<p>Không có sản phẩm.</p>';
-      return;
-    }
-
-    let html = `<div class="order-items-list">`;
-    items.forEach(item => {
-      const productLink = `productdetail.html?id=${item.productId}`;
-      html += `
-        <div class="order-item">
-          <div class="order-item-image">
-            <a href="${productLink}">
-              <img src="${item.image || '../assets/placeholder.jpg'}" alt="${item.name}" loading="lazy" />
-            </a>
-          </div>
-          <div class="order-item-info">
-            <div class="order-item-name">
-              <a href="${productLink}" style="text-decoration: none; color: inherit; font-weight: 600;">
-                ${item.name}
-              </a>
-            </div>
-            <div class="order-item-meta">Số lượng: ${item.quantity}</div>
-          </div>
-          <div class="order-item-price">${formatCurrency(item.price)}</div>
-        </div>
-      `;
-    });
-    html += `</div>`;
-    orderItems.innerHTML = html;
+  if (!items || items.length === 0) {
+    orderItems.innerHTML = '<p>Không có sản phẩm.</p>';
+    return;
   }
+
+  let html = `<div class="order-items-list">`;
+  items.forEach(item => {
+    const productLink = `productdetail.html?id=${item.productId}`;  // ← link
+    html += `
+      <div class="order-item">
+        <div class="order-item-image">
+          <a href="${productLink}">   <!-- ← link ở ảnh -->
+            <img src="${item.image || '../assets/placeholder.jpg'}" alt="${item.name}" loading="lazy" />
+          </a>
+        </div>
+        <div class="order-item-info">
+          <div class="order-item-name">
+            <a href="${productLink}" style="text-decoration: none; color: inherit; font-weight: 600;">
+              ${item.name}
+            </a>   <!-- ← link ở tên sản phẩm -->
+          </div>
+          <div class="order-item-meta">Số lượng: ${item.quantity}</div>
+        </div>
+        <div class="order-item-price">${formatCurrency(item.price)}</div>
+      </div>
+    `;
+  });
+  html += `</div>`;
+  orderItems.innerHTML = html;
+}
 
   // ===== RENDER PAYMENT =====
   function renderPayment(payment) {
@@ -246,28 +303,29 @@
   }
 
   // ===== RENDER SHIPPING TIMELINE =====
-  function renderShippingTimeline(shippingTimeline) {
-    if (!shippingTimeline || shippingTimeline.length === 0) {
-      shippingTimeline.innerHTML = '<p>Chưa có thông tin vận chuyển.</p>';
-      return;
-    }
-    let html = '<div class="shipping-timeline-list">';
-    shippingTimeline.forEach((item, index) => {
-      const isLast = index === shippingTimeline.length - 1;
-      const isActive = !isLast;
-      html += `
-        <div class="shipping-timeline-item ${isActive ? 'active' : ''}">
-          <div class="shipping-timeline-content">
-            <div class="shipping-timeline-status">${item.status}</div>
-            ${item.location ? `<div class="shipping-timeline-location"><i class="bi bi-geo-alt"></i> ${item.location}</div>` : ''}
-            <div class="shipping-timeline-time"><i class="bi bi-clock"></i> ${formatDate(item.time)}</div>
-          </div>
-        </div>
-      `;
-    });
-    html += '</div>';
-    shippingTimeline.innerHTML = html;
+  // ===== RENDER SHIPPING TIMELINE =====
+function renderShippingTimeline(timelineData) {   // ← đổi tên tham số
+  if (!timelineData || timelineData.length === 0) {
+    shippingTimeline.innerHTML = '<p>Chưa có thông tin vận chuyển.</p>';
+    return;
   }
+  let html = '<div class="shipping-timeline-list">';
+  timelineData.forEach((item, index) => {
+    const isLast = index === timelineData.length - 1;
+    const isActive = !isLast;
+    html += `
+      <div class="shipping-timeline-item ${isActive ? 'active' : ''}">
+        <div class="shipping-timeline-content">
+          <div class="shipping-timeline-status">${item.status}</div>
+          ${item.location ? `<div class="shipping-timeline-location"><i class="bi bi-geo-alt"></i> ${item.location}</div>` : ''}
+          <div class="shipping-timeline-time"><i class="bi bi-clock"></i> ${formatDate(item.time)}</div>
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  shippingTimeline.innerHTML = html;   // ← dùng biến DOM toàn cục
+}
 
   // ===== RENDER ADDRESS =====
   function renderAddress(address) {

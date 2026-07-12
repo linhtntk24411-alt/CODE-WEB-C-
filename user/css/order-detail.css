@@ -1,5 +1,5 @@
 /* ============================================================
-   order-detail.css – Chi tiết đơn hàng
+   order-detail.css – Chi tiết đơn hàng (Không số thứ tự)
    ============================================================ */
 
 :root {
@@ -118,7 +118,7 @@ body {
   margin: 4px 0 0;
 }
 
-/* Status Badge - cùng màu với orders.css */
+/* Status Badge */
 .order-status {
   padding: 6px 20px;
   border-radius: 9999px;
@@ -128,7 +128,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ===== Thêm màu cho các trạng thái mới ===== */
 .order-status--processing {
   background: #cce5ff;
   color: #004085;
@@ -164,12 +163,42 @@ body {
   color: #93000a;
 }
 
-/* ---- Timeline (Stepper) ---- */
-.order-timeline {
+/* ============================================================
+   TIMELINE CHÍNH (Đơn hàng)
+   ============================================================ */
+
+.order-timeline-wrapper {
   background: var(--order-detail-surface-lowest);
   border-radius: var(--order-detail-radius);
   padding: 24px 28px;
   box-shadow: var(--order-detail-shadow);
+}
+
+/* Tiêu đề chung cho cả hai timeline */
+.order-timeline-wrapper .timeline-title,
+.order-shipping-timeline .section-title {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--order-detail-on-surface);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 10px;
+}
+
+.order-timeline-wrapper .timeline-title i,
+.order-shipping-timeline .section-title i {
+  font-size: 20px;
+  color: var(--order-detail-primary);
+}
+
+/* Container cho các item – không có số thứ tự */
+#orderTimeline {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
 }
 
 .timeline-item {
@@ -186,6 +215,7 @@ body {
   padding-bottom: 0;
 }
 
+/* Chấm tròn (dùng ::before như cũ) */
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -231,7 +261,10 @@ body {
   margin-top: 4px;
 }
 
-/* ---- Shipping Timeline ---- */
+/* ============================================================
+   LỊCH TRÌNH VẬN CHUYỂN
+   ============================================================ */
+
 .order-shipping-timeline {
   background: var(--order-detail-surface-lowest);
   border-radius: var(--order-detail-radius);
@@ -239,12 +272,9 @@ body {
   box-shadow: var(--order-detail-shadow);
 }
 
-.section-title {
-  font-family: 'Segoe UI', sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--order-detail-on-surface);
-  margin-bottom: 16px;
+/* Giảm khoảng cách giữa tiêu đề và danh sách vận chuyển */
+.order-shipping-timeline .section-title {
+  margin-bottom: 8px;
 }
 
 .shipping-timeline-list {
@@ -253,6 +283,8 @@ body {
   gap: 0;
   position: relative;
   padding-left: 20px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .shipping-timeline-item {
@@ -314,7 +346,10 @@ body {
   margin-top: 2px;
 }
 
-/* ---- Products ---- */
+/* ============================================================
+   SẢN PHẨM, THANH TOÁN, VẬN CHUYỂN, ĐỊA CHỈ, TỔNG KẾT
+   ============================================================ */
+
 .order-products,
 .order-payment,
 .order-shipping,
@@ -429,7 +464,10 @@ body {
   gap: 24px;
 }
 
-/* ---- Responsive ---- */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
 @media (max-width: 992px) {
   .order-detail-wrapper {
     grid-template-columns: 1fr;
@@ -440,15 +478,18 @@ body {
   .order-detail-main {
     padding: 16px 12px 40px;
   }
+
   .order-header {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
   }
+
   .order-title {
     font-size: 22px;
   }
-  .order-timeline,
+
+  .order-timeline-wrapper,
   .order-shipping-timeline,
   .order-products,
   .order-payment,
@@ -457,18 +498,155 @@ body {
   .order-summary {
     padding: 16px 20px;
   }
+
   .timeline-item,
   .shipping-timeline-item {
     padding-left: 16px;
   }
+
   .order-item {
     flex-wrap: wrap;
   }
+
   .order-item-image {
     width: 56px;
     height: 56px;
   }
+
   .order-item-price {
     margin-left: auto;
   }
+
+  /* điều chỉnh padding-left cho mobile */
+  .order-timeline-wrapper .timeline-title,
+  .order-shipping-timeline .section-title {
+    padding-left: 5px;
+  }
+
+  #orderTimeline {
+    padding-left: 12px;
+  }
 }
+
+/* ============================================================
+   TIMELINE HORIZONTAL (Tiến trình xử lý & Vận chuyển)
+   - Giữ ngang trên mọi thiết bị
+   ============================================================ */
+
+.timeline-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 20px 0 10px;
+  margin: 0 10px;
+  overflow-x: auto; /* cho phép cuộn ngang nếu quá nhiều bước */
+  flex-wrap: nowrap;
+}
+
+.timeline-horizontal::before {
+  content: '';
+  position: absolute;
+  top: 43px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: var(--order-detail-outline-variant);
+  z-index: 0;
+}
+
+.timeline-step {
+  flex: 0 0 auto; /* không co giãn, giữ nguyên kích thước */
+  min-width: 80px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 5px;
+}
+
+/* Icon tròn */
+.timeline-step .step-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--order-detail-outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 22px;
+  color: var(--order-detail-on-surface-variant);
+  position: relative;
+  transition: all 0.3s;
+}
+
+/* Bước đã hoàn thành */
+.timeline-step.completed .step-icon {
+  background: var(--order-detail-primary);
+  border-color: var(--order-detail-primary);
+  color: #fff;
+}
+
+/* Bước hiện tại */
+.timeline-step.current .step-icon {
+  background: var(--order-detail-primary);
+  border-color: var(--order-detail-primary);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(132, 0, 1, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 4px rgba(132, 0, 1, 0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(132, 0, 1, 0.1); }
+  100% { box-shadow: 0 0 0 4px rgba(132, 0, 1, 0.2); }
+}
+
+/* Dấu tích xanh */
+.timeline-step.completed .step-check {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: var(--order-detail-success);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  border: 2px solid #fff;
+}
+
+.timeline-step.current .step-check,
+.timeline-step:not(.completed) .step-check {
+  display: none;
+}
+
+/* Nội dung */
+.timeline-step .step-content {
+  font-size: 13px;
+}
+.timeline-step .step-status {
+  font-weight: 600;
+  color: var(--order-detail-on-surface);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.timeline-step .step-time {
+  font-size: 12px;
+  color: var(--order-detail-on-surface-variant);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.timeline-step .step-desc {
+  font-size: 12px;
+  color: var(--order-detail-on-surface-variant);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* ===== KHÔNG CHUYỂN SANG DỌC TRÊN MOBILE ===== */
+/* @media (max-width: 768px) { ... }  đã bỏ hoàn toàn */
