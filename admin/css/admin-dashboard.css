@@ -1,0 +1,242 @@
+/* ================================================================ */
+/* DASHBOARD - admin-dashboard.css                                  */
+/* ================================================================ */
+
+* {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f5f8;
+}
+
+/* --- STAT CARD --- */
+.stat-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
+}
+.stat-card:hover .text-muted {
+    color: #840001 !important;
+}
+
+/* --- BADGE STATUS --- */
+.badge-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    font-family: 'Segoe UI', sans-serif;
+}
+.badge-status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+.badge-status-approved {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+.badge-status-completed {
+    background-color: #198754;
+    color: #fff;
+}
+.badge-status-cancelled {
+    background-color: #f8d7da;
+    color: #842029;
+}
+.badge-status-pending_approval {
+    background-color: #ffe5d0;
+    color: #b65f00;
+}
+
+/* --- TABLE --- */
+.table th, .table td {
+    padding: 12px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+}
+.table thead th {
+    background-color: #f8f9fa;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+    border-bottom: none;
+    font-family: 'Segoe UI', sans-serif;
+}
+.table tbody tr:hover {
+    background-color: #f8f9ff;
+}
+
+.order-id {
+    font-weight: 700;
+    color: #dc3545;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.customer-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #555;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    flex-shrink: 0;
+}
+
+/* --- BUTTON HOVER --- */
+
+/* Quick Action */
+.quick-action-btn {
+    transition: all 0.25s ease;
+    border: 1px solid #e9ecef !important;
+    background: white !important;
+    color: #333 !important;
+}
+.quick-action-btn:hover {
+    background: #840001 !important;
+    color: white !important;
+    border-color: #840001 !important;
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(132, 0, 1, 0.15);
+}
+.quick-action-btn:hover .bg-light {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+.quick-action-btn:hover .bi-chevron-right {
+    color: white !important;
+}
+.quick-action-btn .bg-light {
+    transition: all 0.25s ease;
+}
+.quick-action-btn .bi-chevron-right {
+    transition: all 0.25s ease;
+    color: #ccc;
+}
+
+/* View All */
+.btn-view-all {
+    transition: all 0.25s ease;
+    border: 2px solid #840001 !important;
+    color: #840001 !important;
+    background: transparent !important;
+}
+.btn-view-all:hover {
+    background: #840001 !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(132, 0, 1, 0.2);
+}
+
+/* Supply Order */
+.btn-supply {
+    transition: all 0.25s ease;
+    background: #840001 !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-supply:hover {
+    background: #a00000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(132, 0, 1, 0.3);
+}
+
+/* Export */
+.btn-export {
+    transition: all 0.25s ease;
+    border: 1px solid #840001 !important;
+    color: #840001 !important;
+    background: transparent !important;
+}
+.btn-export:hover {
+    background: #840001 !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(132, 0, 1, 0.2);
+}
+
+/* Approve / Reject */
+.btn-approve {
+    transition: all 0.2s ease;
+}
+.btn-approve:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 10px rgba(25, 135, 84, 0.3);
+}
+
+.btn-reject {
+    transition: all 0.2s ease;
+}
+.btn-reject:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.3);
+}
+
+/* --- BLOG ITEM --- */
+.blog-item {
+    transition: all 0.25s ease;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+.blog-item:hover {
+    background: #f8f9fa;
+    transform: translateX(4px);
+}
+
+/* --- ACTIVITY ITEM --- */
+.activity-item {
+    transition: all 0.25s ease;
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+}
+.activity-item:hover {
+    background: #f8f9fa;
+    transform: translateX(4px);
+}
+
+/* --- CUSTOM COLOR --- */
+.bg-purple {
+    background-color: #6f42c1;
+}
+.text-purple {
+    color: #6f42c1;
+}
+.bg-purple.bg-opacity-10 {
+    background-color: rgba(111, 66, 193, 0.1);
+}
+
+/* --- PROGRESS BAR --- */
+.progress {
+    border-radius: 4px;
+    background-color: #f0f0f0;
+}
+.progress-bar {
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* --- CHART CONTAINER --- */
+.chart-container canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* --- MODAL --- */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+}
+.modal-header {
+    border-radius: 12px 12px 0 0;
+}

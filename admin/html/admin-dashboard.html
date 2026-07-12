@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Perler Beads Admin</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- CSS Admin -->
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+<body>
+
+<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+
+    <!-- Sidebar -->
+    <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
+        
+        <!-- Topbar -->
+        <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
+
+        <!-- Content -->
+        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px;">
+            <div style="width: 100%; max-width: 1400px;">
+
+                <!-- Stats Cards - 5 cột -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2 stat-card">
+                            <div class="card-body d-flex flex-column p-3">
+                                <span class="text-muted small fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Tổng doanh thu</span>
+                                <h3 class="fw-bold mb-0 text-dark" id="stat-revenue" style="font-family: 'Segoe UI', sans-serif; font-size: 24px;">$24,592.00</h3>
+                                <small class="text-success" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;"><i class="bi bi-arrow-up"></i> +12.5%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2 stat-card">
+                            <div class="card-body d-flex flex-column p-3">
+                                <span class="text-muted small fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Tổng đơn hàng</span>
+                                <h3 class="fw-bold mb-0 text-dark" id="stat-orders" style="font-family: 'Segoe UI', sans-serif; font-size: 24px;">1,284</h3>
+                                <small class="text-success" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;"><i class="bi bi-arrow-up"></i> +8.2%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2 stat-card">
+                            <div class="card-body d-flex flex-column p-3">
+                                <span class="text-muted small fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Người dùng hoạt động</span>
+                                <h3 class="fw-bold mb-0 text-dark" id="stat-users" style="font-family: 'Segoe UI', sans-serif; font-size: 24px;">4,520</h3>
+                                <small class="text-danger" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;"><i class="bi bi-arrow-down"></i> -1.4%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2 stat-card">
+                            <div class="card-body d-flex flex-column p-3">
+                                <span class="text-muted small fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Tương tác Blog</span>
+                                <h3 class="fw-bold mb-0 text-dark" id="stat-blog" style="font-family: 'Segoe UI', sans-serif; font-size: 24px;">18.2K</h3>
+                                <small class="text-success" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;"><i class="bi bi-arrow-up"></i> +22.1%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2 stat-card">
+                            <div class="card-body d-flex flex-column p-3">
+                                <span class="text-muted small fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Tăng trưởng tháng</span>
+                                <h3 class="fw-bold mb-0 text-dark" id="stat-growth" style="font-family: 'Segoe UI', sans-serif; font-size: 24px;">14.8%</h3>
+                                <small class="text-success" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;"><i class="bi bi-arrow-up"></i> +2.5%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Chart -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Xu hướng doanh thu</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">
+                                30 ngày qua
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" data-days="7" style="font-family: 'Segoe UI', sans-serif;">7 ngày qua</a></li>
+                                <li><a class="dropdown-item active" href="#" data-days="30" style="font-family: 'Segoe UI', sans-serif;">30 ngày qua</a></li>
+                                <li><a class="dropdown-item" href="#" data-days="90" style="font-family: 'Segoe UI', sans-serif;">90 ngày qua</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="chart-container" style="height: 180px; position: relative;">
+                            <canvas id="revenueChart" style="width: 100%; height: 100%;"></canvas>
+                        </div>
+                        <div class="d-flex justify-content-center gap-4 mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width: 12px; height: 12px; background: #840001; border-radius: 3px; display: inline-block;"></span>
+                                <span style="font-size: 12px; color: #666; font-family: 'Segoe UI', sans-serif;">Doanh thu</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width: 12px; height: 12px; background: #ff9800; border-radius: 3px; display: inline-block;"></span>
+                                <span style="font-size: 12px; color: #666; font-family: 'Segoe UI', sans-serif;">Dự kiến</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Đơn hàng gần đây</h5>
+                        <button class="btn btn-export btn-sm fw-bold" style="font-family: 'Segoe UI', sans-serif; font-size: 12px; padding: 4px 16px;">
+                            <i class="bi bi-download me-1"></i> Xuất danh sách
+                        </button>
+                    </div>
+                    <div class="table-responsive p-0 mt-2">
+                        <table class="table table-hover align-middle mb-0" id="recentOrdersTable">
+                            <thead class="text-muted small fw-bold bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">KHÁCH HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">MÃ ĐƠN</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">SẢN PHẨM</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">TRẠNG THÁI</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">TỔNG TIỀN</th>
+                                    <th class="text-center py-3" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">THAO TÁC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="order-DH001">
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="customer-avatar" style="font-family: 'Segoe UI', sans-serif; font-size: 12px;">NM</span>
+                                            <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px; color: #333;">Nguyễn Thị Mai</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="order-id" style="font-family: 'Segoe UI', sans-serif;">#DH001</span></td>
+                                    <td style="font-family: 'Segoe UI', sans-serif;">Bộ KIT mùa hè</td>
+                                    <td><span class="badge-status badge-status-pending_approval" style="font-family: 'Segoe UI', sans-serif;">Chờ xác nhận</span></td>
+                                    <td class="fw-bold" style="font-family: 'Segoe UI', sans-serif; color: #840001;">250.000đ</td>
+                                    <td class="text-center">
+                                        <a href="admin-orders.html?search=DH001" class="btn btn-sm btn-outline-danger" style="font-family: 'Segoe UI', sans-serif; font-size: 12px; padding: 4px 16px; border-radius: 6px;">
+                                            <i class="bi bi-file-text me-1"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr id="order-DH002">
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="customer-avatar" style="font-family: 'Segoe UI', sans-serif; font-size: 12px;">TA</span>
+                                            <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px; color: #333;">Trần Minh Anh</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="order-id" style="font-family: 'Segoe UI', sans-serif;">#DH002</span></td>
+                                    <td style="font-family: 'Segoe UI', sans-serif;">Móc khóa Pixel Art</td>
+                                    <td><span class="badge-status badge-status-approved" style="font-family: 'Segoe UI', sans-serif;">Đã xác nhận</span></td>
+                                    <td class="fw-bold" style="font-family: 'Segoe UI', sans-serif; color: #840001;">35.000đ</td>
+                                    <td class="text-center">
+                                        <a href="admin-orders.html?search=DH002" class="btn btn-sm btn-outline-danger" style="font-family: 'Segoe UI', sans-serif; font-size: 12px; padding: 4px 16px; border-radius: 6px;">
+                                            <i class="bi bi-file-text me-1"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr id="order-DH003">
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="customer-avatar" style="font-family: 'Segoe UI', sans-serif; font-size: 12px;">LK</span>
+                                            <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px; color: #333;">Lê Khánh Linh</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="order-id" style="font-family: 'Segoe UI', sans-serif;">#DH003</span></td>
+                                    <td style="font-family: 'Segoe UI', sans-serif;">Lót ly thủ công</td>
+                                    <td><span class="badge-status badge-status-completed" style="font-family: 'Segoe UI', sans-serif;">Hoàn thành</span></td>
+                                    <td class="fw-bold" style="font-family: 'Segoe UI', sans-serif; color: #840001;">45.000đ</td>
+                                    <td class="text-center">
+                                        <a href="admin-orders.html?search=DH003" class="btn btn-sm btn-outline-danger" style="font-family: 'Segoe UI', sans-serif; font-size: 12px; padding: 4px 16px; border-radius: 6px;">
+                                            <i class="bi bi-file-text me-1"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2 Columns: Blog Pending + Inventory -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Bài viết chờ duyệt</h5>
+                                <span class="badge bg-danger rounded-pill" style="font-family: 'Segoe UI', sans-serif; font-size: 12px;" id="blog-badge">12 Mới</span>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="blog-item d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="fw-semibold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">"Tự thiết kế lót ly Perler Bead tại nhà"</p>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif;">bởi Thanh Vân• 2 phút trước</small>
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-sm btn-success rounded-circle btn-approve" style="width:30px;height:30px;padding:0;" title="Duyệt bài"><i class="bi bi-check"></i></button>
+                                        <button class="btn btn-sm btn-danger rounded-circle btn-reject" style="width:30px;height:30px;padding:0;" title="Từ chối"><i class="bi bi-x"></i></button>
+                                    </div>
+                                </div>
+                                <div class="blog-item d-flex align-items-center justify-content-between mt-3">
+                                    <div>
+                                        <p class="fw-semibold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">"5 bước để có một bức tranh đẹp từ hạt nhựa"</p>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif;">bởi Minh Nhật • 15 phút trước</small>
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-sm btn-success rounded-circle btn-approve" style="width:30px;height:30px;padding:0;" title="Duyệt bài"><i class="bi bi-check"></i></button>
+                                        <button class="btn btn-sm btn-danger rounded-circle btn-reject" style="width:30px;height:30px;padding:0;" title="Từ chối"><i class="bi bi-x"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pt-0 pb-4 px-4">
+                                <button class="btn btn-view-all w-100 fw-bold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">
+                                    <i class="bi bi-eye me-1"></i> Xem tất cả yêu cầu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Cảnh báo kho hàng</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Xanh Neon Phát Quang (1000ct)</span>
+                                        <span class="text-danger fw-bold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">12 còn lại</span>
+                                    </div>
+                                    <div class="progress mt-1" style="height:6px;">
+                                        <div class="progress-bar bg-danger" style="width:12%;"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Gói Đỏ Nhám Khối Lượng Lớn</span>
+                                        <span style="font-family: 'Segoe UI', sans-serif; font-size: 14px; color: #666;">45 còn lại</span>
+                                    </div>
+                                    <div class="progress mt-1" style="height:6px;">
+                                        <div class="progress-bar bg-warning" style="width:35%;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <span style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Nhíp Thép Chính Xác (Pro)</span>
+                                        <span class="text-warning fw-bold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">5 còn lại</span>
+                                    </div>
+                                    <div class="progress mt-1" style="height:6px;">
+                                        <div class="progress-bar bg-warning" style="width:5%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pt-0 pb-4 px-4">
+                                <button class="btn btn-supply w-100 fw-bold" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">
+                                    <i class="bi bi-cart me-1"></i> Đặt mua vật tư ngay
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions + Activity Log -->
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Thao tác nhanh</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <button class="btn quick-action-btn w-100 text-start d-flex align-items-center gap-3 p-3 rounded-3 mb-2" data-action="product">
+                                    <span class="bg-light p-2 rounded-3"><i class="bi bi-plus-lg"></i></span>
+                                    <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Thêm sản phẩm mới</span>
+                                    <span class="ms-auto"><i class="bi bi-chevron-right"></i></span>
+                                </button>
+                                <button class="btn quick-action-btn w-100 text-start d-flex align-items-center gap-3 p-3 rounded-3 mb-2" data-action="blog">
+                                    <span class="bg-light p-2 rounded-3"><i class="bi bi-file-earmark-text"></i></span>
+                                    <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Tạo bài viết Blog</span>
+                                    <span class="ms-auto"><i class="bi bi-chevron-right"></i></span>
+                                </button>
+                                <button class="btn quick-action-btn w-100 text-start d-flex align-items-center gap-3 p-3 rounded-3" data-action="coupon">
+                                    <span class="bg-light p-2 rounded-3"><i class="bi bi-megaphone"></i></span>
+                                    <span class="fw-semibold" style="font-family: 'Segoe UI', sans-serif;">Đẩy khuyến mãi</span>
+                                    <span class="ms-auto"><i class="bi bi-chevron-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold text-dark m-0" style="font-family: 'Segoe UI', sans-serif;">Lịch sử hoạt động</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="activity-item d-flex gap-3 mb-3">
+                                    <span class="bg-danger bg-opacity-10 p-2 rounded-3 text-danger"><i class="bi bi-bag"></i></span>
+                                    <div>
+                                        <p class="mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Đơn hàng mới từ <strong class="text-danger">Nguyễn Thị Mai</strong></p>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif;">2 phút trước</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex gap-3 mb-3">
+                                    <span class="bg-success bg-opacity-10 p-2 rounded-3 text-success"><i class="bi bi-person-plus"></i></span>
+                                    <div>
+                                        <p class="mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Người dùng mới đăng ký: <strong class="text-success">Lê Khánh Linh</strong></p>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif;">45 phút trước</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex gap-3">
+                                    <span class="bg-purple bg-opacity-10 p-2 rounded-3 text-purple"><i class="bi bi-megaphone"></i></span>
+                                    <div>
+                                        <p class="mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 14px;">Chiến dịch marketing <strong class="text-purple">"Summer Day"</strong> đã bắt đầu</p>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif;">2 giờ trước</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL TẠO BÀI VIẾT MỚI (Thao tác nhanh)                      -->
+<!-- ============================================================ -->
+<div class="modal fade" id="createBlogModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #840001; color: white; border-radius: 12px 12px 0 0;">
+                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                    <i class="bi bi-file-earmark-text me-2"></i>Tạo bài viết mới
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="createBlogForm">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Tiêu đề bài viết <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="blogTitle" placeholder="Ví dụ: Hướng dẫn làm móc khóa..." style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Tác giả <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="blogAuthor" placeholder="Tên tác giả" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Ảnh đại diện</label>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="border rounded-3 p-3 text-center" style="width: 120px; height: 120px; background: #f8f9fa; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #ddd; cursor: pointer;" id="imagePreviewBox" onclick="document.getElementById('blogImage').click()">
+                                <i class="bi bi-image" style="font-size: 32px; color: #ccc;"></i>
+                                <span style="font-size: 11px; color: #999;">Chọn ảnh</span>
+                                <img id="imagePreview" src="" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                            </div>
+                            <div>
+                                <input type="file" class="form-control" id="blogImage" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('blogImage').click()" style="font-family: 'Segoe UI', sans-serif;">
+                                    <i class="bi bi-upload me-1"></i> Chọn tệp
+                                </button>
+                                <small class="text-muted d-block mt-1" style="font-family: 'Segoe UI', sans-serif;">PNG, JPG, WEBP tối đa 5MB</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Nội dung <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control" id="blogContent" rows="5" placeholder="Nhập nội dung bài viết..." style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Danh mục</label>
+                        <select class="form-select" id="blogCategory" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                            <option value="">Chọn danh mục...</option>
+                            <option value="huong-dan">Hướng dẫn</option>
+                            <option value="tin-tuc">Tin tức</option>
+                            <option value="san-pham">Sản phẩm mới</option>
+                            <option value="khuyen-mai">Khuyến mãi</option>
+                            <option value="thu-cong">Thủ công</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #eee; padding: 16px 24px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px;">
+                    Hủy
+                </button>
+                <button type="button" class="btn" id="btnSaveBlog" style="background: #840001; color: white; font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px; font-weight: 600;">
+                    <i class="bi bi-save me-1"></i> Lưu bài viết
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL THÊM SẢN PHẨM MỚI (Thao tác nhanh)                      -->
+<!-- ============================================================ -->
+<div class="modal fade" id="createProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #840001; color: white; border-radius: 12px 12px 0 0;">
+                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                    <i class="bi bi-plus-circle me-2"></i>Thêm Sản Phẩm Mới
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="createProductForm" style="font-family: 'Segoe UI', sans-serif;">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Tên sản phẩm <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm..." style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Danh mục <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" id="productCategory" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                            <option value="hat-nhua">Hạt nhựa</option>
+                            <option value="kit">Bộ KIT</option>
+                            <option value="phu-kien">Phụ kiện</option>
+                            <option value="tranh">Tranh Pixel Art</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Trạng thái
+                        </label>
+                        <select class="form-select" id="productStatus" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                            <option value="normal">Bình thường</option>
+                            <option value="hot">Hot</option>
+                            <option value="sale">Giảm giá</option>
+                            <option value="out_of_stock">Hết hàng</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Giá bán (VNĐ) <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" class="form-control" id="productPrice" placeholder="0" min="0" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Số lượng kho <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" class="form-control" id="productStock" placeholder="0" min="0" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Hình ảnh sản phẩm <span class="text-danger">*</span>
+                        </label>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="border rounded-3 p-3 text-center" style="width: 120px; height: 120px; background: #f8f9fa; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed #ddd; cursor: pointer;" id="productImagePreviewBox" onclick="document.getElementById('productImage').click()">
+                                <i class="bi bi-image" style="font-size: 32px; color: #ccc;"></i>
+                                <span style="font-size: 11px; color: #999;">Chọn ảnh</span>
+                                <img id="productImagePreview" src="" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                            </div>
+                            <div>
+                                <input type="file" class="form-control" id="productImage" accept="image/*" style="display: none;" onchange="previewProductImage(event)">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('productImage').click()" style="font-family: 'Segoe UI', sans-serif;">
+                                    <i class="bi bi-upload me-1"></i> Chọn tệp
+                                </button>
+                                <small class="text-muted d-block mt-1" style="font-family: 'Segoe UI', sans-serif;">PNG, JPG, WEBP tối đa 5MB</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #eee; padding: 16px 24px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px;">
+                    Hủy
+                </button>
+                <button type="button" class="btn" id="btnSaveProduct" style="background: #840001; color: white; font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px; font-weight: 600;">
+                    <i class="bi bi-save me-1"></i> Lưu sản phẩm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL THÊM MÃ GIẢM GIÁ (Thao tác nhanh)                      -->
+<!-- ============================================================ -->
+<div class="modal fade" id="createCouponModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #840001; color: white; border-radius: 12px 12px 0 0;">
+                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                    <i class="bi bi-ticket me-2"></i>Thêm mã giảm giá
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="createCouponForm" style="font-family: 'Segoe UI', sans-serif;">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Mã giảm giá <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="couponCode" placeholder="VD: URII2024" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Phần trăm giảm (%) <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" class="form-control" id="couponPercent" placeholder="VD: 15" min="0" max="100" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Điều kiện áp dụng (VNĐ)
+                        </label>
+                        <input type="number" class="form-control" id="couponMinOrder" placeholder="VD: 200000" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Số lượng sử dụng tối đa
+                        </label>
+                        <input type="number" class="form-control" id="couponMaxUses" placeholder="VD: 50" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Ngày bắt đầu <span class="text-danger">*</span>
+                        </label>
+                        <input type="date" class="form-control" id="couponStartDate" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Ngày hết hạn <span class="text-danger">*</span>
+                        </label>
+                        <input type="date" class="form-control" id="couponEndDate" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
+                            Trạng thái
+                        </label>
+                        <select class="form-select" id="couponStatus" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
+                            <option value="active">Đang hoạt động</option>
+                            <option value="inactive">Tạm ngưng</option>
+                        </select>
+                    </div>
+                    <!-- <div class="row g-3 mt-3"> -->
+                        <!-- <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                                <div class="card-body d-flex align-items-center gap-3 p-3">
+                                    <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4">
+                                        <i class="bi bi-magic"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Tạo nhanh</h6>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Tạo mã ngẫu nhiên</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                                <div class="card-body d-flex align-items-center gap-3 p-3">
+                                    <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success fs-4">
+                                        <i class="bi bi-graph-up"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Dự báo hiệu quả</h6>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Ước tính tỉ lệ chuyển đổi</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                                <div class="card-body d-flex align-items-center gap-3 p-3">
+                                    <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Bảo mật</h6>
+                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Chống gian lận</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- </div> -->
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #eee; padding: 16px 24px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px;">
+                    Hủy
+                </button>
+                <button type="button" class="btn" id="btnSaveCoupon" style="background: #840001; color: white; font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px; font-weight: 600;">
+                    <i class="bi bi-save me-1"></i> Lưu mã giảm giá
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Layout Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function loadComponent(url, targetId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Lỗi tải file: " + url);
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById(targetId).innerHTML = data;
+                    if(targetId === 'layout-sidebar') {
+                        setTimeout(highlightActiveMenu, 100);
+                    }
+                })
+                .catch(err => console.warn('Không thể tải layout:', err));
+        }
+
+        loadComponent('../components/admin-sidebar.html', 'layout-sidebar');
+        loadComponent('../components/admin-topbar.html', 'layout-topbar');
+
+        function highlightActiveMenu() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll(".admin-sidebar .nav-item");
+            navLinks.forEach(link => {
+                const hrefAttribute = link.getAttribute("href");
+                if (hrefAttribute && hrefAttribute.includes("admin-dashboard")) {
+                    navLinks.forEach(item => item.classList.remove("active"));
+                    link.classList.add("active");
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#adminLogoutBtn')) {
+                e.preventDefault();
+                if (confirm("Bạn có chắc muốn đăng xuất?")) {
+                    window.location.href = "../../user/html/login.html";
+                }
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

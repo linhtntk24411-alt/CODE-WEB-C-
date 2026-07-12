@@ -1,0 +1,78 @@
+/* ================================================================ */
+/* THÊM MÃ GIẢM GIÁ - admin-coupon-form.css                         */
+/* ================================================================ */
+
+body {
+    background-color: #f4f5f8;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --- FORM INPUT --- */
+.form-control:focus,
+.form-select:focus {
+    border-color: #840001;
+    box-shadow: 0 0 0 4px rgba(132, 0, 1, 0.15);
+}
+
+.form-control {
+    border: 1px solid #e5bdb7;
+    transition: all 0.2s ease;
+}
+.form-control:hover {
+    border-color: #916f6a;
+}
+
+/* --- CARD --- */
+.card {
+    border-radius: 16px !important;
+}
+.card-body {
+    padding: 32px !important;
+}
+
+/* --- ALERT --- */
+.alert {
+    border-radius: 12px !important;
+    border: none !important;
+}
+.alert-success {
+    background-color: #d1e7dd !important;
+    color: #0f5132 !important;
+}
+.alert-danger {
+    background-color: #f8d7da !important;
+    color: #842029 !important;
+}
+
+/* --- BUTTON --- */
+.btn-danger {
+    background-color: #840001 !important;
+    border-color: #840001 !important;
+    transition: all 0.2s ease;
+}
+.btn-danger:hover {
+    background-color: #a00000 !important;
+    border-color: #a00000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(132, 0, 1, 0.3);
+}
+.btn-danger:active {
+    transform: scale(0.97) !important;
+}
+
+.btn-secondary {
+    transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+    background-color: #e9ecef !important;
+    border-color: #ddd !important;
+}
+
+.btn-outline-secondary {
+    transition: all 0.2s ease;
+}
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa !important;
+    border-color: #840001 !important;
+    color: #840001 !important;
+}
