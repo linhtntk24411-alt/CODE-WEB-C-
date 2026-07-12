@@ -31,7 +31,7 @@
                         <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary fs-4"><i class="bi bi-clipboard-data"></i></div>
-                                <div><h6 class="text-muted small mb-1 fw-normal">Tổng đơn hàng</h6><h3 class="fw-bold mb-0 text-dark" id="stat-total">0</h3></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Tổng đơn hàng</h6><h3 class="fw-bold mb-0 text-dark" id="stat-total" style="font-family: 'Segoe UI', sans-serif;">0</h3></div>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4"><i class="bi bi-hourglass-split"></i></div>
-                                <div><h6 class="text-muted small mb-1 fw-normal">Chờ xác nhận</h6><h3 class="fw-bold mb-0 text-warning" id="stat-pending">0</h3></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Chờ xác nhận</h6><h3 class="fw-bold mb-0 text-warning" id="stat-pending" style="font-family: 'Segoe UI', sans-serif;">0</h3></div>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success fs-4"><i class="bi bi-check-circle"></i></div>
-                                <div><h6 class="text-muted small mb-1 fw-normal">Đã xác nhận</h6><h3 class="fw-bold mb-0 text-success" id="stat-approved">0</h3></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Đã xác nhận</h6><h3 class="fw-bold mb-0 text-success" id="stat-approved" style="font-family: 'Segoe UI', sans-serif;">0</h3></div>
                             </div>
                         </div>
                     </div>
@@ -55,43 +55,55 @@
                         <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-x-circle"></i></div>
-                                <div><h6 class="text-muted small mb-1 fw-normal">Yêu cầu hủy</h6><h3 class="fw-bold mb-0 text-danger" id="stat-cancel">0</h3></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Yêu cầu hủy</h6><h3 class="fw-bold mb-0 text-danger" id="stat-cancel" style="font-family: 'Segoe UI', sans-serif;">0</h3></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Filter Bar -->
-                <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
+                <div class="card border-0 shadow-sm rounded-4 mb-4 p-3 filter-bar">
                     <div class="card-body p-0">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-md-3">
+                        <div class="row g-3 align-items-end">
+                            <!-- Tìm kiếm -->
+                            <div class="col-12 col-md-4">
+                                <label class="filter-label">Tìm kiếm</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                                    <input type="text" id="search-name" class="form-control border-start-0 ps-0" placeholder="Mã đơn hoặc tên khách...">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" id="search-name" class="form-control" placeholder="Mã đơn hoặc tên khách..." style="font-family: 'Segoe UI', sans-serif;">
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <select id="filter-status" class="form-select bg-light border-0">
-                                    <option value="">Trạng thái</option>
+                            
+                            <!-- Trạng thái -->
+                            <div class="col-6 col-md-2">
+                                <label class="filter-label">Trạng thái</label>
+                                <select id="filter-status" class="form-select" style="font-family: 'Segoe UI', sans-serif;">
+                                    <option value="">Tất cả</option>
                                     <option value="pending">Chờ xác nhận</option>
                                     <option value="approved">Đã xác nhận</option>
                                     <option value="completed">Hoàn thành</option>
                                     <option value="cancelled">Đã hủy</option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                                <input type="date" id="filter-date" class="form-control bg-light border-0">
+                            
+                            <!-- Ngày -->
+                            <div class="col-6 col-md-2">
+                                <label class="filter-label">Ngày đặt</label>
+                                <input type="date" id="filter-date" class="form-control" style="font-family: 'Segoe UI', sans-serif;">
                             </div>
-                            <div class="col-md-2">
-                                <select id="filter-sort" class="form-select bg-light border-0">
-                                    <option value="">Sắp xếp theo</option>
+                            
+                            <!-- Sắp xếp -->
+                            <div class="col-6 col-md-2">
+                                <label class="filter-label">Sắp xếp</label>
+                                <select id="filter-sort" class="form-select" style="font-family: 'Segoe UI', sans-serif;">
                                     <option value="newest">Mới nhất</option>
                                     <option value="oldest">Cũ nhất</option>
                                 </select>
                             </div>
-                            <div class="col-md-auto">
-                                <button class="btn btn-danger w-100 fw-bold px-4" id="btn-filter">
+                            
+                            <!-- Nút Lọc -->
+                            <div class="col-6 col-md-2">
+                                <button class="btn btn-danger w-100 fw-bold" id="btn-filter" style="font-family: 'Segoe UI', sans-serif; padding: 10px 0; border-radius: 8px;">
                                     <i class="bi bi-funnel me-1"></i> Lọc
                                 </button>
                             </div>
@@ -102,20 +114,20 @@
                 <!-- Danh sách đơn hàng -->
                 <div class="card border-0 shadow-sm rounded-4 bg-white mb-5">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
-                        <h4 class="fw-bold text-danger m-0">Danh sách đơn hàng</h4>
-                        <small class="text-muted float-end" id="pagination-info">Hiển thị...</small>
+                        <h4 class="fw-bold text-danger m-0" style="font-family: 'Segoe UI', sans-serif;">Danh sách đơn hàng</h4>
+                        <!-- <small class="text-muted float-end" id="pagination-info" style="font-family: 'Segoe UI', sans-serif;">Hiển thị...</small> -->
                     </div>
                     <div class="table-responsive p-0 mt-2">
                         <table class="table table-hover align-middle mb-0 table-orders">
                             <thead class="text-muted small fw-bold bg-light">
                                 <tr>
-                                    <th class="ps-4 py-3">MÃ ĐƠN HÀNG</th>
-                                    <th class="py-3">KHÁCH HÀNG</th>
-                                    <th class="py-3">NGÀY ĐẶT</th>
-                                    <th class="py-3">SẢN PHẨM</th>
-                                    <th class="py-3">TỔNG TIỀN</th>
-                                    <th class="py-3">TRẠNG THÁI</th>
-                                    <th class="pe-4 text-end py-3">THAO TÁC</th>
+                                    <th class="ps-4 py-3" style="font-family: 'Segoe UI', sans-serif;">MÃ ĐƠN HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">KHÁCH HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">NGÀY ĐẶT</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">SẢN PHẨM</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">TỔNG TIỀN</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">TRẠNG THÁI</th>
+                                    <th class="pe-4 text-end py-3" style="font-family: 'Segoe UI', sans-serif;">THAO TÁC</th>
                                 </tr>
                             </thead>
                             <tbody id="order-list" class="fs-6"></tbody>
@@ -129,20 +141,20 @@
                 </div>
 
                 <!-- Yêu cầu hủy đơn hàng -->
-                <div class="card border-0 shadow-sm rounded-4 bg-white">
+                <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
-                        <h4 class="fw-bold text-danger m-0">Yêu cầu hủy đơn hàng <span class="badge bg-danger rounded-pill fs-6 align-middle">0 mới</span></h4>
+                        <h4 class="fw-bold text-danger m-0" style="font-family: 'Segoe UI', sans-serif;">Yêu cầu hủy đơn hàng <span class="badge bg-danger rounded-pill fs-6 align-middle" id="cancel-count" style="font-family: 'Segoe UI', sans-serif;"></span></h4>
                     </div>
                     <div class="table-responsive p-0 mt-2">
                         <table class="table table-hover align-middle mb-0 table-orders-cancel">
                             <thead class="text-muted small fw-bold bg-light">
                                 <tr>
-                                    <th class="ps-4 py-3">MÃ ĐƠN HÀNG</th>
-                                    <th class="py-3">KHÁCH HÀNG</th>
-                                    <th class="py-3">LÝ DO HỦY</th>
-                                    <th class="py-3">NGÀY YÊU CẦU</th>
-                                    <th class="py-3">TRẠNG THÁI</th>
-                                    <th class="pe-4 text-end py-3">XỬ LÝ</th>
+                                    <th class="ps-4 py-3" style="font-family: 'Segoe UI', sans-serif;">MÃ ĐƠN HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">KHÁCH HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">LÝ DO HỦY</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">NGÀY YÊU CẦU</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">TRẠNG THÁI</th>
+                                    <th class="pe-4 text-end py-3" style="font-family: 'Segoe UI', sans-serif;">XỬ LÝ</th>
                                 </tr>
                             </thead>
                             <tbody id="cancel-list" class="fs-6"></tbody>
@@ -151,6 +163,37 @@
                     <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
                         <nav>
                             <ul class="pagination pagination-sm m-0" id="pagination-controls-cancel"></ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!--BẢNG CUSTOM ORDER (THÊM MỚI) -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold text-danger m-0" style="font-family: 'Segoe UI', sans-serif;">
+                            <i class="bi bi-palette me-2"></i>Đơn hàng Custom theo yêu cầu 
+                            <span class="badge bg-warning rounded-pill fs-6 align-middle" id="custom-count" style="font-family: 'Segoe UI', sans-serif;"></span>
+                        </h4>
+                        <small class="text-muted" id="custom-pagination-info" style="font-family: 'Segoe UI', sans-serif;">Hiển thị...</small>
+                    </div>
+                    <div class="table-responsive p-0 mt-2">
+                        <table class="table table-hover align-middle mb-0 table-orders-custom">
+                            <thead class="text-muted small fw-bold bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3" style="font-family: 'Segoe UI', sans-serif;">MÃ ĐƠN</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">KHÁCH HÀNG</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">SẢN PHẨM</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">YÊU CẦU</th>
+                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">TRẠNG THÁI</th>
+                                    <th class="pe-4 text-end py-3" style="font-family: 'Segoe UI', sans-serif;">THAO TÁC</th>
+                                </tr>
+                            </thead>
+                            <tbody id="custom-order-list" class="fs-6"></tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+                        <nav>
+                            <ul class="pagination pagination-sm m-0" id="pagination-controls-custom"></ul>
                         </nav>
                     </div>
                 </div>
@@ -165,37 +208,35 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-danger" id="modalOrderId">Chi tiết đơn hàng #DH001</h5>
+                <h5 class="modal-title fw-bold text-danger" id="modalOrderId" style="font-family: 'Segoe UI', sans-serif;">Chi tiết đơn hàng #DH001</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <div class="row g-4">
-                    <!-- Cột trái: Thông tin khách hàng & Thanh toán -->
                     <div class="col-md-6">
-                        <h6 class="fw-bold border-bottom pb-2 mb-3">Thông tin khách hàng</h6>
-                        <div class="mb-2"><span class="text-muted">Họ tên:</span> <strong id="modalCustomerName"></strong></div>
-                        <div class="mb-2"><span class="text-muted">SĐT:</span> <strong id="modalCustomerPhone"></strong></div>
-                        <div class="mb-2"><span class="text-muted">Địa chỉ:</span> <span id="modalCustomerAddress"></span></div>
+                        <h6 class="fw-bold border-bottom pb-2 mb-3" style="font-family: 'Segoe UI', sans-serif;">Thông tin khách hàng</h6>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Họ tên:</span> <strong id="modalCustomerName" style="font-family: 'Segoe UI', sans-serif;"></strong></div>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">SĐT:</span> <strong id="modalCustomerPhone" style="font-family: 'Segoe UI', sans-serif;"></strong></div>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Địa chỉ:</span> <span id="modalCustomerAddress" style="font-family: 'Segoe UI', sans-serif;"></span></div>
                         
-                        <h6 class="fw-bold border-bottom pb-2 mt-4 mb-3">Thanh toán</h6>
-                        <div class="mb-2"><span class="text-muted">Phương thức:</span> <span id="modalPaymentMethod"></span></div>
+                        <h6 class="fw-bold border-bottom pb-2 mt-4 mb-3" style="font-family: 'Segoe UI', sans-serif;">Thanh toán</h6>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Phương thức:</span> <span id="modalPaymentMethod" style="font-family: 'Segoe UI', sans-serif;"></span></div>
                     </div>
 
-                    <!-- Cột phải: Chi tiết đơn hàng -->
                     <div class="col-md-6">
-                        <h6 class="fw-bold border-bottom pb-2 mb-3">Chi tiết đơn hàng</h6>
-                        <div class="mb-2"><span class="text-muted">Sản phẩm:</span> <strong id="modalProductName"></strong></div>
-                        <div class="mb-2"><span class="text-muted">Ngày đặt:</span> <span id="modalOrderDate"></span></div>
-                        <div class="mb-2"><span class="text-muted">Trạng thái:</span> <span id="modalOrderStatus" class="badge"></span></div>
-                        <div class="mb-2"><span class="text-muted">Tổng tiền:</span> <strong id="modalOrderTotal" class="text-danger"></strong></div>
+                        <h6 class="fw-bold border-bottom pb-2 mb-3" style="font-family: 'Segoe UI', sans-serif;">Chi tiết đơn hàng</h6>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Sản phẩm:</span> <strong id="modalProductName" style="font-family: 'Segoe UI', sans-serif;"></strong></div>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Ngày đặt:</span> <span id="modalOrderDate" style="font-family: 'Segoe UI', sans-serif;"></span></div>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Trạng thái:</span> <span id="modalOrderStatus" class="badge" style="font-family: 'Segoe UI', sans-serif;"></span></div>
+                        <div class="mb-2"><span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Tổng tiền:</span> <strong id="modalOrderTotal" class="text-danger" style="font-family: 'Segoe UI', sans-serif;"></strong></div>
                         
-                        <h6 class="fw-bold border-bottom pb-2 mt-4 mb-3">Ghi chú của khách</h6>
-                        <div id="modalCustomerNote" class="p-3 bg-light rounded text-muted fst-italic" style="min-height: 60px;">Không có ghi chú.</div>
+                        <h6 class="fw-bold border-bottom pb-2 mt-4 mb-3" style="font-family: 'Segoe UI', sans-serif;">Ghi chú của khách</h6>
+                        <div id="modalCustomerNote" class="p-3 bg-light rounded text-muted fst-italic" style="min-height: 60px; font-family: 'Segoe UI', sans-serif;">Không có ghi chú.</div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif;">Đóng</button>
             </div>
         </div>
     </div>

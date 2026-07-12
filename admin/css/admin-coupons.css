@@ -1,0 +1,182 @@
+/* ================================================================ */
+/* QUẢN LÝ MÃ GIẢM GIÁ - admin-coupons.css                          */
+/* ================================================================ */
+
+body {
+    background-color: #f4f5f8;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --- STAT CARD --- */
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* --- FILTER BAR --- */
+.filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    display: block;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.filter-bar .form-control,
+.filter-bar .form-select {
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+    font-family: 'Segoe UI', sans-serif;
+    height: 42px;
+}
+.filter-bar .form-control:focus,
+.filter-bar .form-select:focus {
+    background-color: #fff;
+    border-color: #840001;
+    box-shadow: 0 0 0 3px rgba(132, 0, 1, 0.1);
+}
+.filter-bar .form-control:hover,
+.filter-bar .form-select:hover {
+    background-color: #fff;
+    border-color: #840001;
+}
+
+.filter-bar .input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    color: #6c757d;
+    font-family: 'Segoe UI', sans-serif;
+    height: 42px;
+}
+.filter-bar .input-group .form-control {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+    height: 42px;
+}
+
+/* --- BADGE STATUS --- */
+.badge-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    min-width: 130px;
+    width: 130px;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+.badge-status-active {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #a3cfbb;
+}
+.badge-status-expiring {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+.badge-status-expired {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+/* --- TABLE --- */
+.table-coupons th, .table-coupons td {
+    padding: 16px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+}
+.table-coupons thead th {
+    background-color: #f8f9fa;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+    border-bottom: none;
+    font-family: 'Segoe UI', sans-serif;
+}
+.table-coupons tbody tr:hover {
+    background-color: #f8f9ff;
+}
+
+.coupon-code {
+    font-weight: 700;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    font-size: 13px;
+}
+.coupon-value {
+    font-weight: 700;
+    color: #840001;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- ACTION BUTTON --- */
+.btn-action-icon {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: 0.2s;
+    color: #6c757d;
+}
+.btn-action-icon:hover {
+    background-color: #f1f1f1;
+}
+.btn-action-icon.text-primary:hover {
+    background-color: #cfe2ff;
+    color: #0d6efd !important;
+}
+.btn-action-icon.text-success:hover {
+    background-color: #d4edda;
+    color: #155724 !important;
+}
+.btn-action-icon.text-danger:hover {
+    background-color: #f8d7da;
+    color: #842029 !important;
+}
+
+/* --- PAGINATION --- */
+.pagination .page-item.active .page-link {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.pagination .page-link {
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+}
+.pagination .page-link:hover {
+    color: #dc3545;
+}
+
+/* --- MODAL --- */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+}
+.modal-header {
+    border-radius: 12px 12px 0 0;
+}
