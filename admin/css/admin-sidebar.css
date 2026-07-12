@@ -3,7 +3,7 @@
     --bg-sidebar: #FBF9F8;         /* Màu nền trắng xám kem cực nhẹ của UI */
     --color-active: #840001;       /* Màu đỏ đô thương hiệu khi active */
     --color-text-normal: #5C403B;  /* Màu nâu trầm của chữ menu thường */
-    --font-main: 'Poppins', 'Nunito Sans', sans-serif;
+    --font-main: 'Nunito Sans', sans-serif;
 }
 
 /* Định dạng bao quát Sidebar */

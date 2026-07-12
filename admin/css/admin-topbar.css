@@ -3,7 +3,7 @@
     --bg-search-input: #f0eded;          /* Màu surface-container nhạt cho ô tìm kiếm */
     --color-text-normal: #1b1c1c;        /* color chữ chính */
     --color-text-variant: #5c403b;       /* color icon và chữ gợi ý */
-    --font-main: 'Poppins', 'Nunito Sans', sans-serif;
+    --font-main: 'Nunito Sans', sans-serif;
 }
 
 /* Định vị thanh topbar nằm ngang sát đỉnh màn hình, chừa khoảng trống bên trái cho Sidebar */
