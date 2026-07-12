@@ -38,8 +38,7 @@
   // ===== USER DATA =====
   let userData = null;
   let latestOrder = null;
-  let tempAvatarSrc = null;
-  let cropper = null;
+  let latestCustomOrder = null; // [MỚI] lưu yêu cầu thiết kế gần nhất
 
   // ===== TOAST SYSTEM =====
   function showToast(message, type = 'success') {
@@ -136,6 +135,7 @@
       const userDataRaw = await userResponse.json();
       userData = userDataRaw.user;
 
+      // Lấy đơn hàng gần nhất
       const ordersResponse = await fetch('../data/orders.json');
       if (ordersResponse.ok) {
         const ordersData = await ordersResponse.json();
@@ -147,6 +147,26 @@
         latestOrder = sortedOrders.length > 0 ? sortedOrders[0] : null;
       } else {
         console.warn('Không thể tải đơn hàng');
+      }
+
+      // [MỚI] Lấy yêu cầu thiết kế gần nhất
+      try {
+        const customResponse = await fetch('../data/custom-order-list.json');
+        if (customResponse.ok) {
+          const customData = await customResponse.json();
+          if (Array.isArray(customData) && customData.length > 0) {
+            const sortedCustom = [...customData].sort((a, b) => {
+              const dateA = new Date(a.date.split('/').reverse().join('/'));
+              const dateB = new Date(b.date.split('/').reverse().join('/'));
+              return dateB - dateA;
+            });
+            latestCustomOrder = sortedCustom[0];
+          }
+        } else {
+          console.warn('Không thể tải yêu cầu thiết kế');
+        }
+      } catch (e) {
+        console.warn('Lỗi khi tải custom orders:', e);
       }
 
       renderProfile(userData);
@@ -183,50 +203,101 @@
     }
   }
 
-  // ===== RENDER ACTIVITIES =====
+  // ===== RENDER ACTIVITIES (đã sửa để hiển thị cả 2 card) =====
   function renderActivities() {
-    if (!latestOrder) {
-      elements.activitySection.innerHTML = '<p class="profile-empty">Không có đơn hàng nào gần đây.</p>';
+    let cardsHtml = [];
+
+    // ---------- Card: Đơn hàng gần đây ----------
+    if (latestOrder) {
+      const order = latestOrder;
+      const statusMap = {
+        'pending': 'Đang xử lý',
+        'shipping': 'Đang giao hàng',
+        'completed': 'Hoàn thành',
+        'cancelled': 'Đã hủy'
+      };
+      const statusDisplay = statusMap[order.statusType] || order.status;
+      const showReview = order.statusType === 'completed' && order.showReview === true;
+
+      let orderCardHtml = `
+        <div class="profile-activity-card profile-activity-card--order">
+          <div class="profile-activity-header">
+            <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
+            <span class="profile-activity-status profile-activity-status--${order.statusType}">${statusDisplay}</span>
+          </div>
+          <div class="profile-activity-body">
+            <p class="profile-activity-id">#${order.id}</p>
+            <p class="profile-activity-desc">${order.total}</p>
+            <p class="profile-activity-date">Ngày đặt: ${order.date}</p>
+          </div>
+          <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+            <button class="profile-activity-btn order-detail-btn" data-order-id="${order.id}">Xem chi tiết</button>
+            ${showReview ? `<button class="profile-activity-btn profile-activity-btn--review" data-order-id="${order.id}">Đánh giá</button>` : ''}
+          </div>
+        </div>
+      `;
+      cardsHtml.push(orderCardHtml);
+    }
+
+    // ---------- [MỚI] Card: Yêu cầu thiết kế gần đây ----------
+    if (latestCustomOrder) {
+      const custom = latestCustomOrder;
+      // Chuyển statusClass thành tên hiển thị (nếu có)
+      const statusText = custom.statusText || custom.statusClass || 'Đang xử lý';
+      // Tạo class cho status (dùng statusClass để style)
+      const statusClass = custom.statusClass || 'status-pending';
+
+      let customCardHtml = `
+        <div class="profile-activity-card profile-activity-card--request">
+          <div class="profile-activity-header">
+            <h3 class="profile-activity-title">Yêu cầu gần đây</h3>
+            <span class="profile-activity-status ${statusClass}">${statusText}</span>
+          </div>
+          <div class="profile-activity-body">
+            <p class="profile-activity-id">${custom.id}</p>
+            <p class="profile-activity-desc">${custom.name} (${custom.size || 'N/A'})</p>
+            <p class="profile-activity-date">Ngày gửi: ${custom.date}</p>
+            ${custom.price ? `<p class="profile-activity-price">${custom.price}</p>` : ''}
+          </div>
+          <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+            <button class="profile-activity-btn custom-detail-btn" data-custom-id="${custom.id}">Xem chi tiết</button>
+          </div>
+        </div>
+      `;
+      cardsHtml.push(customCardHtml);
+    }
+
+    // Nếu không có hoạt động nào
+    if (cardsHtml.length === 0) {
+      elements.activitySection.innerHTML = '<p class="profile-empty">Không có hoạt động gần đây.</p>';
       return;
     }
 
-    const order = latestOrder;
-    const statusMap = {
-      'pending': 'Đang xử lý',
-      'shipping': 'Đang giao hàng',
-      'completed': 'Hoàn thành',
-      'cancelled': 'Đã hủy'
-    };
-    const statusDisplay = statusMap[order.statusType] || order.status;
-    const showReview = order.statusType === 'completed' && order.showReview === true;
+    // Gán HTML
+    elements.activitySection.innerHTML = cardsHtml.join('');
 
-    let html = `
-      <div class="profile-activity-card profile-activity-card--order">
-        <div class="profile-activity-header">
-          <h3 class="profile-activity-title">Đơn hàng gần đây</h3>
-          <span class="profile-activity-status profile-activity-status--${order.statusType}">${statusDisplay}</span>
-        </div>
-        <div class="profile-activity-body">
-          <p class="profile-activity-id">#${order.id}</p>
-          <p class="profile-activity-desc">${order.total}</p>
-          <p class="profile-activity-date">Ngày đặt: ${order.date}</p>
-        </div>
-        <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
-          <button class="profile-activity-btn" data-order-id="${order.id}">Xem chi tiết</button>
-          ${showReview ? `<button class="profile-activity-btn profile-activity-btn--review" data-order-id="${order.id}">Đánh giá</button>` : ''}
-        </div>
-      </div>
-    `;
-    elements.activitySection.innerHTML = html;
-
-    document.querySelector('.profile-activity-btn[data-order-id]')?.addEventListener('click', function() {
-      const orderId = this.dataset.orderId;
-      if (orderId) window.location.href = `order-detail.html?id=${orderId}`;
+    // ----- Gán sự kiện cho các nút (order) -----
+    document.querySelectorAll('.order-detail-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orderId = this.dataset.orderId;
+        if (orderId) window.location.href = `order-detail.html?id=${orderId}`;
+      });
     });
 
-    document.querySelector('.profile-activity-btn--review')?.addEventListener('click', function() {
-      const orderId = this.dataset.orderId;
-      if (orderId) window.location.href = `review.html?order=${orderId}`;
+    document.querySelectorAll('.profile-activity-btn--review').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orderId = this.dataset.orderId;
+        if (orderId) window.location.href = `review.html?order=${orderId}`;
+      });
+    });
+
+    // ----- [MỚI] Gán sự kiện cho nút "Xem chi tiết" của custom order -----
+    document.querySelectorAll('.custom-detail-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Chuyển đến trang danh sách yêu cầu thiết kế (có thể thêm query param để lọc)
+        window.location.href = 'custom-order-list.html';
+        // Hoặc nếu có trang chi tiết: `custom-order-detail.html?id=${this.dataset.customId}`
+      });
     });
   }
 
