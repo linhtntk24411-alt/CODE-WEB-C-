@@ -76,7 +76,7 @@
               productId: 999,
               name: customItem.name,
               quantity: 1,
-              price: 335000, // Giá mặc định hoặc tùy biến cho mẫu thiết kế riêng
+              price: customItem.price ? Number(String(customItem.price).replace(/[.,đđ]/g, '')) : 297000,
               image: customItem.image
             }
           ],
