@@ -37,7 +37,8 @@
     "date": "28/09/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "297.000đ"
   },
   {
     "id": "#URII-9599",
@@ -77,7 +78,8 @@
     "date": "15/09/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "190.000đ"
   },
   {
     "id": "#URII-9450",
@@ -107,7 +109,8 @@
     "date": "12/10/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "220.000đ"
   },
   {
     "id": "#URII-9414",
@@ -157,7 +160,8 @@
     "date": "18/11/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "270.000đ"
   },
   {
     "id": "#URII-9420",
@@ -177,7 +181,8 @@
     "date": "01/12/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "235.000đ"
   },
   {
     "id": "#URII-9422",
@@ -227,7 +232,8 @@
     "date": "18/12/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "279.000đ"
   },
   {
     "id": "#URII-9427",
@@ -257,7 +263,8 @@
     "date": "25/12/2024",
     "statusClass": "status-completed",
     "statusText": "Đã hoàn thành",
-    "actionType": "review-btn"
+    "actionType": "review-btn",
+    "price": "250.000đ"
   },
   {
     "id": "#URII-9430",
