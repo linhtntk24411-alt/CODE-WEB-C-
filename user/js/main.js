@@ -122,6 +122,137 @@ function syncCartBadge() {
   }
 }
 
+function shouldLoadChatbotWidget() {
+  // Always show chatbot on all user pages by default.
+  // If you later want to block specific pages, add them to blockedPages.
+  return true;
+}
+
+function injectChatbotWidget() {
+  if (!shouldLoadChatbotWidget()) {
+    const existingRoot = document.getElementById('urii-chatbot-root');
+    if (existingRoot) {
+      existingRoot.remove();
+    }
+    return;
+  }
+
+  if (document.getElementById('urii-chatbot-root') || document.getElementById('chat-fab')) return;
+
+  // Always mount to document.body to ensure the widget is positioned relative
+  // to the viewport (fixed) and not inside page containers that may create
+  // stacking/transform issues causing the widget to overlap or clip page content.
+  const mountPoint = document.body;
+
+  if (!document.querySelector('link[data-chatbot-styles]')) {
+    const styles = document.createElement('link');
+    styles.rel = 'stylesheet';
+    styles.href = '../css/chatbot-widget.css';
+    styles.setAttribute('data-chatbot-styles', 'true');
+    document.head.appendChild(styles);
+  }
+
+  if (!document.querySelector('link[href*="fonts.googleapis.com/css2?family=Poppins"]')) {
+    const preconnect1 = document.createElement('link');
+    preconnect1.rel = 'preconnect';
+    preconnect1.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(preconnect1);
+
+    const preconnect2 = document.createElement('link');
+    preconnect2.rel = 'preconnect';
+    preconnect2.href = 'https://fonts.gstatic.com';
+    preconnect2.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnect2);
+
+    const fontStyles = document.createElement('link');
+    fontStyles.rel = 'stylesheet';
+    fontStyles.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap';
+    document.head.appendChild(fontStyles);
+
+    const materialStyles = document.createElement('link');
+    materialStyles.rel = 'stylesheet';
+    materialStyles.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap';
+    document.head.appendChild(materialStyles);
+  }
+
+  // Ensure Bootstrap Icons are available (many pages already include them,
+  // but some pages may not — use CDN when missing so icons render correctly).
+  if (!document.querySelector('link[href*="bootstrap-icons"]')) {
+    const bi = document.createElement('link');
+    bi.rel = 'stylesheet';
+    bi.href = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css';
+    document.head.appendChild(bi);
+  }
+
+  const widgetContainer = document.createElement('div');
+  widgetContainer.id = 'urii-chatbot-root';
+  widgetContainer.innerHTML = `
+    <div class="chatbot-wrapper">
+      <section id="chat-window" class="chat-window hidden">
+        <header class="chat-header">
+          <div class="avatar-container">
+            <img alt="Urii Mascot" class="bot-avatar-main" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCfogwmg9DqaHtDqBGDh2EszSFoIZZh0_VFx8XTmsJvJQ6DvK6lTFpYUUQs4gkh03sU5B-CdJyukuKQI3rhRuKYPk2pen2JL5L9V5UXot14qDw1uz15BgBW1Jh-_7sxS2iwTvcE1_UVMGC7Wu4F-C4-vvBpA-xS01AIjeDjyDacX277JxX4u6OEYYqLtZWfvfEzFCFrgr5UPRDjkM8VL5YkMrne_f-MHbFHDpbTcGg_2j3mJ9MsLj1Od2yBZT76XH2Av_mLj0vLZu">
+            <span class="status-dot"></span>
+          </div>
+          <div class="header-info">
+            <h2 class="bot-name">Trợ lý ảo Urii</h2>
+            <p class="bot-status">Đang trực tuyến</p>
+          </div>
+          <nav class="header-actions">
+            <button id="btn-minimize" class="action-btn"><i class="bi bi-dash"></i></button>
+            <button id="btn-close" class="action-btn"><i class="bi bi-x-lg"></i></button>
+          </nav>
+        </header>
+
+        <main id="chat-body" class="chat-body">
+          <div class="date-separator"><span>Hôm nay</span></div>
+          <div id="typing-indicator" class="typing-indicator hidden">
+            <div class="typing-bubble">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </main>
+
+        <footer class="chat-footer">
+          <div class="input-container">
+            <button class="icon-btn"><i class="bi bi-plus-circle"></i></button>
+            <button class="icon-btn"><i class="bi bi-emoji-smile"></i></button>
+            <input id="chat-input" type="text" placeholder="Nhập tin nhắn...">
+            <button id="btn-send" class="send-btn">
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </div>
+          <p class="credits">Cung cấp bởi Urii AI Engine v2.0</p>
+        </footer>
+      </section>
+
+      <aside class="fab-container">
+        <button id="chat-fab" class="chat-fab">
+          <i class="bi bi-stars"></i>
+          <span class="pulse-ring"></span>
+        </button>
+      </aside>
+    </div>
+  `;
+  mountPoint.appendChild(widgetContainer);
+
+  if (!document.querySelector('script[data-chatbot-script]')) {
+    const chatScript = document.createElement('script');
+    chatScript.src = '../js/chatbot-widget.js';
+    chatScript.setAttribute('data-chatbot-script', 'true');
+    chatScript.onload = function () {
+      if (typeof window.initChatbotWidget === 'function') {
+        window.initChatbotWidget();
+      }
+    };
+    document.body.appendChild(chatScript);
+  } else if (typeof window.initChatbotWidget === 'function') {
+    window.initChatbotWidget();
+  }
+}
+
 // ===== KHỞI TẠO KHI DOM SẴN SÀNG =====
 document.addEventListener("DOMContentLoaded", () => {
   // Chỉ load component nếu chưa được load (tránh trùng lặp)
@@ -136,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Nếu có placeholder riêng (không dùng header-component), observer sẽ xử lý
   // Đảm bảo accordion footer luôn được kích hoạt
   setTimeout(ensureFooterAccordion, 100);
+  injectChatbotWidget();
 });
 
 // ===== LẮNG NGHE SỰ KIỆN GIỎ HÀNG =====

@@ -100,6 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
     loadComponent("footer-component", "../components/footer.html");
     syncCartBadge();
     ensureFooterAccordion();
+    // Ensure main.js is loaded on pages that don't include it (so shared init works)
+    if (!document.querySelector('script[data-main-js]')) {
+        const s = document.createElement('script');
+        s.src = '../js/main.js';
+        s.setAttribute('data-main-js', 'true');
+        s.onload = function() {
+            try { if (typeof injectChatbotWidget === 'function') injectChatbotWidget(); } catch(e) { console.warn('injectChatbotWidget not available', e); }
+        };
+        s.onerror = function() { console.warn('Không thể tải main.js'); };
+        document.body.appendChild(s);
+    } else {
+        try { if (typeof injectChatbotWidget === 'function') injectChatbotWidget(); } catch(e) {}
+    }
 });
 
 window.addEventListener('cart:updated', syncCartBadge);
