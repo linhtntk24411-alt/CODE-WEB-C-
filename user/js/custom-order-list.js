@@ -97,6 +97,7 @@ function goToPage(page) {
 function renderTableData(items) {
     const tableBody = document.getElementById('request-table-body');
     tableBody.innerHTML = ''; 
+    const localReviews = JSON.parse(localStorage.getItem('my_reviews_cache')) || [];
 
     if (items.length === 0) {
         tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:32px; color: var(--text-outline);">Không tìm thấy yêu cầu nào thuộc danh mục trạng thái này.</td></tr>`;
@@ -115,8 +116,21 @@ function renderTableData(items) {
         } else if (item.actionType === 'track-btn') {
             // Thay thế inline style bằng class .btn-track-location đã tạo trong CSS
             actionHTML = `<button class="action-icon-btn btn-track-location"><span class="material-symbols-outlined">location_on</span></button>`;
+        // THAY THẾ ĐOẠN ELSE IF TRÊN THÀNH ĐOẠN NÀY:
         } else if (item.actionType === 'review-btn') {
-            actionHTML = `<button class="table-btn btn-table-review">Đánh giá</button>`;
+            // Kiểm tra xem ID của yêu cầu này đã xuất hiện trong cache đánh giá chưa
+            const isReviewed = localReviews.some(rev => {
+                const cleanRevId = String(rev.orderId || rev.id).replace('#', '').trim().toUpperCase();
+                const cleanItemId = String(item.id).replace('#', '').trim().toUpperCase();
+                return cleanRevId === cleanItemId;
+            });
+
+            // Nếu đã đánh giá thì hiển thị chữ "Đã đánh giá" và thêm thuộc tính disabled để khóa nút
+            if (isReviewed) {
+                actionHTML = `<button class="table-btn btn-table-review" disabled style="background-color: rgb(148, 5, 5); color: #ffffff; cursor: not-allowed;">Đã đánh giá</button>`;
+            } else {
+                actionHTML = `<button class="table-btn btn-table-review">Đánh giá</button>`;
+            }
         }
 
         const rowHTML = `
@@ -226,6 +240,10 @@ function initTableActions() {
                 
                 goToPage(currentPage);
             }
+        }
+        if (e.target.classList.contains('btn-table-review')) {
+            // Chuyển hướng sang trang review.html kèm theo tham số id của yêu cầu thiết kế trên URL
+            window.location.href = `review.html?id=${encodeURIComponent(reqId)}&type=custom`;
         }
     });
 }

@@ -78,6 +78,57 @@
       const data = await response.json();
       console.log('Dữ liệu orders:', data);
       ordersData = data.orders || [];
+     // --- CHÈN THÊM ĐOẠN NÀY ĐỂ ĐỌC ĐƠN CUSTOM TỪ FILE JSON ---
+      try {
+        const customResponse = await fetch('../data/custom-order-list.json');
+        // TÌM VÀ SỬA LẠI ĐOẠN KHỐI IF (customResponse.ok) TRONG HÀM loadOrders():
+        if (customResponse.ok) {
+          const customData = await customResponse.json();
+          
+          // 1. CHỈ LỌC các đơn hàng có trạng thái ĐÃ HOÀN THÀNH / ĐÃ GIAO
+          const completedCustoms = customData.filter(item => 
+            item.statusClass === 'status-completed' || 
+            String(item.statusText || item.status).includes('Hoàn thành') ||
+            String(item.statusText || item.status).includes('Đã giao')
+          );
+
+          // Lấy danh sách review hiện tại từ cache để kiểm tra xem đơn đã đánh giá chưa
+          const localReviews = JSON.parse(localStorage.getItem('my_reviews_cache')) || [];
+
+          // 2. Map dữ liệu thật từ file json lên
+          const formattedCustoms = completedCustoms.map(item => {
+            // Kiểm tra xem mã đơn hàng này đã được đánh giá chưa
+           // SỬA DÒNG NÀY: Chuẩn hóa cả 2 ID về dạng chữ in hoa, xóa sạch dấu # và khoảng trắng trước khi so sánh
+            const isReviewed = localReviews.some(rev => {
+              const cleanRevId = String(rev.orderId || rev.id).replace('#', '').trim().toUpperCase();
+              const cleanItemId = String(item.id).replace('#', '').trim().toUpperCase();
+              return cleanRevId === cleanItemId;
+            });
+
+            return {
+              id: item.id,
+              date: item.date,
+              statusType: 'completed',
+              status: 'Đã giao',
+              // SỬA Ở ĐÂY: Lấy giá tiền thật từ file JSON (nếu không có mới để mặc định)
+              total: item.price || item.total || '335.000đ', 
+              icon: 'edit_square',
+              isCustom: true,
+              isReviewed: isReviewed, // Lưu trạng thái đã đánh giá hay chưa
+              items: [{
+                name: item.name || item.title || `Yêu cầu thiết kế riêng (${item.id})`,
+                quantity: 1,
+                price: item.price || item.total || '335.000đ',
+                image: item.image || item.img || '../assets/images/custom-order-default.jpg'
+              }]
+            };
+          });
+
+          ordersData = [...formattedCustoms, ...ordersData];
+        }
+      } catch (err) {
+        console.error("Không thể tải file custom-order-list.json:", err);
+      }
       currentPage = 1;
       renderOrders(currentFilter);
     } catch (error) {
@@ -161,6 +212,7 @@
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;">
               ${showReview ? `<button class="order-btn order-btn--review" data-order="${order.id}">Đánh giá</button>` : ''}
+              ${order.isCustom && !order.isReviewed ? `<button class="order-btn order-btn--review" data-order="${order.id}">Đánh giá</button>` : ''}
               <button class="order-btn order-btn--detail" data-order="${order.id}">Xem chi tiết</button>
             </div>
           </div>
@@ -173,7 +225,20 @@
     list.querySelectorAll('.order-btn--detail').forEach(btn => {
       btn.addEventListener('click', function() {
         const orderId = this.dataset.order;
-        window.location.href = `order-detail.html?id=${orderId}`;
+        const currentOrder = ordersData.find(o => o.id === orderId);
+        if (currentOrder && currentOrder.isCustom) {
+          window.location.href = `order-detail.html?id=${encodeURIComponent(orderId)}&type=custom`;
+        } else {
+          window.location.href = `order-detail.html?id=${orderId}`;
+        }
+      });
+    });
+    // CHÈN THÊM SỰ KIỆN CLICK CHO NÚT ĐÁNH GIÁ MỚI VÀO NGAY DƯỚI ĐÂY:
+    list.querySelectorAll('.order-btn--review').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orderId = this.dataset.order;
+        // Chuyển hướng sang trang review và truyền tham số custom
+        window.location.href = `review.html?id=${encodeURIComponent(orderId)}&type=custom`;
       });
     });
 

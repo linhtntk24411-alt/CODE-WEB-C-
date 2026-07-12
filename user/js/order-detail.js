@@ -16,8 +16,14 @@
 
   // ===== Lấy orderId từ URL =====
   function getOrderId() {
+    const searchString = window.location.search;
+    const match = searchString.match(/[?&]id=([^&]+)/);
+    if (match && match[1]) {
+        return decodeURIComponent(match[1]).trim().toUpperCase();
+    }
     const params = new URLSearchParams(window.location.search);
-    return params.get('id') || params.get('order') || params.get('slug');
+    const id = params.get('id') || params.get('order') || params.get('slug');
+    return id ? id.trim().toUpperCase() : null;
   }
 
   // ===== Format date =====
@@ -44,6 +50,73 @@
       document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy mã đơn hàng.</p>';
       return;
     }
+    // --- ĐOẠN CODE THÊM MỚI TẠI ĐÂY ĐỂ XỬ LÝ ĐƠN HÀNG THIẾT KẾ RIÊNG ---
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('type') === 'custom') {
+      try {
+        const response = await fetch('../data/custom-order-list.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        
+        const customItem = data.find(item => item.id.trim().toUpperCase() === orderId);
+        if (!customItem) {
+          document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng thiết kế.</p>';
+          return;
+        }
+
+        // Tạo cấu trúc dữ liệu giả lập chuẩn khớp 100% với form hiển thị của hệ thống
+        const mockOrder = {
+          id: customItem.id,
+          date: customItem.date + " 09:00",
+          status: "Đã giao",
+          statusType: "completed",
+          shippingFee: 0,
+          items: [
+            {
+              productId: 999,
+              name: customItem.name,
+              quantity: 1,
+              price: 335000, // Giá mặc định hoặc tùy biến cho mẫu thiết kế riêng
+              image: customItem.image
+            }
+          ],
+          payment: {
+            method: "Thanh toán trực tuyến / Số dư tài khoản",
+            status: "Đã thanh toán"
+          },
+          shipping: {
+            carrier: "Giao hàng tiết kiệm",
+            method: "Giao hàng tiêu chuẩn",
+            trackingNumber: "GHK-" + customItem.id.replace('#', ''),
+            fee: 0,
+            estimatedDelivery: "2026-07-15T18:00:00"
+          },
+          address: {
+            name: "Nguyễn Minh Anh",
+            phone: "0901 234 567",
+            address: "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+          },
+          timeline: [
+            { status: "Đã gửi yêu cầu", time: customItem.date + " 09:00" },
+            { status: "Urii đã duyệt & Thiết kế mẫu", time: customItem.date + " 11:00" },
+            { status: "Đã hoàn thành tác phẩm", time: customItem.date + " 16:00" }
+          ],
+          shippingTimeline: [
+            { status: "Đơn hàng đã tiếp nhận", location: "Kho Urii", time: customItem.date + " 12:00" },
+            { status: "Đã giao hàng thành công", location: "Địa chỉ nhận", time: customItem.date + " 16:00" }
+          ]
+        };
+
+        // Chạy hàm render chính có sẵn của trang bằng data mới tạo
+        renderOrderDetail(mockOrder);
+        return; // Ngăn hàm chạy tiếp xuống phần đọc orders.json cũ ở dưới
+      } catch (error) {
+        console.error('Lỗi tải dữ liệu đơn hàng riêng:', error);
+        document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không thể tải dữ liệu đơn hàng thiết kế.</p>';
+        return;
+      }
+    }
+    // --- KẾT THÚC ĐOẠN THÊM MỚI ---
 
     try {
       const response = await fetch('../data/orders.json');

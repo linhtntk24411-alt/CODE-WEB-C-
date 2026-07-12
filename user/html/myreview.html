@@ -446,6 +446,28 @@
 
         // ===== RENDER REVIEWS =====
         function renderReviews() {
+            // --- ĐOẠN CODE CHÈN THÊM TẠI ĐÂY ---
+            // 1. Đọc các đánh giá mới vừa lưu từ localStorage
+            const localReviews = JSON.parse(localStorage.getItem('my_reviews_cache')) || [];
+            
+            // 2. Chuyển đổi cấu trúc data từ custom order sang cấu trúc hiển thị của trang Đánh giá nếu có đánh giá mới
+            localReviews.forEach(lr => {
+                // Kiểm tra xem đánh giá này đã được gộp vào mảng hiển thị chưa để tránh bị trùng lặp
+                const isExisted = myReviews.some(r => r.orderId === lr.id);
+                if (!isExisted) {
+                    myReviews.unshift({
+                        orderId: lr.id,
+                        productId: 999, // ID giả lập cho mẫu thiết kế riêng
+                        productName: lr.name,
+                        productSlug: "custom",
+                        productImage: "../assets/gallery_assets/mau-ca-map-cute.webp", // Đường dẫn ảnh mặc định hoặc tùy biến
+                        rating: lr.rating,
+                        date: new Date().toISOString(), // Lấy ngày giờ chuẩn
+                        content: lr.comment
+                    });
+                }
+            });
+            // --- KẾT THÚC ĐOẠN CHÈN THÊM ---
             const container = document.getElementById('reviewsContainer');
             const totalSpan = document.getElementById('totalReviews');
 
@@ -464,8 +486,12 @@
 
                 const card = document.createElement('div');
                 card.className = 'review-card';
+                // Sửa nó lại thành dùng encodeURIComponent để biến dấu # thành %23:
+                const isCustomLink = review.productSlug === "custom" 
+                    ? `order-detail.html?id=${encodeURIComponent(review.orderId)}&type=custom` 
+                    : `order-detail.html?id=${encodeURIComponent(review.orderId)}`;
                 card.onclick = function() {
-                    window.location.href = `order-detail.html?id=${review.orderId}`;
+                    window.location.href = isCustomLink; // Thay link cố định cũ bằng biến link động mới tạo
                 };
 
                 card.innerHTML = `
@@ -477,7 +503,8 @@
                                     <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
                                         <div>
                                             <h3 class="font-poppins fw-semibold" style="font-size: 20px; color: var(--on-surface); margin-bottom: 4px;">
-                                                <a href="order-detail.html?id=${review.orderId}" class="product-link">
+                                                <!-- ĐỔI THÀNH BIẾN LINK MỚI -->
+                                                <a href="${isCustomLink}" class="product-link">
                                                     ${review.productName}
                                                 </a>
                                             </h3>
@@ -489,7 +516,8 @@
                                     </div>
                                     <p class="review-text mt-2">"${review.content}"</p>
                                     <div class="mt-2">
-                                        <a href="order-detail.html?id=${review.orderId}" class="product-link" style="font-size: 14px;">
+                                        <!-- ĐỔI THÀNH BIẾN LINK MỚI -->
+                                        <a href="${isCustomLink}" class="product-link" style="font-size: 14px;">
                                             Xem đơn hàng →
                                         </a>
                                     </div>
