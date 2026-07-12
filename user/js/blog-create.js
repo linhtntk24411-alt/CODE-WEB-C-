@@ -356,6 +356,31 @@
 
   // ===== KHỞI TẠO =====
   document.addEventListener('DOMContentLoaded', function() {
+    // --- ĐOẠN CODE MỚI: TỰ ĐỘNG ĐỌC DỮ LIỆU CHIA SẺ TỪ TRANG DETAIL ---
+    const pendingShareData = localStorage.getItem('sharePostPending');
+    if (pendingShareData) {
+      try {
+        const shareData = JSON.parse(pendingShareData);
+        
+        // Điền tiêu đề bài viết tự động
+        if (titleInput && shareData.title) {
+          titleInput.value = shareData.title;
+        }
+        
+        // Chèn sẵn ảnh và khung bài viết vào Rich Editor
+        if (editorContent && shareData.initialContent) {
+          editorContent.innerHTML = shareData.initialContent;
+        }
+        
+        // Xóa bộ nhớ tạm để không bị lặp lại ở lần viết bài sau
+        localStorage.removeItem('sharePostPending');
+        
+      } catch (e) {
+        console.error("Lỗi trích xuất dữ liệu chia sẻ mẫu:", e);
+      }
+    }
+    // --- HẾT ĐOẠN CODE MỚI ---
+    
     updateWordCount();
     if (!editorContent.innerText.trim()) editorContent.innerHTML = '';
     loadLastDraft();

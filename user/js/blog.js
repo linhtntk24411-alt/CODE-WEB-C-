@@ -60,8 +60,26 @@
       
       const blogsData = await blogsRes.json();
       const commentsData = await commentsRes.json();
+      // --- ĐOẠN CODE THAY ĐỔI TẠI ĐÂY ---
+      // 1. Lấy danh sách bài viết gốc từ file JSON
+      let localJsonBlogs = blogsData.blogs;
       
-      allBlogs = blogsData.blogs;
+      // 2. Lấy thêm danh sách bài viết tự tạo từ bộ nhớ localStorage
+      const userBlogs = JSON.parse(localStorage.getItem('userBlogs') || '[]');
+      
+      // 3. Gộp cả 2 danh sách lại làm một
+      const mergedBlogs = [...localJsonBlogs, ...userBlogs];
+      
+      // 4. Lọc bỏ các bài viết bị trùng lặp ID hoặc trùng Slug
+      const seen = new Set();
+      allBlogs = mergedBlogs.filter(blog => {
+        const duplicateKey = blog.slug || blog.id;
+        if (seen.has(duplicateKey)) return false;
+        seen.add(duplicateKey);
+        return true;
+      });
+      // --- HẾT ĐOẠN CODE THAY ĐỔI ---
+      
       allComments = commentsData.comments;
 
       if (isListPage) {
@@ -591,7 +609,7 @@
       document.getElementById('detailTitle').innerText = 'Không tìm thấy bài viết';
       return;
     }
-    const blog = allBlogs.find(b => b.slug === slug);
+    const blog = allBlogs.find(b => b.slug === slug || b.slug === decodeURIComponent(slug) || b.id.toString() === slug);
     if (!blog) {
       document.getElementById('detailTitle').innerText = 'Bài viết không tồn tại';
       return;

@@ -194,6 +194,30 @@ function renderProductDetails(product) {
             html2pdf().set(options).from(pdfContent).save();
         });
     }
+    // --- XỬ LÝ SỰ KIỆN NÚT CHIA SẺ VỚI CỘNG ĐỒNG ---
+    const shareBtn = document.querySelector('.btn-share-sub');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => {
+            // Gom dữ liệu của map hiện tại muốn chia sẻ
+            const shareData = {
+                title: `Chia sẻ cách làm: ${product.title}`,
+                mainImage: product.mainImage,
+                // Định dạng sẵn nội dung HTML sơ bộ giới thiệu map để chèn vào editor
+                initialContent: `
+                    <h2>Hành trình hoàn thành tác phẩm ${product.title}</h2>
+                    <p>Chào mọi người, mình vừa hoàn thành xong map mẫu <strong>${product.title}</strong> rất cute này! Dưới đây là hình ảnh sơ đồ hạt thực tế để mọi người tham khảo:</p>
+                    <p><img src="${product.mainImage}" alt="${product.title}" style="max-width:100%; height:auto; border-radius:8px;" /></p>
+                    <p>Map này tốn khoảng ${product.duration || '--'} để thực hiện với cấp độ ${product.difficulty || '--'}. Mọi người cùng làm thử và chia sẻ thành quả với mình nhé!</p>
+                `.trim()
+            };
+
+            // Lưu tạm vào localStorage dưới dạng một biến sharePostPending
+            localStorage.setItem('sharePostPending', JSON.stringify(shareData));
+
+            // Chuyển hướng người dùng sang trang tạo bài viết mới (bạn điều chỉnh đường dẫn tương đối cho đúng thư mục của mình)
+            window.location.href = 'blog-create.html'; 
+        });
+    }
 }
 
 function renderRelatedProducts(products) {
