@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Bộ Hạt Nhựa Ủi Perler Beads 72 Màu",
+    "name": "Bộ Hạt Nhựa Ủi Perler Beads 24 Màu",
     "category": "hat-nhua",
     "status": "hot",
     "price": 185000,
@@ -33,7 +33,7 @@
     "status": "het-hang",
     "price": 45000,
     "stock": 0,
-    "image": "../assets/mockhoagau.jfif"
+    "image": "../assets/mockhoagau.webp"
   },
   {
     "id": 5,
