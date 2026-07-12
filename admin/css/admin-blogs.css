@@ -13,6 +13,8 @@ body {
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
+    display: inline-block;      
+    white-space: nowrap;       
 }
 .badge-status-pending {
     background-color: #fff3cd; color: #856404;
@@ -23,6 +25,7 @@ body {
 .badge-status-violated {
     background-color: #f8d7da; color: #842029;
 }
+
 
 /* --- BẢNG DANH SÁCH BLOG --- */
 .table-blogs th, .table-blogs td {
