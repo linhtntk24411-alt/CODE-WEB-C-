@@ -7,7 +7,7 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-/* --- BADGE VAI TRÒ 
+//* --- BADGE VAI TRÒ 
 .role-badge {
     padding: 4px 12px;
     border-radius: 20px;
@@ -21,12 +21,19 @@ body {
     background-color: #d1e7dd; color: #0f5132;
 }
 /* Màu sắc cho các cấp độ Vai trò */
-.role-badge {
-    padding: 5px 14px;
-    border-radius: 20px;
+.badge-status {
+    padding: 8px 18px;
+    border-radius: 999px;
     font-size: 12px;
     font-weight: 600;
+    display: inline-block;
+    white-space: normal;
+    text-align: center;
+    min-width: 80px;
+    line-height: 1.4;
+    font-family: 'Segoe UI', sans-serif;
 }
+
 /* Quản trị viên - Màu đỏ đậm nổi bật */
 .role-badge-admin {
     background-color: #dc3545; 
@@ -61,6 +68,8 @@ body {
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
 }
 .status-badge-active {
     background-color: #d1e7dd; color: #0f5132;
