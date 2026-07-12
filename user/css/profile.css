@@ -1330,3 +1330,21 @@ body {
     max-width: none;
   }
 }
+
+/* ===== TRẠNG THÁI CHO YÊU CẦU THIẾT KẾ (giống custom-order-list) ===== */
+.profile-activity-status.status-pending {
+  background: #fef08a;
+  color: #854d0e;
+}
+.profile-activity-status.status-quoted {
+  background: #bfdbfe;
+  color: #1e40af;
+}
+.profile-activity-status.status-processing {
+  background: #ffa07a;
+  color: #7c2d12;
+}
+.profile-activity-status.status-completed {
+  background: #4CAF50;
+  color: #ffffff;
+}

@@ -37,10 +37,14 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--review-on-surface-variant);
   margin-bottom: 32px;
   flex-wrap: wrap;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 .review-breadcrumb a {
   color: var(--review-on-surface-variant);
