@@ -38,7 +38,6 @@ function initHeader() {
         if (!avatarImg || !avatarSvg) return;
 
         if (isLoggedIn) {
-            // Đã đăng nhập: hiển thị avatar (có thể là ảnh user hoặc ảnh mặc định)
             if (avatarUrl && avatarUrl.trim() !== '') {
                 avatarImg.src = avatarUrl;
             } else {
@@ -46,13 +45,11 @@ function initHeader() {
             }
             avatarImg.style.display = 'block';
             avatarSvg.style.display = 'none';
-            // Xử lý lỗi tải ảnh: nếu ảnh lỗi, hiển thị ảnh mặc định
             avatarImg.onerror = function() {
                 this.onerror = null;
                 this.src = '../assets/avatar-non.jpg';
             };
         } else {
-            // Chưa đăng nhập: hiển thị SVG user
             avatarImg.style.display = 'none';
             avatarSvg.style.display = 'block';
         }
@@ -120,7 +117,7 @@ function initHeader() {
                 localStorage.removeItem('userName');
                 localStorage.removeItem('userEmail');
                 localStorage.removeItem('userAvatar');
-                localStorage.removeItem('userRole'); // Thêm dòng này
+                localStorage.removeItem('userRole');
                 if (authButtons) authButtons.style.display = 'flex';
                 if (accountDropdown) accountDropdown.style.display = 'none';
                 updateAvatar();
@@ -225,9 +222,8 @@ function initHeader() {
                 if (!parentDropdown) return;
 
                 const target = e.target;
-                const isSvg = target.closest('svg'); // Kiểm tra click vào mũi tên
+                const isSvg = target.closest('svg');
 
-                // Nếu click vào mũi tên (SVG) -> toggle dropdown và chặn điều hướng
                 if (isSvg) {
                     e.preventDefault();
                     e.stopImmediatePropagation();
@@ -243,8 +239,6 @@ function initHeader() {
                     parentDropdown.classList.toggle('open', shouldOpen);
                     this.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
                 }
-                // Nếu click vào chữ (không phải SVG) -> để trình duyệt điều hướng bình thường
-                // Không gọi preventDefault() hay stopImmediatePropagation()
             });
         });
 
@@ -273,10 +267,316 @@ function initHeader() {
         }
     });
 
-    // ===== TÌM KIẾM ===== (giữ nguyên, không thay đổi)
-    // ... (phần tìm kiếm dài, giữ nguyên)
-    // Để tiết kiệm, tôi không paste lại toàn bộ phần tìm kiếm, nhưng bạn giữ nguyên code cũ.
-    // Nếu cần, tôi sẽ gửi đầy đủ file header.js sau.
+    // ============================================================
+    // TÌM KIẾM VỚI GỢI Ý – CHỈ LẤY TỪ product.json
+    // ============================================================
+
+    const searchInput = document.querySelector('.search-box input');
+    const searchBtn = document.querySelector('.btn-search-icon');
+
+    function ensureHeaderSuggestionBox(searchBox) {
+        let box = searchBox.querySelector('.header-search-suggestions');
+        if (!box) {
+            box = document.createElement('div');
+            box.className = 'header-search-suggestions';
+            searchBox.appendChild(box);
+        }
+        return box;
+    }
+
+    function hideHeaderSuggestions(searchBox) {
+        const box = searchBox ? searchBox.querySelector('.header-search-suggestions') : null;
+        if (box) {
+            box.classList.remove('show');
+            box.innerHTML = '';
+        }
+    }
+
+    async function updateHeaderSuggestions(value, searchBox) {
+        if (!searchBox || window.innerWidth <= 768) {
+            hideHeaderSuggestions(searchBox);
+            return;
+        }
+
+        const suggestionsBox = ensureHeaderSuggestionBox(searchBox);
+        const term = (value || '').toLowerCase().trim();
+
+        if (!term) {
+            suggestionsBox.innerHTML = '';
+            suggestionsBox.classList.remove('show');
+            return;
+        }
+
+        const products = await loadProductData();
+
+        const filtered = products.filter(product => {
+            const name = (product.name || '').toLowerCase();
+            const category = (product.category || '').toLowerCase();
+            return name.includes(term) || category.includes(term);
+        }).slice(0, 6);
+
+        if (!filtered.length) {
+            suggestionsBox.innerHTML = '<div class="header-search-suggestion-item" style="cursor: default; color: var(--muted);">Không có gợi ý phù hợp</div>';
+            suggestionsBox.classList.add('show');
+            return;
+        }
+
+        suggestionsBox.innerHTML = filtered.map(product => `
+            <button type="button" class="header-search-suggestion-item" data-name="${product.name}">
+                <span>${product.name}</span>
+                <span>${product.category || 'Sản phẩm'}</span>
+            </button>
+        `).join('');
+
+        suggestionsBox.classList.add('show');
+
+        suggestionsBox.querySelectorAll('.header-search-suggestion-item').forEach(item => {
+            item.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+            });
+
+            item.addEventListener('click', function () {
+                const selectedName = this.getAttribute('data-name');
+                if (selectedName) {
+                    if (searchInput) {
+                        searchInput.value = selectedName;
+                    }
+                    submitSearch(selectedName);
+                }
+            });
+        });
+    }
+
+    async function loadProductData() {
+        if (window.__productData) return window.__productData;
+
+        try {
+            const scripts = document.getElementsByTagName('script');
+            let currentScript = null;
+            for (let s of scripts) {
+                if (s.src && s.src.includes('header.js')) {
+                    currentScript = s.src;
+                    break;
+                }
+            }
+
+            let basePath = '';
+            if (currentScript) {
+                const scriptDir = currentScript.substring(0, currentScript.lastIndexOf('/') + 1);
+                basePath = scriptDir.replace(/\/js\//, '/');
+            } else {
+                basePath = window.location.origin + '/';
+            }
+
+            const jsonUrl = basePath + 'data/product.json';
+            const response = await fetch(jsonUrl);
+
+            if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
+
+            const data = await response.json();
+            const products = Array.isArray(data.products) ? data.products : [];
+
+            window.__productData = products;
+            return window.__productData;
+
+        } catch (error) {
+            console.warn('Không thể tải product.json – gợi ý sẽ không hiển thị:', error);
+            window.__productData = [];
+            return window.__productData;
+        }
+    }
+
+    function createSearchPopup() {
+        if (document.getElementById('mobileSearchPopup')) {
+            return document.getElementById('mobileSearchPopup');
+        }
+
+        const popup = document.createElement('div');
+        popup.id = 'mobileSearchPopup';
+        popup.className = 'mobile-search-popup';
+        popup.innerHTML = `
+            <div class="mobile-search-panel">
+                <div class="mobile-search-header">
+                    <h3>Tìm kiếm sản phẩm</h3>
+                    <button type="button" class="mobile-search-close" aria-label="Đóng tìm kiếm">×</button>
+                </div>
+                <div class="mobile-search-input-wrap">
+                    <input type="text" placeholder="Nhập tên sản phẩm..." />
+                    <button type="button" class="mobile-search-submit">Tìm</button>
+                </div>
+                <div class="mobile-search-suggestions"></div>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+        return popup;
+    }
+
+    function closeSearchPopup() {
+        const popup = document.getElementById('mobileSearchPopup');
+        if (popup) {
+            popup.classList.remove('show');
+        }
+        document.body.style.overflow = '';
+    }
+
+    function bindSearchPopupEvents(popup) {
+        if (!popup || popup.dataset.bound === 'true') return;
+        popup.dataset.bound = 'true';
+
+        popup.addEventListener('click', function (e) {
+            if (e.target === popup) {
+                closeSearchPopup();
+            }
+        });
+
+        const closeBtn = popup.querySelector('.mobile-search-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeSearchPopup();
+            });
+        }
+
+        const popupInput = popup.querySelector('input');
+        const popupSubmit = popup.querySelector('.mobile-search-submit');
+
+        if (popupInput) {
+            popupInput.addEventListener('input', function () {
+                updateMobileSuggestions(this.value, popup);
+            });
+
+            popupInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitSearch(this.value);
+                }
+            });
+        }
+
+        if (popupSubmit) {
+            popupSubmit.addEventListener('click', function () {
+                if (popupInput) {
+                    submitSearch(popupInput.value);
+                }
+            });
+        }
+    }
+
+    function openSearchPopup() {
+        const popup = createSearchPopup();
+        popup.classList.add('show');
+        bindSearchPopupEvents(popup);
+        const popupInput = popup.querySelector('input');
+        if (popupInput) {
+            popupInput.focus();
+            popupInput.value = searchInput ? searchInput.value : '';
+            updateMobileSuggestions(popupInput.value, popup);
+        }
+        document.body.style.overflow = 'hidden';
+    }
+
+    function submitSearch(query) {
+        const value = (query || '').trim();
+        if (!value) return;
+        const searchBox = document.querySelector('.search-box');
+        if (searchBox) {
+            hideHeaderSuggestions(searchBox);
+        }
+        closeSearchPopup();
+        const base = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');
+        window.location.href = base + '/product.html?search=' + encodeURIComponent(value);
+    }
+
+    async function updateMobileSuggestions(value, popup) {
+        const suggestionsBox = popup.querySelector('.mobile-search-suggestions');
+        if (!suggestionsBox) return;
+
+        const term = (value || '').toLowerCase().trim();
+        if (!term) {
+            suggestionsBox.innerHTML = '';
+            return;
+        }
+
+        const products = await loadProductData();
+
+        const filtered = products.filter(product => {
+            const name = (product.name || '').toLowerCase();
+            const category = (product.category || '').toLowerCase();
+            return name.includes(term) || category.includes(term);
+        }).slice(0, 6);
+
+        if (!filtered.length) {
+            suggestionsBox.innerHTML = '<div class="mobile-search-empty">Không có gợi ý phù hợp</div>';
+            return;
+        }
+
+        suggestionsBox.innerHTML = filtered.map(product => `
+            <button type="button" class="mobile-search-item" data-name="${product.name}">
+                <span>${product.name}</span>
+                <span style="font-size:11px;color:#999;margin-left:8px;">${product.category || ''}</span>
+            </button>
+        `).join('');
+
+        suggestionsBox.querySelectorAll('.mobile-search-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const selectedName = this.getAttribute('data-name');
+                if (selectedName) {
+                    const input = popup.querySelector('input');
+                    if (input) {
+                        input.value = selectedName;
+                    }
+                    submitSearch(selectedName);
+                }
+            });
+        });
+    }
+
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            if (window.innerWidth <= 1024) {
+                e.preventDefault();
+                openSearchPopup();
+                return;
+            }
+
+            const query = searchInput.value.trim();
+            if (query) {
+                submitSearch(query);
+            }
+        });
+
+        searchInput.addEventListener('focus', function () {
+            if (window.innerWidth > 768) {
+                updateHeaderSuggestions(this.value, this.closest('.search-box'));
+            }
+        });
+
+        searchInput.addEventListener('input', function () {
+            if (window.innerWidth > 768) {
+                updateHeaderSuggestions(this.value, this.closest('.search-box'));
+            }
+        });
+
+        searchInput.addEventListener('blur', function () {
+            const searchBox = this.closest('.search-box');
+            if (searchBox) {
+                setTimeout(() => hideHeaderSuggestions(searchBox), 150);
+            }
+        });
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    openSearchPopup();
+                    return;
+                }
+                searchBtn.click();
+            }
+        });
+    }
 
     loadProductData();
 }
