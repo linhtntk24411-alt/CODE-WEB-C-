@@ -12,7 +12,7 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
         }
 
         .text-primary-custom {
@@ -333,24 +333,762 @@
         }
 
         /* Responsive */
-        @media(max-width: 1200px) {
-            .product-card { width: calc(33.33% - 14px); }
-        }
+        /* ===== BREAKPOINT 1: Desktop (1200px - 1025px) ===== */
+@media screen and (max-width: 1200px) and (min-width: 1025px) {
+    .product-card {
+        width: calc(33.33% - 14px);
+    }
 
-        @media(max-width: 992px) {
-            .product-card { width: calc(50% - 10px); }
-        }
+    .product-title {
+        font-size: 14px;
+    }
 
-        @media(max-width: 576px) {
-            .product-card { width: 100%; }
-            
-            .product-actions .btn-buy {
-                padding: 12px;
-                font-size: 15px;
-            }
+    .product-price .current-price {
+        font-size: 18px;
+    }
 
-            .product-meta {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-        }
+    .product-actions .btn-buy {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .badge-discount,
+    .badge-hot {
+        font-size: 12px;
+        padding: 5px 12px;
+    }
+}
+
+/* ===== BREAKPOINT 2: Tablet (1024px - 769px) ===== */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    .product-card {
+        width: calc(50% - 10px);
+    }
+
+    .product-list {
+        gap: 16px;
+    }
+
+    .product-title {
+        font-size: 13px;
+        padding-right: 35px;
+    }
+
+    .product-price .current-price {
+        font-size: 16px;
+    }
+
+    .product-price .original-price {
+        font-size: 13px;
+    }
+
+    .product-actions .btn-buy {
+        padding: 9px;
+        font-size: 13px;
+    }
+
+    .badge-discount,
+    .badge-hot {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+
+    .badge-discount {
+        left: 10px;
+        top: 10px;
+    }
+
+    .badge-hot {
+        left: 10px;
+        top: 48px;
+    }
+
+    .badge-stock {
+        font-size: 9px;
+        padding: 3px 10px;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .cart-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        right: 10px;
+        top: 10px;
+    }
+
+    .product-meta {
+        font-size: 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .product-rating .stars {
+        font-size: 12px;
+    }
+
+    .product-info {
+        padding: 12px 14px 14px;
+    }
+
+    .rating-filter-group .rating-filter-btn {
+        font-size: 12px;
+        padding: 5px 12px;
+    }
+}
+
+/* ============================================
+   BREAKPOINT 3: Mobile Large (<= 768px)
+   ============================================ */
+@media screen and (max-width: 768px) {
+    /* ---- Product Grid ---- */
+    .product-card {
+        width: calc(50% - 10px);
+    }
+
+    .product-list {
+        gap: 14px;
+    }
+
+    .product-title {
+        font-size: 13px;
+        padding-right: 30px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .product-price .current-price {
+        font-size: 15px;
+    }
+
+    .product-price .original-price {
+        font-size: 12px;
+    }
+
+    .product-actions .btn-buy {
+        padding: 8px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+
+    /* ---- Badges ---- */
+    .badge-discount,
+    .badge-hot {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+
+    .badge-discount {
+        left: 8px;
+        top: 8px;
+    }
+
+    .badge-hot {
+        left: 8px;
+        top: 42px;
+    }
+
+    .badge-stock {
+        font-size: 8px;
+        padding: 2px 8px;
+        bottom: 8px;
+        left: 8px;
+    }
+
+    /* ---- Cart Icon ---- */
+    .cart-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        right: 8px;
+        top: 8px;
+    }
+
+    /* ---- Product Meta ---- */
+    .product-meta {
+        font-size: 11px;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+
+    .product-rating .stars {
+        font-size: 11px;
+    }
+
+    .product-rating .rating-text,
+    .product-rating .review-count {
+        font-size: 11px;
+    }
+
+    .product-stock-info {
+        font-size: 11px;
+    }
+
+    /* ---- Product Info ---- */
+    .product-info {
+        padding: 10px 12px 12px;
+    }
+
+    /* ==========================================
+       FIX: SIDEBAR FILTER - HIỂN THỊ DẠNG HÀNG NGANG
+       ========================================== */
+    
+    /* ---- Sidebar chuyển thành dạng thanh cuộn ngang ---- */
+    .col-lg-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .col-lg-9 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* ---- Filter panel dạng thanh ngang ---- */
+    .product-filter-panel {
+        position: relative !important;
+        top: auto !important;
+        padding: 12px 16px !important;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* ---- Ẩn tiêu đề "Bộ lọc" trên mobile ---- */
+    .product-filter-panel h5 {
+        display: none;
+    }
+
+    /* ---- Các nhóm filter thành dòng ngang ---- */
+    .product-filter-panel > .mb-4 {
+        margin-bottom: 0 !important;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* ---- Label filter thành text nhỏ ---- */
+    .product-filter-panel label.fw-semibold {
+        display: none !important;
+    }
+
+    /* ---- Checkbox và label thành hàng ngang ---- */
+    .product-filter-panel .form-check {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        margin: 0 2px;
+        background: #f8f9fa;
+        border-radius: 20px;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .product-filter-panel .form-check:hover {
+        border-color: var(--bs-primary);
+        background: #fff5f5;
+    }
+
+    .product-filter-panel .form-check .form-check-input {
+        margin: 0 4px 0 0;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .product-filter-panel .form-check .form-check-label {
+        font-size: 12px;
+        cursor: pointer;
+        margin: 0;
+        color: #495057;
+    }
+
+    /* ---- Rating filter group thành dòng ngang ---- */
+    .product-filter-panel .rating-filter-group {
+        flex-direction: row;
+        gap: 4px;
+        flex-wrap: nowrap;
+        display: inline-flex;
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        border: 1px solid #e9ecef;
+        background: #f8f9fa;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        margin: 0;
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn .stars {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn.active {
+        background: var(--bs-primary);
+        color: white;
+        border-color: var(--bs-primary);
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn.active .stars {
+        color: white;
+    }
+
+    /* ---- Nút "Xóa bộ lọc" thành nút nhỏ ---- */
+    .product-filter-panel #clearFilters {
+        flex-shrink: 0;
+        padding: 4px 14px;
+        font-size: 12px;
+        border-radius: 20px;
+        width: auto;
+        background: #f1f3f5;
+        border: 1px solid #e9ecef;
+        color: #666;
+        white-space: nowrap;
+    }
+
+    .product-filter-panel #clearFilters:hover {
+        background: var(--bs-primary);
+        color: white;
+        border-color: var(--bs-primary);
+    }
+
+    /* ---- Ẩn các phần tử không cần thiết trên mobile ---- */
+    .product-filter-panel .d-block {
+        display: none !important;
+    }
+
+    /* ---- Custom scrollbar cho filter panel ---- */
+    .product-filter-panel::-webkit-scrollbar {
+        height: 3px;
+    }
+
+    .product-filter-panel::-webkit-scrollbar-track {
+        background: #f1f3f5;
+        border-radius: 10px;
+    }
+
+    .product-filter-panel::-webkit-scrollbar-thumb {
+        background: var(--bs-primary);
+        border-radius: 10px;
+    }
+
+    /* ---- Rating Filter ---- */
+    .rating-filter-group .rating-filter-btn {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+/* ============================================
+   BREAKPOINT 4: Mobile Small (<= 480px)
+   ============================================ */
+@media screen and (max-width: 480px) {
+    /* ---- Product Grid ---- */
+    .product-card {
+        width: 100%;
+    }
+
+    .product-list {
+        gap: 16px;
+        padding: 0 4px;
+    }
+
+    .product-title {
+        font-size: 14px;
+        padding-right: 35px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .product-price .current-price {
+        font-size: 17px;
+    }
+
+    .product-price .original-price {
+        font-size: 13px;
+    }
+
+    .product-price {
+        gap: 8px;
+    }
+
+    .product-actions .btn-buy {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+
+    /* ---- Badges ---- */
+    .badge-discount,
+    .badge-hot {
+        font-size: 11px;
+        padding: 4px 12px;
+    }
+
+    .badge-discount {
+        left: 10px;
+        top: 10px;
+    }
+
+    .badge-hot {
+        left: 10px;
+        top: 46px;
+    }
+
+    .badge-stock {
+        font-size: 9px;
+        padding: 3px 10px;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    /* ---- Cart Icon ---- */
+    .cart-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+        right: 10px;
+        top: 10px;
+    }
+
+    /* ---- Product Meta ---- */
+    .product-meta {
+        font-size: 12px;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .product-rating .stars {
+        font-size: 13px;
+    }
+
+    .product-rating .rating-text,
+    .product-rating .review-count {
+        font-size: 12px;
+    }
+
+    .product-stock-info {
+        font-size: 12px;
+    }
+
+    /* ---- Product Info ---- */
+    .product-info {
+        padding: 12px 14px 14px;
+    }
+
+    /* ==========================================
+       FIX: FILTER PANEL - MOBILE NHỎ
+       ========================================== */
+    
+    .product-filter-panel {
+        padding: 10px 12px !important;
+        gap: 10px;
+        border-radius: 10px;
+    }
+
+    .product-filter-panel .form-check {
+        padding: 3px 8px;
+        font-size: 11px;
+    }
+
+    .product-filter-panel .form-check .form-check-input {
+        width: 12px;
+        height: 12px;
+    }
+
+    .product-filter-panel .form-check .form-check-label {
+        font-size: 11px;
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .product-filter-panel .rating-filter-group .rating-filter-btn .stars {
+        font-size: 9px;
+    }
+
+    .product-filter-panel #clearFilters {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+
+    /* ---- Rating Filter ---- */
+    .rating-filter-group .rating-filter-btn {
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+
+    /* ---- Container ---- */
+    .container {
+        padding: 0 10px;
+    }
+
+    /* ---- Sorting Bar ---- */
+    .d-flex.flex-wrap.align-items-center.justify-content-between.bg-white.p-3.rounded-4.shadow-sm.mb-4 {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch !important;
+        padding: 12px 14px !important;
+    }
+
+    #sortSelect {
+        width: 100% !important;
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    #productCount {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    /* ---- Breadcrumb ---- */
+    .breadcrumb {
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+        border-radius: 10px !important;
+    }
+
+    .breadcrumb-item a {
+        font-size: 12px;
+    }
+
+    /* ---- Pagination ---- */
+    .pagination {
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+    }
+
+    .pagination .page-item {
+        margin: 0 1px;
+    }
+
+    .pagination .page-link {
+        padding: 6px 10px;
+        font-size: 13px;
+        border-radius: 6px !important;
+        min-width: 36px;
+        text-align: center;
+    }
+
+    .pagination .page-link i {
+        font-size: 12px;
+    }
+
+    /* ---- Category Info ---- */
+    #categoryInfo {
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+        margin-bottom: 12px !important;
+        border-radius: 10px !important;
+    }
+
+    /* ---- Loading Spinner ---- */
+    .loading-spinner {
+        padding: 40px 0;
+    }
+
+    .loading-spinner .spinner-border {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    /* ---- Product Filter Panel (sticky) ---- */
+    .product-filter-panel {
+        position: relative;
+        margin-bottom: 12px;
+    }
+
+    /* ---- Clear Filters Button ---- */
+    #clearFilters {
+        font-size: 13px;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    /* ---- Adjust checkbox và label spacing ---- */
+    .form-check {
+        padding-left: 1.8rem;
+        min-height: 1.5rem;
+    }
+
+    .form-check-input {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-top: 0.2rem;
+        margin-left: -1.8rem;
+    }
+
+    .form-check-label {
+        font-size: 13px;
+        padding-left: 4px;
+    }
+}
+
+/* ============================================
+   PAGINATION - Style từ blog.css
+   ============================================ */
+
+/* ---- Pagination Container ---- */
+#paginationContainer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 36px;
+    padding: 0;
+    list-style: none;
+}
+
+/* ---- Pagination Items ---- */
+#paginationContainer .page-item {
+    margin: 0;
+}
+
+#paginationContainer .page-item .page-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1.5px solid #e9ecef;
+    background: transparent;
+    color: #6c757d;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0;
+    line-height: 1;
+}
+
+/* ---- Hover (không active, không disabled) ---- */
+#paginationContainer .page-item:not(.active):not(.disabled) .page-link:hover {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+    background: rgba(132, 0, 1, 0.04);
+}
+
+/* ---- Active page ---- */
+#paginationContainer .page-item.active .page-link {
+    background: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+}
+
+/* ---- Disabled (prev/next khi ở đầu/cuối) ---- */
+#paginationContainer .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ---- Dấu 3 chấm (...) ---- */
+#paginationContainer .page-item .page-link.dots {
+    border: none;
+    background: transparent;
+    color: #adb5bd;
+    cursor: default;
+    pointer-events: none;
+    width: auto;
+    padding: 0 8px;
+}
+
+/* ---- Icon trong nút prev/next ---- */
+#paginationContainer .page-item .page-link i {
+    font-size: 16px;
+}
+
+/* ============================================
+   PAGINATION - RESPONSIVE
+   ============================================ */
+
+/* ---- Tablet (<= 768px) ---- */
+@media screen and (max-width: 768px) {
+    #paginationContainer {
+        gap: 6px;
+        margin-top: 28px;
+    }
+
+    #paginationContainer .page-item .page-link {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    #paginationContainer .page-item .page-link i {
+        font-size: 14px;
+    }
+}
+
+/* ---- Mobile nhỏ (<= 480px) ---- */
+@media screen and (max-width: 480px) {
+    #paginationContainer {
+        gap: 4px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+
+    #paginationContainer .page-item .page-link {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        border-radius: 6px;
+        border-width: 1px;
+    }
+
+    #paginationContainer .page-item .page-link i {
+        font-size: 12px;
+    }
+
+    /* Ẩn số trang trừ active, prev, next khi quá nhiều */
+    #paginationContainer .page-item:not(.active):not(:first-child):not(:last-child) .page-link {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+}
+
+/* ---- Mobile cực nhỏ (<= 360px) ---- */
+@media screen and (max-width: 360px) {
+    /* Ẩn hết số trang, chỉ giữ active, prev, next */
+    #paginationContainer .page-item:not(.active):not(:first-child):not(:last-child) {
+        display: none;
+    }
+    
+    #paginationContainer .page-item .page-link {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+}
