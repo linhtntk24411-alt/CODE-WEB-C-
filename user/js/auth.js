@@ -126,7 +126,7 @@
     });
   }
 
-  // --- Xử lý form login ---
+  //// --- Xử lý form login ---
   const loginForm = document.getElementById('auth-form');
   if (loginForm) {
     loginForm.addEventListener('submit', async function(e) {
@@ -144,24 +144,31 @@
         const response = await fetch('../data/users.json');
         if (!response.ok) throw new Error('Không thể tải thông tin người dùng');
         const data = await response.json();
-        const user = data.user || {};
+        const users = data.users || [];
         const enteredEmail = (emailInput?.value || '').trim().toLowerCase();
         const enteredPassword = (passwordInput?.value || '').trim();
 
-        const validEmail = (user.email || '').trim().toLowerCase();
-        const validPassword = '12345678';
+        const foundUser = users.find(u => 
+          u.email.toLowerCase() === enteredEmail && 
+          u.password === enteredPassword
+        );
 
-        if (enteredEmail === validEmail && enteredPassword === validPassword) {
+        if (foundUser) {
           localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('userName', user.name || 'Người dùng');
-          localStorage.setItem('userEmail', user.email || enteredEmail);
-          localStorage.setItem('userAvatar', user.avatar || '');
+          localStorage.setItem('userName', foundUser.name);
+          localStorage.setItem('userEmail', foundUser.email);
+          localStorage.setItem('userAvatar', foundUser.avatar || '');
+          localStorage.setItem('userRole', foundUser.role || 'user');
 
           showToast('Đăng nhập thành công! Chào mừng bạn trở lại.', 'success');
 
-          // === CẬP NHẬT HEADER NGAY LẬP TỨC ===
           if (typeof window.initHeader === 'function') {
             window.initHeader();
+          }
+
+          // Gọi handleAdminLink để cập nhật footer ngay
+          if (typeof window.handleAdminLink === 'function') {
+            setTimeout(window.handleAdminLink, 100);
           }
 
           setTimeout(() => {

@@ -26,24 +26,19 @@ function ensureFooterAccordion() {
 
 // ===== TỰ ĐỘNG KHỞI TẠO HEADER KHI ĐƯỢC CHÈN VÀO DOM =====
 (function autoInitHeader() {
-  // Nếu header đã tồn tại và đã init, không cần làm gì
   if (document.querySelector('.urii-header') && window.__headerInitDone) return;
 
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (!headerPlaceholder) return;
 
-  // Sử dụng MutationObserver để theo dõi thay đổi nội dung của placeholder
   const observer = new MutationObserver(function(mutations) {
     for (const mutation of mutations) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-        // Kiểm tra xem đã có header chưa
         const header = document.querySelector('.urii-header');
         if (header && !window.__headerInitDone) {
-          // Gọi initHeader nếu chưa được khởi tạo
           if (typeof window.initHeader === 'function') {
             window.initHeader();
           }
-          // Dừng observer sau khi đã init
           observer.disconnect();
           break;
         }
@@ -51,10 +46,8 @@ function ensureFooterAccordion() {
     }
   });
 
-  // Bắt đầu quan sát
   observer.observe(headerPlaceholder, { childList: true, subtree: true });
 
-  // Nếu header đã được chèn trước khi observer bắt đầu (trường hợp trang load nhanh)
   if (document.querySelector('.urii-header') && !window.__headerInitDone) {
     if (typeof window.initHeader === 'function') {
       window.initHeader();
@@ -64,6 +57,7 @@ function ensureFooterAccordion() {
 })();
 
 // ===== TỰ ĐỘNG KHỞI TẠO FOOTER ACCORDION KHI ĐƯỢC CHÈN =====
+// ===== TỰ ĐỘNG KHỞI TẠO FOOTER ACCORDION KHI ĐƯỢC CHÈN =====
 (function autoInitFooter() {
   const footerPlaceholder = document.getElementById('footer-placeholder');
   if (!footerPlaceholder) return;
@@ -72,8 +66,12 @@ function ensureFooterAccordion() {
     for (const mutation of mutations) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
         const footer = document.querySelector('.urii-footer');
-        if (footer && typeof window.initFooterAccordion === 'function') {
-          window.initFooterAccordion();
+        if (footer) {
+          // Gọi handleAdminLink bất kể initFooterAccordion có sẵn hay không
+          handleAdminLink();
+          if (typeof window.initFooterAccordion === 'function') {
+            window.initFooterAccordion();
+          }
           observer.disconnect();
           break;
         }
@@ -83,8 +81,11 @@ function ensureFooterAccordion() {
 
   observer.observe(footerPlaceholder, { childList: true, subtree: true });
 
-  if (document.querySelector('.urii-footer') && typeof window.initFooterAccordion === 'function') {
-    window.initFooterAccordion();
+  if (document.querySelector('.urii-footer')) {
+    handleAdminLink();
+    if (typeof window.initFooterAccordion === 'function') {
+      window.initFooterAccordion();
+    }
     observer.disconnect();
   }
 })();
@@ -98,7 +99,13 @@ function loadComponent(elementId, filePath) {
     })
     .then(data => {
       document.getElementById(elementId).innerHTML = data;
-      // Không cần gọi init ở đây, observer sẽ lo
+      if (elementId === 'footer-component' || filePath.includes('footer.html')) {
+        setTimeout(ensureFooterAccordion, 0);
+        setTimeout(handleAdminLink, 50);
+      }
+      if (elementId === 'header-component' || filePath.includes('header.html')) {
+        setTimeout(ensureHeaderBehavior, 0);
+      }
       syncCartBadge();
     })
     .catch(error => console.error(error));
@@ -123,8 +130,6 @@ function syncCartBadge() {
 }
 
 function shouldLoadChatbotWidget() {
-  // Always show chatbot on all user pages by default.
-  // If you later want to block specific pages, add them to blockedPages.
   return true;
 }
 
@@ -139,9 +144,6 @@ function injectChatbotWidget() {
 
   if (document.getElementById('urii-chatbot-root') || document.getElementById('chat-fab')) return;
 
-  // Always mount to document.body to ensure the widget is positioned relative
-  // to the viewport (fixed) and not inside page containers that may create
-  // stacking/transform issues causing the widget to overlap or clip page content.
   const mountPoint = document.body;
 
   if (!document.querySelector('link[data-chatbot-styles]')) {
@@ -175,8 +177,6 @@ function injectChatbotWidget() {
     document.head.appendChild(materialStyles);
   }
 
-  // Ensure Bootstrap Icons are available (many pages already include them,
-  // but some pages may not — use CDN when missing so icons render correctly).
   if (!document.querySelector('link[href*="bootstrap-icons"]')) {
     const bi = document.createElement('link');
     bi.rel = 'stylesheet';
@@ -255,7 +255,6 @@ function injectChatbotWidget() {
 
 // ===== KHỞI TẠO KHI DOM SẴN SÀNG =====
 document.addEventListener("DOMContentLoaded", () => {
-  // Chỉ load component nếu chưa được load (tránh trùng lặp)
   if (document.getElementById('header-component') && !document.getElementById('header-component').innerHTML) {
     loadComponent("header-component", "../components/header.html");
   }
@@ -264,8 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   syncCartBadge();
 
-  // Nếu có placeholder riêng (không dùng header-component), observer sẽ xử lý
-  // Đảm bảo accordion footer luôn được kích hoạt
   setTimeout(ensureFooterAccordion, 100);
   injectChatbotWidget();
 });
@@ -275,3 +272,50 @@ window.addEventListener('cart:updated', syncCartBadge);
 window.addEventListener('storage', syncCartBadge);
 
 console.log('✅ main.js loaded – header sẽ tự động khởi tạo khi được chèn.');
+
+// ===== HÀM HIỂN THỊ/ẨN LINK ADMIN =====
+function handleAdminLink() {
+    const adminDiv = document.getElementById('adminLinkWrapper');
+    if (!adminDiv) return;
+    const role = localStorage.getItem('userRole');
+    adminDiv.style.display = (role === 'admin') ? 'block' : 'none';
+}
+window.handleAdminLink = handleAdminLink;
+
+// ===== LẮNG NGHE THAY ĐỔI STORAGE (để cập nhật khi userRole thay đổi ở tab khác) =====
+window.addEventListener('storage', function(e) {
+  if (e.key === 'userRole') {
+    handleAdminLink();
+  }
+  if (e.key === 'cartItems') {
+    syncCartBadge();
+  }
+});
+
+// ===== OBSERVER TOÀN CỤC CHO FOOTER =====
+(function globalFooterObserver() {
+  const targetNode = document.body;
+  const config = { childList: true, subtree: true };
+
+  const callback = function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1 && node.classList && node.classList.contains('urii-footer')) {
+            setTimeout(() => {
+              if (typeof window.handleAdminLink === 'function') {
+                window.handleAdminLink();
+              }
+            }, 50);
+            if (typeof window.initFooterAccordion === 'function') {
+              window.initFooterAccordion();
+            }
+          }
+        }
+      }
+    }
+  };
+
+  const observer = new MutationObserver(callback);
+  observer.observe(targetNode, config);
+})();
