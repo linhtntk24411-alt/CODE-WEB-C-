@@ -68,16 +68,76 @@
   document.querySelector('[data-close="modalLogout"]')?.addEventListener('click', closeLogoutModal);
   document.getElementById('modalOverlay')?.addEventListener('click', closeLogoutModal);
 
-  // ===== LOAD ORDERS =====
   async function loadOrders() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+    }
     try {
-      // SỬA ĐƯỜNG DẪN THÀNH TƯƠNG ĐỐI TỪ THƯ MỤC HTML
-      const response = await fetch('../data/orders.json');
+        // SỬA ĐƯỜNG DẪN THÀNH TƯƠNG ĐỐI TỪ THƯ MỤC HTML
+        const response = await fetch('../data/orders.json');
       console.log('Fetch response:', response);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       console.log('Dữ liệu orders:', data);
       ordersData = data.orders || [];
+
+      // Nạp đơn hàng tự tạo từ localStorage
+      try {
+          const localOrdersSaved = localStorage.getItem('orders');
+          if (localOrdersSaved) {
+              const localOrders = JSON.parse(localOrdersSaved);
+              if (Array.isArray(localOrders)) {
+                  const localReviews = JSON.parse(localStorage.getItem('my_reviews_cache')) || [];
+                  const formattedLocalOrders = localOrders.map(item => {
+                      const isReviewed = localReviews.some(rev => {
+                          const cleanRevId = String(rev.orderId || rev.id).replace('#', '').trim().toUpperCase();
+                          const cleanItemId = String(item.id).replace('#', '').trim().toUpperCase();
+                          return cleanRevId === cleanItemId;
+                      });
+                      
+                      const totalFormatted = typeof item.total === 'number' 
+                          ? item.total.toLocaleString('vi-VN') + 'đ' 
+                          : String(item.total);
+                      
+                      let statusText = 'Chờ xác nhận';
+                      let statusType = 'pending';
+                      let icon = 'package_2';
+                      
+                      if (item.status === 'completed' || item.status === 'delivered') {
+                          statusText = 'Đã giao';
+                          statusType = 'completed';
+                          icon = 'local_shipping';
+                      } else if (item.status === 'cancelled') {
+                          statusText = 'Đã hủy';
+                          statusType = 'cancelled';
+                          icon = 'cancel';
+                      } else if (item.status === 'shipping' || item.status === 'delivering') {
+                          statusText = 'Đang giao hàng';
+                          statusType = 'shipping';
+                          icon = 'local_shipping';
+                      }
+                      
+                      return {
+                          id: item.id,
+                          date: item.date ? item.date.split(',')[0] : new Date().toLocaleDateString('vi-VN'),
+                          statusType: statusType,
+                          status: statusText,
+                          total: totalFormatted,
+                          icon: icon,
+                          isCustom: false,
+                          isReviewed: isReviewed,
+                          showReview: statusType === 'completed',
+                          items: item.items || []
+                      };
+                  });
+                  ordersData = [...formattedLocalOrders, ...ordersData];
+              }
+          }
+      } catch (err) {
+          console.error("Không thể tải đơn hàng từ localStorage:", err);
+      }
      // --- CHÈN THÊM ĐOẠN NÀY ĐỂ ĐỌC ĐƠN CUSTOM TỪ FILE JSON ---
       try {
         const customResponse = await fetch('../data/custom-order-list.json');
@@ -199,7 +259,7 @@
                 <span class="material-symbols-outlined">${order.icon}</span>
               </div>
               <div>
-                <div class="order-id">#${order.id}</div>
+                <div class="order-id">${order.id.startsWith('#') ? order.id : '#' + order.id}</div>
                 <div class="order-date">Ngày đặt: ${order.date}</div>
               </div>
             </div>

@@ -126,7 +126,7 @@
     });
   }
 
-  //// --- Xử lý form login ---
+  //// --- Xử lý form login (ĐÃ SỬA) ---
   const loginForm = document.getElementById('auth-form');
   if (loginForm) {
     loginForm.addEventListener('submit', async function(e) {
@@ -154,26 +154,51 @@
         );
 
         if (foundUser) {
+          console.log('✅ Đăng nhập thành công cho:', foundUser.email);
+          
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userName', foundUser.name);
           localStorage.setItem('userEmail', foundUser.email);
           localStorage.setItem('userAvatar', foundUser.avatar || '');
           localStorage.setItem('userRole', foundUser.role || 'user');
 
+          // Kiểm tra lại sau khi set
+          console.log('🔍 Sau khi set - isLoggedIn:', localStorage.getItem('isLoggedIn'));
+          console.log('🔍 Sau khi set - userEmail:', localStorage.getItem('userEmail'));
+
           showToast('Đăng nhập thành công! Chào mừng bạn trở lại.', 'success');
+
+          // === PHÁT SỰ KIỆN AUTH CHANGED ===
+          document.dispatchEvent(new CustomEvent('auth:changed'));
 
           if (typeof window.initHeader === 'function') {
             window.initHeader();
           }
 
-          // Gọi handleAdminLink để cập nhật footer ngay
           if (typeof window.handleAdminLink === 'function') {
             setTimeout(window.handleAdminLink, 100);
           }
 
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 1500);
+          // === XỬ LÝ REDIRECT SAU LOGIN ===
+          const redirectUrl = localStorage.getItem('redirectAfterLogin');
+          const checkoutAction = localStorage.getItem('checkoutAction');
+          
+          console.log('🔍 Redirect check:', { redirectUrl, checkoutAction });
+          
+          if (redirectUrl) {
+            localStorage.removeItem('redirectAfterLogin');
+            // Giữ lại checkoutAction nếu có
+            if (checkoutAction === 'true') {
+              localStorage.setItem('checkoutAction', 'true');
+            }
+            setTimeout(() => {
+              window.location.href = redirectUrl;
+            }, 1000); // Tăng timeout lên 1s để đảm bảo toast hiển thị
+          } else {
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1500);
+          }
         } else {
           showToast('Email hoặc mật khẩu không đúng. Vui lòng thử lại.', 'error');
         }
@@ -296,4 +321,28 @@
     }
   })();
 
+  // =============================================================
+  // PHÁT SỰ KIỆN AUTH CHANGED KHI ĐĂNG XUẤT (TỪ HEADER)
+  // =============================================================
+
+  // Ghi đè hàm logout để phát sự kiện
+  const originalLogoutHandler = window.handleLogout || function() {};
+
+  window.handleLogout = function() {
+      // Gọi hàm logout gốc nếu có
+      if (typeof originalLogoutHandler === 'function') {
+          originalLogoutHandler();
+      }
+      
+      // Phát sự kiện auth:changed
+      document.dispatchEvent(new CustomEvent('auth:changed'));
+  };
+
+  // Lắng nghe sự kiện logout từ header
+  document.addEventListener('auth:logout', function() {
+      document.dispatchEvent(new CustomEvent('auth:changed'));
+  });
+
+  console.log('✅ Auth events initialized');
 })();
+

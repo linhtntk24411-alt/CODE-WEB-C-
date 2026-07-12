@@ -433,8 +433,28 @@
         function buyNow(index) {
             const product = allProducts[index];
             if (!product) return;
-            alert(`Đang xử lý đơn hàng cho "${product.name}"...`);
+            
+            const defaultVariant = product.variants && product.variants.length > 0 ? product.variants[0].name : null;
+            
+            const cart = getStoredCartItems();
+            let existingItem = cart.find(item => item.productId === product.id && (item.variant || null) === (defaultVariant || null));
+            if (!existingItem) {
+                cart.push({ productId: product.id, variant: defaultVariant || null, quantity: 1 });
+                saveStoredCartItems(cart);
+            }
+            
+            const checkoutItem = {
+                productId: product.id,
+                variant: defaultVariant || null,
+                quantity: 1
+            };
+            localStorage.setItem('checkoutItems', JSON.stringify([checkoutItem]));
+            window.location.href = 'checkout.html';
         }
+
+        // Export to window
+        window.addToCartDirect = addToCartDirect;
+        window.buyNow = buyNow;
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {

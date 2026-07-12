@@ -230,7 +230,7 @@ function injectChatbotWidget() {
 
       <aside class="fab-container">
         <button id="chat-fab" class="chat-fab">
-          <i class="bi bi-stars"></i>
+          <img src="../assets/chatbotai.png" alt="Chatbot" class="chat-fab-image">
           <span class="pulse-ring"></span>
         </button>
       </aside>
@@ -292,6 +292,7 @@ window.addEventListener('storage', function(e) {
   }
 });
 
+
 // ===== OBSERVER TOÀN CỤC CHO FOOTER =====
 (function globalFooterObserver() {
   const targetNode = document.body;
@@ -319,3 +320,288 @@ window.addEventListener('storage', function(e) {
   const observer = new MutationObserver(callback);
   observer.observe(targetNode, config);
 })();
+
+// main.js - Thêm vào cuối file (sau phần observer toàn cục)
+
+// =============================================================
+// LẮNG NGHE SỰ KIỆN AUTH CHANGED
+// =============================================================
+
+document.addEventListener('auth:changed', function() {
+    console.log('Auth changed event received - updating UI');
+    
+    // Cập nhật header
+    if (typeof window.initHeader === 'function') {
+        window.initHeader();
+    }
+    
+    // Cập nhật nút checkout trong cart (nếu có)
+    if (typeof window.updateCheckoutButton === 'function') {
+        window.updateCheckoutButton();
+    }
+    
+    // Cập nhật badge giỏ hàng
+    if (typeof window.syncCartBadge === 'function') {
+        window.syncCartBadge();
+    }
+    
+    // Cập nhật admin link trong footer
+    if (typeof window.handleAdminLink === 'function') {
+        window.handleAdminLink();
+    }
+});
+
+// ===== AUTH GUARD & STORAGE SYNC =====
+(function authGuardAndSync() {
+    const protectedPages = [
+        'profile.html',
+        'orders.html',
+        'order-detail.html',
+        'custom-order-list.html',
+        'custom-order-detail.html',
+        'custom-order-request.html',
+        'myreview.html',
+        'checkout.html'
+    ];
+    
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+    
+    const isProtected = protectedPages.some(page => currentPage.startsWith(page));
+    
+    function checkAuthAndRedirect() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (isProtected && !isLoggedIn) {
+            console.log('🔒 Protected page accessed without login. Redirecting to login...');
+            alert('Vui lòng đăng nhập để truy cập trang này');
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            if (currentPage.startsWith('checkout.html')) {
+                localStorage.setItem('checkoutAction', 'true');
+            }
+            window.location.href = 'login.html';
+        }
+    }
+
+    // Chạy kiểm tra ngay khi nạp script
+    checkAuthAndRedirect();
+    
+    // Lắng nghe storage change để cập nhật khi có thay đổi từ tab khác
+    window.addEventListener('storage', function(e) {
+        if (!e.key || e.key === 'isLoggedIn' || e.key === 'userName' || e.key === 'userAvatar' || e.key === 'userRole') {
+            console.log('Storage changed - updating auth state:', e.key);
+            
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            // Nếu trang hiện tại là trang bảo vệ và vừa bị đăng xuất
+            if (isProtected && !isLoggedIn) {
+                console.log('🔒 Detected logout in other tab on protected page. Redirecting...');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (typeof window.initHeader === 'function') {
+                window.initHeader();
+            }
+            if (typeof window.updateCheckoutButton === 'function') {
+                window.updateCheckoutButton();
+            }
+            if (typeof window.syncCartBadge === 'function') {
+                window.syncCartBadge();
+            }
+            if (typeof window.handleAdminLink === 'function') {
+                window.handleAdminLink();
+            }
+        }
+    });
+})();
+
+// ===== SHARED COUPON SYSTEM =====
+(function sharedCouponSystem() {
+    const defaultCoupons = [
+        {
+            id: 1,
+            code: 'URII10',
+            value: '10%',
+            condition: 'Đơn tối thiểu 200k',
+            created: '10/10/2026',
+            startDate: '10/10/2026',
+            expiry: '30/10/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: '100',
+            description: 'Mã giảm giá 10% cho đơn hàng từ 200k, áp dụng cho tất cả sản phẩm.'
+        },
+        {
+            id: 2,
+            code: 'URII20',
+            value: '20k',
+            condition: 'Cho bộ KIT mới',
+            created: '15/10/2026',
+            startDate: '15/10/2026',
+            expiry: '25/12/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: '50',
+            description: 'Giảm 20k cho bộ KIT mới, hoạt động đến năm 2027.'
+        },
+        {
+            id: 3,
+            code: 'SUMMER15',
+            value: '15%',
+            condition: 'Tất cả sản phẩm',
+            created: '01/06/2026',
+            startDate: '01/06/2026',
+            expiry: '30/08/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: '200',
+            description: 'Mã giảm giá mùa hè 15% cho tất cả sản phẩm, hoạt động đến năm 2027.'
+        },
+        {
+            id: 4,
+            code: 'DIY30',
+            value: '30k',
+            condition: 'Đơn từ 500k',
+            created: '20/10/2026',
+            startDate: '20/10/2026',
+            expiry: '20/11/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: '75',
+            description: 'Giảm 30k cho đơn hàng từ 500k, áp dụng cho sản phẩm DIY.'
+        },
+        {
+            id: 5,
+            code: 'FREESHIP',
+            value: 'Miễn phí',
+            condition: 'Đơn từ 300k',
+            created: '01/11/2026',
+            startDate: '01/11/2026',
+            expiry: '30/11/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: 'Không giới hạn',
+            description: 'Miễn phí vận chuyển cho đơn hàng từ 300k.'
+        },
+        {
+            id: 6,
+            code: 'BLACKFRI',
+            value: '50k',
+            condition: 'Đơn từ 1tr',
+            created: '25/11/2026',
+            startDate: '25/11/2026',
+            expiry: '02/12/2027',
+            status: 'active',
+            statusText: 'Đang hoạt động',
+            maxUses: '30',
+            description: 'Black Friday - Giảm 50k cho đơn hàng từ 1tr, số lượng có hạn.'
+        }
+    ];
+
+    function getCoupons() {
+        const stored = localStorage.getItem('coupons_data');
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                const hasOldData = parsed.some(c => c.expiry && c.expiry.includes('/2024'));
+                if (parsed.length > 0 && !hasOldData) {
+                    return parsed;
+                }
+            } catch (e) {
+                console.error('Error parsing coupons_data:', e);
+            }
+        }
+        localStorage.setItem('coupons_data', JSON.stringify(defaultCoupons));
+        return defaultCoupons;
+    }
+
+    function parseDateDDMMYYYY(dateStr) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('/');
+        if (parts.length !== 3) return null;
+        return new Date(parts[2], parts[1] - 1, parts[0]);
+    }
+
+    function getMinOrderFromCondition(conditionStr) {
+        if (!conditionStr) return 0;
+        if (conditionStr.toLowerCase().includes('tr') || conditionStr.toLowerCase().includes('triệu')) {
+            const matchTr = conditionStr.match(/(\d+)\s*(tr|triệu)/i);
+            if (matchTr) return parseInt(matchTr[1]) * 1000000;
+        }
+        const match = conditionStr.replace(/\./g, '').match(/(\d+)\s*(k|kđ|đ|vnd|)/i);
+        if (match) {
+            let val = parseInt(match[1]);
+            if (conditionStr.toLowerCase().includes('k')) {
+                val *= 1000;
+            }
+            return val;
+        }
+        return 0;
+    }
+
+    function getDiscountAmount(valueStr, subtotal) {
+        if (!valueStr) return 0;
+        if (valueStr.includes('%')) {
+            const percent = parseFloat(valueStr.replace('%', '')) || 0;
+            return Math.round(subtotal * percent / 100);
+        }
+        const matchVal = valueStr.replace(/\./g, '').match(/(\d+)\s*(k|)/i);
+        if (matchVal) {
+            let val = parseInt(matchVal[1]);
+            if (valueStr.toLowerCase().includes('k')) {
+                val *= 1000;
+            }
+            return val;
+        }
+        return 0;
+    }
+
+    function validateCoupon(code, subtotal) {
+        if (!code) return { success: false, message: 'Vui lòng nhập mã giảm giá' };
+        const couponsList = getCoupons();
+        const coupon = couponsList.find(c => c.code.trim().toUpperCase() === code.trim().toUpperCase());
+        
+        if (!coupon) {
+            return { success: false, message: 'Mã giảm giá không tồn tại' };
+        }
+        
+        // Check status and date
+        const now = new Date();
+        now.setHours(0,0,0,0);
+        const start = parseDateDDMMYYYY(coupon.startDate);
+        const expiry = parseDateDDMMYYYY(coupon.expiry);
+        
+        if (start && now < start) {
+            return { success: false, message: 'Mã giảm giá chưa đến thời gian sử dụng' };
+        }
+        if (expiry && now > expiry) {
+            return { success: false, message: 'Mã giảm giá đã hết hạn' };
+        }
+        if (coupon.status === 'expired') {
+            return { success: false, message: 'Mã giảm giá đã hết hạn' };
+        }
+        
+        // Check minimum order condition
+        const minOrder = getMinOrderFromCondition(coupon.condition);
+        if (subtotal < minOrder) {
+            return { success: false, message: `Mã này chỉ áp dụng cho đơn hàng từ ${minOrder.toLocaleString('vi-VN')}đ trở lên` };
+        }
+        
+        // Check type of discount
+        const isFreeShip = coupon.value.toLowerCase().includes('miễn') || coupon.value.toLowerCase().includes('ship') || coupon.code.toUpperCase() === 'FREESHIP';
+        const discountAmount = isFreeShip ? 0 : getDiscountAmount(coupon.value, subtotal);
+        
+        return {
+            success: true,
+            discountAmount: discountAmount,
+            isFreeShip: isFreeShip,
+            value: coupon.value,
+            message: `Áp dụng mã giảm giá ${coupon.code} thành công!`
+        };
+    }
+
+    window.getCoupons = getCoupons;
+    window.validateCoupon = validateCoupon;
+})();
+
+console.log('Auth Guard, storage sync & Shared Coupon System initialized in main.js');

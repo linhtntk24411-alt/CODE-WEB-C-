@@ -125,8 +125,70 @@
 
       const data = await response.json();
       console.log('Dữ liệu orders:', data);
-      const order = data.orders.find(o => o.id === orderId);
+      let order = data.orders.find(o => o.id === orderId);
       console.log('Tìm thấy order:', order);
+      
+      if (!order) {
+        // Tìm trong localStorage
+        const localOrdersSaved = localStorage.getItem('orders');
+        if (localOrdersSaved) {
+            const localOrders = JSON.parse(localOrdersSaved);
+            if (Array.isArray(localOrders)) {
+                const matchedLocal = localOrders.find(o => o.id === orderId);
+                if (matchedLocal) {
+                    let statusText = 'Chờ xác nhận';
+                    let statusType = 'pending';
+                    
+                    if (matchedLocal.status === 'completed' || matchedLocal.status === 'delivered') {
+                        statusText = 'Đã giao';
+                        statusType = 'completed';
+                    } else if (matchedLocal.status === 'cancelled') {
+                        statusText = 'Đã hủy';
+                        statusType = 'cancelled';
+                    } else if (matchedLocal.status === 'shipping' || matchedLocal.status === 'delivering') {
+                        statusText = 'Đang giao hàng';
+                        statusType = 'shipping';
+                    }
+                    
+                    const totalFormatted = typeof matchedLocal.total === 'number' 
+                        ? matchedLocal.total.toLocaleString('vi-VN') + 'đ' 
+                        : String(matchedLocal.total);
+                    
+                    order = {
+                        id: matchedLocal.id,
+                        date: matchedLocal.date,
+                        status: statusText,
+                        statusType: statusType,
+                        total: totalFormatted,
+                        items: matchedLocal.items || [],
+                        payment: {
+                            method: matchedLocal.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : (matchedLocal.paymentMethod === 'momo' ? 'Ví MoMo' : 'Chuyển khoản ngân hàng'),
+                            status: matchedLocal.status === 'completed' ? 'Đã thanh toán' : 'Chưa thanh toán'
+                        },
+                        shipping: {
+                            carrier: 'Giao hàng tiết kiệm',
+                            method: 'Giao hàng tiêu chuẩn',
+                            trackingNumber: 'GHK-' + matchedLocal.id.replace('##', '').replace('URII-', ''),
+                            fee: matchedLocal.shippingFee || 0,
+                            estimatedDelivery: ''
+                        },
+                        address: {
+                            name: matchedLocal.shippingInfo?.fullName || '',
+                            phone: matchedLocal.shippingInfo?.phone || '',
+                            address: matchedLocal.shippingInfo?.address || ''
+                        },
+                        timeline: [
+                            { status: 'Đã đặt hàng', time: matchedLocal.date }
+                        ],
+                        shippingTimeline: [
+                            { status: 'Đơn hàng đã tiếp nhận', location: 'Kho Urii', time: matchedLocal.date }
+                        ]
+                    };
+                }
+            }
+        }
+      }
+
       if (!order) {
         document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng.</p>';
         return;
@@ -142,8 +204,9 @@
 
   // ===== Render =====
   function renderOrderDetail(order) {
-    orderIdDisplay.textContent = `Đơn hàng #${order.id}`;
-    orderTitle.textContent = `Đơn hàng #${order.id}`;
+    const displayId = order.id.startsWith('#') ? order.id : `#${order.id}`;
+    orderIdDisplay.textContent = `Đơn hàng ${displayId}`;
+    orderTitle.textContent = `Đơn hàng ${displayId}`;
     orderDate.textContent = `Ngày đặt: ${order.date || 'Không xác định'}`;
     orderStatusBadge.textContent = order.status;
     orderStatusBadge.className = 'order-status order-status--' + (order.statusType || 'pending');

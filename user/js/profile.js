@@ -143,9 +143,10 @@
       if (currentEmail) {
         user = data.users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
       }
-      // Nếu không tìm thấy hoặc chưa đăng nhập, lấy user đầu tiên (mặc định)
+      // Nếu không tìm thấy hoặc chưa đăng nhập, chuyển đến trang đăng nhập
       if (!user) {
-        user = data.users[0];
+        window.location.href = 'login.html';
+        return;
       }
     } else if (data.user) {
       // Fallback cho cấu trúc cũ

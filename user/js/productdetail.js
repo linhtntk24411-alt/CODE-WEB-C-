@@ -553,12 +553,58 @@
             alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
         }
 
-        // Buy now
+        // Buy now (from suggested products)
         function buyNow(index) {
             const product = allProducts[index];
             if (!product) return;
-            alert(`Đang xử lý đơn hàng cho "${product.name}"...`);
+            
+            const defaultVariant = product.variants && product.variants.length > 0 ? product.variants[0].name : null;
+            
+            const cart = getStoredCartItems();
+            let existingItem = cart.find(item => item.productId === product.id && (item.variant || null) === (defaultVariant || null));
+            if (!existingItem) {
+                cart.push({ productId: product.id, variant: defaultVariant || null, quantity: 1 });
+                saveStoredCartItems(cart);
+            }
+            
+            const checkoutItem = {
+                productId: product.id,
+                variant: defaultVariant || null,
+                quantity: 1
+            };
+            localStorage.setItem('checkoutItems', JSON.stringify([checkoutItem]));
+            window.location.href = 'checkout.html';
         }
+
+        // Buy now (from current detail page)
+        function buyCurrentProductNow() {
+            if (!productData) return;
+            const quantity = parseInt(document.getElementById('qtyInput').value, 10) || 1;
+            const variantName = currentVariant ? currentVariant.name : null;
+            
+            const cart = getStoredCartItems();
+            let existingItem = cart.find(item => item.productId === productData.id && (item.variant || null) === (variantName || null));
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ productId: productData.id, variant: variantName || null, quantity });
+            }
+            saveStoredCartItems(cart);
+            
+            const checkoutItem = {
+                productId: productData.id,
+                variant: variantName || null,
+                quantity: quantity
+            };
+            localStorage.setItem('checkoutItems', JSON.stringify([checkoutItem]));
+            window.location.href = 'checkout.html';
+        }
+
+        // Export to window
+        window.addToCartDirect = addToCartDirect;
+        window.buyNow = buyNow;
+        window.buyCurrentProductNow = buyCurrentProductNow;
+        window.addCurrentProductToCart = addCurrentProductToCart;
 
         // Load data on page load
         document.addEventListener('DOMContentLoaded', loadProductData);

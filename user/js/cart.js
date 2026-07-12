@@ -325,19 +325,39 @@ function applyPromo() {
         return;
     }
     
-    if (code === 'URII-PERLER-2024') {
-        const subtotal = cartItems.reduce((sum, item, index) => {
-            if (!selectedItems.has(index)) return sum;
-            const product = getProductById(item.productId);
-            const price = getVariantPrice(product, item.variant);
-            return sum + price * item.quantity;
-        }, 0);
-        
-        discountApplied = Math.floor(subtotal * 0.1);
-        alert(`Áp dụng mã thành công! Bạn được giảm ${formatPrice(discountApplied)}`);
-        renderCart();
+    const subtotal = cartItems.reduce((sum, item, index) => {
+        if (!selectedItems.has(index)) return sum;
+        const product = getProductById(item.productId);
+        const price = getVariantPrice(product, item.variant);
+        return sum + price * item.quantity;
+    }, 0);
+    
+    if (typeof window.validateCoupon === 'function') {
+        const result = window.validateCoupon(code, subtotal);
+        if (result.success) {
+            if (result.isFreeShip) {
+                discountApplied = 0;
+                localStorage.setItem('appliedPromoCode', code.toUpperCase());
+                alert('Áp dụng mã FREESHIP thành công! Phí vận chuyển sẽ được miễn phí ở trang thanh toán.');
+            } else {
+                discountApplied = result.discountAmount;
+                localStorage.setItem('appliedPromoCode', code.toUpperCase());
+                alert(`Áp dụng mã thành công! Bạn được giảm ${formatPrice(discountApplied)}`);
+            }
+            renderCart();
+        } else {
+            alert(result.message);
+        }
     } else {
-        alert('Mã giảm giá không hợp lệ');
+        // Fallback đơn giản nếu chưa nạp main.js kịp
+        if (code.toUpperCase() === 'URII10') {
+            discountApplied = Math.floor(subtotal * 0.1);
+            localStorage.setItem('appliedPromoCode', 'URII10');
+            alert(`Áp dụng mã thành công! Bạn được giảm ${formatPrice(discountApplied)}`);
+            renderCart();
+        } else {
+            alert('Mã giảm giá không hợp lệ hoặc hệ thống chưa tải xong.');
+        }
     }
 }
 
@@ -522,6 +542,147 @@ function refreshCartView() {
     renderCart();
     renderSuggestedProducts(suggestedCategory);
 }
+
+// =============================================================
+// CART.JS - TÍCH HỢP AUTH ĐỂ CHUYỂN SANG CHECKOUT
+// =============================================================
+
+// =============================================================
+// KIỂM TRA ĐĂNG NHẬP VÀ CHUYỂN SANG CHECKOUT
+// =============================================================
+
+function proceedToCheckout() {
+    // Kiểm tra xem có sản phẩm nào được chọn không
+    const selectedItemsCount = cartItems.filter((_, index) => selectedItems.has(index)).length;
+    
+    if (selectedItemsCount === 0) {
+        alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán');
+        return;
+    }
+
+    // Kiểm tra đăng nhập từ localStorage (do header.js quản lý)
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (!isLoggedIn) {
+        // Chưa đăng nhập - chuyển đến trang đăng nhập
+        if (confirm('Bạn cần đăng nhập để tiến hành thanh toán. Bạn có muốn đăng nhập ngay không?')) {
+            // Lưu action để sau khi đăng nhập sẽ tự động chuyển sang checkout
+            localStorage.setItem('checkoutAction', 'true');
+            // Lưu lại trang hiện tại để quay lại sau khi đăng nhập
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            window.location.href = 'login.html';
+        }
+        return;
+    }
+
+    // Đã đăng nhập - lọc các sản phẩm được chọn
+    const selectedCartItems = cartItems.filter((_, index) => selectedItems.has(index));
+    
+    // Lưu danh sách sản phẩm đã chọn vào localStorage
+    localStorage.setItem('checkoutItems', JSON.stringify(selectedCartItems));
+    
+    // Chuyển sang trang checkout
+    window.location.href = 'checkout.html';
+}
+
+// =============================================================
+// CẬP NHẬT NÚT THANH TOÁN THEO TRẠNG THÁI ĐĂNG NHẬP
+// =============================================================
+
+function updateCheckoutButton() {
+    const checkoutBtn = document.querySelector('.btn-primary-custom.w-100');
+    if (!checkoutBtn) return;
+    
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    // Clone để xóa sự kiện cũ
+    const newBtn = checkoutBtn.cloneNode(true);
+    checkoutBtn.parentNode.replaceChild(newBtn, checkoutBtn);
+    
+    // Cập nhật nội dung nút
+    if (!isLoggedIn) {
+        newBtn.innerHTML = `<i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập để thanh toán`;
+    } else {
+        newBtn.innerHTML = `<i class="bi bi-credit-card me-2"></i>Tiến hành thanh toán`;
+    }
+    
+    // Thêm sự kiện mới
+    newBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!isLoggedIn) {
+            // Nếu chưa đăng nhập, chuyển đến trang login
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            localStorage.setItem('checkoutAction', 'true');
+            window.location.href = 'login.html';
+        } else {
+            proceedToCheckout();
+        }
+    });
+}
+
+// =============================================================
+// XỬ LÝ REDIRECT SAU KHI ĐĂNG NHẬP
+// =============================================================
+
+function handleRedirectAfterLogin() {
+    const checkoutAction = localStorage.getItem('checkoutAction');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (checkoutAction === 'true' && isLoggedIn) {
+        // Xóa flag để không lặp lại
+        localStorage.removeItem('checkoutAction');
+        localStorage.removeItem('redirectAfterLogin');
+        
+        // Chờ một chút để header cập nhật xong
+        setTimeout(() => {
+            // Load lại dữ liệu giỏ hàng
+            loadCartFromStorage();
+            renderCart();
+            // Tiến hành thanh toán
+            proceedToCheckout();
+        }, 500);
+    }
+}
+
+// =============================================================
+// LẮNG NGHE SỰ KIỆN TỪ HEADER
+// =============================================================
+
+// Lắng nghe sự kiện auth:changed từ header
+document.addEventListener('auth:changed', function() {
+    updateCheckoutButton();
+    loadCartFromStorage();
+    renderCart();
+});
+
+// Lắng nghe storage change để cập nhật UI
+window.addEventListener('storage', function(e) {
+    if (e.key === 'isLoggedIn') {
+        updateCheckoutButton();
+        loadCartFromStorage();
+        renderCart();
+    }
+});
+
+// =============================================================
+// GỌI KHI DOM READY
+// =============================================================
+
+// Mở rộng DOMContentLoaded đã có
+document.addEventListener('DOMContentLoaded', function() {
+    // Cập nhật nút thanh toán
+    updateCheckoutButton();
+    // Xử lý redirect sau khi đăng nhập
+    handleRedirectAfterLogin();
+});
+
+// =============================================================
+// EXPORT
+// =============================================================
+
+window.proceedToCheckout = proceedToCheckout;
+window.updateCheckoutButton = updateCheckoutButton;
+window.handleRedirectAfterLogin = handleRedirectAfterLogin;
 
 window.addEventListener('cart:updated', refreshCartView);
 window.addEventListener('storage', refreshCartView);

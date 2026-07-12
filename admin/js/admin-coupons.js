@@ -18,9 +18,9 @@ const defaultCoupons = [
         code: 'URII10',
         value: '10%',
         condition: 'Đơn tối thiểu 200k',
-        created: '10/10/2024',
-        startDate: '10/10/2024',
-        expiry: '30/10/2024',
+        created: '10/10/2026',
+        startDate: '10/10/2026',
+        expiry: '30/10/2027',
         status: 'active',
         statusText: 'Đang hoạt động',
         maxUses: '100',
@@ -31,35 +31,35 @@ const defaultCoupons = [
         code: 'URII20',
         value: '20k',
         condition: 'Cho bộ KIT mới',
-        created: '15/10/2024',
-        startDate: '15/10/2024',
-        expiry: '25/10/2024',
-        status: 'expiring',
-        statusText: 'Sắp hết hạn',
+        created: '15/10/2026',
+        startDate: '15/10/2026',
+        expiry: '25/12/2027',
+        status: 'active',
+        statusText: 'Đang hoạt động',
         maxUses: '50',
-        description: 'Giảm 20k cho bộ KIT mới, sắp hết hạn vào ngày 25/10.'
+        description: 'Giảm 20k cho bộ KIT mới, hoạt động đến năm 2027.'
     },
     {
         id: 3,
         code: 'SUMMER15',
         value: '15%',
         condition: 'Tất cả sản phẩm',
-        created: '01/06/2024',
-        startDate: '01/06/2024',
-        expiry: '30/08/2024',
-        status: 'expired',
-        statusText: 'Đã hết hạn',
+        created: '01/06/2026',
+        startDate: '01/06/2026',
+        expiry: '30/08/2027',
+        status: 'active',
+        statusText: 'Đang hoạt động',
         maxUses: '200',
-        description: 'Mã giảm giá mùa hè 15% cho tất cả sản phẩm, đã hết hạn.'
+        description: 'Mã giảm giá mùa hè 15% cho tất cả sản phẩm, hoạt động đến năm 2027.'
     },
     {
         id: 4,
         code: 'DIY30',
         value: '30k',
         condition: 'Đơn từ 500k',
-        created: '20/10/2024',
-        startDate: '20/10/2024',
-        expiry: '20/11/2024',
+        created: '20/10/2026',
+        startDate: '20/10/2026',
+        expiry: '20/11/2027',
         status: 'active',
         statusText: 'Đang hoạt động',
         maxUses: '75',
@@ -70,9 +70,9 @@ const defaultCoupons = [
         code: 'FREESHIP',
         value: 'Miễn phí',
         condition: 'Đơn từ 300k',
-        created: '01/11/2024',
-        startDate: '01/11/2024',
-        expiry: '30/11/2024',
+        created: '01/11/2026',
+        startDate: '01/11/2026',
+        expiry: '30/11/2027',
         status: 'active',
         statusText: 'Đang hoạt động',
         maxUses: 'Không giới hạn',
@@ -83,11 +83,11 @@ const defaultCoupons = [
         code: 'BLACKFRI',
         value: '50k',
         condition: 'Đơn từ 1tr',
-        created: '25/11/2024',
-        startDate: '25/11/2024',
-        expiry: '02/12/2024',
-        status: 'expiring',
-        statusText: 'Sắp hết hạn',
+        created: '25/11/2026',
+        startDate: '25/11/2026',
+        expiry: '02/12/2027',
+        status: 'active',
+        statusText: 'Đang hoạt động',
         maxUses: '30',
         description: 'Black Friday - Giảm 50k cho đơn hàng từ 1tr, số lượng có hạn.'
     }
@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const storedData = localStorage.getItem('coupons_data');
     if (storedData) {
         const parsedData = JSON.parse(storedData);
-        if (parsedData.length > 0) {
+        const hasOldData = parsedData.some(c => c.expiry && c.expiry.includes('/2024'));
+        if (parsedData.length > 0 && !hasOldData) {
             coupons = parsedData;
             sampleCoupons = [...parsedData];
         } else {

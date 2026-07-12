@@ -3,28 +3,51 @@
 // ==========================================================================
 
 function initHeader() {
-    if (window.__headerInitDone) {
-        const authButtons = document.getElementById('authButtons');
-        const accountDropdown = document.getElementById('accountDropdown');
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (authButtons && accountDropdown) {
-            if (isLoggedIn === 'true') {
-                authButtons.style.display = 'none';
-                accountDropdown.style.display = 'flex';
-                updateAvatar();
-            } else {
-                authButtons.style.display = 'flex';
-                accountDropdown.style.display = 'none';
-                updateAvatar();
-            }
-        }
-        return;
-    }
-    window.__headerInitDone = true;
-
     const authButtons = document.getElementById('authButtons');
     const accountDropdown = document.getElementById('accountDropdown');
     const btnLogout = document.getElementById('btnLogout');
+    
+    // Nếu chưa có các phần tử cốt lõi này trong DOM, trì hoãn init cho đến khi chúng sẵn sàng
+    if (!authButtons || !accountDropdown || !btnLogout) {
+        console.log('⏳ Header elements not fully loaded yet. Deferring initialization...');
+        clearTimeout(window.__headerInitTimeout);
+        window.__headerInitTimeout = setTimeout(initHeader, 50);
+        return;
+    }
+
+    // NẾU ĐÃ INIT RỒI, CHỈ CẬP NHẬT UI, KHÔNG TẠO LẠI SỰ KIỆN
+    if (window.__headerInitDone) {
+        console.log('🔄 Header already initialized, updating UI only');
+        checkAndUpdateAuthState();
+        if (typeof updateHeaderCartBadge === 'function') {
+            updateHeaderCartBadge();
+        }
+        return;
+    }
+    
+    console.log('🔄 Initializing header...');
+    
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    console.log('initHeader - isLoggedIn:', isLoggedIn);
+    
+    // Cập nhật UI ngay lập tức
+    if (isLoggedIn) {
+        authButtons.style.display = 'none';
+        accountDropdown.style.display = 'flex';
+    } else {
+        authButtons.style.display = 'flex';
+        accountDropdown.style.display = 'none';
+    }
+    updateAvatar();
+    
+    // Cập nhật badge giỏ hàng ngay lập tức khi khởi tạo
+    if (typeof updateHeaderCartBadge === 'function') {
+        updateHeaderCartBadge();
+    }
+    
+    // Đánh dấu đã init để không chạy lại
+    window.__headerInitDone = true;
+
     const menuBtn = document.getElementById('mobileMenuBtn');
     const headerNav = document.getElementById('headerNav');
     const accountWrapper = document.querySelector('.account-icon-wrapper');
@@ -69,6 +92,7 @@ function initHeader() {
         }
     }
 
+    // ===== LOGOUT MODAL =====
     const logoutModal = document.getElementById('logoutModal');
     const logoutOverlay = document.getElementById('logoutModalOverlay');
     const confirmLogoutBtn = document.getElementById('confirmHeaderLogout');
@@ -118,6 +142,10 @@ function initHeader() {
                 localStorage.removeItem('userEmail');
                 localStorage.removeItem('userAvatar');
                 localStorage.removeItem('userRole');
+                
+                // PHÁT SỰ KIỆN AUTH CHANGED
+                document.dispatchEvent(new CustomEvent('auth:changed'));
+                
                 if (authButtons) authButtons.style.display = 'flex';
                 if (accountDropdown) accountDropdown.style.display = 'none';
                 updateAvatar();
@@ -179,9 +207,9 @@ function initHeader() {
 
     // ===== HAMBURGER MENU =====
     if (menuBtn && headerNav) {
-        if (document.querySelector('.mobile-nav-overlay')) {
-            document.querySelector('.mobile-nav-overlay').remove();
-        }
+        // Xóa overlay cũ nếu có
+        const oldOverlay = document.querySelector('.mobile-nav-overlay');
+        if (oldOverlay) oldOverlay.remove();
 
         const overlay = document.createElement('div');
         overlay.className = 'mobile-nav-overlay';
@@ -581,10 +609,171 @@ function initHeader() {
     loadProductData();
 }
 
-window.initHeader = initHeader;
+// ===== HÀM KIỂM TRA VÀ CẬP NHẬT TRẠNG THÁI AUTH TỪ BÊN NGOÀI =====
+function checkAndUpdateAuthState() {
+    const authButtons = document.getElementById('authButtons');
+    const accountDropdown = document.getElementById('accountDropdown');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    console.log('🔄 Updating auth state - isLoggedIn:', isLoggedIn);
+    
+    if (authButtons && accountDropdown) {
+        if (isLoggedIn) {
+            authButtons.style.display = 'none';
+            accountDropdown.style.display = 'flex';
+            // Cập nhật avatar
+            const avatarImg = document.getElementById('accountAvatar');
+            const avatarSvg = document.getElementById('accountSvg');
+            const avatarUrl = localStorage.getItem('userAvatar');
+            
+            if (avatarImg && avatarSvg) {
+                if (avatarUrl && avatarUrl.trim() !== '') {
+                    avatarImg.src = avatarUrl;
+                } else {
+                    avatarImg.src = '../assets/avatar-non.jpg';
+                }
+                avatarImg.style.display = 'block';
+                avatarSvg.style.display = 'none';
+                avatarImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = '../assets/avatar-non.jpg';
+                };
+            }
+        } else {
+            authButtons.style.display = 'flex';
+            accountDropdown.style.display = 'none';
+            // Reset avatar
+            const avatarImg = document.getElementById('accountAvatar');
+            const avatarSvg = document.getElementById('accountSvg');
+            if (avatarImg && avatarSvg) {
+                avatarImg.style.display = 'none';
+                avatarSvg.style.display = 'block';
+            }
+        }
+    }
+}
 
+// ===== CẬP NHẬT NÚT CHECKOUT KHI AUTH THAY ĐỔI =====
+function updateCheckoutButton() {
+    const checkoutBtn = document.querySelector('.btn-primary-custom.w-100');
+    if (!checkoutBtn) return;
+    
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    // Clone để xóa sự kiện cũ
+    const newBtn = checkoutBtn.cloneNode(true);
+    checkoutBtn.parentNode.replaceChild(newBtn, checkoutBtn);
+    
+    // Cập nhật nội dung nút
+    if (!isLoggedIn) {
+        newBtn.innerHTML = `<i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập để thanh toán`;
+    } else {
+        newBtn.innerHTML = `<i class="bi bi-credit-card me-2"></i>Tiến hành thanh toán`;
+    }
+    
+    // Thêm sự kiện mới
+    newBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!isLoggedIn) {
+            // Nếu chưa đăng nhập, chuyển đến trang login
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            localStorage.setItem('checkoutAction', 'true');
+            window.location.href = 'login.html';
+        } else {
+            if (typeof window.proceedToCheckout === 'function') {
+                window.proceedToCheckout();
+            }
+        }
+    });
+}
+
+// ===== HÀM CẬP NHẬT BADGE GIỎ HÀNG =====
+function updateHeaderCartBadge() {
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        try {
+            const saved = localStorage.getItem('cartItems');
+            const items = saved ? JSON.parse(saved) : [];
+            const total = Array.isArray(items)
+                ? items.reduce((sum, item) => sum + (item.quantity || 0), 0)
+                : 0;
+            cartCount.textContent = total;
+            cartCount.style.display = total > 0 ? 'flex' : 'none';
+        } catch (error) {
+            cartCount.textContent = '0';
+            cartCount.style.display = 'none';
+        }
+    }
+}
+
+// ===== EXPORT RA WINDOW =====
+window.checkAndUpdateAuthState = checkAndUpdateAuthState;
+window.initHeader = initHeader;
+window.updateCheckoutButton = updateCheckoutButton;
+window.updateHeaderCartBadge = updateHeaderCartBadge;
+
+// ===== LẮNG NGHE SỰ KIỆN AUTH CHANGED ĐỂ CẬP NHẬT UI =====
+document.addEventListener('auth:changed', function() {
+    console.log('🔄 auth:changed event received in header.js');
+    checkAndUpdateAuthState();
+    updateCheckoutButton();
+});
+
+// ===== LẮNG NGHE STORAGE CHANGE =====
+window.addEventListener('storage', function(e) {
+    if (!e.key || e.key === 'isLoggedIn' || e.key === 'userName' || e.key === 'userAvatar' || e.key === 'userRole') {
+        console.log('🔄 Storage changed in header.js:', e.key);
+        checkAndUpdateAuthState();
+        updateCheckoutButton();
+    }
+    if (!e.key || e.key === 'cartItems') {
+        console.log('🔄 Cart storage changed in header.js:', e.key);
+        updateHeaderCartBadge();
+    }
+});
+
+// ===== LẮNG NGHE CART UPDATED =====
+document.addEventListener('cart:updated', function() {
+    updateHeaderCartBadge();
+});
+
+// ===== TỰ ĐỘNG INIT KHI DOM READY =====
 document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('.urii-header')) {
         initHeader();
     }
 });
+
+// ===== TỰ ĐỘNG INIT KHI HEADER ĐƯỢC CHÈN VÀO DOM =====
+(function autoInitHeader() {
+    if (document.querySelector('.urii-header') && window.__headerInitDone) return;
+
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (!headerPlaceholder) return;
+
+    const observer = new MutationObserver(function(mutations) {
+        for (const mutation of mutations) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                const header = document.querySelector('.urii-header');
+                if (header && !window.__headerInitDone) {
+                    if (typeof window.initHeader === 'function') {
+                        window.initHeader();
+                    }
+                    observer.disconnect();
+                    break;
+                }
+            }
+        }
+    });
+
+    observer.observe(headerPlaceholder, { childList: true, subtree: true });
+
+    if (document.querySelector('.urii-header') && !window.__headerInitDone) {
+        if (typeof window.initHeader === 'function') {
+            window.initHeader();
+            observer.disconnect();
+        }
+    }
+})();
+
+console.log('✅ header.js loaded - ready to initialize');

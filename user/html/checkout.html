@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán đơn hàng | Urii Perler Beads</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <div class="container py-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb small mb-0 bg-white p-2 px-3 rounded-3 shadow-sm">
+                <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-secondary">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="cart.html" class="text-decoration-none text-secondary">Giỏ hàng</a></li>
+                <li class="breadcrumb-item active text-primary-custom fw-bold" aria-current="page">Thanh toán</li>
+            </ol>
+        </nav>
+
+        <div class="checkout-wrapper mx-auto">
+            <div class="row g-4">
+                <!-- Left Column - Form -->
+                <div class="col-lg-7 col-xl-8">
+                    <!-- Địa chỉ nhận hàng -->
+                    <div class="section-card">
+                        <div class="section-title">
+                            <i class="bi bi-geo-alt"></i> Địa chỉ nhận hàng
+                        </div>
+                        
+                        <!-- Khung địa chỉ mặc định -->
+                        <div class="address-default-box" id="addressDefaultBox">
+                            <div class="address-default-content">
+                                <div class="address-default-info">
+                                    <div class="address-default-name" id="defaultName">Đang tải...</div>
+                                    <div class="address-default-phone" id="defaultPhone">Đang tải...</div>
+                                    <div class="address-default-detail" id="defaultAddress">Đang tải...</div>
+                                    <span class="address-default-badge">Mặc định</span>
+                                </div>
+                                <div class="address-default-actions">
+                                    <button class="btn-change-address" onclick="openAddressManager()">
+                                        <i class="bi bi-pencil"></i> Thay đổi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="address-note mt-2">
+                            <i class="bi bi-info-circle text-primary-custom"></i>
+                            <span class="text-muted small">Địa chỉ này sẽ được sử dụng để giao hàng. Bạn có thể thay đổi hoặc thêm địa chỉ mới.</span>
+                        </div>
+                    </div>
+
+                    <!-- Ghi chú đơn hàng -->
+                    <div class="section-card">
+                        <div class="section-title">
+                            <i class="bi bi-pencil"></i> Ghi chú đơn hàng
+                        </div>
+                        <textarea class="form-control" id="orderNote" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi đến..."></textarea>
+                    </div>
+
+                    <!-- Phương thức thanh toán -->
+                    <div class="section-card">
+                        <div class="section-title">
+                            <i class="bi bi-credit-card"></i> Phương thức thanh toán
+                        </div>
+                        <div class="payment-options">
+                            <label class="payment-option active" onclick="selectPayment(this)">
+                                <input type="radio" name="payment_method" value="cod" checked>
+                                <div class="icon-box"><i class="bi bi-cash-stack fs-3 text-secondary"></i></div>
+                                <span>Thanh toán khi nhận hàng (COD)</span>
+                            </label>
+                            <label class="payment-option" onclick="selectPayment(this)">
+                                <input type="radio" name="payment_method" value="momo">
+                                <div class="icon-box"><img src="../assets/momo.png" alt="MoMo"></div>
+                                <span>Ví điện tử MoMo</span>
+                            </label>
+                            <label class="payment-option" onclick="selectPayment(this)">
+                                <input type="radio" name="payment_method" value="vnpay">
+                                <div class="icon-box"><i class="bi bi-bank fs-3 text-secondary"></i></div>
+                                <span>Thanh toán qua ngân hàng</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Summary -->
+                <div class="col-lg-5 col-xl-4">
+                    <div class="section-card sticky-top" style="top: 20px;">
+                        <div class="section-title">Tóm tắt đơn hàng</div>
+                        <div id="cartItemsSummary">
+                            <!-- Cart items will be loaded here -->
+                        </div>
+                        <hr>
+                        <div class="total-row"><span>Tạm tính</span><span id="subtotal">0₫</span></div>
+                        <div class="total-row"><span>Phí vận chuyển</span><span id="shippingFee">0₫</span></div>
+                        <div class="total-row" id="discountRow" style="display:none;">
+                            <span>Giảm giá</span>
+                            <span style="color:#dc3545;" id="discountAmount">-0₫</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>Tổng cộng</span>
+                            <span style="color: #dc3545;" id="totalAmount">0₫</span>
+                        </div>
+                        <div class="input-group mt-2">
+                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá..." id="promoInput">
+                            <button class="btn btn-outline-secondary" type="button" onclick="applyPromo()">Áp dụng</button>
+                        </div>
+                        <button class="btn-place-order" onclick="handlePlaceOrder()">
+                            <i class="bi bi-check-circle me-2"></i>Đặt hàng
+                        </button>
+                        <a href="cart.html" class="d-block text-center mt-3 text-secondary text-decoration-none small">
+                            <i class="bi bi-arrow-left me-1"></i> Quay lại giỏ hàng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL QUẢN LÝ ĐỊA CHỈ (Address Manager)                       -->
+    <!-- ============================================================ -->
+    <div class="modal-overlay" id="addressManagerOverlay"></div>
+    <div class="modal" id="addressManagerModal">
+        <div class="modal-content modal-content--address-manager">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="bi bi-geo-alt text-danger"></i> Địa chỉ nhận hàng
+                </h2>
+                <button class="modal-close" onclick="closeAddressManager()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Danh sách địa chỉ -->
+                <div id="addressList" class="address-list">
+                    <!-- Addresses will be rendered here -->
+                </div>
+                
+                <!-- Nút thêm địa chỉ mới -->
+                <button class="btn-add-address" onclick="toggleAddAddressForm()">
+                    <i class="bi bi-plus-circle"></i> Thêm địa chỉ mới
+                </button>
+
+                <!-- Form thêm địa chỉ mới -->
+                <div id="addAddressForm" class="add-address-form" style="display: none;">
+                    <div class="form-divider">
+                        <span>✧ THÊM ĐỊA CHỈ MỚI ✧</span>
+                    </div>
+                    
+                    <div class="address-grid">
+                        <!-- Họ và tên -->
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="bi bi-person"></i> Họ và tên <span class="text-danger">*</span>
+                            </label>
+                            <div>
+                                <input type="text" class="form-control" id="newFullName" placeholder="Nhập họ và tên">
+                            </div>
+                        </div>
+                        
+                        <!-- Số điện thoại -->
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="bi bi-phone"></i> Số điện thoại <span class="text-danger">*</span>
+                            </label>
+                            <div>
+                                <input type="tel" class="form-control" id="newPhone" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+                        
+                        <!-- Địa chỉ chi tiết -->
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="bi bi-geo-alt"></i> Địa chỉ chi tiết <span class="text-danger">*</span>
+                            </label>
+                            <div>
+                                <input type="text" class="form-control" id="newAddressDetail" placeholder="Số nhà, tên đường, khu phố...">
+                            </div>
+                        </div>
+                        
+                        <!-- Tỉnh/Thành phố -->
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="bi bi-building"></i> Tỉnh/Thành phố <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" id="newProvince" style="width: 100%;">
+                                <option value="">-- Đang tải... --</option>
+                            </select>
+                        </div>
+                        
+                        
+                        <!-- Phường/Xã -->
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="bi bi-geo"></i> Phường / Xã <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" id="newWard" style="width: 100%;">
+                                <option value="">-- Chọn Phường / Xã --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Đặt làm mặc định -->
+                    <div class="form-check" onclick="toggleCheckbox(this)">
+                        <input class="form-check-input" type="checkbox" id="newSetDefault">
+                        <label class="form-check-label" for="newSetDefault">
+                            <i class="bi bi-star-fill" style="color: #fcc419; font-size: 14px;"></i>
+                            Đặt làm địa chỉ mặc định
+                            <small>(Sẽ được ưu tiên sử dụng cho các đơn hàng sau)</small>
+                        </label>
+                    </div>
+                    
+                    <!-- Nút hành động -->
+                    <div class="form-actions">
+                        <button class="btn-save-address" onclick="saveNewAddressFromModal()">
+                            <i class="bi bi-check-lg"></i> Lưu địa chỉ
+                        </button>
+                        <button class="btn-cancel-address" onclick="toggleAddAddressForm()">
+                            <i class="bi bi-x-lg"></i> Hủy bỏ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn--primary" onclick="closeAddressManager()">
+                    <i class="bi bi-check-circle"></i> Xác nhận
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- POPUP THANH TOÁN                                              -->
+    <!-- ============================================================ -->
+
+    <!-- POPUP MOMO -->
+    <div class="payment-popup-overlay" id="momoPopup">
+        <div class="payment-popup">
+            <button class="popup-close" onclick="closePopup('momoPopup')"><i class="bi bi-x-lg"></i></button>
+            <div class="momo-header">
+                <img src="../assets/momo.png" alt="MoMo" style="height: 50px;">
+                <h4 class="fw-bold mt-2">Thanh toán qua MoMo</h4>
+                <p class="text-muted small">Quét mã QR để hoàn tất đơn hàng</p>
+            </div>
+            <div class="momo-info-box">
+                <div><span>MÃ ĐƠN HÀNG</span><strong id="momoOrderId">##URII-XXXX</strong></div>
+                <div><span>SỐ TIỀN</span><strong class="amount" id="momoAmount">0₫</strong></div>
+            </div>
+            <div class="momo-qr">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=momo://pay" alt="QR Code">
+            </div>
+            <div class="momo-timer"><i class="bi bi-clock"></i> Mã hết hạn sau <strong id="momoTimer">05:00</strong></div>
+            <button class="btn-momo-success" onclick="confirmPayment('momo')">Tôi đã thanh toán thành công</button>
+            <button class="btn-cancel-payment" onclick="closePopup('momoPopup')">Hủy giao dịch</button>
+        </div>
+    </div>
+
+    <!-- POPUP CHỌN NGÂN HÀNG -->
+    <div class="payment-popup-overlay" id="vnpayPopup">
+        <div class="payment-popup">
+            <button class="popup-close" onclick="closePopup('vnpayPopup')"><i class="bi bi-x-lg"></i></button>
+            <h4 class="fw-bold">Chọn ngân hàng thanh toán</h4>
+            <div class="bank-grid" id="bankGrid"></div>
+        </div>
+    </div>
+
+    <!-- POPUP QR VNPAY -->
+    <div class="payment-popup-overlay vnpay-qr-popup" id="vnpayQrPopup">
+        <div class="payment-popup">
+            <button class="popup-close" onclick="closePopup('vnpayQrPopup')"><i class="bi bi-x-lg"></i></button>
+            <h4 class="fw-bold">Quét mã QR để thanh toán</h4>
+            <div class="bank-name-box">Ngân hàng: <strong id="selectedBankName">Vietcombank</strong></div>
+            <div class="momo-info-box mt-3">
+                <div><span>MÃ ĐƠN HÀNG</span><strong id="vnpayOrderId">#URII-XXXX</strong></div>
+                <div><span>SỐ TIỀN</span><strong class="amount" id="vnpayAmount">0₫</strong></div>
+            </div>
+            <div class="momo-qr mt-3">
+                <img src="" id="vnpayQrImg" alt="QR Code">
+            </div>
+            <button class="btn btn-danger w-100 mt-3 py-2 fw-bold rounded-3" onclick="confirmPayment('vnpay')">Xác nhận thanh toán</button>
+            <button class="btn-cancel-payment mt-2" onclick="closePopup('vnpayQrPopup')">Hủy giao dịch</button>
+        </div>
+    </div>
+
+    <!-- TOAST THÔNG BÁO -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        <div id="checkoutToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">Thanh toán thành công!</div>
+        </div>
+    </div>
+
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/checkout.js"></script>
+</body>
+</html>
