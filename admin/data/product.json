@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Bộ Hạt Nhựa Ủi Perler Beads 24 Màu",
+    "name": "Bộ Hạt Nhựa Ủi Perler Beads 72 Màu",
     "category": "hat-nhua",
     "status": "hot",
     "price": 185000,
     "stock": 50,
-    "image": "https://picsum.photos/id/101/200"
+    "image": "../assets/72color.webp"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "status": "new",
     "price": 35000,
     "stock": 12,
-    "image": "https://picsum.photos/id/102/200"
+    "image": "../assets/khuonep.webp"
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "status": "sap-het",
     "price": 25000,
     "stock": 3,
-    "image": "https://picsum.photos/id/103/200"
+    "image": "../assets/dungcuj.webp"
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "status": "het-hang",
     "price": 45000,
     "stock": 0,
-    "image": "https://picsum.photos/id/104/200"
+    "image": "../assets/mockhoagau.jfif"
   },
   {
     "id": 5,
@@ -42,6 +42,6 @@
     "status": "normal",
     "price": 15000,
     "stock": 100,
-    "image": "https://picsum.photos/id/105/200"
+    "image": "../assets/giayui.webp"
   }
 ]

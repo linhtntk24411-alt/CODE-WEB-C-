@@ -18,20 +18,18 @@
 </head>
 <body>
 
-<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+<!-- 1. KHUNG NỘI DUNG CHÍNH (Layout chuẩn giống Blog, Coupon, Order) -->
+<div class="admin-layout-wrapper">
 
-    <!-- Sidebar -->
-    <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
+    <div id="layout-sidebar"></div>
 
-    <!-- Main Content -->
-    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
+    <div class="admin-main-area">
         
-        <!-- Topbar -->
-        <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
+        <div id="layout-topbar"></div>
 
-        <!-- Content -->
-        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px;">
-            <div style="width: 100%; max-width: 1400px;">
+        <div class="admin-main-content">
+            
+            <div style="width: 100%; max-width: 1400px; margin: 0 auto;">
 
                 <!-- Stats Cards - 5 cột -->
                 <div class="row g-3 mb-4">
@@ -333,8 +331,12 @@
 
             </div>
         </div>
+
     </div>
 </div>
+
+<!-- 2. FOOTER NẰM Ở NGOÀI CÙNG (Chạy full ngang) -->
+<div id="footer-placeholder"></div>
 
 <!-- ============================================================ -->
 <!-- MODAL TẠO BÀI VIẾT MỚI (Thao tác nhanh)                      -->
@@ -556,47 +558,6 @@
                             <option value="inactive">Tạm ngưng</option>
                         </select>
                     </div>
-                    <!-- <div class="row g-3 mt-3"> -->
-                        <!-- <div class="col-md-4">
-                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
-                                <div class="card-body d-flex align-items-center gap-3 p-3">
-                                    <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4">
-                                        <i class="bi bi-magic"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Tạo nhanh</h6>
-                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Tạo mã ngẫu nhiên</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
-                                <div class="card-body d-flex align-items-center gap-3 p-3">
-                                    <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success fs-4">
-                                        <i class="bi bi-graph-up"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Dự báo hiệu quả</h6>
-                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Ước tính tỉ lệ chuyển đổi</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
-                                <div class="card-body d-flex align-items-center gap-3 p-3">
-                                    <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4">
-                                        <i class="bi bi-shield-check"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif; font-size: 13px;">Bảo mật</h6>
-                                        <small class="text-muted" style="font-family: 'Segoe UI', sans-serif; font-size: 11px;">Chống gian lận</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                    <!-- </div> -->
                 </form>
             </div>
             <div class="modal-footer" style="border-top: 1px solid #eee; padding: 16px 24px;">
@@ -654,8 +615,6 @@
         });
     });
 </script>
-<!-- Đặt vị trí footer -->
-<div id="footer-placeholder"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

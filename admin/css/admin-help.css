@@ -7,6 +7,32 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
+.admin-layout-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f4f5f8;
+}
+.admin-main-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    width: calc(100% - 260px); /* Trừ chiều rộng sidebar 260px */
+}
+.admin-main-content {
+    flex: 1;
+    padding: 30px 40px 40px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ---------------------------------------------------------------- */
+
+body {
+    background-color: #f4f5f8;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
 /* --- CARD DANH MỤC --- */
 .help-card {
     transition: all 0.3s ease;

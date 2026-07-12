@@ -1,16 +1,65 @@
-/* =============================================================== */
-/* CSS RIÊNG CHO TRANG QUẢN LÝ ĐƠN HÀNG (admin-orders.css)        */
-/* =============================================================== */
-
 * {
     font-family: 'Nunito Sans', sans-serif;
 }
 
 body {
     background-color: #f4f5f8;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
-/* --- STATS & BADGE --- */
+.admin-layout-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f4f5f8;
+}
+
+#layout-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: #FBF9F8;
+    border-right: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.admin-main-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    width: calc(100% - 260px);
+    box-sizing: border-box;
+}
+
+#layout-topbar {
+    height: 64px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.admin-main-content {
+    flex: 1;
+    padding: 30px 40px 40px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#footer-placeholder {
+    width: 100%;
+    clear: both;
+}
+
 .card-stats { transition: transform 0.2s; }
 .card-stats:hover { transform: translateY(-3px); }
 
@@ -28,7 +77,6 @@ body {
 .badge-status-cancelled { background-color: #f8d7da; color: #842029; }
 .badge-status-pending_approval { background-color: #ffe5d0; color: #b65f00; }
 
-/* --- BADGE CHO CUSTOM ORDER --- */
 .badge-status-waiting_quote {
     background: linear-gradient(135deg, #fff3e0, #ffe0b2);
     color: #e65100;
@@ -50,7 +98,6 @@ body {
     100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0); }
 }
 
-/* --- FILTER BAR --- */
 .filter-label {
     font-size: 11px;
     font-weight: 600;
@@ -97,7 +144,6 @@ body {
     border-left: none;
 }
 
-/* --- TABLE --- */
 .table-orders th, .table-orders td,
 .table-orders-cancel th, .table-orders-cancel td,
 .table-orders-custom th, .table-orders-custom td {
@@ -149,7 +195,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* --- THAO TÁC --- */
 .action-btn-group { display: flex; justify-content: flex-end; gap: 8px; align-items: center; }
 .btn-action-icon {
     border: none;
@@ -205,7 +250,6 @@ body {
 }
 .btn-ignore-cancel:hover { background-color: #dee2e6; }
 
-/* --- PAGINATION --- */
 .pagination .page-item.active .page-link { 
     background-color: #dc3545; 
     border-color: #dc3545; 
@@ -217,7 +261,6 @@ body {
 }
 .pagination .page-link:hover { color: #dc3545; }
 
-/* --- MODAL CUSTOM --- */
 .modal-header .btn-close-white { filter: brightness(0) invert(1); }
 
 .modal-title, .modal-body, .modal-footer {
