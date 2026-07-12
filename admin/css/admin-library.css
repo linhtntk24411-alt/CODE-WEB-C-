@@ -1,7 +1,33 @@
+/* =============================================================== */
+/* CSS RIÊNG CHO TRANG QUẢN LÝ THƯ VIỆN (admin-library.css)       */
+/* =============================================================== */
+
 body {
     background-color: #f4f5f8;
     font-family: 'Nunito Sans', sans-serif;
 }
+
+.admin-layout-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f4f5f8;
+}
+.admin-main-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    width: calc(100% - 260px); /* Trừ chiều rộng sidebar */
+}
+.admin-main-content {
+    flex: 1;
+    padding: 30px 40px 40px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ---------------------------------------------------------------- */
+
 
 .table thead th {
     background-color: #f8f9fa;

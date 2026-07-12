@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý mã giảm giá</title>
     
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
-    <!-- CSS Admin -->
     <link rel="stylesheet" href="../css/admin-sidebar.css">
     <link rel="stylesheet" href="../css/admin-topbar.css">
     <link rel="stylesheet" href="../../user/css/footer.css">
@@ -18,27 +15,21 @@
 </head>
 <body>
 
-<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+<div class="admin-layout-wrapper">
 
-    <!-- Sidebar -->
-    <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
+    <div id="layout-sidebar"></div>
 
-    <!-- Main Content -->
-    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
-        
-        <!-- Topbar -->
-        <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
+    <div class="admin-main-area">
+        <div id="layout-topbar"></div>
+        <div class="admin-main-content">
+            <div style="width: 100%; max-width: 1400px; margin: 0 auto;">
 
-        <!-- Content -->
-        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px;">
-            <div style="width: 100%; max-width: 1400px;">
-
-                <!-- Page Heading & CTA -->
+                <!-- Page Heading & CTA: Chuyển sang trang form -->
                 <div class="d-flex justify-content-end align-items-center mb-4">
                     <div>
-                        <button class="btn btn-danger fw-bold px-4 rounded-3" onclick="openAddCouponModal()" style="font-family: 'Segoe UI', sans-serif;">
+                        <a href="admin-coupon-form.html" class="btn btn-danger fw-bold px-4 rounded-3" style="font-family: 'Nunito Sans', sans-serif;">
                             <i class="bi bi-plus-lg me-1"></i> Thêm mã giảm giá
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -49,8 +40,8 @@
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary fs-4"><i class="bi bi-ticket"></i></div>
                                 <div>
-                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Tổng mã giảm giá</h6>
-                                    <h3 class="fw-bold mb-0 text-dark" id="stat-total" style="font-family: 'Segoe UI', sans-serif;">0</h3>
+                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Nunito Sans', sans-serif;">Tổng mã giảm giá</h6>
+                                    <h3 class="fw-bold mb-0 text-dark" id="stat-total" style="font-family: 'Nunito Sans', sans-serif;">0</h3>
                                 </div>
                             </div>
                         </div>
@@ -60,8 +51,8 @@
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success fs-4"><i class="bi bi-check-circle"></i></div>
                                 <div>
-                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Đang hoạt động</h6>
-                                    <h3 class="fw-bold mb-0 text-dark" id="stat-active" style="font-family: 'Segoe UI', sans-serif;">0</h3>
+                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Nunito Sans', sans-serif;">Đang hoạt động</h6>
+                                    <h3 class="fw-bold mb-0 text-dark" id="stat-active" style="font-family: 'Nunito Sans', sans-serif;">0</h3>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +62,8 @@
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4"><i class="bi bi-clock"></i></div>
                                 <div>
-                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Sắp hết hạn</h6>
-                                    <h3 class="fw-bold mb-0 text-dark" id="stat-expiring" style="font-family: 'Segoe UI', sans-serif;">0</h3>
+                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Nunito Sans', sans-serif;">Sắp hết hạn</h6>
+                                    <h3 class="fw-bold mb-0 text-dark" id="stat-expiring" style="font-family: 'Nunito Sans', sans-serif;">0</h3>
                                 </div>
                             </div>
                         </div>
@@ -82,8 +73,8 @@
                             <div class="card-body d-flex align-items-center gap-3 p-3">
                                 <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-x-circle"></i></div>
                                 <div>
-                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Segoe UI', sans-serif;">Đã hết hạn</h6>
-                                    <h3 class="fw-bold mb-0 text-dark" id="stat-expired" style="font-family: 'Segoe UI', sans-serif;">0</h3>
+                                    <h6 class="text-muted small mb-1 fw-normal" style="font-family: 'Nunito Sans', sans-serif;">Đã hết hạn</h6>
+                                    <h3 class="fw-bold mb-0 text-dark" id="stat-expired" style="font-family: 'Nunito Sans', sans-serif;">0</h3>
                                 </div>
                             </div>
                         </div>
@@ -98,12 +89,12 @@
                                 <label class="filter-label">Tìm kiếm</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                    <input type="text" id="search-coupon" class="form-control" placeholder="Tìm mã hoặc điều kiện..." style="font-family: 'Segoe UI', sans-serif;">
+                                    <input type="text" id="search-coupon" class="form-control" placeholder="Tìm mã hoặc điều kiện..." style="font-family: 'Nunito Sans', sans-serif;">
                                 </div>
                             </div>
                             <div class="col-4 col-md-2">
                                 <label class="filter-label">Trạng thái</label>
-                                <select id="filter-status" class="form-select" style="font-family: 'Segoe UI', sans-serif;">
+                                <select id="filter-status" class="form-select" style="font-family: 'Nunito Sans', sans-serif;">
                                     <option value="">Tất cả</option>
                                     <option value="active">Đang hoạt động</option>
                                     <option value="expiring">Sắp hết hạn</option>
@@ -112,7 +103,7 @@
                             </div>
                             <div class="col-4 col-md-2">
                                 <label class="filter-label">Thời gian</label>
-                                <select id="filter-time" class="form-select" style="font-family: 'Segoe UI', sans-serif;">
+                                <select id="filter-time" class="form-select" style="font-family: 'Nunito Sans', sans-serif;">
                                     <option value="">Tất cả</option>
                                     <option value="7">7 ngày qua</option>
                                     <option value="30">Tháng này</option>
@@ -121,14 +112,13 @@
                             </div>
                             <div class="col-4 col-md-2">
                                 <label class="filter-label">Sắp xếp</label>
-                                <select id="filter-sort" class="form-select" style="font-family: 'Segoe UI', sans-serif;">
+                                <select id="filter-sort" class="form-select" style="font-family: 'Nunito Sans', sans-serif;">
                                     <option value="newest">Mới nhất</option>
                                     <option value="oldest">Cũ nhất</option>
-                                    <!-- <option value="value">Giá trị giảm</option> -->
                                 </select>
                             </div>
                             <div class="col-12 col-md-2">
-                                <button class="btn btn-danger w-100 fw-bold" id="btn-filter" style="font-family: 'Segoe UI', sans-serif; padding: 9px 0; border-radius: 8px; height: 42px;">
+                                <button class="btn btn-danger w-100 fw-bold" id="btn-filter" style="font-family: 'Nunito Sans', sans-serif; padding: 9px 0; border-radius: 8px; height: 42px;">
                                     <i class="bi bi-funnel me-1"></i> Lọc
                                 </button>
                             </div>
@@ -139,20 +129,20 @@
                 <!-- Coupon Table -->
                 <div class="card border-0 shadow-sm rounded-4 bg-white">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
-                        <h4 class="fw-bold text-danger m-0" style="font-family: 'Segoe UI', sans-serif;">Danh sách mã giảm giá</h4>
+                        <h4 class="fw-bold text-danger m-0" style="font-family: 'Nunito Sans', sans-serif;">Danh sách mã giảm giá</h4>
                         <small class="text-muted float-end" id="pagination-info">Hiển thị...</small>
                     </div>
                     <div class="table-responsive p-0 mt-2">
                         <table class="table table-hover align-middle mb-0 table-coupons">
                             <thead class="text-muted small fw-bold bg-light">
                                 <tr>
-                                    <th class="ps-4 py-3" style="font-family: 'Segoe UI', sans-serif;">MÃ GIẢM GIÁ</th>
-                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">GIÁ TRỊ GIẢM</th>
-                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">ĐIỀU KIỆN ÁP DỤNG</th>
-                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">NGÀY TẠO</th>
-                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">NGÀY HẾT HẠN</th>
-                                    <th class="py-3" style="font-family: 'Segoe UI', sans-serif;">TRẠNG THÁI</th>
-                                    <th class="pe-4 text-end py-3" style="font-family: 'Segoe UI', sans-serif;">THAO TÁC</th>
+                                    <th class="ps-4 py-3" style="font-family: 'Nunito Sans', sans-serif;">MÃ GIẢM GIÁ</th>
+                                    <th class="py-3" style="font-family: 'Nunito Sans', sans-serif;">GIÁ TRỊ GIẢM</th>
+                                    <th class="py-3" style="font-family: 'Nunito Sans', sans-serif;">ĐIỀU KIỆN ÁP DỤNG</th>
+                                    <th class="py-3" style="font-family: 'Nunito Sans', sans-serif;">NGÀY TẠO</th>
+                                    <th class="py-3" style="font-family: 'Nunito Sans', sans-serif;">NGÀY HẾT HẠN</th>
+                                    <th class="py-3" style="font-family: 'Nunito Sans', sans-serif;">TRẠNG THÁI</th>
+                                    <th class="pe-4 text-end py-3" style="font-family: 'Nunito Sans', sans-serif;">THAO TÁC</th>
                                 </tr>
                             </thead>
                             <tbody id="coupon-list" class="fs-6"></tbody>
@@ -167,227 +157,12 @@
 
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- ========== MODAL THÊM MÃ GIẢM GIÁ ========== -->
-<div class="modal fade" id="createCouponModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header" style="background: #840001; color: white; border-radius: 12px 12px 0 0;">
-                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-plus-circle me-2"></i>Thêm mã giảm giá
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form id="createCouponForm" style="font-family: 'Segoe UI', sans-serif;">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Mã giảm giá <span class="text-danger">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="couponCode" placeholder="VD: URII2024" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Phần trăm giảm (%) <span class="text-danger">*</span>
-                        </label>
-                        <input type="number" class="form-control" id="couponPercent" placeholder="VD: 15" min="0" max="100" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Điều kiện áp dụng (VNĐ)
-                        </label>
-                        <input type="number" class="form-control" id="couponMinOrder" placeholder="VD: 200000" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Số lượng sử dụng tối đa
-                        </label>
-                        <input type="number" class="form-control" id="couponMaxUses" placeholder="VD: 50" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Ngày bắt đầu <span class="text-danger">*</span>
-                        </label>
-                        <input type="date" class="form-control" id="couponStartDate" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Ngày hết hạn <span class="text-danger">*</span>
-                        </label>
-                        <input type="date" class="form-control" id="couponEndDate" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                            Trạng thái
-                        </label>
-                        <select class="form-select" id="couponStatus" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                            <option value="active">Đang hoạt động</option>
-                            <option value="inactive">Tạm ngưng</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer" style="border-top: 1px solid #eee; padding: 16px 24px;">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px;">
-                    Hủy
-                </button>
-                <button type="button" class="btn" id="btnSaveCoupon" style="background: #840001; color: white; font-family: 'Segoe UI', sans-serif; padding: 10px 30px; border-radius: 8px; font-weight: 600;">
-                    <i class="bi bi-save me-1"></i> Lưu mã giảm giá
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ========== MODAL XÓA MÃ GIẢM GIÁ ========== -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-exclamation-triangle me-2"></i>Xác nhận xóa
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4 text-center">
-                <div class="mb-3">
-                    <span class="display-4 text-danger"><i class="bi bi-trash3"></i></span>
-                </div>
-                <h5 class="fw-bold" style="font-family: 'Segoe UI', sans-serif;">Bạn có chắc chắn muốn xóa mã giảm giá này?</h5>
-                <p class="text-muted" style="font-family: 'Segoe UI', sans-serif;">
-                    Mã giảm giá <strong id="couponCodeDisplay" class="text-danger"></strong> sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif;">Hủy</button>
-                <button type="button" class="btn btn-danger fw-bold" id="btnConfirmDelete" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-trash3 me-1"></i> Xóa
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ========== MODAL XEM CHI TIẾT MÃ GIẢM GIÁ ========== -->
-<div class="modal fade" id="couponDetailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-ticket me-2"></i>Chi tiết mã giảm giá
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <h6 class="fw-bold border-bottom pb-2 mb-3" style="font-family: 'Segoe UI', sans-serif;">
-                            <i class="bi bi-info-circle me-1"></i>Thông tin mã giảm giá
-                        </h6>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Mã giảm giá:</span>
-                            <strong id="detailCode" style="font-family: 'Segoe UI', sans-serif; font-size: 18px; color: #840001;"></strong>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Giá trị giảm:</span>
-                            <strong id="detailValue" style="font-family: 'Segoe UI', sans-serif; color: #840001;"></strong>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Điều kiện áp dụng:</span>
-                            <span id="detailCondition" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Số lượng sử dụng:</span>
-                            <span id="detailUses" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <h6 class="fw-bold border-bottom pb-2 mb-3" style="font-family: 'Segoe UI', sans-serif;">
-                            <i class="bi bi-calendar3 me-1"></i>Thời gian & Trạng thái
-                        </h6>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Ngày tạo:</span>
-                            <span id="detailCreated" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Ngày bắt đầu:</span>
-                            <span id="detailStart" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Ngày hết hạn:</span>
-                            <span id="detailEnd" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                        <div class="mb-2">
-                            <span class="text-muted" style="font-family: 'Segoe UI', sans-serif;">Trạng thái:</span>
-                            <span id="detailStatus" class="badge-status" style="font-family: 'Segoe UI', sans-serif;"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <h6 class="fw-bold border-bottom pb-2 mb-3" style="font-family: 'Segoe UI', sans-serif;">
-                            <i class="bi bi-file-text me-1"></i>Mô tả chi tiết
-                        </h6>
-                        <div id="detailDescription" class="p-3 bg-light rounded" style="font-family: 'Segoe UI', sans-serif; min-height: 60px;">
-                            Chưa có mô tả cho mã giảm giá này.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif;">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ========== MODAL CHỈNH SỬA MÃ GIẢM GIÁ ========== -->
-<div class="modal fade" id="editCouponModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title fw-bold" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa mã giảm giá
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="mb-3">
-                    <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Mã giảm giá</label>
-                    <input type="text" class="form-control" id="editCode" readonly style="background-color: #f8f9fa; border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Giá trị giảm</label>
-                    <input type="text" class="form-control" id="editValue" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Điều kiện áp dụng</label>
-                    <input type="text" class="form-control" id="editCondition" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Trạng thái</label>
-                    <select class="form-select" id="editStatus" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                        <option value="active">Đang hoạt động</option>
-                        <option value="expiring">Sắp hết hạn</option>
-                        <option value="expired">Đã hết hạn</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" style="font-family: 'Segoe UI', sans-serif;">Số lượng sử dụng</label>
-                    <input type="text" class="form-control" id="editMaxUses" style="border-radius: 8px; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Segoe UI', sans-serif;">Hủy</button>
-                <button type="button" class="btn btn-success fw-bold" id="btnUpdateCoupon" style="font-family: 'Segoe UI', sans-serif;">
-                    <i class="bi bi-save me-1"></i> Cập nhật
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- 2. FOOTER NẰM Ở NGOÀI CÙNG -->
+<div id="footer-placeholder"></div>
 
 <!-- Layout Script -->
 <script>
@@ -432,8 +207,6 @@
         });
     });
 </script>
-<!-- Đặt vị trí footer -->
-<div id="footer-placeholder"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

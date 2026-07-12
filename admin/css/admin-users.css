@@ -7,31 +7,39 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-//* --- BADGE VAI TRÒ 
+.admin-layout-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f4f5f8;
+}
+.admin-main-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    width: calc(100% - 260px); /* Trừ chiều rộng sidebar 260px */
+}
+.admin-main-content {
+    flex: 1;
+    padding: 30px 40px 40px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ---------------------------------------------------------------- */
+
+body {
+    background-color: #f4f5f8;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+/* --- BADGE VAI TRÒ --- */
 .role-badge {
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-}
-.role-badge-admin {
-    background-color: #f8d7da; color: #842029;
-}
-.role-badge-customer {
-    background-color: #d1e7dd; color: #0f5132;
-}
-/* Màu sắc cho các cấp độ Vai trò */
-.badge-status {
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    display: inline-block;
-    white-space: normal;
-    text-align: center;
-    min-width: 80px;
-    line-height: 1.4;
-    font-family: 'Segoe UI', sans-serif;
+    white-space: nowrap;
 }
 
 /* Quản trị viên - Màu đỏ đậm nổi bật */
@@ -45,7 +53,7 @@ body {
     color: #003a74; /* Chữ xanh biển đậm */
     border: 1px solid #979797;
 }
-/* Màu sắc cho các cấp độ Thành viên (Giữ nguyên) */
+/* Màu sắc cho các cấp độ Thành viên */
 .role-badge-bronze {
     background-color: #fae1cc; 
     color: #7c3a00; 
@@ -69,7 +77,7 @@ body {
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
-    white-space: nowrap;
+    white-space: normal;
 }
 .status-badge-active {
     background-color: #d1e7dd; color: #0f5132;
