@@ -561,3 +561,17 @@ h1, h2, h3, h4, .font-poppins {
     color: #ff4757;
     font-weight: 700;
 }
+/* Đổi màu chữ đỏ và làm đậm tên trang hiện tại */
+.breadcrumb-current {
+  color: var(--primary) !important; /* Sử dụng màu đỏ #840001 từ biến --primary của bạn */
+  font-weight: 600;
+}
+
+/* Định dạng lại dấu gạch chéo (thay thế cho icon mũi tên cũ) */
+.breadcrumb-nav .icon-arrow-nav {
+  font-family: 'Nunito Sans', sans-serif !important; /* Chuyển về font thường thay vì font icon */
+  font-size: 14px;
+  color: #a0a0a0; /* Màu xám nhẹ giống hình số 2 bạn gửi */
+  margin: 0 8px; /* Khoảng cách hai bên dấu gạch chéo */
+  user-select: none;
+}
