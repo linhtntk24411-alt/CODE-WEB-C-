@@ -29,7 +29,6 @@ function initHeader() {
     const headerNav = document.getElementById('headerNav');
     const accountWrapper = document.querySelector('.account-icon-wrapper');
 
-    // ===== CẬP NHẬT AVATAR =====
     function updateAvatar() {
         const avatarImg = document.getElementById('accountAvatar');
         const avatarSvg = document.getElementById('accountSvg');
@@ -38,17 +37,24 @@ function initHeader() {
 
         if (!avatarImg || !avatarSvg) return;
 
-        if (isLoggedIn && avatarUrl && avatarUrl.trim() !== '') {
-            avatarImg.src = avatarUrl;
+        if (isLoggedIn) {
+            if (avatarUrl && avatarUrl.trim() !== '') {
+                avatarImg.src = avatarUrl;
+            } else {
+                avatarImg.src = '../assets/avatar-non.jpg';
+            }
             avatarImg.style.display = 'block';
             avatarSvg.style.display = 'none';
+            avatarImg.onerror = function() {
+                this.onerror = null;
+                this.src = '../assets/avatar-non.jpg';
+            };
         } else {
             avatarImg.style.display = 'none';
             avatarSvg.style.display = 'block';
         }
     }
 
-    // ===== KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP =====
     function checkLoginState() {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
 
@@ -63,9 +69,6 @@ function initHeader() {
         }
     }
 
-    // ============================================================
-    // LOGOUT MODAL (giống như trong profile)
-    // ============================================================
     const logoutModal = document.getElementById('logoutModal');
     const logoutOverlay = document.getElementById('logoutModalOverlay');
     const confirmLogoutBtn = document.getElementById('confirmHeaderLogout');
@@ -83,9 +86,7 @@ function initHeader() {
         document.body.style.overflow = '';
     }
 
-    // Gắn sự kiện click cho btnLogout để mở modal thay vì đăng xuất trực tiếp
     if (btnLogout) {
-        // Xóa sự kiện cũ (nếu có) và gắn mới
         btnLogout.removeEventListener('click', openLogoutModal);
         btnLogout.addEventListener('click', function(e) {
             e.preventDefault();
@@ -94,7 +95,6 @@ function initHeader() {
         });
     }
 
-    // Đóng modal khi click overlay hoặc nút Hủy
     if (logoutOverlay) {
         logoutOverlay.addEventListener('click', closeLogoutModal);
     }
@@ -102,29 +102,26 @@ function initHeader() {
         btn.addEventListener('click', closeLogoutModal);
     });
 
-    // Đóng bằng phím ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && logoutModal && logoutModal.classList.contains('active')) {
             closeLogoutModal();
         }
     });
 
-    // Xác nhận đăng xuất
     if (confirmLogoutBtn) {
         confirmLogoutBtn.addEventListener('click', function() {
             this.textContent = 'Đang xử lý...';
             this.disabled = true;
             setTimeout(() => {
-                // Thực hiện đăng xuất thực tế
                 localStorage.removeItem('isLoggedIn');
                 localStorage.removeItem('userName');
                 localStorage.removeItem('userEmail');
                 localStorage.removeItem('userAvatar');
+                localStorage.removeItem('userRole');
                 if (authButtons) authButtons.style.display = 'flex';
                 if (accountDropdown) accountDropdown.style.display = 'none';
                 updateAvatar();
                 closeLogoutModal();
-                // Chuyển hướng về trang chủ
                 window.location.href = '../html/index.html';
             }, 1000);
         });
@@ -178,7 +175,6 @@ function initHeader() {
         if (e.key === 'Escape') closeAccountMenu();
     });
 
-    // ===== KHỞI TẠO TRẠNG THÁI =====
     checkLoginState();
 
     // ===== HAMBURGER MENU =====
@@ -228,22 +224,21 @@ function initHeader() {
                 const target = e.target;
                 const isSvg = target.closest('svg');
 
-                // Nếu click vào SVG (mũi tên) -> toggle dropdown, chặn điều hướng
                 if (isSvg) {
                     e.preventDefault();
                     e.stopImmediatePropagation();
 
                     const shouldOpen = !parentDropdown.classList.contains('open');
+
                     headerNav.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
                         if (dropdown !== parentDropdown) {
                             dropdown.classList.remove('open');
                         }
                     });
+
                     parentDropdown.classList.toggle('open', shouldOpen);
                     this.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
                 }
-                // Nếu click vào chữ (không phải SVG) -> để trình duyệt điều hướng bình thường
-                // Không chặn sự kiện, không gọi preventDefault()
             });
         });
 
@@ -585,10 +580,6 @@ function initHeader() {
 
     loadProductData();
 }
-
-// ============================================================
-// EXPORT
-// ============================================================
 
 window.initHeader = initHeader;
 

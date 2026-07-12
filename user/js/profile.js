@@ -129,54 +129,75 @@
 
   // ===== LOAD DATA =====
   async function loadUserData() {
-    try {
-      const userResponse = await fetch('../data/users.json');
-      if (!userResponse.ok) throw new Error('Không thể tải dữ liệu người dùng');
-      const userDataRaw = await userResponse.json();
-      userData = userDataRaw.user;
-
-      // Lấy đơn hàng gần nhất
-      const ordersResponse = await fetch('../data/orders.json');
-      if (ordersResponse.ok) {
-        const ordersData = await ordersResponse.json();
-        const sortedOrders = ordersData.orders.sort((a, b) => {
-          const dateA = new Date(a.date.split('/').reverse().join('/'));
-          const dateB = new Date(b.date.split('/').reverse().join('/'));
-          return dateB - dateA;
-        });
-        latestOrder = sortedOrders.length > 0 ? sortedOrders[0] : null;
-      } else {
-        console.warn('Không thể tải đơn hàng');
+  try {
+    const userResponse = await fetch('../data/users.json');
+    if (!userResponse.ok) throw new Error('Không thể tải dữ liệu người dùng');
+    const data = await userResponse.json();
+    
+    // Lấy email từ localStorage (người dùng hiện tại)
+    const currentEmail = localStorage.getItem('userEmail');
+    let user = null;
+    
+    // Kiểm tra cấu trúc dữ liệu
+    if (data.users && Array.isArray(data.users)) {
+      if (currentEmail) {
+        user = data.users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
       }
-
-      // [MỚI] Lấy yêu cầu thiết kế gần nhất
-      try {
-        const customResponse = await fetch('../data/custom-order-list.json');
-        if (customResponse.ok) {
-          const customData = await customResponse.json();
-          if (Array.isArray(customData) && customData.length > 0) {
-            const sortedCustom = [...customData].sort((a, b) => {
-              const dateA = new Date(a.date.split('/').reverse().join('/'));
-              const dateB = new Date(b.date.split('/').reverse().join('/'));
-              return dateB - dateA;
-            });
-            latestCustomOrder = sortedCustom[0];
-          }
-        } else {
-          console.warn('Không thể tải yêu cầu thiết kế');
-        }
-      } catch (e) {
-        console.warn('Lỗi khi tải custom orders:', e);
+      // Nếu không tìm thấy hoặc chưa đăng nhập, lấy user đầu tiên (mặc định)
+      if (!user) {
+        user = data.users[0];
       }
-
-      renderProfile(userData);
-      renderActivities();
-
-    } catch (error) {
-      console.error('Lỗi tải dữ liệu:', error);
-      showPopupNotification('Không thể tải dữ liệu. Vui lòng thử lại sau.', 'error', 'Lỗi');
+    } else if (data.user) {
+      // Fallback cho cấu trúc cũ
+      user = data.user;
     }
+    
+    if (!user) throw new Error('Không tìm thấy thông tin người dùng');
+    
+    userData = user;
+
+    // Lấy đơn hàng gần nhất
+    const ordersResponse = await fetch('../data/orders.json');
+    if (ordersResponse.ok) {
+      const ordersData = await ordersResponse.json();
+      const sortedOrders = ordersData.orders.sort((a, b) => {
+        const dateA = new Date(a.date.split('/').reverse().join('/'));
+        const dateB = new Date(b.date.split('/').reverse().join('/'));
+        return dateB - dateA;
+      });
+      latestOrder = sortedOrders.length > 0 ? sortedOrders[0] : null;
+    } else {
+      console.warn('Không thể tải đơn hàng');
+    }
+
+    // Lấy yêu cầu thiết kế gần nhất
+    try {
+      const customResponse = await fetch('../data/custom-order-list.json');
+      if (customResponse.ok) {
+        const customData = await customResponse.json();
+        if (Array.isArray(customData) && customData.length > 0) {
+          const sortedCustom = [...customData].sort((a, b) => {
+            const dateA = new Date(a.date.split('/').reverse().join('/'));
+            const dateB = new Date(b.date.split('/').reverse().join('/'));
+            return dateB - dateA;
+          });
+          latestCustomOrder = sortedCustom[0];
+        }
+      } else {
+        console.warn('Không thể tải yêu cầu thiết kế');
+      }
+    } catch (e) {
+      console.warn('Lỗi khi tải custom orders:', e);
+    }
+
+    renderProfile(userData);
+    renderActivities();
+
+  } catch (error) {
+    console.error('Lỗi tải dữ liệu:', error);
+    showPopupNotification('Không thể tải dữ liệu. Vui lòng thử lại sau.', 'error', 'Lỗi');
   }
+}
 
   // ===== RENDER PROFILE =====
   function renderProfile(data) {

@@ -380,3 +380,54 @@
     .contact-icon-bi { font-size: 14px; }
     .footer-bottom-inner { font-size: 12px; padding: 10px 0; }
 }
+
+/* ===== ADMIN BUTTON ===== */
+.admin-div {
+    grid-column: 1 / -1; /* chiếm toàn bộ các cột */
+    text-align: center;
+    order: 2; /* giữ thứ tự sau 4 cột */
+}
+
+.admin-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    background: #ffffff;
+    color: #840001;
+    border: 2px solid #840001;
+    border-radius: 8px;
+    font-family: 'Segoe UI', 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease; /* chỉ giữ hiệu ứng hover khác */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    cursor: pointer;
+}
+
+.admin-link-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(132,0,1,0.15);
+    /* giữ nguyên màu nền trắng, chữ đỏ, viền đỏ */
+}
+
+.admin-link-btn i {
+    font-size: 20px;
+}
+
+/* ===== TABLET & MOBILE: không có đường gạch ngang, xuống cuối ===== */
+@media (max-width: 1024px) {
+    .admin-div {
+        margin-top: 16px;
+        border-top: none !important;
+        padding-top: 0 !important;
+        order: 999;
+        text-align: center;
+        grid-column: 1 / -1; /* vẫn chiếm full width */
+    }
+    .admin-link-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
