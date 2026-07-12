@@ -51,7 +51,7 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 10px 25px rgba(132, 0, 1, 0.3);
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
     position: relative;
 }
 
@@ -73,9 +73,10 @@ body {
 }
 
 .chat-window {
-    width: 360px;
-    max-width: calc(100vw - 40px);
-    height: 520px;
+    width: 100%;                 
+    max-width: 380px;             
+    height: 80vh;                
+    max-height: 540px;
     background: transparent; /* remove outer white frame */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -320,3 +321,113 @@ body {
 }
 .send-btn:hover { background-color: var(--primary-hover); }
 .credits { text-align: center; font-size: 10px; color: var(--text-muted); margin-top: 6px; opacity: 0.7; }
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT FOR CHATBOX WIDGET
+   ========================================================================== */
+
+/* 1. MÀN HÌNH DI ĐỘNG DỌC (Mobile Portrait - Dưới 576px) 
+   -> Biến chatbox thành toàn màn hình để dễ thao tác, thu nhỏ FAB */
+/* Khi màn hình nhỏ hơn 576px (Điện thoại hoặc khi bạn thu nhỏ trình duyệt cực bé) */
+@media (max-width: 575.98px) {
+    /* Đưa wrapper về dạng block thông thường để không bị flexbox đẩy lên trên */
+    .chatbot-wrapper {
+        position: fixed !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important; /* Hủy flex-direction để tránh lệch vị trí */
+    }
+
+    /* Ép khung chat tràn toàn bộ màn hình điện thoại */
+    .chat-window {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Bỏ bo góc các phần tử bên trong */
+    .chat-header, .chat-body, .chat-footer {
+        border-radius: 0 !important;
+    }
+
+    /* Ẩn hẳn nút FAB tròn khi đang mở cửa sổ chat trên điện thoại để đỡ vướng */
+    .chat-window:not(.hidden) ~ .fab-container {
+        display: none !important;
+    }
+
+    /* Nếu chatbox đang ẩn, đưa nút FAB về góc dưới bên phải chuẩn di động */
+    .chat-window.hidden ~ .fab-container {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        display: block !important;
+    }
+    .chat-window.hidden ~ .fab-container .chat-fab {
+        width: 46px !important;
+        height: 46px !important;
+    }
+    .chat-window.hidden ~ .fab-container .chat-fab .material-symbols-outlined {
+        font-size: 22px !important;
+    }
+    /* Đẩy sát góc hơn một chút trên màn hình điện thoại nhỏ */
+    .chat-window.hidden ~ .fab-container {
+        bottom: 12px !important;
+        right: 12px !important;
+    }
+}
+/* 2. MÀN HÌNH DI ĐỘNG NGANG (Mobile Landscape - Từ 576px đến 767px)
+   -> Giới hạn lại chiều cao để tránh bị khuất bàn phím hoặc tràn màn hình */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .chat-window {
+        width: 340px;
+        height: 420px; /* Hạ thấp chiều cao vì màn hình ngang khá lùn */
+    }
+    .chat-fab {
+        width: 52px;
+        height: 52px;
+    }
+    .chat-fab .material-symbols-outlined {
+        font-size: 26px;
+    }
+}
+
+/* 3. MÀN HÌNH MÁY TÍNH BẢNG (Tablet - Từ 768px đến 991px)
+   -> Giữ nguyên tỷ lệ chuẩn của bạn nhưng chỉnh lại khoảng cách hợp lý */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .chat-window {
+        width: 360px;
+        height: 500px;
+    }
+}
+
+/* 4. MÀN HÌNH MÁY TÍNH LỚN (Desktop/Laptop - Từ 992px trở lên)
+   -> Kích thước hiển thị đẹp nhất, thoải mái nhất */
+@media (min-width: 992px) {
+    .chatbot-wrapper {
+        bottom: 24px;
+        right: 24px;
+    }
+    .chat-window {
+        width: 380px; /* Tăng nhẹ độ rộng để hiển thị chữ rõ ràng hơn */
+        height: 540px;
+    }
+    .chat-fab {
+        width: 58px;
+        height: 58px;
+    }
+    .chat-fab .material-symbols-outlined {
+        font-size: 28px;
+    }
+}
