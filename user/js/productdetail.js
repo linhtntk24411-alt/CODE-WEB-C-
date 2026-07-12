@@ -1,4 +1,4 @@
-        // Get product ID from URL (default: 12)
+﻿        // Get product ID from URL (default: 12)
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id')) || 12;
 
@@ -376,7 +376,7 @@
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <h6 class="fw-bold mb-0" style="font-family: 'Poppins', sans-serif;">${review.user}</h6>
+                                            <h6 class="fw-bold mb-0" style="font-family: 'Segoe UI', sans-serif;">${review.user}</h6>
                                             <div class="stars-display text-warning small">${renderStars(review.rating)}</div>
                                         </div>
                                         <span class="text-secondary small">${formatDate(review.date)}</span>

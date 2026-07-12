@@ -1,4 +1,4 @@
-
+﻿
 :root {
     --primary-color: #840001;
     --primary-container: #b00103;
@@ -235,7 +235,7 @@ button {
     font-weight: 600;
 }
 .sort-select-dropdown {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: #4a5568;

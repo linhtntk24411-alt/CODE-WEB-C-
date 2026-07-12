@@ -1,4 +1,4 @@
-// ===== LOAD HEADER & FOOTER VÀ TỰ ĐỘNG KHỞI TẠO =====
+﻿// ===== LOAD HEADER & FOOTER VÀ TỰ ĐỘNG KHỞI TẠO =====
 
 function ensureFooterAccordion() {
   if (window.__footerAccordionLoaded) {
@@ -154,7 +154,7 @@ function injectChatbotWidget() {
     document.head.appendChild(styles);
   }
 
-  if (!document.querySelector('link[href*="fonts.googleapis.com/css2?family=Poppins"]')) {
+  if (!document.querySelector('link[href*="fonts.googleapis.com/css2?family=Segoe UI"]')) {
     const preconnect1 = document.createElement('link');
     preconnect1.rel = 'preconnect';
     preconnect1.href = 'https://fonts.googleapis.com';
@@ -168,7 +168,7 @@ function injectChatbotWidget() {
 
     const fontStyles = document.createElement('link');
     fontStyles.rel = 'stylesheet';
-    fontStyles.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap';
+    fontStyles.href = 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap';
     document.head.appendChild(fontStyles);
 
     const materialStyles = document.createElement('link');

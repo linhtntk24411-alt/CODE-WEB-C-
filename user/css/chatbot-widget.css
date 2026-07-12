@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -124,7 +124,7 @@ body {
 }
 
 .header-info { flex: 1; }
-.bot-name { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; }
+.bot-name { font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 600; }
 .bot-status { font-size: 12px; opacity: 0.9; }
 
 .header-actions { 

@@ -1,4 +1,4 @@
-
+﻿
 :root {
   --primary: #840001;
   --primary-container: #b00103;
@@ -21,8 +21,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, .font-poppins {
-  font-family: 'Poppins', sans-serif;
+h1, h2, h3, h4, .font-Segoe UI {
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .font-fill-1, .symbol-filled { 
@@ -511,7 +511,7 @@ h1, h2, h3, h4, .font-poppins {
 }
 
 .section-title-related {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 22px;
     color: #2d3436;
     margin-bottom: 25px;

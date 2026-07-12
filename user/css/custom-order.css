@@ -1,4 +1,4 @@
-
+﻿
 :root {
     --primary: #840001;
     --primary-container: #b00103;
@@ -13,7 +13,7 @@
     --surface-container-high: #eae8e7;
     --error: #ba1a1a;
     --font-main: 'Nunito Sans', sans-serif;
-    --font-title: 'Poppins', sans-serif;
+    --font-title: 'Segoe UI', sans-serif;
 }
 
 * {
@@ -719,7 +719,7 @@ span.icon-fill {
     --text-muted: #5c403b;
     --text-outline: #916f6a;
     --border-color: #e5bdb7;
-    --font-heading: 'Poppins', sans-serif;
+    --font-heading: 'Segoe UI', sans-serif;
     --font-body: 'Nunito Sans', sans-serif;
 }
 
