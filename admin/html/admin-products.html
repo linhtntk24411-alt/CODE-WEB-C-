@@ -10,153 +10,231 @@
     <link rel="stylesheet" href="../css/admin-product.css">
     <link rel="stylesheet" href="../css/admin-sidebar.css">
     <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../../user/css/component.css">
+    <link rel="stylesheet" href="../../user/css/footer.css">
 </head>
 <body>
 
-<!-- 1. KHUNG LAYOUT CHIA 2 CỘT (Flexbox) -->
-<div class="d-flex" style="height: 100vh; width: 100vw; overflow: hidden;">
+<div class="d-flex" style="height: 100vh; width: 100vw;">
 
-    <!-- 1.1 CỘT SIDEBAR BÊN TRÁI -->
+    <!-- 1. SIDEBAR -->
     <div class="flex-shrink-0" style="width: 300px; height: 100%; background-color: #FBF9F8; border-right: 1px solid rgba(0, 0, 0, 0.03); overflow-y: auto;" id="layout-sidebar"></div>
 
-    <!-- 1.2 CỘT BÊN PHẢI (Topbar + Nội dung) -->
-    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow: hidden; background-color: #f4f5f8;">
+    <!-- 2. MAIN AREA -->
+    <div class="flex-grow-1 d-flex flex-column" style="height: 100vh; overflow-y: auto;">
         
-        <!-- 1.2.1 TOPBAR TRÊN CÙNG -->
+        <!-- TOPBAR -->
         <div class="flex-shrink-0" style="height: 64px; background-color: #ffffff; border-bottom: 1px solid rgba(0, 0, 0, 0.03); display: flex; align-items: center; padding: 0 40px; width: 100%;" id="layout-topbar"></div>
 
-        <!-- 1.2.2 NỘI DUNG DƯỚI CÙNG (Sẽ giãn ra hết mức) -->
-        <div class="flex-grow-1" style="overflow-y: auto; padding: 30px 40px 40px 40px;">
+        <!-- CONTENT -->
+        <div class="flex-grow-1" style="padding: 30px 40px 40px 40px;">
             
-            <!-- HEADER -->
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
-                <div>
-                    <h1 class="fw-bold mb-1" style="font-size: 28px;">Quản lý sản phẩm</h1>
-                    <p class="text-muted small m-0">Theo dõi và quản lý kho hàng DIY của bạn</p>
+            <div style="width: 100%; max-width: 1400px;">
+                <!-- HEADER -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="fw-bold mb-1" style="font-size: 28px;">Quản lý sản phẩm</h1>
+                        <p class="text-muted small m-0">Theo dõi và quản lý kho hàng DIY của bạn</p>
+                    </div>
+                    <a href="admin-products-form.html" class="btn btn-danger fw-bold px-4 py-2 rounded-3 shadow-sm">
+                        <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm mới
+                    </a>
                 </div>
-                <a href="admin-products-form.html" class="btn btn-danger fw-bold px-4 py-2 rounded-3 shadow-sm">
-                    <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm mới
-                </a>
-            </div>
 
-            <!-- STATS CARDS -->
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-md">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
-                        <div class="card-body d-flex align-items-center gap-3 p-3">
-                            <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-box-seam"></i></div>
-                            <div><h6 class="text-muted small mb-1 fw-normal">Tổng sản phẩm</h6><h3 class="fw-bold mb-0" id="stat-total">0</h3></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
-                        <div class="card-body d-flex align-items-center gap-3 p-3">
-                            <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4"><i class="bi bi-exclamation-triangle"></i></div>
-                            <div><h6 class="text-muted small mb-1 fw-normal">Sắp hết hàng</h6><h3 class="fw-bold mb-0" id="stat-warning">0</h3></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
-                        <div class="card-body d-flex align-items-center gap-3 p-3">
-                            <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-clock-history"></i></div>
-                            <div><h6 class="text-muted small mb-1 fw-normal">Hết hàng</h6><h3 class="fw-bold mb-0" id="stat-danger">0</h3></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
-                        <div class="card-body d-flex align-items-center gap-3 p-3">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary fs-4"><i class="bi bi-star"></i></div>
-                            <div><h6 class="text-muted small mb-1 fw-normal">Sản phẩm mới</h6><h3 class="fw-bold mb-0" id="stat-new">0</h3></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
-                        <div class="card-body d-flex align-items-center gap-3 p-3">
-                            <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-fire"></i></div>
-                            <div><h6 class="text-muted small mb-1 fw-normal">Sản phẩm hot</h6><h3 class="fw-bold mb-0" id="stat-hot">0</h3></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FILTER BAR -->
-            <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
-                <div class="card-body p-0">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                                <input type="text" id="search-name" class="form-control border-start-0 ps-0" placeholder="Tìm tên sản phẩm...">
+                <!-- STATS CARDS -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-box-seam"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Tổng sản phẩm</h6><h3 class="fw-bold mb-0" id="stat-total">0</h3></div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <select id="filter-category" class="form-select bg-light border-0">
-                                <option value="">Tất cả danh mục</option>
+                    </div>
+                    <div class="col-6 col-md">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning fs-4"><i class="bi bi-exclamation-triangle"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Sắp hết hàng</h6><h3 class="fw-bold mb-0" id="stat-warning">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-clock-history"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Hết hàng</h6><h3 class="fw-bold mb-0" id="stat-danger">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary fs-4"><i class="bi bi-star"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Sản phẩm mới</h6><h3 class="fw-bold mb-0" id="stat-new">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                            <div class="card-body d-flex align-items-center gap-3 p-3">
+                                <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger fs-4"><i class="bi bi-fire"></i></div>
+                                <div><h6 class="text-muted small mb-1 fw-normal">Sản phẩm hot</h6><h3 class="fw-bold mb-0" id="stat-hot">0</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILTER BAR -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
+                    <div class="card-body p-0">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                                    <input type="text" id="search-name" class="form-control border-start-0 ps-0" placeholder="Tìm tên sản phẩm...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="filter-category" class="form-select bg-light border-0">
+                                    <option value="">Tất cả danh mục</option>
+                                    <option value="hat-nhua">Hạt nhựa</option>
+                                    <option value="dung-cu">Dụng cụ</option>
+                                    <option value="handmade">Handmade</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="filter-status" class="form-select bg-light border-0">
+                                    <option value="">Tất cả trạng thái</option>
+                                    <option value="normal">Bình thường</option>
+                                    <option value="sap-het">Sắp hết hàng</option>
+                                    <option value="het-hang">Hết hàng</option>
+                                    <option value="new">Mới</option>
+                                    <option value="hot">Đang Hot</option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <select id="filter-price" class="form-select bg-light border-0">
+                                    <option value="">Tất cả mức giá</option>
+                                    <option value="0-50000">Dưới 50.000đ</option>
+                                    <option value="50000-150000">50.000đ - 150.000đ</option>
+                                    <option value="150000-9999999">Trên 150.000đ</option>
+                                </select>
+                            </div>
+                            <div class="col-md-auto">
+                                <button class="btn btn-danger w-100 fw-bold px-4" id="btn-filter">
+                                    <i class="bi bi-funnel me-1"></i> Lọc
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN TABLE -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white">
+                    <div class="table-responsive p-0">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light text-muted" style="font-size: 13px; font-weight: 600;">
+                                <tr>
+                                    <th class="ps-4 py-3" style="width: 60px;">Hình ảnh</th>
+                                    <th class="py-3">Tên sản phẩm / <span class="fw-normal">SKU</span></th>
+                                    <th class="py-3">Danh mục</th>
+                                    <th class="py-3">Giá bán</th>
+                                    <th class="py-3">Tồn kho</th>
+                                    <th class="py-3">Trạng thái</th>
+                                    <th class="pe-4 text-end py-3" style="width: 120px;">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list" class="fs-6"></tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="text-muted small" id="pagination-info">Hiển thị...</div>
+                        <nav><ul class="pagination pagination-sm m-0" id="pagination-controls"></ul></nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3. FOOTER USER -->
+        <div id="footer-placeholder"></div>
+
+    </div>
+</div>
+
+<!-- ===================== MODAL SỬA SẢN PHẨM (CÓ CHỌN ẢNH) ===================== -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger fw-bold"><i class="bi bi-pencil-square"></i> Chỉnh sửa sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editProductForm">
+                <div class="modal-body">
+                    <input type="hidden" id="edit-id">
+                    
+                    <div class="mb-3">
+                        <label for="edit-name" class="form-label fw-bold">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="edit-name" placeholder="Nhập tên mới (để trống nếu không đổi)">
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit-category" class="form-label fw-bold">Danh mục</label>
+                            <select class="form-select" id="edit-category">
+                                <option value="">Giữ nguyên</option>
                                 <option value="hat-nhua">Hạt nhựa</option>
                                 <option value="dung-cu">Dụng cụ</option>
                                 <option value="handmade">Handmade</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <select id="filter-status" class="form-select bg-light border-0">
-                                <option value="">Tất cả trạng thái</option>
+                        <div class="col-md-6">
+                            <label for="edit-status" class="form-label fw-bold">Trạng thái</label>
+                            <select class="form-select" id="edit-status">
+                                <option value="">Giữ nguyên</option>
                                 <option value="normal">Bình thường</option>
+                                <option value="new">Mới</option>
+                                <option value="hot">Bán chạy</option>
                                 <option value="sap-het">Sắp hết hàng</option>
                                 <option value="het-hang">Hết hàng</option>
-                                <option value="new">Mới</option>
-                                <option value="hot">Đang Hot</option>
                             </select>
-                        </div>
-                        <div class="col-md">
-                            <select id="filter-price" class="form-select bg-light border-0">
-                                <option value="">Tất cả mức giá</option>
-                                <option value="0-50000">Dưới 50.000đ</option>
-                                <option value="50000-150000">50.000đ - 150.000đ</option>
-                                <option value="150000-9999999">Trên 150.000đ</option>
-                            </select>
-                        </div>
-                        <div class="col-md-auto">
-                            <button class="btn btn-danger w-100 fw-bold px-4" id="btn-filter">
-                                <i class="bi bi-funnel me-1"></i> Lọc
-                            </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- MAIN TABLE -->
-            <div class="card border-0 shadow-sm rounded-4 bg-white">
-                <div class="table-responsive p-0">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="bg-light text-muted" style="font-size: 13px; font-weight: 600;">
-                            <tr>
-                                <th class="ps-4 py-3" style="width: 60px;">Hình ảnh</th>
-                                <th class="py-3">Tên sản phẩm / <span class="fw-normal">SKU</span></th>
-                                <th class="py-3">Danh mục</th>
-                                <th class="py-3">Giá bán</th>
-                                <th class="py-3">Tồn kho</th>
-                                <th class="py-3">Trạng thái</th>
-                                <th class="pe-4 text-end py-3" style="width: 120px;">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody id="product-list" class="fs-6"></tbody>
-                    </table>
-                </div>
-                <div class="card-footer bg-white border-top border-light py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="text-muted small" id="pagination-info">Hiển thị...</div>
-                    <nav><ul class="pagination pagination-sm m-0" id="pagination-controls"></ul></nav>
-                </div>
-            </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="edit-price" class="form-label fw-bold">Giá bán (VNĐ)</label>
+                            <input type="number" class="form-control" id="edit-price" placeholder="Để trống nếu không đổi">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edit-stock" class="form-label fw-bold">Số lượng kho</label>
+                            <input type="number" class="form-control" id="edit-stock" placeholder="Để trống nếu không đổi">
+                        </div>
+                    </div>
 
-        </div> <!-- Hết vùng nội dung -->
-    </div> <!-- Hết cột phải -->
-</div> <!-- Hết khung chia cột -->
+                    <!-- Phần chọn ảnh mới -->
+                    <div class="mb-3">
+                        <label for="edit-image-file" class="form-label fw-bold">Thay đổi ảnh sản phẩm (Không chọn thì giữ ảnh cũ)</label>
+                        <input type="file" class="form-control" id="edit-image-file" accept="image/*">
+                        <div class="mt-2">
+                            <label class="text-muted small">Ảnh hiện tại:</label>
+                            <img id="edit-image-preview" src="#" class="img-thumbnail d-block mt-2" style="max-height: 150px; width: auto; object-fit: contain;">
+                        </div>
+                    </div>
 
-<!-- ===== SCRIPT NẠP LAYOUT ===== -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger fw-bold px-4"><i class="bi bi-save"></i> Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SCRIPT NẠP LAYOUT & FOOTER ===================== -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function loadComponent(url, targetId) {
@@ -200,6 +278,19 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('../../user/components/footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(err => console.warn('Không thể tải footer:', err));
+    });
+</script>
+
+<!-- JS CHÍNH -->
 <script src="../js/admin-product.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

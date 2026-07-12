@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../css/admin-sidebar.css">
     <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../../user/css/footer.css">
     <link rel="stylesheet" href="../css/admin-library.css">
 </head>
 <body>
@@ -152,6 +153,19 @@
                 }
             }
         });
+    });
+</script>
+<!-- Đặt vị trí footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('../../user/components/footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(err => console.warn('Không thể tải footer:', err));
     });
 </script>
 

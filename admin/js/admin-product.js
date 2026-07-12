@@ -11,12 +11,8 @@ const statusMap = {
   "hot": { text: "Bán chạy", class: "badge-status-hot" }
 };
 
-// ========================================================
-// HÀM KHỞI TẠO DỮ LIỆU: Ưu tiên localStorage
-// ========================================================
 async function initData() {
     const localData = localStorage.getItem('products');
-    
     if (localData) {
         products = JSON.parse(localData);
         if (products.length > 0) {
@@ -25,14 +21,11 @@ async function initData() {
             return;
         }
     }
-    
     await loadProductsFromJson();
 }
 
-// Hàm tải dữ liệu từ JSON (Đường dẫn đã sửa)
 async function loadProductsFromJson() {
     try {
-        // Đã sửa đường dẫn thành ../data/product.json
         const response = await fetch('../data/product.json');
         if (!response.ok) throw new Error(`Lỗi HTTP: ${response.status}`);
         const data = await response.json();
@@ -114,7 +107,7 @@ function renderProducts() {
           <td><span class="badge rounded-pill px-3 ${status.class}">${status.text}</span></td>
           <td class="pe-4">
             <div class="d-flex justify-content-end gap-2">
-                <button class="btn-action-edit" onclick="alert('Tính năng Sửa đang phát triển!')"><i class="bi bi-pencil fs-6"></i></button>
+                <button class="btn-action-edit" onclick="openEditModal(${p.id})"><i class="bi bi-pencil fs-6"></i></button>
                 <button class="btn-action-delete" onclick="deleteProduct(${p.id})"><i class="bi bi-trash fs-6"></i></button>
             </div>
           </td>
@@ -146,6 +139,87 @@ function deleteProduct(id) {
     updateStats(); renderProducts();
   }
 }
+
+// ========================================================
+// CHỨC NĂNG SỬA SẢN PHẨM (CÓ THỂ ĐỔI ẢNH)
+// ========================================================
+let editNewImageBase64 = null;
+
+// Xem trước ảnh mới khi chọn file
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('edit-image-file');
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('edit-image-preview');
+                    preview.src = event.target.result;
+                    preview.classList.remove('d-none');
+                    editNewImageBase64 = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+
+function openEditModal(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    // Reset biến ảnh mới
+    editNewImageBase64 = null;
+    document.getElementById('edit-image-file').value = '';
+
+    document.getElementById('edit-id').value = product.id;
+    document.getElementById('edit-name').value = product.name;
+    document.getElementById('edit-category').value = product.category;
+    document.getElementById('edit-status').value = product.status;
+    document.getElementById('edit-price').value = product.price;
+    document.getElementById('edit-stock').value = product.stock;
+
+    const preview = document.getElementById('edit-image-preview');
+    preview.src = product.image;
+    preview.classList.remove('d-none');
+
+    const editModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    editModal.show();
+}
+
+document.getElementById('editProductForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const id = parseInt(document.getElementById('edit-id').value);
+    const index = products.findIndex(p => p.id === id);
+    if (index === -1) return;
+
+    const name = document.getElementById('edit-name').value.trim();
+    const category = document.getElementById('edit-category').value;
+    const status = document.getElementById('edit-status').value;
+    const price = document.getElementById('edit-price').value.trim();
+    const stock = document.getElementById('edit-stock').value.trim();
+
+    if (name !== '') products[index].name = name;
+    if (category !== '') products[index].category = category;
+    if (status !== '') products[index].status = status;
+    if (price !== '') products[index].price = parseInt(price);
+    if (stock !== '') products[index].stock = parseInt(stock);
+
+    // Nếu có ảnh mới, cập nhật ảnh. Nếu không, giữ ảnh cũ.
+    if (editNewImageBase64) {
+        products[index].image = editNewImageBase64;
+    }
+
+    localStorage.setItem('products', JSON.stringify(products));
+    
+    const editModal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
+    editModal.hide();
+
+    updateStats();
+    renderProducts();
+});
 
 document.getElementById('btn-filter').addEventListener('click', () => {
   currentPage = 1;
