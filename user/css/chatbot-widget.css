@@ -57,6 +57,7 @@ body {
 
 .chat-fab:hover { transform: scale(1.05); }
 .chat-fab .material-symbols-outlined { font-size: 32px; }
+.chat-fab i { font-size: 28px; line-height: 1; }
 
 .pulse-ring {
     position: absolute;
@@ -72,15 +73,16 @@ body {
 }
 
 .chat-window {
-    width: 400px;
-    height: 600px;
-    background-color: #ffffff;
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    height: 520px;
+    background: transparent; /* remove outer white frame */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(145, 111, 106, 0.2);
+    border: none;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .chat-header {
@@ -91,6 +93,8 @@ body {
     align-items: center;
     gap: 12px;
 }
+/* keep rounded corners on header */
+.chat-header { border-top-left-radius: 12px; border-top-right-radius: 12px; }
 
 .avatar-container { position: relative; }
 .bot-avatar-main {
@@ -145,16 +149,40 @@ body {
 
 .chat-body {
     flex: 1;
-    padding: 16px;
+    padding: 12px;
     overflow-y: auto;
-   
-    background-image: linear-gradient(rgba(251, 249, 248, 0.737), rgba(251, 249, 248, 0.666)), url('../assets/nen-chat-box.png'); 
-    background-size: cover;        /* Đảm bảo ảnh phủ kín toàn bộ khung chat */
-    background-position: center;  /* Căn ảnh ở chính giữa khung */
-    background-repeat: no-repeat;  /* Không lặp lại ảnh */
+    background-color: rgba(255,255,255,0.96); /* white inner surface */
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Subtle decorative background placed behind messages using a pseudo-element
+   so it doesn't interfere with click/selection and can have low opacity. */
+.chat-body {
+    position: relative;
+}
+.chat-body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/nen-chat-box.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.12; /* subtle */
+    filter: saturate(0.9) blur(0.6px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.chat-body .message,
+.chat-body .date-separator,
+.chat-body #typing-indicator {
+    position: relative;
+    z-index: 1; /* ensure messages sit above decorative background */
 }
 
 .date-separator { display: flex; justify-content: center; }
@@ -256,8 +284,10 @@ body {
 
 .chat-footer {
     padding: 12px;
-    background-color: #ffffff;
-    border-top: 1px solid rgba(145, 111, 106, 0.2);
+    background-color: rgba(255,255,255,0.96);
+    border-top: 1px solid rgba(145, 111, 106, 0.08);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 .input-container {
     display: flex;

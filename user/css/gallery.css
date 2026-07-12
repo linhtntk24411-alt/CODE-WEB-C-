@@ -369,6 +369,11 @@ button {
     border-radius: var(--border-radius-lg);
 }
 
+/* center content inside promo card */
+.designer-promo-card {
+    text-align: center;
+}
+
 .promo-title {
     font-size: 22px;
     font-weight: 600;
@@ -383,16 +388,22 @@ button {
 }
 
 .btn-promo-action {
-    width: 100%;
-    padding: 8px 0;
+    display: inline-block;
+    padding: 10px 28px; /* slightly smaller */
     background-color: white;
     color: var(--primary-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: 999px;
     font-weight: 600;
+    text-align: center;
+    margin: 12px auto 0; /* center inside promo card */
+    box-shadow: 0 4px 12px rgba(132,0,1,0.08);
+    font-size: 15px;
+    line-height: 1;
 }
 
 .btn-promo-action:hover {
     background-color: var(--bg-main);
+    transform: translateY(-1px);
 }
 
 .products-container {

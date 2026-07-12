@@ -1,22 +1,35 @@
 const AI_API_KEY = "";
 
-const chatFab = document.getElementById('chat-fab');
-const chatWindow = document.getElementById('chat-window');
-const btnMinimize = document.getElementById('btn-minimize');
-const btnClose = document.getElementById('btn-close');
-const chatInput = document.getElementById('chat-input');
-const btnSend = document.getElementById('btn-send');
-const chatBody = document.getElementById('chat-body');
-const typingIndicator = document.getElementById('typing-indicator');
+let chatFab = null;
+let chatWindow = null;
+let btnMinimize = null;
+let btnClose = null;
+let chatInput = null;
+let btnSend = null;
+let chatBody = null;
+let typingIndicator = null;
 
 const SYSTEM_PROMPT = "Bạn là Trợ lý ảo Urii, một nhân viên tư vấn nhiệt tình, thông minh của cửa hàng bán bộ kit hạt đậu tạo hình (Perler Beads). Hãy trả lời bằng tiếng Việt, ngắn gọn, lịch sự và dễ hiểu.";
 
-document.addEventListener('DOMContentLoaded', initChatbot);
-
 function initChatbot() {
+    if (window.__chatbotWidgetInitialized) {
+        return;
+    }
+
+    chatFab = document.getElementById('chat-fab');
+    chatWindow = document.getElementById('chat-window');
+    btnMinimize = document.getElementById('btn-minimize');
+    btnClose = document.getElementById('btn-close');
+    chatInput = document.getElementById('chat-input');
+    btnSend = document.getElementById('btn-send');
+    chatBody = document.getElementById('chat-body');
+    typingIndicator = document.getElementById('typing-indicator');
+
     if (!chatFab || !chatWindow || !btnMinimize || !btnClose || !chatInput || !btnSend || !chatBody || !typingIndicator) {
         return;
     }
+
+    window.__chatbotWidgetInitialized = true;
 
     appendMessage({
         text: "Xin chào, Urii có thể giúp gì cho bạn?",
@@ -43,6 +56,14 @@ function initChatbot() {
         }
     });
 }
+
+window.initChatbotWidget = initChatbot;
+
+document.addEventListener('DOMContentLoaded', initChatbot);
+if (document.readyState !== 'loading') {
+    initChatbot();
+}
+
 async function handleUserSend() {
     const text = chatInput.value.trim();
     if (!text) return;
@@ -215,7 +236,7 @@ function appendMessage(data, sender) {
     } else {
         messageArticle.innerHTML = `
             <div class="user-avatar-chat">
-                <span class="material-symbols-outlined filled-icon">person</span>
+                <i class="bi bi-person-fill"></i>
             </div>
             <div class="message-content-wrapper">
                 <div class="message-bubble"><p>${msgText}</p></div>

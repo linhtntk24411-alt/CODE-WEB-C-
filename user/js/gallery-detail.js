@@ -152,23 +152,23 @@ function renderProductDetails(product) {
 
             // Giao diện cấu trúc dạng bảng/cột để tối ưu hóa không gian hiển thị, ngăn chặn lỗi nuốt bước
             pdfContent.innerHTML = `
-                <div style="text-align: center; border-bottom: 2px solid #ff2222; padding-bottom: 6px; margin-bottom: 12px;">
-                    <img src="../assets/Logo.png" style="max-width: 100px; height: auto; display: inline-block;" alt="Logo Urii" />
-                    <p style="margin: 4px 0 0 0; font-size: 13px; color: #000000; letter-spacing: 1.5px; font-weight: 600; font-family: 'Times New Roman', Times, serif;">HƯỚNG DẪN LÀM MAP HẠT ỦI CHUẨN</p>
+                <div style="text-align: center; border-bottom: 2px solid #ff2222; padding-bottom: 4px; margin-bottom: 10px;">
+                    <img src="../assets/Logo.png" style="max-width: 90px; height: auto; display: inline-block;" alt="Logo Urii" />
+                    <p style="margin: 2px 0 0 0; font-size: 11px; color: #000000; letter-spacing: 1.5px; font-weight: 600; font-family: 'Times New Roman', Times, serif;">HƯỚNG DẪN LÀM MAP HẠT ỦI CHUẨN</p>
                 </div>
                 
-                <h2 style="color: #000000; text-align: center; margin: 5px 0 2px 0; font-size: 20px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">${product.title}</h2>
-                <p style="text-align: center; color: #444444; font-size: 12px; margin: 0 0 15px 0; font-family: 'Times New Roman', Times, serif;">Thời gian: ${product.duration || '--'} | Cấp độ: ${product.difficulty || '--'}</p>
+                <h2 style="color: #000000; text-align: center; margin: 2px 0 2px 0; font-size: 18px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">${product.title}</h2>
+                <p style="text-align: center; color: #444444; font-size: 11px; margin: 0 0 10px 0; font-family: 'Times New Roman', Times, serif;">Thời gian: ${product.duration || '--'} | Cấp độ: ${product.difficulty || '--'}</p>
                 
                 <table style="width: 100%; border-collapse: collapse; border: none; margin-top: 5px;">
                     <tr>
-                        <td style="width: 45%; vertical-align: top; padding-right: 15px; text-align: center;">
-                            <p style="font-weight: bold; color: #ff2222; font-size: 12px; margin: 0 0 6px 0; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; text-transform: uppercase;">MAP MẪU (IMAGE MAP)</p>
-                            <img src="${product.mainImage}" style="width: 220px; height: 220px; object-fit: contain; border-radius: 8px; border: 2px solid #f0f0f0; display: inline-block;" />
+                        <td style="width: 42%; vertical-align: top; padding-right: 10px; text-align: center;">
+                            <p style="font-weight: bold; color: #ff2222; font-size: 11px; margin: 0 0 6px 0; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; text-transform: uppercase;">MAP MẪU (IMAGE MAP)</p>
+                            <img src="${product.mainImage}" style="width: 200px; height: 200px; object-fit: contain; border-radius: 8px; border: 2px solid #f0f0f0; display: inline-block;" />
                         </td>
                         
-                        <td style="width: 55%; vertical-align: top; border-left: 1px dashed #cccccc; padding-left: 15px; text-align: left;">
-                            <h3 style="color: #ff2222; border-left: 3px solid #ff2222; padding-left: 6px; margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Các bước thực hiện chi tiết</h3>
+                        <td style="width: 58%; vertical-align: top; border-left: 1px dashed #cccccc; padding-left: 15px; text-align: left;">
+                            <h3 style="color: #ff2222; border-left: 3px solid #ff2222; padding-left: 6px; margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Các bước thực hiện chi tiết</h3>
                             <div>
                                 ${stepsHtml}
                             </div>
