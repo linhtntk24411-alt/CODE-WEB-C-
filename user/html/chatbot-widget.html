@@ -42,9 +42,13 @@
             </main>
 
             <footer class="chat-footer">
-                <div class="input-container">
-                    <button class="icon-btn"><span class="material-symbols-outlined">add_circle</span></button>
-                    <button class="icon-btn"><span class="material-symbols-outlined">mood</span></button>
+                <div class="input-container" style="position: relative;"> <button id="btn-plus" class="icon-btn"><span class="material-symbols-outlined">add_circle</span></button>
+                    <input type="file" id="chat-file-input" style="display: none;" multiple>
+                    
+                    <button id="btn-emoji" class="icon-btn"><span class="material-symbols-outlined">mood</span></button>
+                    
+                    <div id="emoji-picker" class="emoji-picker hidden"></div>
+
                     <input id="chat-input" type="text" placeholder="Nhập tin nhắn...">
                     <button id="btn-send" class="send-btn">
                         <span class="material-symbols-outlined filled-icon">send</span>

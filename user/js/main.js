@@ -214,9 +214,13 @@ function injectChatbotWidget() {
         </main>
 
         <footer class="chat-footer">
-          <div class="input-container">
-            <button class="icon-btn"><i class="bi bi-plus-circle"></i></button>
-            <button class="icon-btn"><i class="bi bi-emoji-smile"></i></button>
+          <div class="input-container" style="position: relative;"> <button id="btn-plus" class="icon-btn"><i class="bi bi-plus-circle"></i></button>
+            <input type="file" id="chat-file-input" style="display: none;" multiple>
+            
+            <button id="btn-emoji" class="icon-btn"><i class="bi bi-emoji-smile"></i></button>
+            
+            <div id="emoji-picker" class="emoji-picker hidden"></div>
+
             <input id="chat-input" type="text" placeholder="Nhập tin nhắn...">
             <button id="btn-send" class="send-btn">
               <i class="bi bi-send-fill"></i>

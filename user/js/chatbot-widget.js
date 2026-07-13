@@ -8,6 +8,9 @@ let chatInput = null;
 let btnSend = null;
 let chatBody = null;
 let typingIndicator = null;
+let btnEmoji = null;
+let emojiPicker = null;
+let fileInput = null;
 
 const SYSTEM_PROMPT = "Bạn là Trợ lý ảo Urii, một nhân viên tư vấn nhiệt tình, thông minh của cửa hàng bán bộ kit hạt đậu tạo hình (Perler Beads). Hãy trả lời bằng tiếng Việt, ngắn gọn, lịch sự và dễ hiểu.";
 
@@ -27,6 +30,42 @@ function initChatbot() {
 
     if (!chatFab || !chatWindow || !btnMinimize || !btnClose || !chatInput || !btnSend || !chatBody || !typingIndicator) {
         return;
+    }
+    // Ánh xạ các phần tử mới cho chức năng Emoji và File Upload
+    btnEmoji = document.getElementById('btn-emoji');
+    emojiPicker = document.getElementById('emoji-picker');
+    fileInput = document.getElementById('chat-file-input');
+
+    // 1. Kích hoạt chức năng Emoji
+    if (btnEmoji && emojiPicker) {
+        // Danh sách các emoji phổ biến
+        const emojis = ['😊', '😂', '🥰', '👍', '🔥', '❤️', '✨', '⭐', '😭', '😮'];
+        emojiPicker.innerHTML = emojis.map(emo => `<span>${emo}</span>`).join('');
+        
+        // Bấm nút mặt cười thì ẩn/hiện bảng chọn
+        btnEmoji.addEventListener('click', (e) => {
+            e.stopPropagation();
+            emojiPicker.classList.toggle('hidden');
+        });
+
+        // Khi bấm chọn một emoji bất kỳ
+        emojiPicker.addEventListener('click', (e) => {
+            if (e.target.tagName === 'SPAN') {
+                chatInput.value += e.target.textContent;
+                emojiPicker.classList.add('hidden'); // Ẩn bảng đi
+                chatInput.focus(); // Giữ con trỏ chuột ở ô nhập liệu
+            }
+        });
+
+        // Click chuột ra ngoài khung chat thì tự động ẩn bảng chọn emoji
+        document.addEventListener('click', () => emojiPicker.classList.add('hidden'));
+    }
+
+    // 2. Kích hoạt chức năng bấm nút dấu cộng để upload file
+    const btnPlus = document.getElementById('btn-plus');
+    if (btnPlus && fileInput) {
+        btnPlus.addEventListener('click', () => fileInput.click()); // Click nút cộng -> mở hộp chọn file
+        fileInput.addEventListener('change', handleFileSelect);     // Khi chọn xong file -> chạy hàm xử lý
     }
 
     window.__chatbotWidgetInitialized = true;
@@ -59,10 +98,29 @@ function initChatbot() {
 
 window.initChatbotWidget = initChatbot;
 
-document.addEventListener('DOMContentLoaded', initChatbot);
-if (document.readyState !== 'loading') {
-    initChatbot();
-}
+(function autoBindChatbotEvents() {
+    const observer = new MutationObserver((mutations, obs) => {
+        const btnEmojiCheck = document.getElementById('btn-emoji');
+        const btnPlusCheck = document.getElementById('btn-plus');
+        const fileInputCheck = document.getElementById('chat-file-input');
+        
+        // Khi tất cả các phần tử đã được main.js tạo ra đầy đủ
+        if (btnEmojiCheck && btnPlusCheck && fileInputCheck) {
+            initChatbot(); // Kích hoạt toàn bộ tính năng gõ chữ, chọn emoji, gửi file
+            obs.disconnect(); // Ngắt observer để tiết kiệm tài nguyên bộ nhớ
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Chạy thử luôn đề phòng trường hợp HTML đã có sẵn từ trước
+    if (document.getElementById('btn-emoji') && document.getElementById('btn-plus') && document.getElementById('chat-file-input')) {
+        initChatbot();
+    }
+})();
 
 async function handleUserSend() {
     const text = chatInput.value.trim();
@@ -278,4 +336,71 @@ function escapeHtml(value) {
         .replace(/>/g, '>')
         .replace(/"/g, '"')
         .replace(/'/g, '\'');
+}
+// ===== HÀM XỬ LÝ UPLOAD FILE / HÌNH ẢNH =====
+function handleFileSelect(event) {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    // Bộ lọc định dạng: Chỉ cho phép Hình ảnh, Word, PDF
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.doc|\.docx|\.pdf|\.xls|\.xlsx|\.ai|\.psd|\.svg|\.zip|\.rar)$/i;
+
+    Array.from(files).forEach(file => {
+        // Kiểm tra xem file gửi lên có đúng định dạng yêu cầu không
+        if (!allowedExtensions.exec(file.name)) {
+            alert(`File "${file.name}" không đúng định dạng!\nUrii chỉ nhận file Hình ảnh, Word hoặc PDF thôi ạ.`);
+            return;
+        }
+
+        const now = new Date();
+        const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        const messageArticle = document.createElement('article');
+        messageArticle.classList.add('message', 'user-message');
+
+        let filePreviewHtml = '';
+
+        // Nếu là hình ảnh, hiển thị ảnh preview nhỏ trực tiếp trong bong bóng chat
+        if (file.type.startsWith('image/')) {
+            const imageUrl = URL.createObjectURL(file);
+            filePreviewHtml = `<img src="${imageUrl}" style="max-width: 150px; border-radius: 8px; margin-top: 5px; display: block;" alt="Uploaded Image">`;
+        } else {
+            // Nếu là tài liệu văn bản Word/PDF, hiển thị kèm icon đẹp mắt
+            let icon = '📄';
+            if (file.name.endsWith('.pdf')) icon = '📕';
+            if (file.name.includes('.doc')) icon = '📘';
+            filePreviewHtml = `
+                <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.05); padding: 8px; border-radius: 6px; margin-top: 5px;">
+                    <span style="font-size: 20px;">${icon}</span>
+                    <span style="font-size: 13px; word-break: break-all; color: #333;">${file.name}</span>
+                </div>`;
+        }
+
+        messageArticle.innerHTML = `
+            <div class="user-avatar-chat">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="message-content-wrapper">
+                <div class="message-bubble">
+                    <p style="margin: 0; font-weight: 600; font-size: 13px; color: #555;">📎 Đã tải lên tài liệu:</p>
+                    ${filePreviewHtml}
+                </div>
+                <time class="timestamp">${timeStr}</time>
+            </div>
+        `;
+
+        chatBody.insertBefore(messageArticle, typingIndicator);
+        scrollToBottom();
+
+        // Tạo hiệu ứng chatbot phản hồi tự động sau khi nhận được file
+        setTimeout(() => {
+            showTyping(true);
+            setTimeout(() => {
+                showTyping(false);
+                appendMessage(`Dạ, Urii đã nhận được file **"${file.name}"** của bạn rồi ạ! Shop sẽ kiểm tra file thiết kế này liền nha. ✨`, 'bot');
+            }, 1200);
+        }, 400);
+    });
+
+    // Reset lại ô chọn file để người dùng có thể tải tiếp file trùng tên ở lần sau
+    fileInput.value = '';
 }

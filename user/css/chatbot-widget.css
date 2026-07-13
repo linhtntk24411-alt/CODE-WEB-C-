@@ -419,3 +419,32 @@ body {
         font-size: 28px;
     }
 }
+/* Giao diện khung chứa các Emoji */
+.emoji-picker {
+    position: absolute;
+    bottom: 55px;
+    left: 45px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+}
+.emoji-picker span {
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    padding: 2px;
+    text-align: center;
+}
+.emoji-picker span:hover {
+    transform: scale(1.2);
+}
+/* Class ẩn nhanh */
+.emoji-picker.hidden {
+    display: none !important;
+}
