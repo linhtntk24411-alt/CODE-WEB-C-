@@ -30,6 +30,8 @@ body {
   background: var(--orders-surface);
   font-family: 'Nunito Sans', sans-serif;
   color: var(--orders-on-surface);
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ---- Main container ---- */
@@ -108,6 +110,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .orders-header {
@@ -377,6 +380,7 @@ body {
   .orders-sidebar {
     position: static;
     width: 100%;
+    min-width: 0;
   }
   .orders-nav {
     flex-direction: row;
@@ -427,7 +431,20 @@ body {
     align-items: stretch;
   }
   .orders-filter {
-    justify-content: center;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    padding-bottom: 8px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .orders-filter::-webkit-scrollbar {
+    display: none;
+  }
+  .orders-filter-btn {
+    flex: 0 0 auto;
   }
   .order-card-header {
     flex-direction: column;

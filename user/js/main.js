@@ -267,6 +267,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(ensureFooterAccordion, 100);
   injectChatbotWidget();
+
+  // Tự động cuộn thanh điều hướng ngang đến mục đang kích hoạt trên mobile
+  setTimeout(() => {
+    const activeNav = document.querySelector('.profile-nav-item.active, .orders-nav-item.active, .sidebar-nav-item.active, .saved-maps-nav-item.active');
+    if (activeNav) {
+      const container = activeNav.parentElement;
+      if (container) {
+        const containerWidth = container.clientWidth;
+        const itemOffset = activeNav.offsetLeft;
+        const itemWidth = activeNav.clientWidth;
+        container.scrollLeft = itemOffset - (containerWidth / 2) + (itemWidth / 2);
+      }
+    }
+  }, 150);
 });
 
 // ===== LẮNG NGHE SỰ KIỆN GIỎ HÀNG =====

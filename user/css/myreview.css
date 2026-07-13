@@ -30,6 +30,8 @@ body {
     font-family: 'Nunito Sans', sans-serif;
     background-color: var(--surface);
     color: var(--on-surface);
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 /* ----- MAIN LAYOUT (giống orders) ----- */
@@ -108,6 +110,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    min-width: 0;
 }
 
 .myreview-header {
@@ -373,6 +376,7 @@ body {
     .myreview-sidebar {
         position: static;
         width: 100%;
+        min-width: 0;
     }
     .sidebar-nav {
         flex-direction: row;

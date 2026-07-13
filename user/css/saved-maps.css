@@ -30,6 +30,8 @@
   flex-direction: column;
   background: var(--saved-maps-surface);
   font-family: 'Nunito Sans', sans-serif;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ---- Main container ---- */
@@ -114,6 +116,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .saved-maps-header {
@@ -497,6 +500,7 @@
   .saved-maps-sidebar {
     position: static;
     width: 100%;
+    min-width: 0;
   }
   .saved-maps-nav {
     flex-direction: row;
@@ -538,6 +542,7 @@
   .saved-maps-sidebar {
     position: static;
     width: 100%;
+    min-width: 0;
   }
   .saved-maps-nav {
     flex-direction: row;
