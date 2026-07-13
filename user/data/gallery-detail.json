@@ -23,7 +23,7 @@
       { "number": 3, "title": "Thêm mắt và icon trái tim", "text": "Dùng hạt màu trắng để tạo điểm mắt bắt sáng và xếp các icon trái tim nhỏ màu hồng xung quanh xúc tu.", "tip": "Xếp các chi tiết nhỏ từ trong ra ngoài để không làm lệch form dáng chính." },
       { "number": 4, "title": "Ủi nhiệt hoàn thiện", "text": "Phủ giấy nến chuyên dụng lên bề mặt, dùng bàn ủi nhiệt độ trung bình di chuyển đều tay theo hình tròn trong 20-30 giây."}
     ],
-    "showcase": { "images": [], "moreCount": 12 },
+    "showcase": { "images": ["../assets/gallery_assets/cong-dong-bach-tuoc.webp"], "moreCount": 12 },
     "products": [
       { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "../assets/product/21.png" },
       { "product_id": "nhip-chuyen-dung", "title": "Nhíp gắp hạt chuyên dụng", "price": "15.000đ", "image": "../assets/product/14.png" }
@@ -113,7 +113,7 @@
       { "number": 3, "title": "Phối màu đan xen cánh hoa", "text": "Gắp các hạt màu hồng, vàng và xanh dương xen kẽ theo sơ đồ để tạo hiệu ứng các bông hoa xếp lớp có chiều sâu thị giác.", "tip": "Nên hoàn thiện từng cụm hoa một để tránh nhầm lẫn giữa các mảng màu lớn." },
       { "number": 4, "title": "Ủi nhiệt diện rộng bảo an", "text": "Di chuyển bàn ủi liên tục theo các vòng tròn lớn đè lên toàn bộ tác phẩm trong vòng 60 giây để đảm bảo không bỏ sót vùng liên kết nào."}
     ],
-    "showcase": { "images": [], "moreCount": 14 },
+    "showcase": { "images": ["../assets/gallery_assets/cong-dong-hellokitty.webp"], "moreCount": 14 },
     "products": [
       { "product_id": "pk-pegboard-20", "title": "Pegboard vuông lớn 20x20cm", "price": "45.000đ", "image": "../assets/product/21.png"}
     ]

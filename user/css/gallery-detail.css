@@ -575,3 +575,67 @@ h1, h2, h3, h4, .font-Segoe UI {
   margin: 0 8px; /* Khoảng cách hai bên dấu gạch chéo */
   user-select: none;
 }
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Thẻ link bọc ảnh và chữ */
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Khối chứa 2 nút bên dưới thông tin sản phẩm */
+.product-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto; /* Đẩy khối nút luôn nằm sát đáy ô sản phẩm */
+}
+
+/* Nút Mua ngay trên ô sản phẩm */
+.card-btn-buy {
+    flex: 1;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: 1px solid var(--primary);
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.card-btn-buy:hover {
+    background-color: var(--primary-container);
+    border-color: var(--primary-container);
+}
+
+/* Nút icon Giỏ hàng trên ô sản phẩm */
+.card-btn-cart {
+    background-color: #ffffff;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.card-btn-cart .material-symbols-outlined {
+    font-size: 18px;
+    font-variation-settings: 'FILL' 0; /* Icon rỗng nét mảnh chuẩn web */
+}
+
+.card-btn-cart:hover {
+    background-color: #fff0f1; /* Nền hồng nhạt khi di chuột vào */
+}

@@ -226,19 +226,94 @@ function renderRelatedProducts(products) {
 
     if (products && Array.isArray(products) && products.length > 0) {
         products.forEach(item => {
-            const productCard = document.createElement("a");
+            const productCard = document.createElement("div"); 
             productCard.className = "product-card";
-            productCard.href = "#";
             productCard.innerHTML = `
-                <img src="${item.image}" alt="${item.title}">
-                <div class="product-info">
-                    <h4>${item.title}</h4>
-                    <span class="product-price">${item.price}</span>
+                <a href="gallery-detail.html?id=${item.id || ''}" class="product-card-link">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="product-info">
+                        <h4>${item.title}</h4>
+                        <span class="product-price">${item.price || 'Liên hệ'}</span>
+                    </div>
+                </a>
+                <div class="product-card-actions">
+                    <button class="card-btn-buy">Mua ngay</button>
+                    <button class="card-btn-cart" title="Thêm vào giỏ hàng">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                    </button>
                 </div>
             `;
             container.appendChild(productCard);
         });
+
+        // --- XỬ LÝ SỰ KIỆN KHI BẤM NÚT ---
+        
+        // 1. Khi bấm nút "Mua ngay" -> Lưu vào checkoutItems và CHUYỂN QUA CHECKOUT
+        container.querySelectorAll('.card-btn-buy').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const item = products[index];
+                const cleanPrice = parseInt(item.price.replace(/[₫,.]/g, '')) || 0;
+                const targetId = item.id || item.product_id;
+
+                const checkoutItem = [{
+                    id: targetId,
+                    productId: targetId,
+                    name: item.title,
+                    price: cleanPrice,
+                    image: item.image,
+                    quantity: 1,
+                    variant: "Mặc định",
+                    isCustomItem: true // Đánh dấu đây là sản phẩm từ mục gợi ý / chi tiết
+                }];
+
+                localStorage.setItem('checkoutItems', JSON.stringify(checkoutItem));
+                window.location.href = 'checkout.html';
+            });
+        });
+
+        // 2. Khi bấm "Icon giỏ hàng" -> Lưu vào giỏ hàng chung (cartItems), KHÔNG CHUYỂN TRANG
+        container.querySelectorAll('.card-btn-cart').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const item = products[index];
+                const cleanPrice = parseInt(item.price.replace(/[₫,.]/g, '')) || 0;
+                const targetId = item.id || item.product_id;
+
+                // Lấy danh sách giỏ hàng hiện tại lưu trong LocalStorage
+                let currentCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                // Kiểm tra xem sản phẩm này đã có trong giỏ hàng chưa
+                const existingItem = currentCart.find(cartItem => cartItem.id === targetId);
+
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    // Tạo đối tượng chứa đầy đủ thông tin để bẻ gãy bộ lọc nghiêm ngặt của checkout.js
+                    currentCart.push({
+                        id: targetId,
+                        productId: targetId,
+                        name: item.title,
+                        price: cleanPrice,
+                        image: item.image,
+                        quantity: 1,
+                        variant: "Mặc định",
+                        isCustomItem: true, // Ép checkout nhận diện
+                        // Giả lập cấu trúc gốc phòng trường hợp checkout.js gọi sâu vào thuộc tính con
+                        title: item.title,
+                        mainImage: item.image
+                    });
+                }
+
+                // Lưu lại mảng giỏ hàng vào LocalStorage dưới key 'cartItems'
+                localStorage.setItem('cartItems', JSON.stringify(currentCart));
+
+                // Bắn sự kiện thông báo để Header cập nhật lại số lượng hiển thị trên Icon giỏ hàng
+                window.dispatchEvent(new CustomEvent('cart:updated'));
+                
+                alert(`Đã thêm sản phẩm "${item.title}" vào giỏ hàng thành công!`);
+            });
+        });
+
     } else {
-        container.innerHTML = "<p style='text-align:center; color:#888;'>Chưa có sản phẩm gợi ý.</p>";
+        container.innerHTML = "<p style='text-align:center; color:#888;'>Chưa có sản phẩm gợi ý</p>";
     }
 }

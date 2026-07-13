@@ -119,8 +119,25 @@ function renderCart() {
     let totalItems = 0;
 
     cartItems.forEach((item, index) => {
-        const product = getProductById(item.productId);
+        let product = getProductById(item.productId);
+        
+        // --- ĐOẠN CODE SỬA ĐỂ HIỂN THỊ SẢN PHẨM GỢI Ý ---
+        // Nếu không tìm thấy trong product.json nhưng item có chứa sẵn thông tin (Custom Item từ gallery chuyển qua)
+        if (!product && item.name) {
+            product = {
+                id: item.id || item.productId,
+                name: item.name,
+                image: item.image,
+                currentPrice: item.price,
+                originalPrice: item.price,
+                stock: 99, // Giả lập kho để không bị chặn tăng số lượng
+                category: "Dụng cụ làm Map"
+            };
+        }
+
+        // Nếu vẫn không có thông tin sản phẩm thì mới bỏ qua
         if (!product) return;
+        // --- KẾT THÚC ĐOẠN CODE SỬA ---
 
         const variantName = item.variant || (product.variants ? product.variants[0].name : null);
         const price = getVariantPrice(product, variantName);
