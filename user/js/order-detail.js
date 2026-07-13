@@ -58,10 +58,13 @@
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         
-        const customItem = data.find(item => item.id.trim().toUpperCase() === orderId);
-        if (!customItem) {
-          document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng thiết kế.</p>';
-          return;
+        const searchId = orderId.startsWith('#') ? orderId : `#${orderId}`;
+
+        // SỬA ĐOẠN NÀY: Dùng biến searchId thay vì orderId cũ để so khớp chính xác với JSON
+        const customItem = data.find(item => item.id.trim().toUpperCase() === searchId); //[cite: 9]
+        if (!customItem) { //[cite: 9]
+          document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng thiết kế.</p>'; //[cite: 9]
+          return; //[cite: 9]
         }
 
         // Tạo cấu trúc dữ liệu giả lập chuẩn khớp 100% với form hiển thị của hệ thống

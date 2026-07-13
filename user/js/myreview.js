@@ -47,36 +47,90 @@ const myReviews = [
 ];
 
 // ===== RENDER =====
-function renderReviews() {
+async function renderReviews() { 
     const container = document.getElementById('reviewsContainer');
     const totalSpan = document.getElementById('totalReviews');
     if (!container) return;
 
-    // Cập nhật tổng số
-    totalSpan.textContent = myReviews.length + ' đánh giá';
+    // 1. Lấy dữ liệu từ localStorage và mảng mẫu gốc
+    const localReviews = JSON.parse(localStorage.getItem('my_reviews_cache')) || [];
+    const allReviews = [...localReviews, ...myReviews];
 
-    // Xóa nội dung cũ
+    totalSpan.textContent = allReviews.length + ' đánh giá';
     container.innerHTML = '';
 
-    // Lặp qua từng review
-    myReviews.forEach(function(review) {
-        const starsHtml = renderStars(review.rating);
-        const formattedDate = formatDate(review.date);
-        const detailLink = 'order-detail.html?id=' + encodeURIComponent(review.orderId);
+    // 2. ĐỌC DATA TỪ FILE JSON CUSTOM ĐỂ DÒ TÌM
+    let jsonOrders = [];
+    try {
+        const response = await fetch('../data/custom-order-list.json');
+        if (response.ok) {
+            jsonOrders = await response.json();
+        }
+    } catch (err) {
+        console.error("Không thể đọc file JSON để lấy ảnh:", err);
+    }
+
+    // Đọc thêm cache đơn hàng YCTK (nếu có) từ localStorage
+    const localOrders = JSON.parse(localStorage.getItem('custom_orders_cache')) || [];
+    const allOrders = [...localOrders, ...jsonOrders]; // Tổng hợp toàn bộ đơn hàng YCTK
+
+    // 3. Tiến hành lặp và vẽ giao diện
+    allReviews.forEach(function(review) {
+        if (!review) return; 
+        
+        const target = review.item || review;
+        
+        // Lấy ID gốc (Ví dụ: "#URII-9842" hoặc "UR-81023")
+        let rawId = review.orderId || target.orderId || review.id || target.id || '';
+        
+        // Làm sạch ID để đối chiếu chính xác
+        const cleanOrderId = String(rawId).replace('#', '').trim().toUpperCase();
+
+        // TÌM ĐƠN HÀNG KHỚP ID TRONG DANH SÁCH CUSTOM
+        const matchedOrder = allOrders.find(item => {
+            if (!item || !item.id) return false; 
+            const cleanItemId = String(item.id).replace('#', '').trim().toUpperCase();
+            return cleanOrderId === cleanItemId;
+        });
+
+        // Xác định ảnh và tên hiển thị (Ưu tiên lấy từ đơn custom nếu khớp)
+        const prodImage = matchedOrder ? matchedOrder.image : (review.productImage || target.productImage || review.image || target.image || 'https://placehold.co/140x140?text=No+Image');
+        const prodName = matchedOrder ? matchedOrder.name : (review.productName || target.productName || review.name || target.name || 'Đơn hàng');
+        
+        const rating = review.rating || target.rating || 5;
+        const starsHtml = renderStars(rating);
+
+        let rawDate = review.date || target.date || review.createdAt || target.createdAt || new Date();
+        const formattedDate = formatDate(rawDate);
+        
+        // Lấy ID gốc (Ví dụ: "#URII-9842")
+        const finalIdToUrl = matchedOrder ? matchedOrder.id : rawId; 
+        
+        // Làm sạch ID để truyền tham số gọn gàng (Bỏ dấu # đi khi truyền lên URL)
+        const cleanIdForUrl = String(finalIdToUrl).replace('#', '').trim();
+        
+        // Mặc định link là đơn thường
+        let detailLink = 'order-detail.html?id=' + encodeURIComponent(cleanIdForUrl);
+        
+        // Nếu là đơn custom, bắt buộc truyền id đã bỏ # và thêm &type=custom
+        if (matchedOrder || review.type === 'custom' || target.type === 'custom' || cleanOrderId.startsWith('URII')) {
+            detailLink = 'order-detail.html?id=' + encodeURIComponent(cleanIdForUrl) + '&type=custom';
+        }
+        const reviewText = review.content || target.content || review.comment || target.comment || 'Đánh giá không có nội dung.';
 
         const card = document.createElement('div');
         card.className = 'review-card';
 
         card.innerHTML = `
             <div class="review-product-image">
-                <img src="${review.productImage}" alt="${review.productName}" onerror="this.src='https://via.placeholder.com/140x140/cccccc/666666?text=No+Image'" />
+                <img src="${prodImage}" alt="${prodName}" onerror="this.onerror=null; this.src='https://placehold.co/140x140?text=No+Image'" />
             </div>
             <div class="review-content-wrapper">
                 <div class="review-product-name">
-                    <a href="${detailLink}" class="product-link">${review.productName}</a>
+                    <a href="${detailLink}" class="product-link">${prodName}</a>
                 </div>
                 <div class="review-stars">${starsHtml}</div>
-                <div class="review-text">"${review.content}"</div>
+                <div class="review-text">"${reviewText}"</div>
                 <div class="review-date">${formattedDate}</div>
                 <div class="review-order-link">
                     <a href="${detailLink}" class="product-link">Xem đơn hàng →</a>
@@ -84,7 +138,6 @@ function renderReviews() {
             </div>
         `;
 
-        // Click vào card cũng chuyển trang
         card.addEventListener('click', function(e) {
             if (e.target.tagName !== 'A') {
                 window.location.href = detailLink;
@@ -110,7 +163,23 @@ function renderStars(rating) {
 
 // ===== HELPER: format date =====
 function formatDate(dateString) {
+    if (!dateString) return 'Chưa rõ ngày';
+    
+    // Nếu chuỗi ngày có chứa dấu gạch chéo dạng DD/MM/YYYY (như file JSON custom của bạn)
+    if (typeof dateString === 'string' && dateString.includes('/')) {
+        const parts = dateString.split(' ')[0].split('/'); // Tách lấy phần ngày bỏ phần giờ nếu có
+        if (parts.length === 3) {
+            // parts[0] là ngày, parts[1] là tháng, parts[2] là năm
+            return parts[0].padStart(2, '0') + '/' + parts[1].padStart(2, '0') + '/' + parts[2];
+        }
+    }
+
     var date = new Date(dateString);
+    // Nếu chạy qua new Date() mà bị lỗi không xác định được thời gian
+    if (isNaN(date.getTime())) {
+        return String(dateString).split(' ')[0]; // Trả về chuỗi ngày gốc cắt bớt giờ
+    }
+
     var day = String(date.getDate()).padStart(2, '0');
     var month = String(date.getMonth() + 1).padStart(2, '0');
     var year = date.getFullYear();
