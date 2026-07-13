@@ -1,4 +1,4 @@
-﻿        // Get product ID from URL (default: 12)
+        // Get product ID from URL (default: 12)
         const urlParams = new URLSearchParams(window.location.search);
         const productId = parseInt(urlParams.get('id')) || 12;
 
@@ -32,7 +32,7 @@
             const cartCount = document.getElementById('cartCount');
             if (cartCount) {
                 const items = getStoredCartItems();
-                const total = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                const total = items.length;
                 cartCount.textContent = total;
                 cartCount.style.display = total > 0 ? 'flex' : 'none';
             }

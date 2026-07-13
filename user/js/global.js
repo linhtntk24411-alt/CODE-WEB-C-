@@ -103,9 +103,7 @@ function syncCartBadge() {
     try {
         const saved = localStorage.getItem('cartItems');
         const items = saved ? JSON.parse(saved) : [];
-        const total = Array.isArray(items)
-            ? items.reduce((sum, item) => sum + (item.quantity || 0), 0)
-            : 0;
+        const total = Array.isArray(items) ? items.length : 0;
         cartCount.textContent = total;
         cartCount.style.display = total > 0 ? 'flex' : 'none';
     } catch (error) {

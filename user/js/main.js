@@ -1,4 +1,4 @@
-﻿// ===== LOAD HEADER & FOOTER VÀ TỰ ĐỘNG KHỞI TẠO =====
+// ===== LOAD HEADER & FOOTER VÀ TỰ ĐỘNG KHỞI TẠO =====
 
 function ensureFooterAccordion() {
   if (window.__footerAccordionLoaded) {
@@ -118,9 +118,7 @@ function syncCartBadge() {
   try {
     const saved = localStorage.getItem('cartItems');
     const items = saved ? JSON.parse(saved) : [];
-    const total = Array.isArray(items)
-      ? items.reduce((sum, item) => sum + (item.quantity || 0), 0)
-      : 0;
+    const total = Array.isArray(items) ? items.length : 0;
     cartCount.textContent = total;
     cartCount.style.display = total > 0 ? 'flex' : 'none';
   } catch (error) {
@@ -373,12 +371,25 @@ document.addEventListener('auth:changed', function() {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         if (isProtected && !isLoggedIn) {
             console.log('🔒 Protected page accessed without login. Redirecting to login...');
-            alert('Vui lòng đăng nhập để truy cập trang này');
-            localStorage.setItem('redirectAfterLogin', window.location.href);
-            if (currentPage.startsWith('checkout.html')) {
-                localStorage.setItem('checkoutAction', 'true');
+            if (typeof window.ariiAlert === 'function') {
+                window.ariiAlert('Vui lòng đăng nhập để truy cập trang này', {
+                    type: 'info',
+                    callback: () => {
+                        localStorage.setItem('redirectAfterLogin', window.location.href);
+                        if (currentPage.startsWith('checkout.html')) {
+                            localStorage.setItem('checkoutAction', 'true');
+                        }
+                        window.location.href = 'login.html';
+                    }
+                });
+            } else {
+                alert('Vui lòng đăng nhập để truy cập trang này');
+                localStorage.setItem('redirectAfterLogin', window.location.href);
+                if (currentPage.startsWith('checkout.html')) {
+                    localStorage.setItem('checkoutAction', 'true');
+                }
+                window.location.href = 'login.html';
             }
-            window.location.href = 'login.html';
         }
     }
 
@@ -602,6 +613,730 @@ document.addEventListener('auth:changed', function() {
 
     window.getCoupons = getCoupons;
     window.validateCoupon = validateCoupon;
+
+    // =============================================================
+    // POPUP LỰA CHỌN MÃ GIẢM GIÁ DÙNG CHUNG
+    // =============================================================
+    function injectCouponModalStyles() {
+        if (document.getElementById('coupon-modal-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'coupon-modal-styles';
+        style.innerHTML = `
+            .coupon-modal-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 99999;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(4px);
+            }
+            .coupon-modal-content {
+                background: #f8f9fa;
+                border-radius: 16px;
+                width: 90%;
+                max-width: 500px;
+                max-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                animation: couponModalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            @keyframes couponModalFadeIn {
+                from { opacity: 0; transform: scale(0.95) translateY(10px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .coupon-modal-header {
+                background: #fff;
+                padding: 16px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #e9ecef;
+            }
+            .coupon-modal-title {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 700;
+                color: #212529;
+            }
+            .coupon-modal-close {
+                background: none;
+                border: none;
+                font-size: 28px;
+                line-height: 1;
+                color: #adb5bd;
+                cursor: pointer;
+                padding: 0;
+            }
+            .coupon-modal-close:hover {
+                color: #495057;
+            }
+            .coupon-modal-body {
+                padding: 20px;
+                overflow-y: auto;
+                flex: 1;
+            }
+            .coupon-section-title {
+                font-size: 12px;
+                font-weight: 700;
+                color: #6c757d;
+                margin-bottom: 12px;
+                margin-top: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .coupon-card {
+                display: flex;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                margin-bottom: 12px;
+                overflow: hidden;
+                position: relative;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.02);
+            }
+            .coupon-card::before, .coupon-card::after {
+                content: '';
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                background: #f8f9fa;
+                border-radius: 50%;
+                left: 89px;
+                z-index: 2;
+            }
+            .coupon-card::before {
+                top: -6px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            .coupon-card::after {
+                bottom: -6px;
+                border-top: 1px solid #e0e0e0;
+            }
+            .coupon-card-left {
+                width: 95px;
+                padding: 15px 10px;
+                background: linear-gradient(135deg, #b00103, #840001);
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                text-align: center;
+                border-right: 1px dashed #e0e0e0;
+            }
+            .coupon-card.disabled .coupon-card-left {
+                background: linear-gradient(135deg, #ced4da, #e9ecef);
+                color: #6c757d;
+            }
+            .coupon-card-value {
+                font-size: 18px;
+                font-weight: 800;
+                line-height: 1.1;
+            }
+            .coupon-card-type {
+                font-size: 10px;
+                margin-top: 4px;
+                opacity: 0.9;
+                text-transform: uppercase;
+            }
+            .coupon-card-right {
+                flex: 1;
+                padding: 12px 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-width: 0;
+            }
+            .coupon-card-code {
+                font-family: monospace;
+                font-size: 12px;
+                background: #e9ecef;
+                color: #495057;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-weight: 700;
+                width: fit-content;
+            }
+            .coupon-card.disabled .coupon-card-code {
+                background: #f1f3f5;
+                color: #adb5bd;
+            }
+            .coupon-card-desc {
+                font-size: 12px;
+                color: #495057;
+                margin: 6px 0;
+                font-weight: 600;
+                line-height: 1.3;
+                word-wrap: break-word;
+            }
+            .coupon-card.disabled .coupon-card-desc {
+                color: #868e96;
+            }
+            .coupon-card-expiry {
+                font-size: 10.5px;
+                color: #6c757d;
+            }
+            .coupon-card-error {
+                font-size: 11px;
+                color: #dc3545;
+                margin-top: 4px;
+                font-weight: 600;
+            }
+            .coupon-btn-apply {
+                background: #840001;
+                color: #fff;
+                border: none;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            .coupon-btn-apply:hover {
+                background: #b00103;
+            }
+            .coupon-btn-remove {
+                background: #fff;
+                color: #dc3545;
+                border: 1px solid #ffc9c9;
+                border-radius: 12px;
+                padding: 10px 15px;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 15px;
+                text-align: center;
+                transition: all 0.2s;
+                box-shadow: 0 2px 5px rgba(220, 53, 69, 0.05);
+            }
+            .coupon-btn-remove:hover {
+                background: #fff5f5;
+                border-color: #fa5252;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    window.couponSelectorCallbacks = window.couponSelectorCallbacks || {};
+
+    window.openCouponSelector = function(inputId, subtotal, onSelectCallback) {
+        injectCouponModalStyles();
+        
+        let backdrop = document.getElementById('couponModalBackdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'couponModalBackdrop';
+            backdrop.className = 'coupon-modal-backdrop';
+            document.body.appendChild(backdrop);
+            
+            backdrop.addEventListener('click', function(e) {
+                if (e.target === backdrop) {
+                    window.closeCouponSelector();
+                }
+            });
+        }
+        
+        const callbackId = 'cb_' + Date.now();
+        window.couponSelectorCallbacks[callbackId] = onSelectCallback;
+        
+        const coupons = window.getCoupons() || [];
+        const savedPromo = localStorage.getItem('appliedPromoCode');
+        let hasActivePromo = savedPromo && savedPromo.trim() !== '';
+        
+        let availableHtml = '';
+        let unavailableHtml = '';
+        
+        coupons.forEach(c => {
+            const validation = window.validateCoupon(c.code, subtotal);
+            const isFreeshipType = c.value.toLowerCase().includes('miễn') || c.value.toLowerCase().includes('ship') || c.code.toUpperCase() === 'FREESHIP';
+            
+            if (validation.success) {
+                availableHtml += `
+                    <div class="coupon-card">
+                        <div class="coupon-card-left" style="background: linear-gradient(135deg, #b00103, #840001);">
+                            <span class="coupon-card-value">${c.value}</span>
+                            <span class="coupon-card-type">${isFreeshipType ? 'FreeShip' : 'Giảm'}</span>
+                        </div>
+                        <div class="coupon-card-right">
+                            <div>
+                                <div class="coupon-card-code">${c.code}</div>
+                                <div class="coupon-card-desc">${c.description}</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span class="coupon-card-expiry"><i class="bi bi-calendar3 me-1"></i>HSD: ${c.expiry}</span>
+                                <button class="coupon-btn-apply" onclick="window.selectCouponAndClose('${inputId}', '${c.code}', '${callbackId}')">Áp dụng</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                unavailableHtml += `
+                    <div class="coupon-card disabled">
+                        <div class="coupon-card-left">
+                            <span class="coupon-card-value">${c.value}</span>
+                            <span class="coupon-card-type">${isFreeshipType ? 'FreeShip' : 'Giảm'}</span>
+                        </div>
+                        <div class="coupon-card-right">
+                            <div>
+                                <div class="coupon-card-code">${c.code}</div>
+                                <div class="coupon-card-desc">${c.description}</div>
+                                <div class="coupon-card-error"><i class="bi bi-exclamation-circle me-1"></i>${validation.message}</div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="coupon-card-expiry"><i class="bi bi-calendar3 me-1"></i>Hiệu lực: ${c.startDate} - ${c.expiry}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        let removeButtonHtml = '';
+        if (hasActivePromo) {
+            removeButtonHtml = `
+                <button class="coupon-btn-remove" onclick="window.selectCouponAndClose('${inputId}', '', '${callbackId}')">
+                    <i class="bi bi-trash3 me-1"></i> Không sử dụng mã giảm giá
+                </button>
+            `;
+        }
+        
+        backdrop.innerHTML = `
+            <div class="coupon-modal-content">
+                <div class="coupon-modal-header">
+                    <h5 class="coupon-modal-title">Chọn mã giảm giá</h5>
+                    <button type="button" class="coupon-modal-close" onclick="window.closeCouponSelector()">&times;</button>
+                </div>
+                <div class="coupon-modal-body">
+                    ${removeButtonHtml}
+                    
+                    <div class="coupon-section-title">Mã giảm giá khả dụng</div>
+                    ${availableHtml || '<div class="text-muted small text-center my-3">Không có mã giảm giá nào khả dụng cho đơn hàng này.</div>'}
+                    
+                    <div class="coupon-section-title mt-3">Mã giảm giá không khả dụng</div>
+                    ${unavailableHtml || '<div class="text-muted small text-center my-3">Không có mã giảm giá nào khác.</div>'}
+                </div>
+            </div>
+        `;
+        
+        backdrop.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeCouponSelector = function() {
+        const backdrop = document.getElementById('couponModalBackdrop');
+        if (backdrop) {
+            backdrop.style.display = 'none';
+        }
+        document.body.style.overflow = '';
+    };
+
+    window.selectCouponAndClose = function(inputId, code, callbackId) {
+        window.closeCouponSelector();
+        
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.value = code;
+        }
+        
+        const callback = window.couponSelectorCallbacks[callbackId];
+        if (typeof callback === 'function') {
+            callback(code);
+            delete window.couponSelectorCallbacks[callbackId];
+        }
+    };
+
+    // =============================================================
+    // HỆ THỐNG THÔNG BÁO VÀ HỘP THOẠI TRỰC QUAN (ARII ALERTS & TOASTS)
+    // =============================================================
+    function injectAriiDialogStyles() {
+        if (document.getElementById('arii-dialog-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'arii-dialog-styles';
+        style.innerHTML = `
+            .arii-dialog-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(15, 23, 42, 0.35);
+                z-index: 999999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(8px);
+                font-family: 'Nunito Sans', sans-serif;
+                animation: uriiFadeIn 0.25s ease-out;
+            }
+            .arii-dialog-box {
+                background: #fff;
+                border-radius: 24px;
+                width: 90%;
+                max-width: 380px;
+                padding: 32px 24px 24px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.02);
+                text-align: center;
+                animation: uriiScaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            @keyframes uriiFadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes uriiScaleIn {
+                from { transform: scale(0.85) translateY(15px); opacity: 0; }
+                to { transform: scale(1) translateY(0); opacity: 1; }
+            }
+            .arii-dialog-icon {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 30px;
+                transition: all 0.2s ease;
+            }
+            .arii-dialog-icon.success {
+                background: #e6fcf5;
+                color: #0ca678;
+                box-shadow: 0 0 0 8px rgba(12, 166, 120, 0.08);
+            }
+            .arii-dialog-icon.error {
+                background: #fff5f5;
+                color: #fa5252;
+                box-shadow: 0 0 0 8px rgba(250, 82, 82, 0.08);
+            }
+            .arii-dialog-icon.warning {
+                background: #fff9db;
+                color: #f59f00;
+                box-shadow: 0 0 0 8px rgba(245, 159, 0, 0.08);
+            }
+            .arii-dialog-icon.info {
+                background: #e7f5ff;
+                color: #228be6;
+                box-shadow: 0 0 0 8px rgba(34, 139, 230, 0.08);
+            }
+            .arii-dialog-title {
+                font-size: 20px;
+                font-weight: 800;
+                color: #1e293b;
+                margin-bottom: 10px;
+                letter-spacing: -0.02em;
+            }
+            .arii-dialog-message {
+                font-size: 14.5px;
+                color: #64748b;
+                margin-bottom: 28px;
+                line-height: 1.6;
+                font-weight: 500;
+            }
+            .arii-dialog-buttons {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+            }
+            .arii-dialog-btn {
+                border: none;
+                border-radius: 30px;
+                padding: 11px 26px;
+                font-size: 14px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                min-width: 110px;
+                letter-spacing: 0.2px;
+            }
+            .arii-dialog-btn.confirm {
+                background: linear-gradient(135deg, #4dabf7, #3b5bdb);
+                color: #fff;
+                box-shadow: 0 4px 12px rgba(59, 91, 219, 0.15);
+            }
+            .arii-dialog-btn.confirm:hover {
+                box-shadow: 0 8px 20px rgba(59, 91, 219, 0.3);
+                transform: translateY(-2px);
+            }
+            .arii-dialog-btn.confirm:active {
+                transform: translateY(0);
+            }
+            .arii-dialog-btn.cancel {
+                background: #f1f5f9;
+                color: #475569;
+            }
+            .arii-dialog-btn.cancel:hover {
+                background: #e2e8f0;
+                color: #1e293b;
+                transform: translateY(-1px);
+            }
+            .arii-dialog-btn.cancel:active {
+                transform: translateY(0);
+            }
+
+            /* Toast Styles */
+            .arii-toast-container {
+                position: fixed;
+                top: 24px;
+                right: 24px;
+                z-index: 9999999;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                pointer-events: none;
+                font-family: 'Nunito Sans', sans-serif;
+            }
+            .arii-toast {
+                background: #fff;
+                border-radius: 16px;
+                padding: 14px 22px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                min-width: 280px;
+                max-width: 400px;
+                animation: uriiToastSlideIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition: all 0.3s ease;
+                border-left: 5px solid #3b5bdb;
+                pointer-events: auto;
+            }
+            .arii-toast.success { border-left-color: #0ca678; }
+            .arii-toast.error { border-left-color: #fa5252; }
+            .arii-toast.warning { border-left-color: #f59f00; }
+            .arii-toast.info { border-left-color: #228be6; }
+
+            @keyframes uriiToastSlideIn {
+                from { transform: translateX(80px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            .arii-toast-icon {
+                font-size: 22px;
+            }
+            .arii-toast.success .arii-toast-icon { color: #0ca678; }
+            .arii-toast.error .arii-toast-icon { color: #fa5252; }
+            .arii-toast.warning .arii-toast-icon { color: #f59f00; }
+            .arii-toast.info .arii-toast-icon { color: #228be6; }
+
+            .arii-toast-content {
+                flex: 1;
+                font-size: 14px;
+                color: #334155;
+                font-weight: 700;
+                line-height: 1.4;
+            }
+            .arii-toast-close {
+                background: none;
+                border: none;
+                color: #cbd5e1;
+                cursor: pointer;
+                font-size: 20px;
+                line-height: 1;
+                padding: 0 0 0 8px;
+                transition: all 0.2s ease;
+            }
+            .arii-toast-close:hover {
+                color: #ef4444;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    window.ariiToast = function(message, type = 'success') {
+        injectAriiDialogStyles();
+        
+        let container = document.getElementById('ariiToastContainer');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'ariiToastContainer';
+            container.className = 'arii-toast-container';
+            document.body.appendChild(container);
+        }
+        
+        const toast = document.createElement('div');
+        toast.className = `arii-toast ${type}`;
+        
+        let iconHtml = '<i class="bi bi-info-circle-fill arii-toast-icon"></i>';
+        if (type === 'success') iconHtml = '<i class="bi bi-check-circle-fill arii-toast-icon"></i>';
+        else if (type === 'error') iconHtml = '<i class="bi bi-x-circle-fill arii-toast-icon"></i>';
+        else if (type === 'warning') iconHtml = '<i class="bi bi-exclamation-triangle-fill arii-toast-icon"></i>';
+        
+        toast.innerHTML = `
+            ${iconHtml}
+            <div class="arii-toast-content">${message}</div>
+            <button class="arii-toast-close">&times;</button>
+        `;
+        
+        container.appendChild(toast);
+        
+        toast.querySelector('.arii-toast-close').addEventListener('click', () => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'scale(0.9) translateX(20px)';
+            setTimeout(() => toast.remove(), 300);
+        });
+        
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'scale(0.9) translateX(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }
+        }, 3500);
+    };
+
+    window.ariiAlert = function(message, options = {}) {
+        injectAriiDialogStyles();
+        
+        const type = options.type || 'info';
+        const title = options.title || 'Thông báo';
+        const callback = options.callback;
+        
+        let backdrop = document.getElementById('ariiAlertBackdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'ariiAlertBackdrop';
+            backdrop.className = 'arii-dialog-backdrop';
+            document.body.appendChild(backdrop);
+        }
+        
+        let iconHtml = '<i class="bi bi-info-circle"></i>';
+        if (type === 'success') iconHtml = '<i class="bi bi-check-circle"></i>';
+        else if (type === 'error') iconHtml = '<i class="bi bi-x-circle"></i>';
+        else if (type === 'warning') iconHtml = '<i class="bi bi-exclamation-triangle"></i>';
+        
+        backdrop.innerHTML = `
+            <div class="arii-dialog-box">
+                <div class="arii-dialog-icon ${type}">${iconHtml}</div>
+                <h5 class="arii-dialog-title">${title}</h5>
+                <p class="arii-dialog-message">${message}</p>
+                <div class="arii-dialog-buttons">
+                    <button class="arii-dialog-btn confirm" id="ariiAlertConfirmBtn">OK</button>
+                </div>
+            </div>
+        `;
+        
+        backdrop.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        const confirmBtn = document.getElementById('ariiAlertConfirmBtn');
+        confirmBtn.focus();
+        
+        // Clean up previous listeners by cloning
+        const newBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+        
+        newBtn.addEventListener('click', () => {
+            backdrop.style.display = 'none';
+            document.body.style.overflow = '';
+            if (typeof callback === 'function') {
+                callback();
+            }
+        });
+    };
+
+    window.ariiConfirm = function(message, options = {}) {
+        injectAriiDialogStyles();
+        
+        const title = options.title || 'Xác nhận';
+        const onConfirm = options.onConfirm;
+        const onCancel = options.onCancel;
+        const confirmText = options.confirmText || 'Xác nhận';
+        const cancelText = options.cancelText || 'Hủy';
+        
+        let backdrop = document.getElementById('ariiConfirmBackdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'ariiConfirmBackdrop';
+            backdrop.className = 'arii-dialog-backdrop';
+            document.body.appendChild(backdrop);
+        }
+        
+        backdrop.innerHTML = `
+            <div class="arii-dialog-box">
+                <div class="arii-dialog-icon warning"><i class="bi bi-question-circle"></i></div>
+                <h5 class="arii-dialog-title">${title}</h5>
+                <p class="arii-dialog-message">${message}</p>
+                <div class="arii-dialog-buttons">
+                    <button class="arii-dialog-btn cancel" id="ariiConfirmCancelBtn">${cancelText}</button>
+                    <button class="arii-dialog-btn confirm" id="ariiConfirmOkBtn">${confirmText}</button>
+                </div>
+            </div>
+        `;
+        
+        backdrop.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        const okBtn = document.getElementById('ariiConfirmOkBtn');
+        const cancelBtn = document.getElementById('ariiConfirmCancelBtn');
+        
+        okBtn.focus();
+        
+        // Clone to remove old listeners
+        const newOkBtn = okBtn.cloneNode(true);
+        const newCancelBtn = cancelBtn.cloneNode(true);
+        okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+        cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+        
+        newOkBtn.addEventListener('click', () => {
+            backdrop.style.display = 'none';
+            document.body.style.overflow = '';
+            if (typeof onConfirm === 'function') {
+                onConfirm();
+            }
+        });
+        
+        newCancelBtn.addEventListener('click', () => {
+            backdrop.style.display = 'none';
+            document.body.style.overflow = '';
+            if (typeof onCancel === 'function') {
+                onCancel();
+            }
+        });
+    };
+
+    // Override window.alert
+    window.alert = function(message) {
+        console.log('Interpreting window.alert:', message);
+        const msgLower = message.toLowerCase();
+        
+        if ((msgLower.includes('thêm') && msgLower.includes('giỏ hàng')) || 
+            msgLower.includes('thành công') || 
+            msgLower.includes('đã lưu') || 
+            msgLower.includes('đã áp dụng')) {
+            window.ariiToast(message, 'success');
+            return;
+        }
+        
+        if (msgLower.includes('lỗi') || msgLower.includes('không hợp lệ') || msgLower.includes('hết hàng') || msgLower.includes('chỉ còn')) {
+            window.ariiAlert(message, { type: 'error', title: 'Lỗi' });
+            return;
+        }
+        
+        window.ariiAlert(message, { type: 'info', title: 'Thông báo' });
+    };
+    
+    // Đăng ký toàn cục
+    window.injectAriiDialogStyles = injectAriiDialogStyles;
+    window.ariiToast = ariiToast;
+    window.ariiAlert = ariiAlert;
+    window.ariiConfirm = ariiConfirm;
+    
+    // Phục vụ cho khả năng tương thích ngược
+    window.ariiShowSuccessToast = function(msg) { window.ariiToast(msg, 'success'); };
+    window.ariiShowErrorToast = function(msg) { window.ariiToast(msg, 'error'); };
+    window.ariiShowWarningToast = function(msg) { window.ariiToast(msg, 'warning'); };
+    window.ariiShowInfoToast = function(msg) { window.ariiToast(msg, 'info'); };
+    
+    // Cập nhật lại console log debug
+    console.log('Arii dialogs, alerts, and toasts initialized!');
 })();
 
 console.log('Auth Guard, storage sync & Shared Coupon System initialized in main.js');

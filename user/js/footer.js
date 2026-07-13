@@ -49,10 +49,12 @@
 
     function handleKeydown(e) {
         if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            e.stopPropagation();
-            const heading = e.target.closest('h4');
-            if (heading) toggleAccordion(heading);
+            const heading = e.target.closest('.footer-col h4');
+            if (heading) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleAccordion(heading);
+            }
         }
     }
 

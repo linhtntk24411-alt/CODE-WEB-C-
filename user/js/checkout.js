@@ -49,10 +49,10 @@ const banks = [
 
 document.addEventListener('DOMContentLoaded', function() {
     // LOG ĐỂ DEBUG
-    console.log('🔍 Checkout page loaded');
-    console.log('🔍 isLoggedIn:', localStorage.getItem('isLoggedIn'));
-    console.log('🔍 userEmail:', localStorage.getItem('userEmail'));
-    console.log('🔍 userName:', localStorage.getItem('userName'));
+    console.log('Checkout page loaded');
+    console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'));
+    console.log('userEmail:', localStorage.getItem('userEmail'));
+    console.log('userName:', localStorage.getItem('userName'));
     
     // Kiểm tra đăng nhập
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -60,39 +60,57 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // NẾU CHƯA ĐĂNG NHẬP HOẶC KHÔNG CÓ EMAIL
     if (!isLoggedIn || !userEmail) {
-        console.log('❌ User not logged in, redirecting to login');
-        alert('Vui lòng đăng nhập để thanh toán');
-        localStorage.setItem('redirectAfterLogin', window.location.href);
-        localStorage.setItem('checkoutAction', 'true');
-        window.location.href = 'login.html';
+        console.log('User not logged in, redirecting to login');
+        if (typeof window.ariiAlert === 'function') {
+            window.ariiAlert('Vui lòng đăng nhập để thanh toán', {
+                type: 'info',
+                callback: () => {
+                    localStorage.setItem('redirectAfterLogin', window.location.href);
+                    localStorage.setItem('checkoutAction', 'true');
+                    window.location.href = 'login.html';
+                }
+            });
+        } else {
+            alert('Vui lòng đăng nhập để thanh toán');
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            localStorage.setItem('checkoutAction', 'true');
+            window.location.href = 'login.html';
+        }
         return;
     }
     
-    console.log('✅ User is logged in, loading checkout...');
+    console.log('User is logged in, loading checkout...');
     
     // Nếu đã đăng nhập, tiếp tục load trang
     includeHeaderFooter();
+    initToast();
     
     // Nạp dữ liệu sản phẩm trước, sau đó nạp giỏ hàng
     fetch('../data/product.json')
         .then(res => res.json())
         .then(data => {
             allProducts = data.products || [];
-            console.log('✅ Loaded products in checkout:', allProducts.length);
+            console.log('Loaded products in checkout:', allProducts.length);
             loadCartData();
+            
+            // Tải thông tin chi tiết người dùng (bao gồm phone và address)
+            return loadUserData();
+        })
+        .then(() => {
+            // Chỉ tải địa chỉ, khu vực, ngân hàng sau khi có thông tin người dùng
+            loadAddresses();
+            loadProvinces();
+            renderBanks();
+            initSelect2();
         })
         .catch(err => {
-            console.error('❌ Failed to load product.json in checkout:', err);
-            loadCartData();
+            console.error('Failed to initialize checkout page data:', err);
+            loadAddresses();
+            loadProvinces();
+            renderBanks();
+            initSelect2();
         });
         
-    loadUserData();
-    loadAddresses();
-    loadProvinces();
-    renderBanks();
-    initToast();
-    initSelect2();
-    
     // Đảm bảo header hiển thị đúng sau khi load
     setTimeout(function() {
         if (typeof window.checkAndUpdateAuthState === 'function') {
@@ -109,25 +127,37 @@ document.addEventListener('DOMContentLoaded', function() {
 // =============================================================
 
 document.addEventListener('auth:changed', function() {
-    console.log('🔄 Auth changed in checkout - reloading data');
+    console.log('Auth changed in checkout - reloading data');
     
     // Kiểm tra lại trạng thái đăng nhập
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const userEmail = localStorage.getItem('userEmail');
     
     if (!isLoggedIn || !userEmail) {
-        console.log('❌ User logged out, redirecting to login');
-        alert('Vui lòng đăng nhập để thanh toán');
-        localStorage.setItem('redirectAfterLogin', window.location.href);
-        localStorage.setItem('checkoutAction', 'true');
-        window.location.href = 'login.html';
+        console.log('User logged out, redirecting to login');
+        if (typeof window.ariiAlert === 'function') {
+            window.ariiAlert('Vui lòng đăng nhập để thanh toán', {
+                type: 'info',
+                callback: () => {
+                    localStorage.setItem('redirectAfterLogin', window.location.href);
+                    localStorage.setItem('checkoutAction', 'true');
+                    window.location.href = 'login.html';
+                }
+            });
+        } else {
+            alert('Vui lòng đăng nhập để thanh toán');
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            localStorage.setItem('checkoutAction', 'true');
+            window.location.href = 'login.html';
+        }
         return;
     }
     
     // Reload dữ liệu
-    loadUserData();
-    loadAddresses();
-    renderOrderSummary();
+    loadUserData().then(() => {
+        loadAddresses();
+        renderOrderSummary();
+    });
     
     // Cập nhật header
     if (typeof window.initHeader === 'function') {
@@ -138,18 +168,19 @@ document.addEventListener('auth:changed', function() {
 // Lắng nghe storage change
 window.addEventListener('storage', function(e) {
     if (e.key === 'isLoggedIn' || e.key === 'userName' || e.key === 'userEmail') {
-        console.log('🔄 Storage changed in checkout:', e.key);
+        console.log('Storage changed in checkout:', e.key);
         
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         const userEmail = localStorage.getItem('userEmail');
         
         if (!isLoggedIn || !userEmail) {
-            console.log('❌ User logged out, redirecting to login');
+            console.log('User logged out, redirecting to login');
             window.location.href = 'login.html';
         } else {
-            loadUserData();
-            loadAddresses();
-            renderOrderSummary();
+            loadUserData().then(() => {
+                loadAddresses();
+                renderOrderSummary();
+            });
             if (typeof window.initHeader === 'function') {
                 window.initHeader();
             }
@@ -547,15 +578,36 @@ function loadCartData() {
         
         renderOrderSummary();
         
-        // Tự động áp dụng mã giảm giá đã chọn từ giỏ hàng
+        // Tự động áp dụng mã giảm giá đã chọn từ giỏ hàng và gắn sự kiện click
         setTimeout(() => {
+            const promoInput = document.getElementById('promoInput');
+            if (promoInput) {
+                promoInput.addEventListener('click', function() {
+                    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    if (typeof window.openCouponSelector === 'function') {
+                        window.openCouponSelector('promoInput', subtotal, function(code) {
+                            if (code === '') {
+                                promoCode = '';
+                                isFreeShip = false;
+                                discountAmount = 0;
+                                discountPercent = 0;
+                                localStorage.removeItem('appliedPromoCode');
+                                promoInput.value = '';
+                                showToast('Đã hủy áp dụng mã giảm giá');
+                                renderOrderSummary();
+                            } else {
+                                promoInput.value = code;
+                                applyPromo();
+                            }
+                        });
+                    }
+                });
+            }
+
             const savedPromo = localStorage.getItem('appliedPromoCode');
-            if (savedPromo) {
-                const input = document.getElementById('promoInput');
-                if (input) {
-                    input.value = savedPromo;
-                    applyPromo();
-                }
+            if (savedPromo && promoInput) {
+                promoInput.value = savedPromo;
+                applyPromo();
             }
         }, 100);
     } catch (e) {
@@ -570,58 +622,62 @@ function loadCartData() {
 // =============================================================
 
 function loadUserData() {
-    // Lấy dữ liệu từ các key đúng mà auth.js đã set
-    const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
-    const userAvatar = localStorage.getItem('userAvatar');
-    const userRole = localStorage.getItem('userRole');
-    
-    console.log('📋 Loading user data:', { userName, userEmail, userAvatar, userRole });
-    
-    if (userName && userEmail) {
-        userData = {
-            name: userName,
-            email: userEmail,
-            avatar: userAvatar || '',
-            role: userRole || 'user'
-        };
-        console.log('✅ User data loaded from localStorage:', userData);
-        return;
+    if (!userEmail) {
+        console.warn('No userEmail found in localStorage');
+        return Promise.resolve(null);
     }
     
-    // Fallback nếu không có dữ liệu - đọc từ users.json
-    console.log('⚠️ No user data in localStorage, loading from users.json');
-    fetch('../data/users.json')
+    console.log('Loading user data from users.json for email:', userEmail);
+    
+    return fetch('../data/users.json')
         .then(res => {
-            if (!res.ok) throw new Error('Network response was not ok');
+            if (!res.ok) throw new Error('Không thể tải users.json');
             return res.json();
         })
         .then(data => {
             if (data.users && data.users.length > 0) {
-                // Tìm user theo email hiện tại nếu có
-                const currentEmail = localStorage.getItem('userEmail');
-                let user = null;
-                
-                if (currentEmail) {
-                    user = data.users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
+                const user = data.users.find(u => u.email.toLowerCase() === userEmail.toLowerCase());
+                if (user) {
+                    userData = user;
+                    // Đồng bộ đầy đủ thông tin vào localStorage
+                    localStorage.setItem('userName', user.name);
+                    localStorage.setItem('userAvatar', user.avatar || '');
+                    localStorage.setItem('userRole', user.role || 'user');
+                    localStorage.setItem('userPhone', user.phone || '');
+                    localStorage.setItem('userAddress', user.address || '');
+                    console.log('✅ User data loaded from users.json:', userData);
+                    return user;
                 }
-                
-                if (!user) {
-                    user = data.users[0];
-                }
-                
-                userData = user;
-                // Lưu lại đúng key
-                localStorage.setItem('userName', user.name);
-                localStorage.setItem('userEmail', user.email);
-                localStorage.setItem('userAvatar', user.avatar || '');
-                localStorage.setItem('userRole', user.role || 'user');
-                console.log('✅ User data loaded from users.json:', userData);
             }
+            // Fallback nếu không khớp email trong json nhưng có ở localStorage
+            const userName = localStorage.getItem('userName');
+            const userAvatar = localStorage.getItem('userAvatar');
+            const userRole = localStorage.getItem('userRole');
+            userData = {
+                name: userName || '',
+                email: userEmail,
+                avatar: userAvatar || '',
+                role: userRole || 'user',
+                phone: localStorage.getItem('userPhone') || '',
+                address: localStorage.getItem('userAddress') || ''
+            };
+            return userData;
         })
         .catch(err => {
-            console.error('Could not load users.json:', err);
-            showToast('Không thể tải thông tin người dùng. Vui lòng đăng nhập lại.');
+            console.error('Could not load users.json, falling back:', err);
+            const userName = localStorage.getItem('userName');
+            const userAvatar = localStorage.getItem('userAvatar');
+            const userRole = localStorage.getItem('userRole');
+            userData = {
+                name: userName || '',
+                email: userEmail,
+                avatar: userAvatar || '',
+                role: userRole || 'user',
+                phone: localStorage.getItem('userPhone') || '',
+                address: localStorage.getItem('userAddress') || ''
+            };
+            return userData;
         });
 }
 
@@ -814,24 +870,43 @@ function deleteAddress(id) {
         return;
     }
     
-    if (!confirm('Bạn có chắc chắn muốn xóa địa chỉ này?')) return;
-    
-    const isDefault = addresses.find(a => a.id === id)?.isDefault;
-    addresses = addresses.filter(a => a.id !== id);
-    
-    if (isDefault && addresses.length > 0) {
-        addresses[0].isDefault = true;
-        selectedAddressId = addresses[0].id;
-    } else if (selectedAddressId === id) {
-        selectedAddressId = addresses[0]?.id || null;
-    }
-    
-    saveAddresses();
-    renderAddressList();
-    
-    const current = getCurrentAddress();
-    if (current) {
-        displayDefaultAddress(current);
+    if (typeof window.ariiConfirm === 'function') {
+        window.ariiConfirm('Bạn có chắc chắn muốn xóa địa chỉ này?', {
+            onConfirm: () => {
+                const isDefault = addresses.find(a => a.id === id)?.isDefault;
+                addresses = addresses.filter(a => a.id !== id);
+                
+                if (isDefault && addresses.length > 0) {
+                    addresses[0].isDefault = true;
+                    selectedAddressId = addresses[0].id;
+                } else if (selectedAddressId === id) {
+                    selectedAddressId = addresses[0]?.id || null;
+                }
+                
+                saveAddresses();
+                renderAddressList();
+            }
+        });
+    } else {
+        if (!confirm('Bạn có chắc chắn muốn xóa địa chỉ này?')) return;
+        
+        const isDefault = addresses.find(a => a.id === id)?.isDefault;
+        addresses = addresses.filter(a => a.id !== id);
+        
+        if (isDefault && addresses.length > 0) {
+            addresses[0].isDefault = true;
+            selectedAddressId = addresses[0].id;
+        } else if (selectedAddressId === id) {
+            selectedAddressId = addresses[0]?.id || null;
+        }
+        
+        saveAddresses();
+        renderAddressList();
+        
+        const current = getCurrentAddress();
+        if (current) {
+            displayDefaultAddress(current);
+        }
     }
 }
 
@@ -1046,7 +1121,7 @@ function applyPromo() {
             }
             showToast(result.message);
             renderOrderSummary();
-            input.value = '';
+            input.value = code;
             localStorage.setItem('appliedPromoCode', code);
         } else {
             showToast(result.message);
@@ -1060,7 +1135,7 @@ function applyPromo() {
             promoCode = code;
             showToast(`Áp dụng mã giảm giá ${code} thành công!`);
             renderOrderSummary();
-            input.value = '';
+            input.value = code;
         } else {
             showToast('Mã giảm giá không hợp lệ');
         }
@@ -1103,8 +1178,16 @@ function handlePlaceOrder() {
     
     switch(paymentMethod) {
         case 'cod':
-            if (confirm(`Xác nhận đặt hàng với hình thức Thanh toán khi nhận hàng (COD)\nTổng tiền: ${formatCurrency(totalAmount)}`)) {
-                createOrder(orderId, 'cod', totalAmount, currentAddress);
+            if (typeof window.ariiConfirm === 'function') {
+                window.ariiConfirm(`Xác nhận đặt hàng với hình thức Thanh toán khi nhận hàng (COD)<br><strong style="color: #dc3545;">Tổng tiền: ${formatCurrency(totalAmount)}</strong>`, {
+                    onConfirm: () => {
+                        createOrder(orderId, 'cod', totalAmount, currentAddress);
+                    }
+                });
+            } else {
+                if (confirm(`Xác nhận đặt hàng với hình thức Thanh toán khi nhận hàng (COD)\nTổng tiền: ${formatCurrency(totalAmount)}`)) {
+                    createOrder(orderId, 'cod', totalAmount, currentAddress);
+                }
             }
             break;
         case 'momo':

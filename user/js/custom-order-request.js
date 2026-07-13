@@ -262,7 +262,16 @@ if (submitBtn) {
         localStorage.setItem('custom_orders_cache', JSON.stringify(localData));
 
         // 6. Hiển thị thông báo thành công hoặc chuyển hướng về trang danh sách sau khi nhấn
-        alert(`Tạo yêu cầu ${randomID} thành công! Hệ thống sẽ đưa bạn về trang theo dõi.`);
-        window.location.href = 'custom-order-list.html';
+        if (typeof window.ariiAlert === 'function') {
+            window.ariiAlert(`Tạo yêu cầu ${randomID} thành công! Hệ thống sẽ đưa bạn về trang theo dõi.`, {
+                type: 'success',
+                callback: () => {
+                    window.location.href = 'custom-order-list.html';
+                }
+            });
+        } else {
+            alert(`Tạo yêu cầu ${randomID} thành công! Hệ thống sẽ đưa bạn về trang theo dõi.`);
+            window.location.href = 'custom-order-list.html';
+        }
     });
 }

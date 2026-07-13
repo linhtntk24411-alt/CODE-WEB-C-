@@ -223,22 +223,50 @@ function initTableActions() {
 
         // 2. XỬ LÝ CLICK NÚT XÓA YÊU CẦU (Thùng rác)
         if (e.target.closest('.delete-btn') || (e.target.classList.contains('material-symbols-outlined') && e.target.textContent === 'delete')) {
-            const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa yêu cầu thiết kế ${reqId} không?`);
-            
-            if (confirmDelete) {
-                // Xóa mục ra khỏi 2 mảng dữ liệu (mảng gốc và mảng đang lọc)
-                allItems = allItems.filter(item => item.id !== reqId);
-                filteredItems = filteredItems.filter(item => item.id !== reqId);
-                
-                // Tính toán lại thanh số liệu Bento Sidebar & vẽ lại bảng
-                updateStatistics(allItems);
-                
-                const totalPagesAfterDelete = Math.ceil(filteredItems.length / itemsPerPage) || 1;
-                if (currentPage > totalPagesAfterDelete) {
-                    currentPage = totalPagesAfterDelete;
+            if (typeof window.ariiConfirm === 'function') {
+                window.ariiConfirm(`Bạn có chắc chắn muốn xóa yêu cầu thiết kế ${reqId} không?`, {
+                    onConfirm: () => {
+                        // Xóa mục ra khỏi 2 mảng dữ liệu (mảng gốc và mảng đang lọc)
+                        allItems = allItems.filter(item => item.id !== reqId);
+                        filteredItems = filteredItems.filter(item => item.id !== reqId);
+                        
+                        // Tính toán lại thanh số liệu Bento Sidebar & vẽ lại bảng
+                        updateStatistics(allItems);
+                        
+                        const totalPagesAfterDelete = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+                        if (currentPage > totalPagesAfterDelete) {
+                            currentPage = totalPagesAfterDelete;
+                        }
+                        
+                        renderTable(filteredItems, currentPage);
+                        renderPagination(filteredItems.length, currentPage);
+                        
+                        if (typeof window.ariiToast === 'function') {
+                            window.ariiToast(`Đã xóa yêu cầu thiết kế ${reqId}`, 'success');
+                        } else {
+                            alert(`Đã xóa yêu cầu thiết kế ${reqId}`);
+                        }
+                    }
+                });
+            } else {
+                const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa yêu cầu thiết kế ${reqId} không?`);
+                if (confirmDelete) {
+                    // Xóa mục ra khỏi 2 mảng dữ liệu (mảng gốc và mảng đang lọc)
+                    allItems = allItems.filter(item => item.id !== reqId);
+                    filteredItems = filteredItems.filter(item => item.id !== reqId);
+                    
+                    // Tính toán lại thanh số liệu Bento Sidebar & vẽ lại bảng
+                    updateStatistics(allItems);
+                    
+                    const totalPagesAfterDelete = Math.ceil(filteredItems.length / itemsPerPage) || 1;
+                    if (currentPage > totalPagesAfterDelete) {
+                        currentPage = totalPagesAfterDelete;
+                    }
+                    
+                    renderTable(filteredItems, currentPage);
+                    renderPagination(filteredItems.length, currentPage);
+                    alert(`Đã xóa yêu cầu thiết kế ${reqId}`);
                 }
-                
-                goToPage(currentPage);
             }
         }
         if (e.target.classList.contains('btn-table-review')) {

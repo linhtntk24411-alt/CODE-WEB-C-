@@ -1,4 +1,4 @@
-﻿* {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -37,6 +37,11 @@ body {
     align-items: flex-end;
     gap: 16px;
     z-index: 9999;
+    pointer-events: none;
+}
+
+.fab-container {
+    pointer-events: auto;
 }
 
 .chat-fab{
@@ -89,6 +94,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: visible;
+    pointer-events: auto;
 }
 
 .chat-header {

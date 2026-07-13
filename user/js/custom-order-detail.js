@@ -72,7 +72,11 @@ function initButtonInteractions(id) {
         btnAccept.addEventListener('click', () => {
             btnAccept.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Đang kết nối...';
             setTimeout(() => {
-                alert(`Đang khởi tạo cổng thanh toán an toàn cho yêu cầu ${id}.`);
+                if (typeof window.ariiAlert === 'function') {
+                    window.ariiAlert(`Đang khởi tạo cổng thanh toán an toàn cho yêu cầu ${id}.`, { type: 'info' });
+                } else {
+                    alert(`Đang khởi tạo cổng thanh toán an toàn cho yêu cầu ${id}.`);
+                }
                 btnAccept.innerHTML = '<span class="material-symbols-outlined">shopping_cart_checkout</span> Xác nhận & Thanh toán';
             }, 1000);
         });
@@ -82,9 +86,27 @@ function initButtonInteractions(id) {
     const btnReject = document.getElementById('btn-reject');
     if (btnReject) {
         btnReject.addEventListener('click', () => {
-            if (confirm(`Bạn chắc chắn muốn từ chối bảng báo giá của yêu cầu thiết kế ${id}?`)) {
-                alert("Yêu cầu đã được đóng lại thành công.");
-                window.location.href = "custom-order-list.html";
+            if (typeof window.ariiConfirm === 'function') {
+                window.ariiConfirm(`Bạn chắc chắn muốn từ chối bảng báo giá của yêu cầu thiết kế ${id}?`, {
+                    onConfirm: () => {
+                        if (typeof window.ariiAlert === 'function') {
+                            window.ariiAlert("Yêu cầu đã được đóng lại thành công.", {
+                                type: 'success',
+                                callback: () => {
+                                    window.location.href = "custom-order-list.html";
+                                }
+                            });
+                        } else {
+                            alert("Yêu cầu đã được đóng lại thành công.");
+                            window.location.href = "custom-order-list.html";
+                        }
+                    }
+                });
+            } else {
+                if (confirm(`Bạn chắc chắn muốn từ chối bảng báo giá của yêu cầu thiết kế ${id}?`)) {
+                    alert("Yêu cầu đã được đóng lại thành công.");
+                    window.location.href = "custom-order-list.html";
+                }
             }
         });
     }

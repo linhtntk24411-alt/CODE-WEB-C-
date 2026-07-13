@@ -161,6 +161,8 @@
           localStorage.setItem('userEmail', foundUser.email);
           localStorage.setItem('userAvatar', foundUser.avatar || '');
           localStorage.setItem('userRole', foundUser.role || 'user');
+          localStorage.setItem('userPhone', foundUser.phone || '');
+          localStorage.setItem('userAddress', foundUser.address || '');
 
           // Kiểm tra lại sau khi set
           console.log('🔍 Sau khi set - isLoggedIn:', localStorage.getItem('isLoggedIn'));
