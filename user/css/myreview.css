@@ -1,11 +1,13 @@
+/* ============================================================
+   myreview.css – Đánh giá của tôi
+   ============================================================ */
+
 :root {
     --primary: #840001;
     --primary-light: #b00103;
-    --secondary: #805062;
     --surface: #fbf9f8;
     --surface-container: #f0eded;
     --surface-container-lowest: #ffffff;
-    --surface-variant: #e4e2e1;
     --on-surface: #1b1c1c;
     --on-surface-variant: #5c403b;
     --outline-variant: #e5bdb7;
@@ -28,19 +30,26 @@ body {
     font-family: 'Nunito Sans', sans-serif;
     background-color: var(--surface);
     color: var(--on-surface);
-    overflow-x: hidden;
 }
 
-.font-Segoe UI {
-    font-family: 'Segoe UI', sans-serif;
+/* ----- MAIN LAYOUT (giống orders) ----- */
+.myreview-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 24px;
 }
 
-/* ===== SIDEBAR (giống profile.css) ===== */
-.sidebar-wrapper {
+.myreview-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+}
+
+/* ----- SIDEBAR ----- */
+.myreview-sidebar {
     position: sticky;
     top: 100px;
     align-self: start;
-    max-width: 100%;
 }
 
 .sidebar-nav {
@@ -50,7 +59,6 @@ body {
     padding: 16px 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
 .sidebar-nav-item {
@@ -62,14 +70,9 @@ body {
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
     font-size: 16px;
-    line-height: 1;
     text-decoration: none;
     transition: all var(--transition);
     border-right: 4px solid transparent;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .sidebar-nav-item .material-symbols-outlined {
@@ -90,7 +93,6 @@ body {
 .sidebar-nav-item--logout {
     color: var(--error);
 }
-
 .sidebar-nav-item--logout:hover {
     background: var(--error-container);
 }
@@ -101,12 +103,48 @@ body {
     margin: 8px 24px;
 }
 
-/* ===== REVIEW CARDS ===== */
+/* ----- CONTENT ----- */
+.myreview-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.myreview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.myreview-title {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--on-surface);
+}
+
+.myreview-filter {
+    display: flex;
+    gap: 8px;
+}
+
+/* ----- REVIEW CARDS (ngang: ảnh trái, nội dung phải) ----- */
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .review-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
     background: var(--surface-container-lowest);
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+    box-shadow: var(--shadow);
     border: 1px solid var(--outline-variant);
     transition: all 0.2s ease;
     cursor: pointer;
@@ -118,26 +156,43 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.review-product-image {
-    width: 96px;
-    height: 96px;
-    flex-shrink: 0;
+.review-card .review-product-image {
+    flex: 0 0 140px;
+    width: 140px;
+    height: 140px;
     background: var(--surface-container);
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--outline-variant);
 }
-
-.review-product-image img {
+.review-card .review-product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+.review-card .review-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.review-product-name {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--on-surface);
+}
+
+.review-stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
 .star-filled {
     color: var(--tertiary);
 }
-
 .star-empty {
     color: var(--outline);
     opacity: 0.4;
@@ -150,53 +205,137 @@ body {
     line-height: 1.6;
 }
 
+.review-date {
+    font-size: 13px;
+    color: var(--on-surface-variant);
+    opacity: 0.7;
+}
+
+.review-order-link {
+    margin-top: 4px;
+}
 .product-link {
     color: var(--primary);
     text-decoration: none;
     transition: color 0.2s ease;
 }
-
 .product-link:hover {
     color: var(--primary-light);
     text-decoration: underline;
 }
 
-/* ===== FILTER BUTTON ===== */
-.filter-btn {
+/* ----- MODAL LOGOUT ----- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+.modal-overlay.active { display: block; }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.modal.active { display: flex; }
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalFadeIn 0.25s ease;
+}
+.modal-content--logout {
+    padding: 48px 24px 32px;
+    text-align: center;
+}
+.modal-content--logout .modal-icon {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: var(--surface-container-lowest);
-    border: 1px solid var(--outline-variant);
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ffdad6;
+    color: #ba1a1a;
+    margin-bottom: 16px;
+}
+.modal-content--logout .modal-icon .material-symbols-outlined {
+    font-size: 40px;
+}
+.modal-content--logout .modal-title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+.modal-content--logout .modal-desc {
+    font-size: 14px;
+    color: #5c403b;
+    margin-bottom: 24px;
+}
+.modal-content--logout .modal-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+.modal-btn {
+    padding: 10px 24px;
     border-radius: 8px;
-    color: var(--on-surface);
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
+    border: none;
+}
+.modal-btn--cancel {
+    background: transparent;
+    color: #840001;
+    border: 2px solid #840001;
+}
+.modal-btn--cancel:hover {
+    background: rgba(132,0,1,0.05);
+}
+.modal-btn--danger {
+    background: #ba1a1a;
+    color: #fff;
+}
+.modal-btn--danger:hover {
+    background: #93000a;
 }
 
-.filter-btn:hover {
-    border-color: var(--primary);
-    background: rgba(132, 0, 1, 0.05);
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.filter-btn .material-symbols-outlined {
-    font-size: 20px;
-}
-
-/* ===== RESPONSIVE SIDEBAR (giống profile.css) ===== */
-
+/* ----- RESPONSIVE (giống orders, card co dãn hoàn toàn theo %) ----- */
 @media (max-width: 1200px) and (min-width: 1025px) {
-    .sidebar-wrapper {
+    .myreview-container {
+        grid-template-columns: 240px 1fr;
+        gap: 24px;
+    }
+    .myreview-sidebar {
         width: 240px;
     }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-    .sidebar-wrapper {
+    .myreview-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    .myreview-sidebar {
         position: static;
         width: 100%;
     }
@@ -213,11 +352,7 @@ body {
         flex: 1 0 auto;
         justify-content: center;
         font-size: 14px;
-        white-space: nowrap;
         width: auto;
-    }
-    .sidebar-nav-item .material-symbols-outlined {
-        font-size: 20px;
     }
     .sidebar-nav-item.active {
         border-bottom-color: var(--primary);
@@ -225,16 +360,17 @@ body {
         background: rgba(132, 0, 1, 0.05);
         color: var(--primary);
     }
-    .sidebar-nav-item--logout {
-        border-bottom-color: transparent;
-    }
     .sidebar-nav-divider {
         display: none;
     }
 }
 
 @media (max-width: 768px) {
-    .sidebar-wrapper {
+    .myreview-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .myreview-sidebar {
         position: static;
         width: 100%;
     }
@@ -269,10 +405,6 @@ body {
         border-bottom: 2px solid transparent;
         justify-content: center;
         width: auto;
-        gap: 8px;
-    }
-    .sidebar-nav-item .material-symbols-outlined {
-        font-size: 18px;
     }
     .sidebar-nav-item.active {
         border-bottom-color: var(--primary);
@@ -280,24 +412,107 @@ body {
         background: rgba(132, 0, 1, 0.05);
         color: var(--primary);
     }
-    .sidebar-nav-item--logout {
-        border-bottom-color: transparent;
-    }
     .sidebar-nav-divider {
         display: none;
     }
-    .review-product-image {
-        width: 72px;
-        height: 72px;
+
+    .myreview-main {
+        padding: 24px 16px;
     }
+    .myreview-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .myreview-filter {
+        justify-content: center;
+    }
+
+    /* === CARD CO GIÃN HOÀN TOÀN THEO % === */
     .review-card {
-        padding: 16px;
+        padding: 2vh 2vw;
+        gap: 3vw;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+    .review-card .review-product-image {
+        flex: 0 0 25%;
+        width: 25%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        border-radius: 8px;
+        border: 1px solid var(--outline-variant);
+    }
+    .review-card .review-product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .review-card .review-content-wrapper {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+    .review-product-name {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .review-text {
+        font-size: clamp(0.85rem, 2vw, 1rem);
+        word-break: break-word;
+    }
+    .review-date {
+        font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    }
+    .review-stars .material-symbols-outlined {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    .review-order-link a {
+        font-size: clamp(0.8rem, 1.8vw, 1rem);
     }
 }
 
 @media (max-width: 480px) {
+    .myreview-container {
+        gap: 16px;
+    }
     .sidebar-nav-item {
         padding: 6px 10px;
         font-size: 12px;
+    }
+    .myreview-title {
+        font-size: 22px;
+    }
+
+    /* === THU NHỎ THÊM, VẪN DÙNG % === */
+    .review-card {
+        padding: 1.5vh 1.5vw;
+        gap: 2.5vw;
+        flex-wrap: nowrap;
+    }
+    .review-card .review-product-image {
+        flex: 0 0 20%;
+        width: 20%;
+        aspect-ratio: 1 / 1;
+        border-radius: 6px;
+    }
+    .review-product-name {
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .review-text {
+        font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    }
+    .review-date {
+        font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+    }
+    .review-stars .material-symbols-outlined {
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
+    }
+    .review-order-link a {
+        font-size: clamp(0.7rem, 1.5vw, 0.85rem);
     }
 }

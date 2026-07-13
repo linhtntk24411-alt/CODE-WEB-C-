@@ -646,25 +646,33 @@
   })();
 
   // ===== SIDEBAR ACTIVE & NAVIGATION =====
-  document.querySelectorAll('.profile-nav-item:not(.profile-nav-item--logout)').forEach(item => {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-      const text = this.querySelector('span:last-child')?.textContent.trim();
-      if (text === 'Đơn hàng của tôi') {
-        window.location.href = 'orders.html';
-        return;
-      }
-      if (text === 'Yêu cầu thiết kế') {
-        window.location.href = 'custom-order-list.html';
-        return;
-      }
-      if (text === 'Kho map đã lưu') {
-        window.location.href = 'saved-maps.html';
-        return;
-      }
-      document.querySelectorAll('.profile-nav-item').forEach(i => i.classList.remove('active'));
-      this.classList.add('active');
-    });
+  // ===== SIDEBAR ACTIVE & NAVIGATION =====
+   // ===== SIDEBAR ACTIVE & NAVIGATION =====
+document.querySelectorAll('.profile-nav-item:not(.profile-nav-item--logout)').forEach(item => {
+  item.addEventListener('click', function(e) {
+    // Nếu đây là thẻ <a> và có href → để trình duyệt xử lý mặc định
+    if (this.tagName === 'A' && this.getAttribute('href')) {
+      return; // không chặn, cho phép chuyển hướng
+    }
+
+    e.preventDefault();
+    const text = this.querySelector('span:last-child')?.textContent.trim();
+    if (text === 'Đơn hàng của tôi') {
+      window.location.href = 'orders.html';
+      return;
+    }
+    if (text === 'Yêu cầu thiết kế') {
+      window.location.href = 'custom-order-list.html';
+      return;
+    }
+    if (text === 'Kho map đã lưu') {
+      window.location.href = 'saved-maps.html';
+      return;
+    }
+    // Nếu không khớp, vẫn active
+    document.querySelectorAll('.profile-nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
   });
+});
 
 })();

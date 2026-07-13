@@ -45,7 +45,7 @@ body {
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 48px 24px 80px;
   box-sizing: border-box;
 }
 
@@ -64,6 +64,7 @@ body {
   top: 100px;
   align-self: start;
   max-width: 100%;
+  z-index: 100;
 }
 
 .profile-nav {
@@ -74,6 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+  z-index: 10;
 }
 
 .profile-nav-item {
@@ -93,6 +95,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  z-index: 11;
 }
 
 .profile-nav-item .material-symbols-outlined {
@@ -131,6 +134,7 @@ body {
   min-width: 0;
   width: 100%;
   max-width: 100%;
+  padding-bottom: 40px;
 }
 
 /* ---- Section 1: User Summary ---- */
@@ -191,6 +195,7 @@ body {
 .profile-user-info {
   flex: 1;
   min-width: 200px;
+  padding-bottom: 4px;
 }
 
 .profile-user-name {
@@ -282,6 +287,7 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
 }
 
 .profile-info-edit {
@@ -532,88 +538,82 @@ body {
   color: #fff;
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 1200px) and (min-width: 1025px) {
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ---- Màn hình lớn (1201px trở lên) ---- */
+@media (min-width: 1201px) {
   .profile-container {
-    grid-template-columns: 240px 1fr;
-    gap: 24px;
-  }
-  .profile-sidebar {
-    width: 240px;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
   }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
+/* ---- Màn hình laptop trung bình (993–1200px) ---- */
+@media (max-width: 1200px) and (min-width: 993px) {
   .profile-container {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    grid-template-columns: 220px 1fr;
+    gap: 3.2%;
   }
   .profile-sidebar {
-    position: static;
-    width: 100%;
-  }
-  .profile-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 8px;
-    gap: 4px;
+    width: 220px;
   }
   .profile-nav-item {
-    padding: 10px 16px;
-    border-right: none;
-    border-bottom: 2px solid transparent;
-    flex: 1 0 auto;
-    justify-content: center;
-    font-size: 14px;
-    white-space: nowrap;
-    width: auto;
+    padding: 14px 1.5%;
+    font-size: 15px;
+    gap: 1%;
   }
-  .profile-nav-item.active {
-    border-bottom-color: var(--profile-primary);
-    border-right-color: transparent;
-    background: rgba(132, 0, 1, 0.05);
-    color: var(--profile-primary);
+  .profile-main {
+    padding: 3.2% 2% 6%;
   }
-  .profile-nav-divider {
-    display: none;
-  }
+
   .profile-summary {
-    flex-direction: column;
-    text-align: center;
-    padding: 32px;
-    gap: 24px;
+    padding: 32px 24px;
+    gap: 32px;
   }
-  .profile-user-badges {
-    justify-content: center;
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
   }
-  .profile-stats {
-    justify-content: center;
+  .profile-user-name {
+    font-size: 30px;
   }
-  .profile-info-grid {
-    grid-template-columns: 1fr;
+  .profile-stat {
+    padding: 12px 18px;
+    min-width: 80px;
   }
-  .profile-activity {
-    grid-template-columns: 1fr;
+  .profile-stat-number {
+    font-size: 18px;
   }
 }
 
-@media (max-width: 768px) {
+/* ---- Tablet (769–992px) ---- */
+@media (max-width: 992px) and (min-width: 769px) {
   .profile-container {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 3.2%;
   }
   .profile-sidebar {
     position: static;
     width: 100%;
   }
+
   .profile-nav {
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding: 4px;
-    gap: 4px;
+    padding: 1.2% 2%;
+    gap: 0.5%;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    background: var(--profile-surface-lowest);
+    border-radius: var(--profile-radius);
+    box-shadow: var(--profile-shadow);
+    align-items: center;
   }
+
+  /* ---- Scrollbar style giống orders.css ---- */
   .profile-nav::-webkit-scrollbar {
     height: 6px !important;
     display: block !important;
@@ -629,14 +629,21 @@ body {
   .profile-nav::-webkit-scrollbar-thumb:hover {
     background: #840001 !important;
   }
+
   .profile-nav-item {
-    padding: 8px 12px;
-    font-size: 13px;
-    flex: 0 0 auto;
+    padding: 1.2% 2.2%;
     border-right: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 3px solid transparent;
+    flex: 0 0 auto;
     justify-content: center;
+    font-size: 14px;
+    white-space: nowrap;
     width: auto;
+    max-width: none;
+    gap: 1.2%;
+  }
+  .profile-nav-item .material-symbols-outlined {
+    font-size: 18px;
   }
   .profile-nav-item.active {
     border-bottom-color: var(--profile-primary);
@@ -647,68 +654,640 @@ body {
   .profile-nav-divider {
     display: none;
   }
+
   .profile-main {
-    padding: 24px 16px;
+    padding: 3.2% 2.5% 8%;
   }
-  .profile-summary,
-  .profile-info {
-    padding: 24px;
+  .profile-content {
+    padding-bottom: 5%;
+  }
+
+  .profile-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 20px 20px;
+    gap: 8px;
+  }
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 4px;
+  }
+  .profile-user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
   }
   .profile-user-name {
     font-size: 24px;
+    margin-bottom: 2px;
   }
-  .profile-info-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 24px;
+  .profile-user-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 4px;
   }
-  .profile-info-title {
-    font-size: 22px;
+  .profile-join-date {
+    font-size: 13px;
+  }
+  .profile-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 4px;
   }
   .profile-stat {
+    flex: 1 1 calc(50% - 8px);
     min-width: 80px;
-    padding: 12px 16px;
+    padding: 6px 8px;
+    background: var(--profile-surface-container-low);
+    border-radius: var(--profile-radius-sm);
+    text-align: center;
   }
   .profile-stat-number {
-    font-size: 18px;
+    font-size: 16px;
   }
-  .profile-activity-card {
-    padding: 20px;
+  .profile-stat-label {
+    font-size: 11px;
   }
-  .profile-activity-header {
-    flex-direction: column;
-    gap: 8px;
+
+  .profile-info-header {
+    flex-wrap: nowrap;
+    gap: 1.5%;
   }
-  .profile-activity-status {
-    align-self: flex-start;
+  .profile-info-title {
+    font-size: 1.8rem;
+    flex-shrink: 0;
   }
   .profile-info-actions-header {
-    flex-wrap: wrap;
+    flex-shrink: 0;
+    gap: 1.5%;
   }
-  .profile-change-password {
-    font-size: 14px;
+
+  .profile-info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5% 2.5%;
+  }
+  .profile-activity {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5%;
   }
 }
 
+/* ---- Mobile lớn (481–768px) ---- */
+@media (max-width: 768px) and (min-width: 481px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+    gap: 3%;
+  }
+  .profile-sidebar {
+    position: static;
+    width: 100%;
+  }
+
+  .profile-nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1% 1.5%;
+    gap: 0.5%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    background: var(--profile-surface-lowest);
+    border-radius: var(--profile-radius);
+    box-shadow: var(--profile-shadow);
+    align-items: center;
+  }
+
+  /* ---- Scrollbar style giống orders.css ---- */
+  .profile-nav::-webkit-scrollbar {
+    height: 6px !important;
+    display: block !important;
+  }
+  .profile-nav::-webkit-scrollbar-track {
+    background: #f1eded !important;
+    border-radius: 3px !important;
+  }
+  .profile-nav::-webkit-scrollbar-thumb {
+    background: #ba9e9a !important;
+    border-radius: 3px !important;
+  }
+  .profile-nav::-webkit-scrollbar-thumb:hover {
+    background: #840001 !important;
+  }
+
+  .profile-nav-item {
+    padding: 1.2% 2.2%;
+    font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    flex: 0 0 auto;
+    border-right: none;
+    border-bottom: 3px solid transparent;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 1%;
+    max-width: none;
+  }
+  .profile-nav-item .material-symbols-outlined {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+  }
+  .profile-nav-item.active {
+    border-bottom-color: var(--profile-primary);
+    border-right-color: transparent;
+    background: rgba(132, 0, 1, 0.05);
+    color: var(--profile-primary);
+  }
+  .profile-nav-divider {
+    display: none;
+  }
+
+  .profile-main {
+    padding: 3% 2% 8%;
+  }
+  .profile-content {
+    padding-bottom: 5%;
+  }
+
+  .profile-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 16px 18px;
+    gap: 6px;
+  }
+  .profile-avatar {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 2px;
+  }
+  .profile-user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
+  }
+  .profile-user-name {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  .profile-user-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+  .profile-join-date {
+    font-size: 11px;
+  }
+  .profile-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 2px;
+  }
+  .profile-stat {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 60px;
+    padding: 4px 6px;
+    background: var(--profile-surface-container-low);
+    border-radius: var(--profile-radius-sm);
+    text-align: center;
+  }
+  .profile-stat-number {
+    font-size: 14px;
+  }
+  .profile-stat-label {
+    font-size: 10px;
+  }
+
+  .profile-info-header {
+    flex-wrap: nowrap;
+    gap: 1.5%;
+    margin-bottom: 3.5%;
+  }
+  .profile-info-title {
+    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+    flex-shrink: 0;
+  }
+  .profile-info-actions-header {
+    flex-shrink: 0;
+    gap: 1.5%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .profile-info-edit,
+  .profile-change-password {
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    white-space: nowrap;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5%;
+  }
+  .profile-info-group--full {
+    grid-column: 1;
+  }
+
+  .profile-info-label {
+    font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+  }
+  .profile-info-input,
+  .profile-info-textarea {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    padding: 1% 1.8%;
+  }
+
+  .profile-save-btn {
+    padding: 1.8% 4%;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    width: 100%;
+  }
+
+  .profile-activity {
+    grid-template-columns: 1fr;
+    gap: 2.5%;
+  }
+  .profile-activity-card {
+    padding: 2.5% 2.2%;
+    gap: 1.5%;
+  }
+  .profile-activity-title {
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  }
+  .profile-activity-status {
+    font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+    padding: 0.5% 1.8%;
+  }
+  .profile-activity-id,
+  .profile-activity-desc,
+  .profile-activity-date {
+    font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+  }
+  .profile-activity-price {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+  }
+  .profile-activity-btn {
+    font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    padding: 1.2% 2%;
+  }
+
+  .profile-avatar-upload {
+    width: clamp(28px, 6vw, 34px);
+    height: clamp(28px, 6vw, 34px);
+    bottom: 0;
+    right: 0;
+  }
+  .profile-avatar-upload .material-symbols-outlined {
+    font-size: clamp(13px, 3vw, 16px);
+  }
+}
+
+/* ---- Mobile nhỏ (≤480px) ---- */
 @media (max-width: 480px) {
   .profile-container {
-    gap: 16px;
+    gap: 2%;
   }
+  .profile-main {
+    padding: 2% 1.5% 10%;
+  }
+  .profile-content {
+    padding-bottom: 6%;
+  }
+
+  .profile-nav {
+    padding: 0.8% 1%;
+    gap: 0.3%;
+    border-radius: 8px;
+  }
+
+  /* ---- Scrollbar style giống orders.css ---- */
+  .profile-nav::-webkit-scrollbar {
+    height: 6px !important;
+    display: block !important;
+  }
+  .profile-nav::-webkit-scrollbar-track {
+    background: #f1eded !important;
+    border-radius: 3px !important;
+  }
+  .profile-nav::-webkit-scrollbar-thumb {
+    background: #ba9e9a !important;
+    border-radius: 3px !important;
+  }
+  .profile-nav::-webkit-scrollbar-thumb:hover {
+    background: #840001 !important;
+  }
+
+  .profile-nav-item {
+    padding: 1% 1.8%;
+    font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+    gap: 0.5%;
+    border-bottom-width: 2px;
+  }
+  .profile-nav-item .material-symbols-outlined {
+    font-size: clamp(0.85rem, 2.8vw, 1.1rem);
+  }
+
   .profile-summary {
-    padding: 12px;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 12px 16px;
+    gap: 4px;
   }
   .profile-avatar {
     width: 60px;
     height: 60px;
+    margin-bottom: 0;
+  }
+  .profile-user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
   }
   .profile-user-name {
     font-size: 18px;
+    margin-bottom: 1px;
+  }
+  .profile-user-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 0;
+  }
+  .profile-join-date {
+    font-size: 10px;
+  }
+  .profile-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    margin-top: 2px;
+  }
+  .profile-stat {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 50px;
+    padding: 3px 4px;
+    background: var(--profile-surface-container-low);
+    border-radius: var(--profile-radius-sm);
+    text-align: center;
+  }
+  .profile-stat-number {
+    font-size: 12px;
+  }
+  .profile-stat-label {
+    font-size: 9px;
+  }
+
+  .profile-info-header {
+    flex-wrap: nowrap;
+    gap: 1%;
+    margin-bottom: 2.5%;
+  }
+  .profile-info-title {
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+    flex-shrink: 0;
+  }
+  .profile-info-actions-header {
+    flex-shrink: 0;
+    gap: 1%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .profile-info-edit,
+  .profile-change-password {
+    font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+    white-space: nowrap;
+  }
+  .profile-info-edit .material-symbols-outlined,
+  .profile-change-password .material-symbols-outlined {
+    font-size: 14px;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5%;
+  }
+  .profile-info-group--full {
+    grid-column: 1;
+  }
+
+  .profile-info-label {
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+  }
+  .profile-info-input,
+  .profile-info-textarea {
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    padding: 0.8% 1.6%;
+    border-radius: 6px;
+  }
+  .profile-info-textarea {
+    min-height: 50px;
+  }
+
+  .profile-info-actions {
+    margin-top: 2.5%;
+  }
+  .profile-save-btn {
+    padding: 1.5% 3%;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  .profile-activity {
+    grid-template-columns: 1fr;
+    gap: 2%;
+  }
+  .profile-activity-card {
+    padding: 2.2% 1.8%;
+    border-left-width: 3px;
+    border-radius: 10px;
+    gap: 1.2%;
+  }
+  .profile-activity-title {
+    font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+  }
+  .profile-activity-status {
+    font-size: clamp(0.5rem, 1.5vw, 0.7rem);
+    padding: 0.3% 1.5%;
+    letter-spacing: 0.4px;
+  }
+  .profile-activity-id,
+  .profile-activity-desc,
+  .profile-activity-date {
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+  }
+  .profile-activity-price {
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  }
+  .profile-activity-btn {
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    padding: 1% 1.6%;
+    border-width: 1.5px;
+    border-radius: 6px;
+  }
+
+  .profile-avatar-upload {
+    width: clamp(22px, 7vw, 28px);
+    height: clamp(22px, 7vw, 28px);
+    bottom: -2px;
+    right: -2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .profile-avatar-upload .material-symbols-outlined {
+    font-size: clamp(11px, 3.5vw, 14px);
+  }
+
+  .toast-container {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+    gap: 8px;
+  }
+  .toast {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .toast-message {
+    font-size: 13px;
+  }
+  .toast-icon {
+    font-size: 20px;
+  }
+}
+
+/* ---- Cực nhỏ (≤360px) ---- */
+@media (max-width: 360px) {
+  .profile-main {
+    padding: 1.5% 1% 10%;
+  }
+  .profile-container {
+    gap: 1.5%;
+  }
+  .profile-content {
+    padding-bottom: 6%;
+  }
+
+  .profile-nav {
+    padding: 0.5% 0.8%;
+    gap: 0.2%;
+  }
+  .profile-nav::-webkit-scrollbar {
+    height: 4px !important;
   }
   .profile-nav-item {
-    padding: 6px 10px;
+    padding: 0.8% 1.5%;
+    font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+    gap: 0.3%;
+    border-bottom-width: 2px;
+  }
+  .profile-nav-item .material-symbols-outlined {
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
+  }
+
+  .profile-summary {
+    padding: 10px 10px 14px;
+    gap: 2px;
+  }
+  .profile-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  .profile-user-name {
+    font-size: 16px;
+  }
+  .profile-join-date {
+    font-size: 9px;
+  }
+  .profile-stat {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 40px;
+    padding: 2px 4px;
+  }
+  .profile-stat-number {
+    font-size: 10px;
+  }
+  .profile-stat-label {
+    font-size: 8px;
+  }
+
+  .profile-info-header {
+    flex-wrap: nowrap;
+    gap: 0.5%;
+  }
+  .profile-info-title {
+    font-size: clamp(0.95rem, 5vw, 1.1rem);
+  }
+  .profile-info-actions-header {
+    gap: 0.5%;
+  }
+  .profile-info-edit,
+  .profile-change-password {
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+  }
+  .profile-info-edit .material-symbols-outlined,
+  .profile-change-password .material-symbols-outlined {
     font-size: 12px;
+  }
+
+  .profile-info-input,
+  .profile-info-textarea {
+    font-size: clamp(0.7rem, 2.8vw, 0.85rem);
+    padding: 0.6% 1.2%;
+  }
+
+  .profile-save-btn {
+    padding: 1.2% 2.5%;
+    font-size: clamp(0.7rem, 2.8vw, 0.85rem);
+  }
+
+  .profile-activity-card {
+    padding: 1.8% 1.5%;
+  }
+  .profile-activity-title {
+    font-size: clamp(0.8rem, 4vw, 1rem);
+  }
+  .profile-activity-id,
+  .profile-activity-desc,
+  .profile-activity-date {
+    font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+  }
+  .profile-activity-price {
+    font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+  }
+  .profile-activity-btn {
+    font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+    padding: 0.8% 1.2%;
+  }
+  .profile-activity-status {
+    font-size: clamp(0.45rem, 1.8vw, 0.6rem);
+    padding: 0.2% 1.2%;
+  }
+
+  .profile-avatar-upload {
+    width: clamp(18px, 7vw, 24px);
+    height: clamp(18px, 7vw, 24px);
+  }
+  .profile-avatar-upload .material-symbols-outlined {
+    font-size: clamp(9px, 4vw, 12px);
   }
 }
 
@@ -1024,7 +1603,7 @@ body {
   color: var(--profile-on-surface);
 }
 
-/* Password Requirements (ô tròn) */
+/* Password Requirements */
 .password-requirements {
   display: flex;
   flex-wrap: wrap;
@@ -1180,7 +1759,7 @@ body {
   box-shadow: 0 0 0 4px rgba(176, 1, 3, 0.2);
 }
 
-/* ===== AVATAR MODAL (theo mẫu) ===== */
+/* ===== AVATAR MODAL ===== */
 .modal-content--avatar {
   max-height: 90vh;
   overflow-y: auto;
@@ -1328,7 +1907,6 @@ body {
   display: block;
   max-width: 100%;
 }
-/* CropperJS override để cắt hình tròn */
 .cropper-view-box,
 .cropper-face {
   border-radius: 50% !important;
@@ -1405,17 +1983,7 @@ body {
   }
 }
 
-/* Responsive toast */
-@media (max-width: 480px) {
-  .toast-container {
-    top: 16px;
-    right: 16px;
-    left: 16px;
-    max-width: none;
-  }
-}
-
-/* ===== TRẠNG THÁI CHO YÊU CẦU THIẾT KẾ (giống custom-order-list) ===== */
+/* ===== TRẠNG THÁI CHO YÊU CẦU THIẾT KẾ ===== */
 .profile-activity-status.status-pending {
   background: #fef08a;
   color: #854d0e;

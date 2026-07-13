@@ -275,3 +275,53 @@ function initTableActions() {
         }
     });
 }
+
+// ===== THÊM HÀM INITLOGOUT =====
+function initLogout() {
+    const logoutTrigger = document.getElementById('logoutTrigger');
+    const logoutModal = document.getElementById('modalLogout');
+    const logoutOverlay = document.getElementById('modalOverlay');
+    const cancelBtn = document.querySelector('[data-close="modalLogout"]');
+    const confirmBtn = document.getElementById('confirmLogout');
+
+    if (!logoutTrigger || !logoutModal || !logoutOverlay) {
+        console.warn('Logout elements not found');
+        return;
+    }
+
+    // Ngăn chặn hành vi mặc định của thẻ a
+    logoutTrigger.href = 'javascript:void(0)';
+
+    // Mở modal
+    logoutTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        logoutOverlay.classList.add('active');
+        logoutModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Đóng modal
+    function closeLogoutModal() {
+        logoutOverlay.classList.remove('active');
+        logoutModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (cancelBtn) cancelBtn.addEventListener('click', closeLogoutModal);
+    logoutOverlay.addEventListener('click', closeLogoutModal);
+
+    // Xác nhận đăng xuất
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', function() {
+            this.textContent = 'Đang xử lý...';
+            this.disabled = true;
+            setTimeout(() => {
+                localStorage.removeItem('userEmail');
+                closeLogoutModal();
+                window.location.href = 'login.html';
+            }, 800);
+        });
+    }
+
+    console.log('Logout initialized successfully.');
+}

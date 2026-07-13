@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
@@ -66,7 +66,7 @@
                     </aside>
                 </div>
 
-                <!-- Cột bên phải: Bảng dữ liệu (Sẽ được JS đổ data vào đây) -->
+                <!-- Cột bên phải: Bảng dữ liệu -->
                 <section class="main-table-area">
                     <div class="page-header"><div>
                         <h1 class="page-title">Theo dõi yêu cầu thiết kế</h1>
@@ -123,11 +123,37 @@
     </main>
 
     <div id="footer-placeholder"></div>
+
+    <!-- ===== MODALS ===== -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Modal Đăng xuất -->
+    <div class="modal" id="modalLogout">
+        <div class="modal-content modal-content--logout">
+            <div class="modal-icon modal-icon--error">
+                <span class="material-symbols-outlined">logout</span>
+            </div>
+            <h3 class="modal-title">Bạn có chắc chắn muốn đăng xuất?</h3>
+            <p class="modal-desc">Mọi thay đổi chưa lưu có thể bị mất.</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn--cancel" data-close="modalLogout">Hủy</button>
+                <button class="modal-btn modal-btn--danger" id="confirmLogout">Đăng xuất</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetch('../components/header.html')
                 .then(res => res.text())
-                .then(data => document.getElementById('header-placeholder').innerHTML = data)
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    // Gọi hàm initLogout sau khi header được chèn
+                    if (typeof initLogout === 'function') {
+                        initLogout();
+                    }
+                })
                 .catch(() => console.warn('Header not found'));
 
             fetch('../components/footer.html')
