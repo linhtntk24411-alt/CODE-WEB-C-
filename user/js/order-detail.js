@@ -211,7 +211,7 @@
     orderStatusBadge.textContent = order.status;
     orderStatusBadge.className = 'order-status order-status--' + (order.statusType || 'pending');
 
-    renderTimeline(order.timeline);
+    renderTimeline(order.timeline, order.statusType);
     renderItems(order.items);
     renderPayment(order.payment);
     renderShipping(order.shipping);

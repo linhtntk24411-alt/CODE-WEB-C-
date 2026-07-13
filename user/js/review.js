@@ -58,7 +58,11 @@
         const data = await response.json();
         
         // Tìm kiếm thông tin mẫu dựa theo ID truyền từ trang danh sách
-        const customOrder = data.find(item => item.id === orderId);
+        const customOrder = data.find(item => {
+          const cleanItemId = String(item.id).replace('#', '').trim().toUpperCase();
+          const cleanOrderId = String(orderId).replace('#', '').trim().toUpperCase();
+          return cleanItemId === cleanOrderId;
+        });
 
         if (!customOrder) {
           orderInfo.innerHTML = '<p>Không tìm thấy thông tin yêu cầu thiết kế.</p>';

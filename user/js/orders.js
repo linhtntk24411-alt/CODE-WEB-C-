@@ -297,16 +297,16 @@
     list.querySelectorAll('.order-btn--review').forEach(btn => {
       btn.addEventListener('click', function() {
         const orderId = this.dataset.order;
-        // Chuyển hướng sang trang review và truyền tham số custom
-        window.location.href = `review.html?id=${encodeURIComponent(orderId)}&type=custom`;
-      });
-    });
-
-    // Sự kiện đánh giá
-    list.querySelectorAll('.order-btn--review').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const orderId = this.dataset.order;
-        window.location.href = `review.html?order=${orderId}`;
+        // Tìm xem đơn hàng hiện tại đang click có phải là đơn custom không
+        const currentOrder = ordersData.find(o => o.id === orderId);
+        
+        if (currentOrder && currentOrder.isCustom) {
+          // Nếu là đơn custom, truyền tham số id và type=custom
+          window.location.href = `review.html?id=${encodeURIComponent(orderId)}&type=custom`;
+        } else {
+          // Nếu là đơn thường, chạy theo link cũ của hệ thống
+          window.location.href = `review.html?order=${orderId}`;
+        }
       });
     });
 
