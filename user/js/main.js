@@ -984,7 +984,7 @@ document.addEventListener('auth:changed', function() {
                 width: 90%;
                 max-width: 380px;
                 padding: 32px 24px 24px;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.02);
+                box-shadow: 0 25px 50px -12px rgba(132, 0, 1, 0.08), 0 0 0 1px rgba(132, 0, 1, 0.03);
                 text-align: center;
                 animation: uriiScaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             }
@@ -1018,28 +1018,28 @@ document.addEventListener('auth:changed', function() {
                 box-shadow: 0 0 0 8px rgba(250, 82, 82, 0.08);
             }
             .arii-dialog-icon.warning {
-                background: #fff9db;
-                color: #f59f00;
-                box-shadow: 0 0 0 8px rgba(245, 159, 0, 0.08);
+                background: #fff0f0;
+                color: #840001;
+                box-shadow: 0 0 0 8px rgba(132, 0, 1, 0.08);
             }
             .arii-dialog-icon.info {
-                background: #e7f5ff;
-                color: #228be6;
-                box-shadow: 0 0 0 8px rgba(34, 139, 230, 0.08);
+                background: #fff0f0;
+                color: #840001;
+                box-shadow: 0 0 0 8px rgba(132, 0, 1, 0.08);
             }
             .arii-dialog-title {
                 font-size: 20px;
                 font-weight: 800;
-                color: #1e293b;
+                color: #840001;
                 margin-bottom: 10px;
                 letter-spacing: -0.02em;
             }
             .arii-dialog-message {
                 font-size: 14.5px;
-                color: #64748b;
+                color: #495057;
                 margin-bottom: 28px;
                 line-height: 1.6;
-                font-weight: 500;
+                font-weight: 600;
             }
             .arii-dialog-buttons {
                 display: flex;
@@ -1058,24 +1058,25 @@ document.addEventListener('auth:changed', function() {
                 letter-spacing: 0.2px;
             }
             .arii-dialog-btn.confirm {
-                background: linear-gradient(135deg, #4dabf7, #3b5bdb);
+                background: linear-gradient(135deg, #b00103, #840001);
                 color: #fff;
-                box-shadow: 0 4px 12px rgba(59, 91, 219, 0.15);
+                box-shadow: 0 4px 12px rgba(132, 0, 1, 0.2);
             }
             .arii-dialog-btn.confirm:hover {
-                box-shadow: 0 8px 20px rgba(59, 91, 219, 0.3);
+                box-shadow: 0 8px 20px rgba(132, 0, 1, 0.35);
                 transform: translateY(-2px);
             }
             .arii-dialog-btn.confirm:active {
                 transform: translateY(0);
             }
             .arii-dialog-btn.cancel {
-                background: #f1f5f9;
-                color: #475569;
+                background: #f8f5f4;
+                color: #805062;
+                border: 1px solid #e5bdb7;
             }
             .arii-dialog-btn.cancel:hover {
-                background: #e2e8f0;
-                color: #1e293b;
+                background: #f0eded;
+                color: #700001;
                 transform: translateY(-1px);
             }
             .arii-dialog-btn.cancel:active {
