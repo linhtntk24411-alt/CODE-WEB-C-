@@ -2,7 +2,15 @@ let products = [];
 let currentPage = 1;
 const itemsPerPage = 4;
 
-const categoriesMap = { "hat-nhua": "Hạt nhựa", "dung-cu": "Dụng cụ", "handmade": "Handmade" };
+const categoriesMap = { 
+  "hat-nhua": "Hạt nhựa", 
+  "dung-cu": "Dụng cụ", 
+  "handmade": "Handmade",
+  "bead": "Hạt nhựa",
+  "tool": "Dụng cụ",
+  "kit": "Bộ Kit",
+  "accessory": "Phụ kiện"
+};
 const statusMap = { 
   "normal": { text: "Bình thường", class: "badge-status-normal" },
   "sap-het": { text: "Sắp hết hàng", class: "badge-status-sap-het" },
@@ -14,11 +22,39 @@ const statusMap = {
 async function initData() {
     const localData = localStorage.getItem('products');
     if (localData) {
-        products = JSON.parse(localData);
-        if (products.length > 0) {
-            updateStats();
-            renderProducts();
-            return;
+        try {
+            const loaded = JSON.parse(localData);
+            // Phát hiện dữ liệu mock cũ chứa các danh mục trước đây
+            const hasOldCategories = Array.isArray(loaded) && loaded.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+            
+            if (Array.isArray(loaded) && loaded.length > 0 && !hasOldCategories) {
+                products = loaded.map(p => {
+                    const finalPrice = p.price || p.currentPrice || p.originalPrice || 0;
+                    
+                    let finalStatus = p.status;
+                    if (!finalStatus) {
+                        if (p.stock === 0) finalStatus = 'het-hang';
+                        else if (p.stock <= 5) finalStatus = 'sap-het';
+                        else if (p.isHot) finalStatus = 'hot';
+                        else if (p.isSale) finalStatus = 'new';
+                        else finalStatus = 'normal';
+                    }
+
+                    return {
+                        ...p,
+                        price: finalPrice,
+                        currentPrice: p.currentPrice || finalPrice,
+                        originalPrice: p.originalPrice || finalPrice,
+                        stock: p.stock !== undefined ? p.stock : 10,
+                        status: finalStatus
+                    };
+                });
+                updateStats();
+                renderProducts();
+                return;
+            }
+        } catch(e) {
+            console.error("Error parsing local products:", e);
         }
     }
     await loadProductsFromJson();
@@ -26,10 +62,33 @@ async function initData() {
 
 async function loadProductsFromJson() {
     try {
-        const response = await fetch('../data/product.json');
+        const response = await fetch('../../user/data/product.json');
         if (!response.ok) throw new Error(`Lỗi HTTP: ${response.status}`);
         const data = await response.json();
-        products = data; 
+        const loadedProducts = data.products || data; 
+        
+        products = loadedProducts.map(p => {
+            const finalPrice = p.price || p.currentPrice || p.originalPrice || 0;
+            
+            let finalStatus = p.status;
+            if (!finalStatus) {
+                if (p.stock === 0) finalStatus = 'het-hang';
+                else if (p.stock <= 5) finalStatus = 'sap-het';
+                else if (p.isHot) finalStatus = 'hot';
+                else if (p.isSale) finalStatus = 'new';
+                else finalStatus = 'normal';
+            }
+
+            return {
+                ...p,
+                price: finalPrice,
+                currentPrice: p.currentPrice || finalPrice,
+                originalPrice: p.originalPrice || finalPrice,
+                stock: p.stock !== undefined ? p.stock : 10,
+                status: finalStatus
+            };
+        });
+
         if (products.length === 0) {
             console.warn("File product.json đang rỗng.");
         }
@@ -41,7 +100,7 @@ async function loadProductsFromJson() {
         document.getElementById('product-list').innerHTML = `<tr><td colspan="7" class="text-center text-danger py-5">
             <i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i>
             <strong>LỖI TẢI DỮ LIỆU</strong><br>
-            Không thể tải file <code>../data/product.json</code>.
+            Không thể tải file <code>../../user/data/product.json</code>.
         </td></tr>`;
         document.getElementById('stat-total').innerText = "0";
         document.getElementById('stat-warning').innerText = "0";
@@ -91,18 +150,23 @@ function renderProducts() {
     tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-5">Không tìm thấy sản phẩm phù hợp</td></tr>`;
   } else {
     pageItems.forEach(p => {
-      const sku = "KIT-" + p.id.toString().padStart(3, '0') + "-" + p.name.substring(0,3).toUpperCase();
+      const sku = "KIT-" + p.id.toString().padStart(3, '0') + "-" + (p.name || 'PROD').substring(0,3).toUpperCase();
       const status = statusMap[p.status] || { text: p.status, class: 'badge-status-normal' };
+      
+      let imgPath = p.image || '';
+      if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+          imgPath = imgPath.replace(/^(\.\.\/)?assets\//, '../../user/assets/');
+      }
       
       tbody.innerHTML += `
         <tr>
-          <td class="ps-4"><img src="${p.image}" alt="${p.name}"></td>
+          <td class="ps-4"><img src="${imgPath}" alt="${p.name}"></td>
           <td>
             <strong class="text-dark fs-6">${p.name}</strong>
             <div class="sku-text text-muted">SKU: ${sku}</div>
           </td>
           <td><span class="badge bg-light text-dark border rounded-pill px-3">${categoriesMap[p.category] || p.category}</span></td>
-          <td class="text-danger fw-bold">${p.price.toLocaleString('vi-VN')}đ</td>
+          <td class="text-danger fw-bold">${(p.price || 0).toLocaleString('vi-VN')}đ</td>
           <td>${p.stock}</td>
           <td><span class="badge rounded-pill px-3 ${status.class}">${status.text}</span></td>
           <td class="pe-4">
@@ -181,7 +245,11 @@ function openEditModal(id) {
     document.getElementById('edit-stock').value = product.stock;
 
     const preview = document.getElementById('edit-image-preview');
-    preview.src = product.image;
+    let imgPath = product.image || '';
+    if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+        imgPath = imgPath.replace(/^(\.\.\/)?assets\//, '../../user/assets/');
+    }
+    preview.src = imgPath;
     preview.classList.remove('d-none');
 
     const editModal = new bootstrap.Modal(document.getElementById('editProductModal'));

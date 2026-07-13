@@ -9,9 +9,50 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(dataObject => {
             const cleanId = targetId.trim().toUpperCase();
-            const currentProduct = dataObject[cleanId];
+            let currentProduct = dataObject[cleanId];
+
+            if (!currentProduct) {
+                try {
+                    const localMapsSaved = localStorage.getItem('library_maps');
+                    if (localMapsSaved) {
+                        const localMaps = JSON.parse(localMapsSaved);
+                        const m = localMaps.find(item => item.map_id.toUpperCase() === cleanId);
+                        if (m) {
+                            currentProduct = {
+                                map_id: m.map_id,
+                                title: m.map_name,
+                                author: m.author || 'Urii Thiết kế',
+                                mainImage: m.main_image,
+                                duration: "25 phút",
+                                difficulty: m.difficulty || "Dễ",
+                                difficultyClass: m.difficultyClass || "badge-easy",
+                                categories: m.categories || ["Trang trí"],
+                                pegboard: m.grid_size || "32 x 32 ô (Midi 5mm)",
+                                total_beads: m.total_beads || 0,
+                                download_link: m.download_link || "",
+                                description: m.description || "",
+                                colors: [
+                                    { "code": "#01", "name": "Màu chính", "quantity": m.total_beads || 100 }
+                                ],
+                                steps: [
+                                    { "number": 1, "title": "Chuẩn bị pegboard", "text": `Đặt bảng pegboard phù hợp cho kích thước ${m.grid_size || '32x32 ô'}.` },
+                                    { "number": 2, "title": "Xếp hạt", "text": "Đặt các hạt nhựa theo mẫu thiết kế." },
+                                    { "number": 3, "title": "Ủi nhiệt", "text": "Sử dụng bàn ủi nhiệt độ vừa để làm chảy đều các hạt qua giấy nến chuyên dụng." }
+                                ],
+                                showcase: { "images": [], "moreCount": 0 },
+                                products: []
+                            };
+                        }
+                    }
+                } catch(e) {
+                    console.error("Error fallback gallery details:", e);
+                }
+            }
 
             if (currentProduct) {
+                if (currentProduct.mainImage && !currentProduct.mainImage.startsWith('http') && !currentProduct.mainImage.startsWith('data:') && !currentProduct.mainImage.startsWith('../')) {
+                    currentProduct.mainImage = '../' + currentProduct.mainImage;
+                }
                 renderProductDetails(currentProduct);
             } else {
                 document.getElementById("project-title").textContent = "Không tìm thấy tác phẩm!";

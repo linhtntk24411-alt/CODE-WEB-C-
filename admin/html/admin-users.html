@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Người dùng - Perler Beads</title>
+    <title>Urii Admin | Quản lý Người Dùng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
@@ -17,11 +17,39 @@
 <!-- 1. KHUNG LAYOUT CHUẨN (Giống Blog, Comments, Library, Help) -->
 <div class="admin-layout-wrapper">
 
-    <div id="layout-sidebar"></div>
+        <div id="layout-sidebar"></div>
+    <script>
+        (function() {
+            const cached = localStorage.getItem('cache_layout-sidebar');
+            if (cached) {
+                document.getElementById('layout-sidebar').innerHTML = cached;
+                const currentPage = window.location.pathname.split('/').pop() || 'admin-dashboard.html';
+                let matchPage = currentPage;
+                if (matchPage.includes('admin-coupon')) matchPage = 'admin-coupons.html';
+                if (matchPage.includes('admin-product-form')) matchPage = 'admin-products.html';
+                const links = document.getElementById('layout-sidebar').querySelectorAll(".nav-item");
+                links.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href.includes(matchPage)) {
+                        links.forEach(item => item.classList.remove("active"));
+                        link.classList.add("active");
+                    }
+                });
+            }
+        })();
+    </script>
 
     <div class="admin-main-area">
         
-        <div id="layout-topbar"></div>
+                <div id="layout-topbar"></div>
+        <script>
+            (function() {
+                const cached = localStorage.getItem('cache_layout-topbar');
+                if (cached) {
+                    document.getElementById('layout-topbar').innerHTML = cached;
+                }
+            })();
+        </script>
 
         <div class="admin-main-content">
             
@@ -80,9 +108,6 @@
                                     <option value="">Tất cả vai trò</option>
                                     <option value="admin">Quản trị viên</option>
                                     <option value="customer">Khách hàng</option>
-                                    <option value="member_bronze">Thành viên Đồng</option>
-                                    <option value="member_silver">Thành viên Bạc</option>
-                                    <option value="member_gold">Thành viên Vàng</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -152,15 +177,27 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function loadComponent(url, targetId) {
+            const cacheKey = 'cache_' + targetId;
+            const cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) {
+                document.getElementById(targetId).innerHTML = cachedData;
+                if (targetId === 'layout-sidebar') {
+                    highlightActiveMenu();
+                }
+            }
+
             fetch(url)
                 .then(response => {
                     if (!response.ok) throw new Error("Lỗi tải file: " + url);
                     return response.text();
                 })
                 .then(data => {
-                    document.getElementById(targetId).innerHTML = data;
-                    if(targetId === 'layout-sidebar') {
-                        setTimeout(highlightActiveMenu, 100);
+                    if (data !== cachedData) {
+                        document.getElementById(targetId).innerHTML = data;
+                        localStorage.setItem(cacheKey, data);
+                        if (targetId === 'layout-sidebar') {
+                            highlightActiveMenu();
+                        }
                     }
                 })
                 .catch(err => console.warn('Không thể tải layout:', err));
@@ -181,14 +218,7 @@
             });
         }
 
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('#adminLogoutBtn')) {
-                e.preventDefault();
-                if (confirm("Bạn có chắc muốn đăng xuất?")) {
-                    window.location.href = "../../user/html/login.html";
-                }
-            }
-        });
+        
     });
 </script>
 
@@ -206,5 +236,6 @@
 <script src="../js/admin-users.js"></script>
 <!-- QUAN TRỌNG: Đã thêm Bootstrap JS để Dropdown hoạt động -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin-layout.js"></script>
 </body>
 </html>

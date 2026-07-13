@@ -1,5 +1,5 @@
 // ================================================================
-// JS QUẢN LÝ MAP MẪU (Chỉ load/ghi file JSON)
+// JS QUẢN LÝ MAP MẪU (Liên kết với Thư Viện Map Mẫu bên User)
 // ================================================================
 
 let maps = [];
@@ -11,26 +11,40 @@ let editingId = null;
 // HÀM LOAD DỮ LIỆU TỪ JSON
 // ================================================================
 async function loadMaps() {
+    // Thử load từ localStorage trước
+    const localData = localStorage.getItem('library_maps');
+    if (localData) {
+        try {
+            maps = JSON.parse(localData);
+            if (Array.isArray(maps) && maps.length > 0) {
+                renderTable();
+                return;
+            }
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     try {
-        const response = await fetch('../data/library.json');
+        const response = await fetch('../../user/data/gallery.json');
         if (!response.ok) {
-            throw new Error(`Không thể tải file library.json (HTTP ${response.status})`);
+            throw new Error(`Không thể tải file gallery.json (HTTP ${response.status})`);
         }
         maps = await response.json();
-        console.log("✅ Đã load dữ liệu từ library.json");
+        localStorage.setItem('library_maps', JSON.stringify(maps));
+        console.log("✅ Đã load dữ liệu từ gallery.json");
         renderTable();
     } catch (error) {
         console.error("❌ LỖI TẢI DỮ LIỆU:", error.message);
         
-        // Hiển thị thông báo lỗi thay vì dùng dữ liệu giả
         const tbody = document.getElementById('map-list');
         tbody.innerHTML = `
             <tr>
                 <td colspan="5" class="text-center text-danger py-5">
                     <i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i>
                     <strong>LỖI TẢI DỮ LIỆU</strong><br>
-                    Không thể tải file <code>library.json</code>.<br>
-                    <span class="text-muted small">Vui lòng kiểm tra file có tồn tại trong thư mục <code>admin/data/</code>.</span>
+                    Không thể tải file <code>gallery.json</code>.<br>
+                    <span class="text-muted small">Vui lòng kiểm tra file có tồn tại trong thư mục <code>user/data/</code>.</span>
                 </td>
             </tr>
         `;
@@ -59,16 +73,27 @@ function renderTable() {
     tbody.innerHTML = '';
 
     pageData.forEach(m => {
-        const stars = '★'.repeat(Math.floor(m.rating)) + '☆'.repeat(5 - Math.floor(m.rating));
+        let imgPath = m.main_image || '';
+        if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+            imgPath = '../../user/' + imgPath;
+        }
+
+        // Chọn badge cho độ khó
+        let badgeClass = 'bg-secondary';
+        if (m.difficulty === 'Dễ') badgeClass = 'bg-success';
+        else if (m.difficulty === 'Trung bình') badgeClass = 'bg-warning text-dark';
+        else if (m.difficulty === 'Khó') badgeClass = 'bg-danger';
+
         tbody.innerHTML += `
             <tr>
-                <td class="ps-4"><img src="${m.image}" alt="${m.name}"></td>
-                <td><strong>${m.name}</strong></td>
-                <td>${m.author}</td>
-                <td>${stars} ${m.rating}</td>
+                <td class="ps-4"><img src="${imgPath}" alt="${m.map_name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
+                <td><strong>${m.map_name}</strong></td>
+                <td><span class="badge ${badgeClass}">${m.difficulty || 'Chưa rõ'}</span></td>
+                <td>${m.grid_size || '--'}</td>
+                <td><span class="fw-bold text-danger">${m.total_beads || 0}</span> hạt</td>
                 <td class="pe-4 text-end">
-                    <button class="btn-action-edit" onclick="openModal(${m.id})"><i class="bi bi-pencil"></i></button>
-                    <button class="btn-action-delete" onclick="deleteMap(${m.id})"><i class="bi bi-trash"></i></button>
+                    <button class="btn-action-edit" onclick="openModal('${m.map_id}')"><i class="bi bi-pencil"></i></button>
+                    <button class="btn-action-delete" onclick="deleteMap('${m.map_id}')"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
@@ -95,7 +120,7 @@ function changePage(page) { currentPage = page; renderTable(); }
 // ================================================================
 async function saveToJsonFile(data) {
     try {
-        const response = await fetch('../data/library.json', {
+        const response = await fetch('../../user/data/gallery.json', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data, null, 2)
@@ -103,7 +128,7 @@ async function saveToJsonFile(data) {
         if (!response.ok) {
             console.warn("Không thể ghi vào file JSON. Dữ liệu vẫn an toàn trong localStorage.");
         } else {
-            console.log("✅ Đã đồng bộ dữ liệu xuống library.json");
+            console.log("✅ Đã đồng bộ dữ liệu xuống gallery.json");
         }
     } catch (error) {
         console.warn("Lỗi khi ghi file JSON:", error);
@@ -121,18 +146,25 @@ function openModal(id = null) {
     document.getElementById('image-preview').classList.add('d-none');
 
     if (id) {
-        const m = maps.find(item => item.id === id);
+        const m = maps.find(item => item.map_id === id);
         if (m) {
             modalTitle.innerText = "Chỉnh sửa mẫu";
-            document.getElementById('edit-id').value = m.id;
-            document.getElementById('map-name').value = m.name;
-            document.getElementById('map-author').value = m.author;
-            document.getElementById('map-image').value = m.image;
-            document.getElementById('map-rating').value = m.rating;
-            document.getElementById('map-desc').value = m.desc || '';
+            document.getElementById('edit-id').value = m.map_id;
+            document.getElementById('map-name').value = m.map_name;
+            document.getElementById('map-author').value = m.author || 'Urii Thiết kế';
+            document.getElementById('map-image').value = m.main_image;
+            document.getElementById('map-difficulty').value = m.difficulty || 'Dễ';
+            document.getElementById('map-grid-size').value = m.grid_size || '';
+            document.getElementById('map-total-beads').value = m.total_beads || '';
+            document.getElementById('map-bead-type').value = m.bead_type || 'Midi 5mm';
+            document.getElementById('map-desc').value = m.description || '';
             
             const preview = document.getElementById('image-preview');
-            preview.src = m.image;
+            let imgPath = m.main_image || '';
+            if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+                imgPath = '../../user/' + imgPath;
+            }
+            preview.src = imgPath;
             preview.classList.remove('d-none');
         }
     } else {
@@ -143,12 +175,16 @@ function openModal(id = null) {
     modal.show();
 }
 
-// Xem trước ảnh khi nhập URL
+// Xem trước ảnh
 document.getElementById('map-image').addEventListener('input', function() {
     const url = this.value.trim();
     const preview = document.getElementById('image-preview');
     if (url) {
-        preview.src = url;
+        let imgPath = url;
+        if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+            imgPath = '../../user/' + imgPath;
+        }
+        preview.src = imgPath;
         preview.classList.remove('d-none');
     } else {
         preview.classList.add('d-none');
@@ -157,32 +193,70 @@ document.getElementById('map-image').addEventListener('input', function() {
 
 // Lưu mẫu
 document.getElementById('btn-save-map').addEventListener('click', function() {
-    const name = document.getElementById('map-name').value.trim();
+    const map_name = document.getElementById('map-name').value.trim();
     const author = document.getElementById('map-author').value.trim();
-    const image = document.getElementById('map-image').value.trim();
-    const rating = parseFloat(document.getElementById('map-rating').value) || 0;
-    const desc = document.getElementById('map-desc').value.trim();
+    const main_image = document.getElementById('map-image').value.trim();
+    const difficulty = document.getElementById('map-difficulty').value;
+    const grid_size = document.getElementById('map-grid-size').value.trim();
+    const total_beads = parseInt(document.getElementById('map-total-beads').value) || 0;
+    const bead_type = document.getElementById('map-bead-type').value.trim();
+    const description = document.getElementById('map-desc').value.trim();
 
-    if (!name || !author) {
-        alert("Vui lòng điền tên và tác giả!");
+    if (!map_name) {
+        alert("Vui lòng điền tên mẫu!");
         return;
     }
 
+    let difficultyClass = 'badge-easy';
+    if (difficulty === 'Trung bình') difficultyClass = 'badge-medium';
+    else if (difficulty === 'Khó') difficultyClass = 'badge-hard';
+
     if (editingId) {
-        // Chế độ Sửa
-        const index = maps.findIndex(m => m.id === editingId);
+        // Sửa
+        const index = maps.findIndex(m => m.map_id === editingId);
         if (index !== -1) {
-            maps[index] = { ...maps[index], name, author, image, rating, desc };
+            maps[index] = { 
+                ...maps[index], 
+                map_name, 
+                author, 
+                main_image, 
+                difficulty, 
+                difficultyClass, 
+                grid_size, 
+                total_beads, 
+                bead_type, 
+                description 
+            };
         }
     } else {
-        // Chế độ Thêm mới
-        const newId = maps.length > 0 ? Math.max(...maps.map(m => m.id)) + 1 : 1;
-        maps.push({ id: newId, name, author, image, rating, desc });
+        // Thêm mới
+        const nextNum = maps.length > 0 ? Math.max(...maps.map(m => {
+            const num = parseInt(m.map_id.substring(1));
+            return isNaN(num) ? 0 : num;
+        })) + 1 : 1;
+        
+        const map_id = 'M' + nextNum.toString().padStart(2, '0');
+        maps.push({
+            map_id,
+            map_name,
+            author,
+            main_image,
+            gallery_images: [],
+            difficulty,
+            difficultyClass,
+            categories: ["Trang trí"],
+            grid_size,
+            bead_type,
+            total_beads,
+            download_link: "",
+            description,
+            related_product_ids: []
+        });
     }
 
-    // Lưu vào localStorage để hiển thị ngay
-    localStorage.setItem('maps', JSON.stringify(maps));
-    // Ghi đè vào file JSON thật (bất đồng bộ)
+    // Lưu vào localStorage
+    localStorage.setItem('library_maps', JSON.stringify(maps));
+    // Ghi đè vào file JSON
     saveToJsonFile(maps);
     
     renderTable();
@@ -194,16 +268,13 @@ document.getElementById('btn-save-map').addEventListener('click', function() {
 // Xóa mẫu
 function deleteMap(id) {
     if (confirm("Bạn có chắc muốn xóa mẫu này?")) {
-        maps = maps.filter(m => m.id !== id);
-        localStorage.setItem('maps', JSON.stringify(maps));
+        maps = maps.filter(m => m.map_id !== id);
+        localStorage.setItem('library_maps', JSON.stringify(maps));
         saveToJsonFile(maps);
         renderTable();
     }
 }
 
-// ================================================================
-// KHỞI CHẠY
-// ================================================================
+// Khởi chạy
 document.getElementById('btn-add-map').addEventListener('click', () => openModal());
-
 document.addEventListener('DOMContentLoaded', loadMaps);

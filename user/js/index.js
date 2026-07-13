@@ -296,11 +296,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== LOAD PRODUCTS FROM JSON =====
     function loadProducts() {
+        const localProducts = localStorage.getItem('products');
+        if (localProducts) {
+            try {
+                const parsed = JSON.parse(localProducts);
+                const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+                
+                if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                    const bestSellers = parsed.filter(p => p.isSale === true).slice(0, 4);
+                    homepageProducts = bestSellers;
+                    renderProducts(bestSellers);
+                    renderBestSellerTimer(bestSellers);
+                    initCountdownTimers();
+                    return;
+                }
+            } catch (e) {
+                console.error('Error parsing index products:', e);
+            }
+        }
+
         fetch('../data/product.json')
             .then(response => response.json())
             .then(data => {
+                const allProds = data.products || data || [];
+                localStorage.setItem('products', JSON.stringify(allProds));
+                
                 // Lọc sản phẩm đang sale để hiển thị
-                const bestSellers = data.products.filter(p => p.isSale === true).slice(0, 4);
+                const bestSellers = allProds.filter(p => p.isSale === true).slice(0, 4);
                 homepageProducts = bestSellers;
                 renderProducts(bestSellers);
                 renderBestSellerTimer(bestSellers);

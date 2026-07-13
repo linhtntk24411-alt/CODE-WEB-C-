@@ -72,10 +72,26 @@ function renderResults() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    const localProducts = localStorage.getItem('products');
+    if (localProducts) {
+        try {
+            const parsed = JSON.parse(localProducts);
+            const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+            if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                allProducts = parsed;
+                renderResults();
+                return;
+            }
+        } catch (e) {
+            console.error('Error parsing products in search-results:', e);
+        }
+    }
+
     fetch('../data/product.json')
         .then(res => res.ok ? res.json() : Promise.reject(res.statusText))
         .then(data => {
             allProducts = data.products || data;
+            localStorage.setItem('products', JSON.stringify(allProducts));
             renderResults();
         })
         .catch(err => {

@@ -230,6 +230,15 @@ function initTableActions() {
                         allItems = allItems.filter(item => item.id !== reqId);
                         filteredItems = filteredItems.filter(item => item.id !== reqId);
                         
+                        // Cập nhật lại localStorage
+                        try {
+                            const localData = JSON.parse(localStorage.getItem('custom_orders_cache')) || [];
+                            const updatedLocal = localData.filter(item => item.id !== reqId);
+                            localStorage.setItem('custom_orders_cache', JSON.stringify(updatedLocal));
+                        } catch(e) {
+                            console.error(e);
+                        }
+
                         // Tính toán lại thanh số liệu Bento Sidebar & vẽ lại bảng
                         updateStatistics(allItems);
                         
@@ -238,8 +247,7 @@ function initTableActions() {
                             currentPage = totalPagesAfterDelete;
                         }
                         
-                        renderTable(filteredItems, currentPage);
-                        renderPagination(filteredItems.length, currentPage);
+                        goToPage(currentPage);
                         
                         if (typeof window.ariiToast === 'function') {
                             window.ariiToast(`Đã xóa yêu cầu thiết kế ${reqId}`, 'success');
@@ -255,6 +263,15 @@ function initTableActions() {
                     allItems = allItems.filter(item => item.id !== reqId);
                     filteredItems = filteredItems.filter(item => item.id !== reqId);
                     
+                    // Cập nhật lại localStorage
+                    try {
+                        const localData = JSON.parse(localStorage.getItem('custom_orders_cache')) || [];
+                        const updatedLocal = localData.filter(item => item.id !== reqId);
+                        localStorage.setItem('custom_orders_cache', JSON.stringify(updatedLocal));
+                    } catch(e) {
+                        console.error(e);
+                    }
+
                     // Tính toán lại thanh số liệu Bento Sidebar & vẽ lại bảng
                     updateStatistics(allItems);
                     
@@ -263,8 +280,7 @@ function initTableActions() {
                         currentPage = totalPagesAfterDelete;
                     }
                     
-                    renderTable(filteredItems, currentPage);
-                    renderPagination(filteredItems.length, currentPage);
+                    goToPage(currentPage);
                     alert(`Đã xóa yêu cầu thiết kế ${reqId}`);
                 }
             }

@@ -389,6 +389,8 @@ body {
     padding: 4px;
     gap: 4px;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #ba9e9a #f1eded;
   }
   .orders-nav::-webkit-scrollbar {
     height: 6px !important;

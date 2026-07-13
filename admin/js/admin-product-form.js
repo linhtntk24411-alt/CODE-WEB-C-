@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('prod-name').value = product.name;
             document.getElementById('prod-category').value = product.category;
             document.getElementById('prod-status').value = product.status;
-            document.getElementById('prod-price').value = product.price;
+            document.getElementById('prod-price').value = product.price || product.currentPrice || '';
             document.getElementById('prod-stock').value = product.stock;
             
             if (product.image && product.image !== "https://picsum.photos/200") {
@@ -75,7 +75,17 @@ document.getElementById('product-form').addEventListener('submit', function(e) {
   if (editingId) {
       const index = products.findIndex(p => p.id === editingId);
       if (index !== -1) {
-          products[index] = { ...products[index], name, category, status, price, stock, image };
+          products[index] = { 
+              ...products[index], 
+              name, 
+              category, 
+              status, 
+              price, 
+              currentPrice: price, 
+              originalPrice: price, 
+              stock, 
+              image 
+          };
           localStorage.setItem('products', JSON.stringify(products));
           syncToJsonFile(products);
           alert('Cập nhật sản phẩm thành công!');
@@ -83,7 +93,17 @@ document.getElementById('product-form').addEventListener('submit', function(e) {
       }
   } else {
       const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-      const newProduct = { id: newId, name, category, status, price, stock, image };
+      const newProduct = { 
+          id: newId, 
+          name, 
+          category, 
+          status, 
+          price, 
+          currentPrice: price, 
+          originalPrice: price, 
+          stock, 
+          image 
+      };
       products.push(newProduct);
       localStorage.setItem('products', JSON.stringify(products));
       syncToJsonFile(products);

@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch('../data/custom-order-detail.json').then(res => res.json())
     ])
     .then(([orderList, quotations]) => {
+        // Gộp dữ liệu từ localStorage
+        try {
+            const localData = JSON.parse(localStorage.getItem('custom_orders_cache')) || [];
+            orderList = [...localData, ...orderList];
+        } catch(e) {
+            console.error('Error merging local custom orders in detail page:', e);
+        }
         
         // Tìm thông tin hình ảnh từ danh sách đơn hàng custom
         const matchedOrder = orderList.find(item => item.id === requestId);
@@ -40,8 +47,23 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('spec-name').textContent = matchedOrder.name;
         document.getElementById('spec-size').textContent = matchedOrder.size;
 
-        // 4. Tìm kiếm bảng báo giá tiền tệ tương ứng trong file admin-quotations.json
-        const quoteData = quotations[requestId] || quotations['default'];
+        // 4. Tìm kiếm bảng báo giá tiền tệ tương ứng trong file admin-quotations.json hoặc localStorage
+        let quoteData = null;
+        try {
+            const localQuotesSaved = localStorage.getItem('custom_quotations_cache');
+            if (localQuotesSaved) {
+                const localQuotes = JSON.parse(localQuotesSaved);
+                if (localQuotes && localQuotes[requestId]) {
+                    quoteData = localQuotes[requestId];
+                }
+            }
+        } catch (e) {
+            console.error("Error reading custom quotations cache:", e);
+        }
+        
+        if (!quoteData) {
+            quoteData = quotations[requestId] || quotations['default'];
+        }
 
         // Đổ thông tin kỹ thuật mở rộng
         document.getElementById('spec-bead-type').textContent = quoteData.beadType;

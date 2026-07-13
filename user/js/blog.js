@@ -73,6 +73,10 @@
       // 4. Lọc bỏ các bài viết bị trùng lặp ID hoặc trùng Slug
       const seen = new Set();
       allBlogs = mergedBlogs.filter(blog => {
+        // Chỉ hiển thị bài viết có trạng thái approved hoặc published (hoặc mặc định không có status)
+        const isApproved = blog.status === undefined || blog.status === 'published' || blog.status === 'approved';
+        if (!isApproved) return false;
+
         const duplicateKey = blog.slug || blog.id;
         if (seen.has(duplicateKey)) return false;
         seen.add(duplicateKey);

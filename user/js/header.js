@@ -388,6 +388,20 @@ function initHeader() {
                 }
             }
 
+            const localProducts = localStorage.getItem('products');
+            if (localProducts) {
+                try {
+                    const parsed = JSON.parse(localProducts);
+                    const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+                    if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                        window.__productData = parsed;
+                        return window.__productData;
+                    }
+                } catch(e) {
+                    console.error('Error parsing header products:', e);
+                }
+            }
+
             let basePath = '';
             if (currentScript) {
                 const scriptDir = currentScript.substring(0, currentScript.lastIndexOf('/') + 1);
@@ -402,9 +416,10 @@ function initHeader() {
             if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
 
             const data = await response.json();
-            const products = Array.isArray(data.products) ? data.products : [];
+            const products = Array.isArray(data.products) ? data.products : (Array.isArray(data) ? data : []);
 
             window.__productData = products;
+            localStorage.setItem('products', JSON.stringify(products));
             return window.__productData;
 
         } catch (error) {

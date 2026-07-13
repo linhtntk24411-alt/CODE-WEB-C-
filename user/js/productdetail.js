@@ -67,11 +67,27 @@
         // Load data
         async function loadProductData() {
             try {
-                const response = await fetch('../data/product.json');
-                if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
-                const data = await response.json();
+                const localProducts = localStorage.getItem('products');
+                if (localProducts) {
+                    try {
+                        const parsed = JSON.parse(localProducts);
+                        const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+                        if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                            allProducts = parsed;
+                        }
+                    } catch (e) {
+                        console.error('Error parsing products from storage:', e);
+                    }
+                }
+
+                if (!allProducts || allProducts.length === 0) {
+                    const response = await fetch('../data/product.json');
+                    if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
+                    const data = await response.json();
+                    allProducts = data.products || data;
+                    localStorage.setItem('products', JSON.stringify(allProducts));
+                }
                 
-                allProducts = data.products;
                 productData = allProducts.find(p => p.id === productId);
                 
                 if (!productData) {

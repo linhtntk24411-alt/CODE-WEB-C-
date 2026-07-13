@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Map Mẫu - Admin</title>
+    <title>Urii Admin | Quản lý Map Mẫu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
@@ -17,11 +17,39 @@
 <!-- 1. KHUNG LAYOUT CHUẨN (Giống Comments/Blogs) -->
 <div class="admin-layout-wrapper">
 
-    <div id="layout-sidebar"></div>
+        <div id="layout-sidebar"></div>
+    <script>
+        (function() {
+            const cached = localStorage.getItem('cache_layout-sidebar');
+            if (cached) {
+                document.getElementById('layout-sidebar').innerHTML = cached;
+                const currentPage = window.location.pathname.split('/').pop() || 'admin-dashboard.html';
+                let matchPage = currentPage;
+                if (matchPage.includes('admin-coupon')) matchPage = 'admin-coupons.html';
+                if (matchPage.includes('admin-product-form')) matchPage = 'admin-products.html';
+                const links = document.getElementById('layout-sidebar').querySelectorAll(".nav-item");
+                links.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href.includes(matchPage)) {
+                        links.forEach(item => item.classList.remove("active"));
+                        link.classList.add("active");
+                    }
+                });
+            }
+        })();
+    </script>
 
     <div class="admin-main-area">
         
-        <div id="layout-topbar"></div>
+                <div id="layout-topbar"></div>
+        <script>
+            (function() {
+                const cached = localStorage.getItem('cache_layout-topbar');
+                if (cached) {
+                    document.getElementById('layout-topbar').innerHTML = cached;
+                }
+            })();
+        </script>
 
         <div class="admin-main-content">
             
@@ -44,13 +72,14 @@
                         <div class="table-responsive p-0">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light text-muted" style="font-size: 13px; font-weight: 600;">
-                                    <tr>
-                                        <th class="ps-4 py-3" style="width: 80px;">Ảnh mẫu</th>
-                                        <th class="py-3">Tên mẫu</th>
-                                        <th class="py-3">Tác giả</th>
-                                        <th class="py-3">Đánh giá</th>
-                                        <th class="pe-4 text-end py-3" style="width: 120px;">Hành động</th>
-                                    </tr>
+                                     <tr>
+                                         <th class="ps-4 py-3" style="width: 80px;">Ảnh mẫu</th>
+                                         <th class="py-3">Tên mẫu</th>
+                                         <th class="py-3">Độ khó</th>
+                                         <th class="py-3">Kích thước</th>
+                                         <th class="py-3">Tổng hạt</th>
+                                         <th class="pe-4 text-end py-3" style="width: 120px;">Hành động</th>
+                                     </tr>
                                 </thead>
                                 <tbody id="map-list" class="fs-6"></tbody>
                             </table>
@@ -87,22 +116,42 @@
                     
                     <div class="mb-3">
                         <label for="map-name" class="form-label fw-bold">Tên mẫu <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="map-name" placeholder="Ví dụ: Mèo Chibi Pastel" required>
+                        <input type="text" class="form-control" id="map-name" placeholder="Ví dụ: Bạch tuộc tím cute" required>
                     </div>
                     <div class="mb-3">
                         <label for="map-author" class="form-label fw-bold">Tác giả <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="map-author" placeholder="Tên tác giả" required>
                     </div>
                     <div class="mb-3">
-                        <label for="map-image" class="form-label fw-bold">URL Ảnh mẫu</label>
-                        <input type="text" class="form-control" id="map-image" placeholder="https://...">
+                        <label for="map-image" class="form-label fw-bold">Đường dẫn ảnh mẫu</label>
+                        <input type="text" class="form-control" id="map-image" placeholder="assets/gallery_assets/...">
                         <div class="mt-2">
                             <img id="image-preview" src="#" class="img-thumbnail d-none" style="max-height: 120px;">
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="map-rating" class="form-label fw-bold">Đánh giá (0 - 5)</label>
-                        <input type="number" class="form-control" id="map-rating" min="0" max="5" step="0.1" value="4.5">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="map-difficulty" class="form-label fw-bold">Độ khó</label>
+                            <select class="form-select" id="map-difficulty">
+                                <option value="Dễ">Dễ</option>
+                                <option value="Trung bình">Trung bình</option>
+                                <option value="Khó">Khó</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="map-grid-size" class="form-label fw-bold">Kích thước</label>
+                            <input type="text" class="form-control" id="map-grid-size" placeholder="Ví dụ: 32 x 32 ô">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="map-total-beads" class="form-label fw-bold">Tổng số hạt</label>
+                            <input type="number" class="form-control" id="map-total-beads" placeholder="Ví dụ: 250">
+                        </div>
+                        <div class="col-6">
+                            <label for="map-bead-type" class="form-label fw-bold">Loại hạt</label>
+                            <input type="text" class="form-control" id="map-bead-type" value="Midi 5mm">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="map-desc" class="form-label fw-bold">Mô tả</label>
@@ -121,15 +170,27 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function loadComponent(url, targetId) {
+            const cacheKey = 'cache_' + targetId;
+            const cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) {
+                document.getElementById(targetId).innerHTML = cachedData;
+                if (targetId === 'layout-sidebar') {
+                    highlightActiveMenu();
+                }
+            }
+
             fetch(url)
                 .then(response => {
                     if (!response.ok) throw new Error("Lỗi tải file: " + url);
                     return response.text();
                 })
                 .then(data => {
-                    document.getElementById(targetId).innerHTML = data;
-                    if(targetId === 'layout-sidebar') {
-                        setTimeout(highlightActiveMenu, 100);
+                    if (data !== cachedData) {
+                        document.getElementById(targetId).innerHTML = data;
+                        localStorage.setItem(cacheKey, data);
+                        if (targetId === 'layout-sidebar') {
+                            highlightActiveMenu();
+                        }
                     }
                 })
                 .catch(err => console.warn('Không thể tải layout:', err));
@@ -150,14 +211,7 @@
             });
         }
 
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('#adminLogoutBtn')) {
-                e.preventDefault();
-                if (confirm("Bạn có chắc muốn đăng xuất?")) {
-                    window.location.href = "../../user/html/login.html";
-                }
-            }
-        });
+        
     });
 </script>
 
@@ -174,5 +228,6 @@
 
 <script src="../js/admin-library.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin-layout.js"></script>
 </body>
 </html>

@@ -8,10 +8,26 @@ let suggestedCategory = 'all';
 // Load data
 async function loadData() {
     try {
-        const response = await fetch('../data/product.json');
-        if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
-        const data = await response.json();
-        allProducts = data.products || data;
+        const localProducts = localStorage.getItem('products');
+        if (localProducts) {
+            try {
+                const parsed = JSON.parse(localProducts);
+                const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+                if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                    allProducts = parsed;
+                }
+            } catch (e) {
+                console.error('Error parsing products in cart:', e);
+            }
+        }
+
+        if (!allProducts || allProducts.length === 0) {
+            const response = await fetch('../data/product.json');
+            if (!response.ok) throw new Error('Không thể tải dữ liệu sản phẩm');
+            const data = await response.json();
+            allProducts = data.products || data;
+            localStorage.setItem('products', JSON.stringify(allProducts));
+        }
 
         loadCartFromStorage();
         renderCart();

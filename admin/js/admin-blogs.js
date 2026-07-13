@@ -134,16 +134,20 @@ function renderBlogList() {
             // Nếu đang bị ẩn (visible === false), thêm class làm mờ dòng
             const isHidden = b.visible === false;
             
+            let imgPath = b.thumbnail || '';
+            if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+                imgPath = imgPath.replace(/^(\.\.\/)?assets\//, '../../user/assets/');
+            }
+            
             tbody.innerHTML += `
                 <tr class="${isHidden ? 'blog-row-hidden' : ''}">
-                    <td class="ps-4"><img src="${b.thumbnail}" alt="" class="blog-thumb ${isHidden ? 'img-muted' : ''}"></td>
+                    <td class="ps-4"><img src="${imgPath}" alt="" class="blog-thumb ${isHidden ? 'img-muted' : ''}"></td>
                     <td>
                         <div class="blog-title ${isHidden ? 'text-muted' : ''}">${b.title}</div>
                         <span class="blog-date">Đăng ngày: ${b.date}</span>
                     </td>
                     <td>
                         <div class="author-info">
-                            <img src="${b.author.avatar}" class="author-avatar">
                             <span class="author-name">${b.author.name}</span>
                         </div>
                     </td>
@@ -202,10 +206,15 @@ function renderPendingBlogs() {
         container.innerHTML = `<p class="text-muted small text-center py-3">Hiện không có bài viết nào chờ duyệt.</p>`;
     } else {
         pending.forEach(b => {
+            let imgPath = b.thumbnail || '';
+            if (!imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+                imgPath = imgPath.replace(/^(\.\.\/)?assets\//, '../../user/assets/');
+            }
+            
             container.innerHTML += `
                 <div class="pending-item">
                     <div class="d-flex align-items-start">
-                        <img src="${b.thumbnail}" class="pending-thumb">
+                        <img src="${imgPath}" class="pending-thumb">
                         <div>
                             <div class="pending-title">${b.title}</div>
                             <div class="pending-author"><i class="bi bi-person"></i> ${b.author.name}</div>
@@ -334,7 +343,90 @@ function submitNewBlog() {
 // ================================================================
 // HÀM RENDER & INIT
 // ================================================================
+// ================================================================
+// HÀM RENDER & INIT
+// ================================================================
+async function syncBlogsToJsonFile(updatedData) {
+    try {
+        const response = await fetch('../../user/data/blogs.json', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ blogs: updatedData }, null, 2)
+        });
+        if (!response.ok) {
+            console.warn("Could not write to blogs.json. Data is still safe in localStorage.");
+        } else {
+            console.log("✅ Đã đồng bộ dữ liệu xuống blogs.json");
+        }
+    } catch (error) {
+        console.warn("Error writing to blogs.json:", error);
+    }
+}
+
+function saveUserBlogsToLocalStorage() {
+    try {
+        const localBlogsSaved = localStorage.getItem('userBlogs');
+        let originalUserBlogs = [];
+        if (localBlogsSaved) {
+            originalUserBlogs = JSON.parse(localBlogsSaved);
+        }
+        
+        // Cập nhật trạng thái duyệt từ Admin về User Blog
+        const updatedUserBlogs = originalUserBlogs.map(ub => {
+            const adminVersion = blogs.find(b => b.id === ub.id);
+            if (adminVersion) {
+                let userStatus = 'published';
+                if (adminVersion.status === 'violated') {
+                    userStatus = 'draft';
+                } else if (adminVersion.status === 'pending') {
+                    userStatus = 'pending';
+                } else if (adminVersion.status === 'approved') {
+                    userStatus = 'published';
+                }
+                
+                return {
+                    ...ub,
+                    status: userStatus,
+                    title: adminVersion.title,
+                    image: adminVersion.thumbnail,
+                    visible: adminVersion.visible
+                };
+            }
+            return ub;
+        });
+        
+        // Thêm các blog mới do Admin viết trực tiếp vào danh sách user
+        blogs.forEach(b => {
+            if (b.id > 100000 && !updatedUserBlogs.some(ub => ub.id === b.id)) {
+                updatedUserBlogs.push({
+                    id: b.id,
+                    title: b.title,
+                    slug: b.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'bai-viet-' + b.id,
+                    excerpt: b.content ? b.content.substring(0, 80) + '...' : '',
+                    content: b.content || '',
+                    image: b.thumbnail || '../assets/default-banner.jpg',
+                    author: b.author.name,
+                    avatar: b.author.avatar || '../assets/avatar-non.jpg',
+                    date: b.date,
+                    category: 'Chung',
+                    categorySlug: 'chung',
+                    isFeatured: false,
+                    likes: 0, comments: 0, views: 0,
+                    status: b.status === 'approved' ? 'published' : 'pending',
+                    visible: b.visible
+                });
+            }
+        });
+        
+        localStorage.setItem('userBlogs', JSON.stringify(updatedUserBlogs));
+        syncBlogsToJsonFile(updatedUserBlogs);
+    } catch (e) {
+        console.error("Error saving user blogs to storage:", e);
+    }
+}
+
 function renderAll() {
+    saveUserBlogsToLocalStorage();
     renderStats();
     renderBlogList();
     renderPendingBlogs();
@@ -353,7 +445,80 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    blogs = generateMockBlogs();
+document.addEventListener('DOMContentLoaded', async function() {
+    let localBlogs = [];
+    
+    // 1. Tải từ localStorage trước
+    try {
+        const localBlogsSaved = localStorage.getItem('userBlogs');
+        if (localBlogsSaved) {
+            const parsedBlogs = JSON.parse(localBlogsSaved);
+            if (Array.isArray(parsedBlogs) && parsedBlogs.length > 0) {
+                localBlogs = parsedBlogs.map(b => {
+                    let adminStatus = 'pending';
+                    if (b.status === 'published' || b.status === 'approved') adminStatus = 'approved';
+                    else if (b.status === 'draft' || b.status === 'violated') adminStatus = 'violated';
+                    
+                    return {
+                        id: b.id,
+                        title: b.title,
+                        date: b.date || 'Hôm nay',
+                        thumbnail: b.image || "https://picsum.photos/seed/blog/100/100",
+                        author: { 
+                            name: b.author || 'Khách hàng', 
+                            avatar: b.avatar || '../assets/avatar-non.jpg' 
+                        },
+                        status: adminStatus,
+                        visible: b.visible !== undefined ? b.visible : true,
+                        isUserBlog: true
+                    };
+                });
+            }
+        }
+    } catch (e) {
+        console.error("Error loading user blogs:", e);
+    }
+    
+    // 2. Nếu không có cache, tải từ blogs.json
+    if (localBlogs.length === 0) {
+        try {
+            const response = await fetch('../../user/data/blogs.json');
+            if (response.ok) {
+                const data = await response.json();
+                const jsonBlogs = data.blogs || data || [];
+                localBlogs = jsonBlogs.map(b => {
+                    let adminStatus = 'approved';
+                    if (b.status === 'pending') adminStatus = 'pending';
+                    else if (b.status === 'draft' || b.status === 'violated') adminStatus = 'violated';
+                    
+                    return {
+                        id: b.id,
+                        title: b.title,
+                        date: b.date || 'Hôm nay',
+                        thumbnail: b.image || "https://picsum.photos/seed/blog/100/100",
+                        author: { 
+                            name: b.author || 'Khách hàng', 
+                            avatar: b.avatar || '../assets/avatar-non.jpg' 
+                        },
+                        status: adminStatus,
+                        visible: b.visible !== undefined ? b.visible : true,
+                        isUserBlog: true
+                    };
+                });
+                
+                // Đồng bộ ngược lại localStorage
+                const userBlogsToSave = jsonBlogs.map(b => ({
+                    ...b,
+                    status: b.status || 'published',
+                    visible: b.visible !== undefined ? b.visible : true
+                }));
+                localStorage.setItem('userBlogs', JSON.stringify(userBlogsToSave));
+            }
+        } catch(e) {
+            console.error("Error fetching blogs.json:", e);
+        }
+    }
+
+    blogs = localBlogs;
     renderAll();
 });

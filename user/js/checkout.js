@@ -86,10 +86,33 @@ document.addEventListener('DOMContentLoaded', function() {
     initToast();
     
     // Nạp dữ liệu sản phẩm trước, sau đó nạp giỏ hàng
-    fetch('../data/product.json')
-        .then(res => res.json())
+    const localProducts = localStorage.getItem('products');
+    let loadProductsPromise;
+    let hasOldCategories = false;
+    if (localProducts) {
+        try {
+            const parsed = JSON.parse(localProducts);
+            hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+            if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                allProducts = parsed;
+            }
+        } catch (e) {
+            console.error('Error parsing products in checkout:', e);
+        }
+    }
+
+    if (allProducts && allProducts.length > 0 && !hasOldCategories) {
+        loadProductsPromise = Promise.resolve({ products: allProducts });
+    } else {
+        loadProductsPromise = fetch('../data/product.json').then(res => res.json());
+    }
+
+    loadProductsPromise
         .then(data => {
-            allProducts = data.products || [];
+            allProducts = data.products || data || [];
+            if (!localProducts) {
+                localStorage.setItem('products', JSON.stringify(allProducts));
+            }
             console.log('Loaded products in checkout:', allProducts.length);
             loadCartData();
             

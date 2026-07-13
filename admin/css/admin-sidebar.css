@@ -11,7 +11,7 @@
     background-color: var(--bg-sidebar);
     display: flex;
     flex-direction: column;
-    padding: 40px 0 24px 0;
+    padding: 24px 0 24px 0;
     box-sizing: border-box;
     flex-shrink: 0;
     border-right: 1px solid rgba(0, 0, 0, 0.03);
@@ -26,13 +26,37 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     padding: 0 24px;
 }
 .sidebar-logo img {
-    height: 200px;
-    width: 200px;
+    height: 120px;
+    max-width: 100%;
     object-fit: contain;
+}
+
+.btn-view-store {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background-color: #fff1f1;
+    color: #840001;
+    border: 1px dashed #840001;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: var(--font-main);
+    font-size: 13.5px;
+    font-weight: 600;
+    margin: 0 24px 20px 24px;
+    transition: all 0.2s ease;
+}
+.btn-view-store:hover {
+    background-color: #840001;
+    color: #ffffff;
+    border-style: solid;
+    box-shadow: 0 4px 12px rgba(132, 0, 1, 0.15);
 }
 
 /* QUYẾT ĐỊNH: Khối này chiếm hết khoảng trống để auto đẩy 2 dòng chữ xuống đáy */
@@ -121,4 +145,44 @@
 
 .footer-link:hover {
     color: var(--color-active);
+}
+
+/* Mobile responsive layout overrides */
+@media (max-width: 991.98px) {
+    .admin-layout-wrapper {
+        flex-direction: column !important;
+    }
+    #layout-sidebar {
+        width: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 0 !important;
+        overflow: visible !important;
+    }
+    .admin-sidebar {
+        position: fixed !important;
+        left: -260px !important;
+        top: 0 !important;
+        width: 260px !important;
+        height: 100vh !important;
+        z-index: 1050 !important;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1) !important;
+        display: flex !important;
+    }
+    .admin-sidebar.mobile-active {
+        left: 0 !important;
+    }
+    .admin-main-area {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding-top: 0 !important;
+    }
+    .admin-main-content {
+        padding: 80px 15px 40px 15px !important; /* Thêm khoảng đệm đầu trang tránh bị topbar che khuất */
+    }
+    .admin-topbar {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 0 15px !important;
+    }
 }

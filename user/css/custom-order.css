@@ -1863,6 +1863,8 @@ a {
         -webkit-overflow-scrolling: touch !important;
         min-width: 0 !important;
         max-width: 100% !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: #ba9e9a #f1eded !important;
     }
     .profile-nav::-webkit-scrollbar {
         height: 6px !important;

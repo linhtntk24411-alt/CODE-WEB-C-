@@ -77,16 +77,195 @@ const sampleCustomOrders = [
 // ================================================================
 // ĐỌC & GHI DỮ LIỆU VÀO JSON
 // ================================================================
+// Hàm đồng bộ đơn hàng custom ngược về cache phía User
+function syncCustomOrderToUserCache(order) {
+    if (!order || !order.isCustomOrder) return;
+    
+    try {
+        const customOrdersSaved = localStorage.getItem('custom_orders_cache');
+        if (customOrdersSaved) {
+            let customOrders = JSON.parse(customOrdersSaved);
+            if (Array.isArray(customOrders)) {
+                const idx = customOrders.findIndex(co => co.id === order.id);
+                if (idx !== -1) {
+                    let userStatusClass = 'status-pending';
+                    let userStatusText = 'Đang chờ duyệt';
+                    let userActionType = 'view-delete';
+                    
+                    if (order.status === 'approved') {
+                        userStatusClass = 'status-quoted';
+                        userStatusText = 'Đã báo giá';
+                        userActionType = 'quote-btn';
+                    } else if (order.status === 'processing') {
+                        userStatusClass = 'status-processing';
+                        userStatusText = 'Đang gia công';
+                        userActionType = 'track-btn';
+                    } else if (order.status === 'completed') {
+                        userStatusClass = 'status-completed';
+                        userStatusText = 'Đã hoàn thành';
+                        userActionType = 'review-btn';
+                    } else if (order.status === 'cancelled') {
+                        userStatusClass = 'status-cancelled';
+                        userStatusText = 'Đã hủy';
+                        userActionType = 'none';
+                    }
+                    
+                    customOrders[idx] = {
+                        ...customOrders[idx],
+                        statusClass: userStatusClass,
+                        statusText: userStatusText,
+                        actionType: userActionType,
+                        total: order.total,
+                        quotedPrice: order.quotedPrice,
+                        quoteDate: order.quoteDate,
+                        quoteNote: order.quoteNote,
+                        customerName: order.customerName,
+                        phone: order.phone,
+                        address: order.address
+                    };
+                    
+                    localStorage.setItem('custom_orders_cache', JSON.stringify(customOrders));
+                }
+            }
+        }
+        
+        // Cập nhật chi tiết bảng báo giá (Quotations)
+        if (order.quotedPrice > 0) {
+            let quotations = {};
+            const quotationsSaved = localStorage.getItem('custom_quotations_cache');
+            if (quotationsSaved) {
+                quotations = JSON.parse(quotationsSaved);
+            }
+            
+            quotations[order.id] = {
+                beadType: order.customDetails?.['Loại hạt'] || "Hạt Perler 5mm (Midi)",
+                beadCount: 2200,
+                complexity: "Trung bình",
+                designFee: 50000,
+                beadsFee: order.quotedPrice - 70000,
+                toolsFee: 20000,
+                total: order.quotedPrice,
+                stylistAdvice: order.quoteNote || "Bản vẽ thiết kế đẹp mắt, kích thước hợp lý."
+            };
+            
+            localStorage.setItem('custom_quotations_cache', JSON.stringify(quotations));
+        }
+    } catch (e) {
+        console.error("Error syncing custom order to user cache:", e);
+    }
+}
+
 async function loadOrdersFromJson() {
     try {
-        const response = await fetch('../data/order.json');
-        if (!response.ok) {
-            throw new Error(`Lỗi HTTP ${response.status}`);
+        let jsonData = [];
+        try {
+            const response = await fetch('../data/order.json');
+            if (response.ok) {
+                jsonData = await response.json();
+            }
+        } catch (err) {
+            console.warn("Could not fetch order.json, using empty array as default:", err);
         }
-        const data = await response.json();
-        originalOrders = [...data, ...sampleCustomOrders];
+        
+        // 1. Nạp đơn thường từ localStorage
+        let localOrders = [];
+        const localOrdersSaved = localStorage.getItem('orders');
+        if (localOrdersSaved) {
+            const parsedLocal = JSON.parse(localOrdersSaved);
+            if (Array.isArray(parsedLocal)) {
+                localOrders = parsedLocal.map(o => {
+                    // Nếu đã có cấu trúc của admin thì giữ nguyên
+                    if (o.customerName !== undefined && o.product !== undefined) {
+                        return o;
+                    }
+                    
+                    // Ánh xạ từ cấu trúc user checkout sang admin
+                    const customerName = o.shippingInfo?.fullName || o.customerName || 'Khách hàng';
+                    const avatar = customerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    const productStr = o.product || (o.items && o.items.map(item => item.name).join(', ')) || 'Sản phẩm';
+                    
+                    return {
+                        id: o.id,
+                        customerName: customerName,
+                        customerAvatar: avatar,
+                        phone: o.shippingInfo?.phone || o.phone || 'Chưa cập nhật',
+                        address: o.shippingInfo?.address || o.address || 'Chưa cập nhật',
+                        product: productStr,
+                        date: o.date,
+                        total: typeof o.total === 'number' ? o.total : (parseFloat(o.total) || 0),
+                        payment: o.paymentMethod || o.payment || 'Chưa rõ',
+                        customerNote: o.shippingInfo?.note || o.customerNote || '',
+                        status: o.status || 'pending',
+                        items: o.items,
+                        subtotal: o.subtotal,
+                        shippingFee: o.shippingFee,
+                        discount: o.discount,
+                        shippingInfo: o.shippingInfo,
+                        paymentMethod: o.paymentMethod || o.payment
+                    };
+                });
+            }
+        }
+        
+        // Merge JSON orders vào localOrders nếu chưa tồn tại
+        jsonData.forEach(jsonOrd => {
+            if (!localOrders.some(o => o.id === jsonOrd.id)) {
+                localOrders.push(jsonOrd);
+            }
+        });
+        
+        // Lưu lại bản merge vào localStorage
+        localStorage.setItem('orders', JSON.stringify(localOrders));
+
+        // 2. Nạp đơn custom từ localStorage (custom_orders_cache)
+        let localCustomOrders = [];
+        const customOrdersSaved = localStorage.getItem('custom_orders_cache');
+        if (customOrdersSaved) {
+            const parsedCustom = JSON.parse(customOrdersSaved);
+            if (Array.isArray(parsedCustom)) {
+                parsedCustom.forEach(co => {
+                    // Check if already merged in localOrders (meaning admin already modified it)
+                    const existing = localOrders.find(o => o.id === co.id);
+                    if (existing) {
+                        existing.isCustomOrder = true; // Đảm bảo cờ custom
+                        return;
+                    }
+                    
+                    // Map status
+                    let adminStatus = 'waiting_quote';
+                    if (co.statusClass === 'status-quoted') adminStatus = 'approved';
+                    else if (co.statusClass === 'status-processing') adminStatus = 'processing';
+                    else if (co.statusClass === 'status-completed') adminStatus = 'completed';
+                    else if (co.statusClass === 'status-cancelled') adminStatus = 'cancelled';
+                    
+                    localCustomOrders.push({
+                        id: co.id,
+                        customerName: co.customerName || localStorage.getItem('userName') || 'Khách hàng',
+                        customerAvatar: co.customerAvatar || (co.customerName || localStorage.getItem('userName') || 'KH').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase(),
+                        phone: co.phone || localStorage.getItem('userPhone') || 'Chưa cập nhật',
+                        address: co.address || localStorage.getItem('userAddress') || 'Chưa cập nhật',
+                        product: co.name || 'Sản phẩm Custom',
+                        date: co.date,
+                        total: co.total || co.quotedPrice || 0,
+                        status: adminStatus,
+                        payment: co.payment || 'Chuyển khoản',
+                        customerNote: co.customerNote || co.description || 'Không có ghi chú.',
+                        isCustomOrder: true,
+                        quotedPrice: co.quotedPrice || 0,
+                        quoteDate: co.quoteDate || '',
+                        quoteNote: co.quoteNote || '',
+                        customDetails: co.customDetails || {
+                            "Kích thước": co.size || "Chưa chọn",
+                            "Loại hạt": "Hạt Perler 5mm (Midi)"
+                        }
+                    });
+                });
+            }
+        }
+        
+        originalOrders = [...localOrders, ...localCustomOrders, ...sampleCustomOrders.filter(so => !localOrders.some(lo => lo.id === so.id) && !localCustomOrders.some(co => co.id === so.id))];
         orders = [...originalOrders];
-        console.log("Đã load dữ liệu từ order.json + Custom Orders");
+        console.log("Đã load và đồng bộ dữ liệu đơn hàng (Thường + Custom) thành công.");
         
         renderStats();
         renderOrders();
@@ -100,12 +279,6 @@ async function loadOrdersFromJson() {
         renderOrders();
         renderCancelRequests();
         renderCustomOrders();
-        const orderList = document.getElementById('order-list');
-        if (orderList) {
-            orderList.innerHTML += `<tr><td colspan="7" class="text-center text-warning py-2">
-                <i class="bi bi-info-circle"></i> Đang hiển thị dữ liệu mẫu
-            </td></tr>`;
-        }
     }
 }
 
@@ -687,6 +860,7 @@ function submitQuote(id) {
 
     saveOrdersToJson(orders);
     localStorage.setItem('orders', JSON.stringify(orders));
+    syncCustomOrderToUserCache(order);
 
     const modalEl = document.getElementById('quoteModal');
     if (modalEl) {
@@ -725,6 +899,7 @@ function updateQuote(id) {
 
     saveOrdersToJson(orders);
     localStorage.setItem('orders', JSON.stringify(orders));
+    syncCustomOrderToUserCache(order);
 
     const modalEl = document.getElementById('editQuoteModal');
     if (modalEl) {
@@ -749,6 +924,7 @@ function updateOrderStatus(id, newStatus) {
         order.status = newStatus;
         saveOrdersToJson(orders);
         localStorage.setItem('orders', JSON.stringify(orders));
+        syncCustomOrderToUserCache(order);
         renderStats();
         renderOrders();
         renderCancelRequests();
@@ -759,9 +935,23 @@ function updateOrderStatus(id, newStatus) {
 
 function deleteOrder(id) {
     if (confirm(`Bạn có chắc chắn muốn xóa đơn hàng #${id} không?`)) {
+        const order = orders.find(o => o.id === id);
         orders = orders.filter(o => o.id !== id);
         saveOrdersToJson(orders);
         localStorage.setItem('orders', JSON.stringify(orders));
+        
+        // Nếu là đơn custom, xóa khỏi cache của user luôn
+        if (order && order.isCustomOrder) {
+            try {
+                const customSaved = localStorage.getItem('custom_orders_cache');
+                if (customSaved) {
+                    let customOrders = JSON.parse(customSaved);
+                    customOrders = customOrders.filter(co => co.id !== id);
+                    localStorage.setItem('custom_orders_cache', JSON.stringify(customOrders));
+                }
+            } catch(e) {}
+        }
+        
         renderStats();
         renderOrders();
         renderCancelRequests();
@@ -777,6 +967,7 @@ function handleCancelRequest(id, isApproved) {
         order.status = 'cancelled';
         saveOrdersToJson(orders);
         localStorage.setItem('orders', JSON.stringify(orders));
+        syncCustomOrderToUserCache(order);
         renderStats();
         renderOrders();
         renderCancelRequests();

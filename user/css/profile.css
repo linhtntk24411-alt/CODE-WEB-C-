@@ -607,6 +607,7 @@ body {
     gap: 0.5%;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
+    scrollbar-color: #ba9e9a #f1eded;
     background: var(--profile-surface-lowest);
     border-radius: var(--profile-radius);
     box-shadow: var(--profile-shadow);
@@ -761,6 +762,7 @@ body {
     gap: 0.5%;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
+    scrollbar-color: #ba9e9a #f1eded;
     background: var(--profile-surface-lowest);
     border-radius: var(--profile-radius);
     box-shadow: var(--profile-shadow);

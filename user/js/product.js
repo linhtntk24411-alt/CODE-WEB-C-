@@ -101,6 +101,41 @@
 
         // Load products from JSON
         function loadProducts() {
+            const localProducts = localStorage.getItem('products');
+            if (localProducts) {
+                try {
+                    const parsed = JSON.parse(localProducts);
+                    const hasOldCategories = Array.isArray(parsed) && parsed.some(p => p.category === 'hat-nhua' || p.category === 'dung-cu' || p.category === 'handmade');
+                    
+                    if (Array.isArray(parsed) && parsed.length > 0 && !hasOldCategories) {
+                        allProducts = parsed;
+                        const { category, search } = getCategoryContext();
+                        filteredProducts = [...allProducts];
+
+                        if (category) {
+                            filteredProducts = filteredProducts.filter(product => product.category === category);
+                        }
+
+                        if (search) {
+                            const term = search.toLowerCase();
+                            filteredProducts = filteredProducts.filter(product => {
+                                const name = (product.name || '').toLowerCase();
+                                const categoryName = (product.category || '').toLowerCase();
+                                const description = (product.description || '').toLowerCase();
+                                return name.includes(term) || categoryName.includes(term) || description.includes(term);
+                            });
+                        }
+
+                        renderProducts();
+                        updatePagination();
+                        renderCategoryInfo();
+                        return;
+                    }
+                } catch(e) {
+                    console.error("Error parsing local products:", e);
+                }
+            }
+
             fetch('../data/product.json')
             .then(function(res) {
                 if (!res.ok) {
@@ -110,6 +145,7 @@
             })
             .then(function(data) {
                 allProducts = data.products || data;
+                localStorage.setItem('products', JSON.stringify(allProducts));
                 const { category, search } = getCategoryContext();
 
                 filteredProducts = [...allProducts];

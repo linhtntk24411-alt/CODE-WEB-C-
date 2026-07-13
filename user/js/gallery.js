@@ -58,9 +58,24 @@ document.addEventListener('input', function(e) {
 
 async function fetchProductsData() {
     try {
+        const localMaps = localStorage.getItem('library_maps');
+        if (localMaps) {
+            try {
+                allProducts = JSON.parse(localMaps);
+                if (Array.isArray(allProducts) && allProducts.length > 0) {
+                    updateSidebarCounts(); 
+                    applyFilters(); 
+                    return;
+                }
+            } catch(e) {
+                console.error("Error reading local library maps:", e);
+            }
+        }
+
         const response = await fetch(jsonUrl);
         if (!response.ok) throw new Error(`Lỗi HTTP: ${response.status}`);
         allProducts = await response.json();
+        localStorage.setItem('library_maps', JSON.stringify(allProducts));
         
         updateSidebarCounts(); 
         applyFilters(); 
