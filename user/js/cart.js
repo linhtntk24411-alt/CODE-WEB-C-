@@ -450,12 +450,16 @@ function renderSuggestedProducts(category = 'all') {
         }
 
         html += `
-            <div class="product-card" onclick="window.location.href='product-detail.html?id=${p.id}'">
+            <div class="product-card" onclick="window.location.href='productdetail.html?id=${p.id}'">
                 <div class="product-image-wrapper">
                     <img src="${p.image || 'https://via.placeholder.com/300'}" alt="${p.name}" loading="lazy">
                     ${badgeHtml}
                     <button class="cart-icon" onclick="event.stopPropagation(); addToCartFromSuggestion(${p.id})">
-                        <i class="bi bi-cart-plus"></i>
+                        <svg class="custom-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
                     </button>
                 </div>
                 <div class="product-info">
@@ -473,7 +477,7 @@ function renderSuggestedProducts(category = 'all') {
                         </div>
                     </div>
                     <div class="product-actions">
-                        <button class="btn-buy" onclick="event.stopPropagation(); addToCartFromSuggestion(${p.id})">
+                        <button class="btn-buy" onclick="event.stopPropagation(); buyNowFromSuggestion(${p.id})">
                             <i class="bi bi-bag"></i> Mua ngay
                         </button>
                     </div>
@@ -517,6 +521,35 @@ function addToCartFromSuggestion(productId) {
     renderCart();
     renderSuggestedProducts(suggestedCategory);
     alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+}
+
+// Buy now from suggestion (direct to checkout)
+function buyNowFromSuggestion(productId) {
+    const product = getProductById(productId);
+    if (!product) return;
+
+    // Check login status
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        alert('Vui lòng đăng nhập để mua hàng!');
+        localStorage.setItem('checkoutAction', 'true');
+        localStorage.setItem('redirectAfterLogin', window.location.href);
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const variantName = product.variants ? product.variants[0].name : null;
+    const checkoutItem = {
+        productId: productId,
+        variant: variantName,
+        quantity: 1
+    };
+
+    // Save to checkoutItems in localStorage
+    localStorage.setItem('checkoutItems', JSON.stringify([checkoutItem]));
+    
+    // Redirect to checkout.html
+    window.location.href = 'checkout.html';
 }
 
 // Filter suggested by category

@@ -1,4 +1,4 @@
-﻿
+
 :root {
     --primary: #840001;
     --primary-container: #b00103;
@@ -810,8 +810,8 @@ a {
 .left-sidebar-column {
     display: flex;
     flex-direction: column;
-    gap: 24px;         /* Khoảng cách dọc giữa hộp Menu và hộp Thống kê số lượng */
-    width: 100% !important; 
+    gap: 24px;
+    width: 260px !important;
     flex-shrink: 0;
 }
 
@@ -821,10 +821,9 @@ a {
 
 .left-sidebar-column .profile-sidebar {
     width: 100%;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    padding: 16px 0px !important; /* Padding dọc 16px, ngang 0px để nút chạm viền ngoài */
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     display: flex;
     flex-direction: column;
     border: none !important;
@@ -835,10 +834,10 @@ a {
     display: flex;
     align-items: center;
     gap: 16px !important;          /* Khoảng cách chuẩn giữa icon và chữ */
-    padding: 16px 24px !important; /* Padding chuẩn giúp nút to thoáng sát mép */
+    padding: 14px 20px !important; /* Padding chuẩn giúp nút to thoáng sát mép */
     color: #5c403b !important;     /* Màu chữ nâu trầm biến thể của hệ thống */
     font-family: 'Segoe UI', sans-serif !important; /* Ép đúng font Segoe UI như hình 1 */
-    font-size: 16px !important;     /* Kích thước chữ chuẩn 16px */
+    font-size: 15px !important;     /* Kích thước chữ chuẩn 16px */
     font-weight: 600 !important;   /* Độ dày chữ chữ chuẩn */
     text-decoration: none;
     transition: all 0.2s ease;
@@ -889,7 +888,7 @@ a {
     gap: 24px;
 }
 .card {
-    padding: 24px;
+    padding: 16px 20px;
     border-radius: 12px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
@@ -906,10 +905,11 @@ a {
     color: var(--text-outline);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-size: 11px;
 }
 .stat-number {
     font-family: var(--font-heading);
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 700;
     margin-top: 4px;
 }
@@ -934,16 +934,18 @@ a {
 }
 .data-table th {
     background-color: var(--surface-low);
-    padding: 16px 24px;
+    padding: 12px 16px;
     font-family: var(--font-heading);
     font-weight: 600;
     color: var(--text-muted);
     border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
 }
 .data-table td {
-    padding: 24px;
+    padding: 12px 16px;
     border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
+    font-size: 14px;
 }
 .data-table tbody tr {
     transition: all 0.2s ease-out;
@@ -1434,47 +1436,207 @@ a {
 
 .help-link-detail:hover {
     color: var(--primary);
+    line-height: 1.6;
+}
+
+.spec-label-detail {
+    color: #5c403b;
+    font-weight: 500;
+}
+
+.spec-value-detail {
+    color: var(--on-surface);
+}
+
+/* Khu vực hiển thị bảng báo giá bên phải */
+.quote-header-detail {
+    background-color: rgba(255, 218, 213, 0.15) !important;
+}
+
+.quote-header-detail h2 {
+    color: var(--primary) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price-breakdown-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.price-row-detail {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border-bottom: 1px solid #f0eded;
+    padding-bottom: 12px;
+}
+
+.price-label-detail {
+    color: #5c403b;
+}
+
+.price-value-detail {
+    font-family: var(--font-title);
+    font-weight: 500;
+    color: var(--on-surface);
+}
+
+.price-total-row-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.total-label-detail {
+    font-family: var(--font-title);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.total-value-detail {
+    font-family: var(--font-title);
+    font-size: 32px;
+    font-weight: 700;
+    color: #b00103;
+}
+
+.price-note-detail {
+    font-size: 11px;
+    color: #916f6a;
+    text-align: right;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/* Khối hộp lời khuyên tinh tế */
+.advice-box-detail {
+    display: flex;
+    gap: 16px;
+    background-color: #f6f3f2;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    margin: 32px 0;
+}
+
+.advice-icon-detail {
+    color: var(--primary);
+    font-size: 22px;
+}
+
+.advice-content-detail h3 {
+    font-family: var(--font-title);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: var(--primary);
+}
+
+.advice-content-detail p {
+    font-size: 13.5px;
+    margin: 0;
+    line-height: 1.6;
+    color: #5c403b;
+}
+
+/* Nút bấm đồng bộ */
+.action-group-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.btn-sub-row-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.btn-primary-detail {
+    background-color: #b00103 !important;
+    color: #ffffff !important;
+    padding: 16px !important;
+    width: 100%;
+    justify-content: center;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+}
+
+.btn-primary-detail:hover {
+    background-color: var(--primary) !important;
+}
+
+.detail-btn-outline {
+    background: #ffffff !important;
+    border: 1px solid #916f6a !important;
+    color: #5c403b !important;
+    border-radius: 8px !important;
+    padding: 14px !important;
+    justify-content: center;
+}
+
+.detail-btn-outline:hover {
+    background-color: #f6f3f2 !important;
+}
+
+.detail-btn-danger {
+    background: #ffffff !important;
+    border: 1px solid #ba1a1a !important;
+    color: #ba1a1a !important;
+    border-radius: 8px !important;
+    padding: 14px !important;
+    justify-content: center;
+}
+
+.detail-btn-danger:hover {
+    background-color: #ffdad6 !important;
+}
+
+.quote-footer-detail {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #916f6a;
+}
+.help-section-detail {
+    text-align: center;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    padding: 0 24px;
+}
+
+.help-text-detail {
+    font-size: 14px;
+    color: #5c403b;
+    margin-bottom: 12px;
+}
+
+.help-link-detail {
+    font-family: var(--font-title);
+    font-size: 16px;
+    font-weight: 700;
+    color: #b00103;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.help-link-detail:hover {
+    color: var(--primary);
     text-decoration: underline;
 }
 
 .help-link-detail .icon-open-detail {
     font-size: 18px;
-    font-weight: bold;
-}
-hr {
-    border-top: 1px solid rgba(115, 95, 95, 0.5);
-    margin: 24px 0;
-}
-/* Trực quan hóa cấu trúc Grid của Bento khi ở màn hình lớn */
-.bento-grid {
-    display: grid !important;
-    grid-template-columns: 260px 1fr !important;
-    gap: 48px !important;
-    align-items: start;
-}
-
-.left-sidebar-column {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 100% !important;
-    flex-shrink: 0;
-}
-
-/* Định dạng Sidebar ở màn hình lớn */
-.orders-sidebar {
-    position: sticky;
-    top: 100px;
-    align-self: start;
-}
-
-.orders-nav {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    padding: 16px 0;
-    display: flex;
-    flex-direction: column;
+    font-weight: bold;    flex-direction: column;
 }
 
 .orders-nav-item {
@@ -1528,56 +1690,124 @@ hr {
         padding: 0 16px;
     }
     .bento-grid {
+        grid-template-columns: 240px 1fr !important;
         gap: 24px !important; 
+    }
+    .profile-sidebar {
+        width: 240px !important;
     }
 }
 
-/* --- MỐC 2 & 3: TỪ 481px ĐẾN 1024px (BẺ HÀNG NGANG FLEX CHUẨN ĐỒNG BỘ) --- */
-@media (max-width: 1024px) and (min-width: 481px) {
+/* --- MỐC 2: TỪ 769px ĐẾN 1024px --- */
+@media (max-width: 1024px) and (min-width: 769px) {
     .bento-grid {
         grid-template-columns: 1fr !important;
         gap: 32px !important;
     }
+    .left-sidebar-column {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
     .profile-sidebar {
         position: static !important;
         width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
     }
-
-    /* Ép khung điều hướng profile xếp hàng ngang flexbox */
     .profile-nav {
         flex-direction: row !important;
         flex-wrap: wrap !important;
         padding: 8px !important;
         gap: 4px !important;
     }
-
-    /* Các nút tự co giãn tự do lấp đầy hàng ngang y hệt orders.css */
     .profile-nav-item {
         padding: 10px 16px !important;
         border-right: none !important;
-        border-bottom: 2px solid transparent !important; /* Chuyển thanh active xuống cạnh dưới chân */
-        flex: 1 0 auto !important; /* Đăng xuất và các nút tự điền khít hàng ngang */
+        border-bottom: 2px solid transparent !important;
+        flex: 1 0 auto !important;
         justify-content: center !important;
         font-size: 14px !important;
         width: auto !important;
     }
-
-    /* Hiệu ứng gạch chân đỏ khi active */
     .profile-nav-item.active {
         border-bottom: 2px solid #840001 !important;
         border-right: none !important;
+        background: rgba(132, 0, 1, 0.05) !important;
+        color: #840001 !important;
     }
-
-    /* Ẩn vạch chia khi nằm ngang */
-    .orders-nav-divider {
+    .profile-nav-divider {
         display: none !important;
     }
-
-    /* Ép nút đăng xuất bỏ gạch chân đỏ khi nằm cùng hàng ngang responsive */
-    .orders-nav-item--logout {
-        border-bottom-color: transparent !important;
+    .sidebar-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+        width: 100% !important;
     }
+    .support-card { display: none !important; }
+}
 
+/* --- MỐC 3: TỪ 481px ĐẾN 768px --- */
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .left-sidebar-column {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    .profile-sidebar {
+        position: static !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    .profile-nav {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding: 4px !important;
+        gap: 4px !important;
+        -webkit-overflow-scrolling: touch !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    .profile-nav::-webkit-scrollbar {
+        height: 6px !important;
+        display: block !important;
+    }
+    .profile-nav::-webkit-scrollbar-track {
+        background: #f1eded !important;
+        border-radius: 3px !important;
+    }
+    .profile-nav::-webkit-scrollbar-thumb {
+        background: #ba9e9a !important;
+        border-radius: 3px !important;
+    }
+    .profile-nav::-webkit-scrollbar-thumb:hover {
+        background: #840001 !important;
+    }
+    .profile-nav-item {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+        flex: 0 0 auto !important;
+        border-right: none !important;
+        border-bottom: 2px solid transparent !important;
+        justify-content: center !important;
+        width: auto !important;
+    }
+    .profile-nav-item.active {
+        border-bottom: 2px solid #840001 !important;
+        border-right: none !important;
+        background: rgba(132, 0, 1, 0.05) !important;
+        color: #840001 !important;
+    }
+    .profile-nav-divider {
+        display: none !important;
+    }
     .sidebar-stats {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
@@ -1656,10 +1886,9 @@ hr {
     .sidebar-stats {
         grid-template-columns: 1fr !important; 
     }
-    /* Chia lưới nhẹ trên màn di động siêu nhỏ để chữ không bị chen chúc */
     .profile-nav-item {
-        flex: 1 1 40% !important;
-        font-size: 13px !important;
-        padding: 10px 8px !important;
+        padding: 6px 10px !important;
+        font-size: 12px !important;
     }
 }
+

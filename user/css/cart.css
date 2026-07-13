@@ -635,7 +635,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) and (min-width: 769px) {
             .summary-card {
                 position: static;
             }
@@ -705,7 +705,7 @@
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
             .cart-table {
                 font-size: 12px;
             }
@@ -755,4 +755,5 @@
                 flex: 0 0 160px;
             }
         }
+
 
