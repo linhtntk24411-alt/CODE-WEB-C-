@@ -155,6 +155,8 @@
     #layout-sidebar {
         width: 0 !important;
         min-width: 0 !important;
+        height: 0 !important;
+        min-height: 0 !important;
         flex-shrink: 0 !important;
         overflow: visible !important;
     }
@@ -180,9 +182,20 @@
     .admin-main-content {
         padding: 80px 15px 40px 15px !important; /* Thêm khoảng đệm đầu trang tránh bị topbar che khuất */
     }
+    #layout-topbar {
+        height: 0 !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
     .admin-topbar {
         width: 100% !important;
         margin-left: 0 !important;
         padding: 0 15px !important;
+    }
+    .table-responsive .table,
+    .table-responsive table {
+        min-width: 950px !important;
     }
 }

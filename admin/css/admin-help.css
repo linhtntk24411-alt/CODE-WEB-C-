@@ -60,15 +60,14 @@ body {
     box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
 }
 .help-icon {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70px;
     height: 70px;
-    line-height: 70px;
     border-radius: 50%;
     background-color: #f8f9fa;
-}
-.help-icon i {
-    vertical-align: middle;
+    flex-shrink: 0;
 }
 
 /* --- ACCORDION FAQ --- */

@@ -181,6 +181,11 @@
                 backdrop.classList.remove('show');
             });
             backdrop.querySelector('#uriiLogoutConfirm').addEventListener('click', () => {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userAvatar');
+                localStorage.removeItem('userRole');
                 window.location.href = "../../user/html/login.html";
             });
             backdrop.addEventListener('click', (e) => {
