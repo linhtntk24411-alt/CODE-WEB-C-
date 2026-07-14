@@ -211,11 +211,10 @@ function initTableActions() {
         
         const reqId = targetRow.querySelector('.req-id').textContent.trim();
 
-        // // 1. XỬ LÝ CLICK NÚT XEM CHI TIẾT (Con mắt)
-        // if (e.target.closest('.view-btn') || (e.target.classList.contains('material-symbols-outlined') && e.target.textContent === 'visibility')) {
-        //     // Chuyển hướng sang giao diện chi tiết kèm ID đơn hàng trên thanh URL
-        //     window.location.href = `custom-order-request.html?id=${encodeURIComponent(reqId)}&step=3`;
-        // }
+        // 1. XỬ LÝ CLICK NÚT XEM CHI TIẾT (Con mắt)
+        if (e.target.closest('.view-btn') || (e.target.classList.contains('material-symbols-outlined') && e.target.textContent === 'visibility')) {
+            showEstimatedQuote(reqId);
+        }
         if (e.target.classList.contains('btn-table-quote')) {
             // Chuyển hướng sang giao diện custom-order-detail.html kèm theo tham số ID đơn hàng
             window.location.href = `custom-order-detail.html?id=${encodeURIComponent(reqId)}`;
@@ -340,4 +339,135 @@ function initLogout() {
     }
 
     console.log('Logout initialized successfully.');
+}
+
+// Hàm hiển thị Popup báo giá dự kiến khi bấm vào con mắt
+async function showEstimatedQuote(reqId) {
+    // 1. Tìm thông tin cơ bản của yêu cầu trong allItems
+    const item = allItems.find(x => x.id === reqId);
+    if (!item) return;
+
+    // 2. Thiết lập dữ liệu mặc định dự phòng
+    let details = {
+        designFee: 150000,
+        beadsFee: 320000,
+        toolsFee: 85000,
+        total: 555000,
+        beadType: "Midi 5.0mm (Tiêu chuẩn)",
+        complexity: "Trung bình"
+    };
+
+    try {
+        const response = await fetch('../data/custom-order-detail.json');
+        if (response.ok) {
+            const data = await response.json();
+            if (data[reqId]) {
+                details = data[reqId];
+            } else {
+                // Tính toán thông minh dựa trên kích thước nếu không có sẵn trong JSON
+                details = data["default"] || details;
+                if (item.size) {
+                    const match = item.size.match(/(\d+)x(\d+)/);
+                    if (match) {
+                        const w = parseInt(match[1]);
+                        const h = parseInt(match[2]);
+                        const area = w * h;
+                        if (area <= 400) { // 20x20
+                            details = data["#URII-9811"] || details;
+                        } else if (area <= 900) { // 30x30
+                            details = data["#URII-9541"] || details;
+                        }
+                    }
+                }
+            }
+        }
+    } catch(err) {
+        console.error("Lỗi khi tải chi tiết báo giá:", err);
+    }
+
+    // Helper format tiền tệ
+    const formatPrice = (val) => {
+        return Number(val).toLocaleString('vi-VN') + 'đ';
+    };
+
+    // 3. Tạo hoặc lấy phần tử modal từ DOM
+    let modalOverlay = document.getElementById('quoteModalOverlay');
+    if (!modalOverlay) {
+        modalOverlay = document.createElement('div');
+        modalOverlay.id = 'quoteModalOverlay';
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.innerHTML = `
+            <div class="modal active" id="modalQuoteDetail" style="display: block; opacity: 1; transform: scale(1); max-width: 500px; margin: 30px auto; z-index: 10001;">
+                <div class="modal-content" style="padding: 24px;">
+                    <div class="modal-icon" style="background-color: rgba(132, 0, 1, 0.1); color: #840001; margin: 0 auto 16px; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <span class="material-symbols-outlined" style="font-size: 32px;">payments</span>
+                    </div>
+                    <h3 class="modal-title" id="quoteModalTitle" style="margin-bottom: 8px; text-align: center; font-size: 20px; font-weight: 700; color: #840001;">Báo Giá Dự Kiến</h3>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 16px; text-align: center;">Mã yêu cầu: <strong id="quoteModalReqId">#ID</strong></p>
+                    
+                    <div style="background-color: #fcf8f8; border-radius: 8px; padding: 16px; margin-bottom: 20px; text-align: left; border: 1px solid #f3e5e5;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
+                            <span style="color: #666;">Chi phí thiết kế bản vẽ (Map):</span>
+                            <strong id="quoteModalDesign" style="color: #333;">0đ</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
+                            <span style="color: #666;">Hạt nhựa phối màu (${details.beadType}):</span>
+                            <strong id="quoteModalBeads" style="color: #333;">0đ</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; border-bottom: 1px dashed #e0d0d0; padding-bottom: 10px;">
+                            <span style="color: #666;">Khung Pegboard & Dụng cụ:</span>
+                            <strong id="quoteModalTools" style="color: #333;">0đ</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 700;">
+                            <span style="color: #840001;">Tổng cộng dự kiến:</span>
+                            <strong id="quoteModalTotal" style="color: #840001; font-size: 18px;">0đ</strong>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; color: #777; line-height: 1.5; margin-bottom: 20px; background-color: #fdfdfd; padding: 10px; border-radius: 6px; border: 1px solid #eee; text-align: left;">
+                        💡 <strong>Lưu ý:</strong> Báo giá này dựa trên kích thước thiết kế yêu cầu là <strong id="modalQuoteSize">${item.size || 'tiêu chuẩn'}</strong>. Giá chính thức sẽ được quản trị viên duyệt và cập nhật trong vòng 24h.
+                    </div>
+
+                    <div class="modal-actions" style="justify-content: center; display: flex; gap: 12px;">
+                        <button class="modal-btn modal-btn--cancel" id="closeQuoteModalBtn" style="min-width: 120px; background-color: #840001; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+
+        const closeBtn = modalOverlay.querySelector('#closeQuoteModalBtn');
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = 'none';
+                modalOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    // 4. Cập nhật dữ liệu vào các thẻ
+    modalOverlay.querySelector('#quoteModalReqId').textContent = reqId;
+    modalOverlay.querySelector('#quoteModalDesign').textContent = formatPrice(details.designFee);
+    modalOverlay.querySelector('#quoteModalBeads').textContent = formatPrice(details.beadsFee);
+    modalOverlay.querySelector('#quoteModalTools').textContent = formatPrice(details.toolsFee);
+    modalOverlay.querySelector('#quoteModalTotal').textContent = formatPrice(details.total);
+    modalOverlay.querySelector('#modalQuoteSize').textContent = item.size || 'tiêu chuẩn';
+
+    // 5. Hiển thị modal
+    modalOverlay.style.display = 'flex';
+    modalOverlay.style.alignItems = 'center';
+    modalOverlay.style.justifyContent = 'center';
+    modalOverlay.style.position = 'fixed';
+    modalOverlay.style.top = '0';
+    modalOverlay.style.left = '0';
+    modalOverlay.style.width = '100vw';
+    modalOverlay.style.height = '100vh';
+    modalOverlay.style.zIndex = '9999';
+    modalOverlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    modalOverlay.classList.add('active');
 }

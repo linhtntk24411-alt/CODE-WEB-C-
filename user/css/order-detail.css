@@ -464,69 +464,7 @@ body {
   gap: 24px;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-
-@media (max-width: 992px) {
-  .order-detail-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .order-detail-main {
-    padding: 16px 12px 40px;
-  }
-
-  .order-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-  }
-
-  .order-title {
-    font-size: 22px;
-  }
-
-  .order-timeline-wrapper,
-  .order-shipping-timeline,
-  .order-products,
-  .order-payment,
-  .order-shipping,
-  .order-address,
-  .order-summary {
-    padding: 16px 20px;
-  }
-
-  .timeline-item,
-  .shipping-timeline-item {
-    padding-left: 16px;
-  }
-
-  .order-item {
-    flex-wrap: wrap;
-  }
-
-  .order-item-image {
-    width: 56px;
-    height: 56px;
-  }
-
-  .order-item-price {
-    margin-left: auto;
-  }
-
-  /* điều chỉnh padding-left cho mobile */
-  .order-timeline-wrapper .timeline-title,
-  .order-shipping-timeline .section-title {
-    padding-left: 5px;
-  }
-
-  #orderTimeline {
-    padding-left: 12px;
-  }
-}
+/* (Phần CSS Responsive đã được chuyển xuống cuối file để đồng bộ các mốc breakpoint) */
 
 /* ============================================================
    TIMELINE HORIZONTAL (Tiến trình xử lý & Vận chuyển)
@@ -650,3 +588,376 @@ body {
 
 /* ===== KHÔNG CHUYỂN SANG DỌC TRÊN MOBILE ===== */
 /* @media (max-width: 768px) { ... }  đã bỏ hoàn toàn */
+
+/* Modal Popup cho thiết kế Custom */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.custom-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.custom-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 550px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.custom-modal-overlay.active .custom-modal {
+  transform: scale(1);
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0eded;
+  padding-bottom: 12px;
+}
+
+.custom-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--order-detail-primary);
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.custom-modal-close:hover {
+  color: #333;
+}
+
+.custom-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.custom-modal-image-container {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #e0eded;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fcfbfb;
+}
+
+.custom-modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.custom-modal-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  background: var(--order-detail-surface);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--order-detail-surface-container);
+}
+
+.custom-modal-detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-modal-detail-label {
+  font-size: 11px;
+  color: var(--order-detail-on-surface-variant);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.custom-modal-detail-value {
+  font-size: 14px;
+  color: var(--order-detail-on-surface);
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.custom-modal-advice-box {
+  background: #fff6f6;
+  border-left: 4px solid var(--order-detail-primary);
+  padding: 14px 16px;
+  border-radius: 0 8px 8px 0;
+  border-top: 1px solid #ffebeb;
+  border-right: 1px solid #ffebeb;
+  border-bottom: 1px solid #ffebeb;
+}
+
+.custom-modal-advice-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--order-detail-primary);
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-modal-advice-content {
+  font-size: 13px;
+  color: #5c403b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== HỆ THỐNG RESPONSIVE ĐỒNG BỘ breakpoint NHƯ CÁC TRANG KHÁC ===== */
+@media (max-width: 1200px) and (min-width: 1025px) {
+  .order-detail-main {
+    padding: 24px 20px 48px;
+  }
+  .order-detail-wrapper {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .order-detail-main {
+    padding: 20px 16px 40px;
+  }
+  .order-detail-wrapper {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .order-header {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-detail-main {
+    padding: 16px 12px 40px;
+  }
+  .order-detail-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 12px;
+  }
+  .order-status-badge {
+    align-self: flex-start;
+  }
+  .order-title {
+    font-size: 24px;
+  }
+  .order-timeline-wrapper,
+  .order-shipping-timeline,
+  .order-products,
+  .order-payment,
+  .order-shipping,
+  .order-address,
+  .order-summary {
+    padding: 20px;
+  }
+  .timeline-item,
+  .shipping-timeline-item {
+    padding-left: 16px;
+  }
+  
+  /* Hỗ trợ quấn chữ cho thanh tiến trình ngang, tránh lỗi tràn chiều rộng trang */
+  .timeline-step {
+    max-width: 110px;
+  }
+  .timeline-step .step-status,
+  .timeline-step .step-time,
+  .timeline-step .step-desc {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+  
+  .order-item {
+    gap: 12px;
+  }
+  .order-item-image {
+    width: 64px;
+    height: 64px;
+  }
+  .order-item-name {
+    font-size: 15px;
+  }
+  .order-item-price {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .custom-modal {
+    width: 92%;
+    padding: 20px;
+  }
+  .custom-modal-details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-title {
+    font-size: 20px;
+  }
+  .order-date {
+    font-size: 13px;
+  }
+  .order-timeline-wrapper,
+  .order-shipping-timeline,
+  .order-products,
+  .order-payment,
+  .order-shipping,
+  .order-address,
+  .order-summary {
+    padding: 16px;
+  }
+  
+  .timeline-step {
+    max-width: 90px;
+  }
+  .timeline-step .step-status {
+    font-size: 12px;
+  }
+  .timeline-step .step-time,
+  .timeline-step .step-desc {
+    font-size: 11px;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .order-item-image {
+    width: 56px;
+    height: 56px;
+  }
+  .order-item-name {
+    font-size: 14px;
+    width: 100%;
+  }
+  .order-item-price {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .custom-modal {
+    width: 95%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .order-detail-main {
+    padding: 12px 8px 36px;
+  }
+  
+  .order-header {
+    padding: 16px;
+    gap: 8px;
+  }
+  
+  .order-title {
+    font-size: 18px;
+  }
+  
+  .order-date {
+    font-size: 12px;
+  }
+  
+  .order-timeline-wrapper,
+  .order-shipping-timeline,
+  .order-products,
+  .order-payment,
+  .order-shipping,
+  .order-address,
+  .order-summary {
+    padding: 12px;
+  }
+  
+  .timeline-step {
+    max-width: 80px;
+    min-width: 60px;
+  }
+  
+  .order-item-image {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .order-item-name {
+    font-size: 13px;
+  }
+  
+  .order-item-price {
+    font-size: 13px;
+  }
+  
+  .summary-row {
+    font-size: 13px;
+  }
+  
+  .summary-row.total {
+    font-size: 16px;
+  }
+  
+  .custom-modal {
+    padding: 14px;
+    border-radius: 12px;
+  }
+  
+  .custom-modal-title {
+    font-size: 18px;
+  }
+  
+  .custom-modal-image-container {
+    height: 180px;
+  }
+  
+  .custom-modal-details {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .custom-modal-detail-value {
+    font-size: 13px;
+  }
+}

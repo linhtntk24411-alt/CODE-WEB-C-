@@ -61,11 +61,37 @@
         const searchId = orderId.startsWith('#') ? orderId : `#${orderId}`;
 
         // SỬA ĐOẠN NÀY: Dùng biến searchId thay vì orderId cũ để so khớp chính xác với JSON
-        const customItem = data.find(item => item.id.trim().toUpperCase() === searchId); //[cite: 9]
-        if (!customItem) { //[cite: 9]
-          document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng thiết kế.</p>'; //[cite: 9]
-          return; //[cite: 9]
+        const customItem = data.find(item => item.id.trim().toUpperCase() === searchId);
+        if (!customItem) {
+          document.querySelector('.order-detail-container').innerHTML = '<p style="text-align:center;padding:60px 0;">Không tìm thấy đơn hàng thiết kế.</p>';
+          return;
         }
+
+        // Tải chi tiết phối hạt nhựa và lời khuyên từ custom-order-detail.json
+        let details = null;
+        try {
+          const detailResponse = await fetch('../data/custom-order-detail.json');
+          if (detailResponse.ok) {
+            const detailData = await detailResponse.json();
+            details = detailData[searchId] || detailData["default"];
+          }
+        } catch (err) {
+          console.warn("Could not load custom order detail spec", err);
+        }
+
+        // Lưu thông tin chi tiết vào window để sử dụng khi mở popup
+        window.currentCustomOrderDetail = {
+          id: customItem.id,
+          name: customItem.name,
+          image: customItem.image,
+          size: customItem.size,
+          date: customItem.date,
+          statusText: customItem.statusText,
+          beadType: details ? details.beadType : "Midi 5.0mm (Tiêu chuẩn)",
+          beadCount: details ? details.beadCount : "Khoảng 3.000 hạt",
+          complexity: details ? details.complexity : "Trung bình",
+          stylistAdvice: details ? details.stylistAdvice : "Bản vẽ thiết kế theo yêu cầu của khách hàng hệ thống."
+        };
 
         // Tạo cấu trúc dữ liệu giả lập chuẩn khớp 100% với form hiển thị của hệ thống
         const mockOrder = {
@@ -80,7 +106,8 @@
               name: customItem.name,
               quantity: 1,
               price: customItem.price ? Number(String(customItem.price).replace(/[.,đđ]/g, '')) : 297000,
-              image: customItem.image
+              image: customItem.image,
+              isCustom: true
             }
           ],
           payment: {
@@ -311,21 +338,27 @@
     return;
   }
 
+  const params = new URLSearchParams(window.location.search);
+  const isCustomOrder = params.get('type') === 'custom';
+
   let html = `<div class="order-items-list">`;
   items.forEach(item => {
-    const productLink = `productdetail.html?id=${item.productId}`;  // ← link
+    const isCustomItem = isCustomOrder || item.productId === 999;
+    const productLink = isCustomItem ? 'javascript:void(0)' : `productdetail.html?id=${item.productId}`;
+    const clickAttr = isCustomItem ? `onclick="window.showCustomOrderPopup()"` : '';
+    
     html += `
       <div class="order-item">
         <div class="order-item-image">
-          <a href="${productLink}">   <!-- ← link ở ảnh -->
+          <a href="${productLink}" ${clickAttr}>   <!-- ← chặn link, mở popup nếu là custom -->
             <img src="${item.image || '../assets/placeholder.jpg'}" alt="${item.name}" loading="lazy" />
           </a>
         </div>
         <div class="order-item-info">
           <div class="order-item-name">
-            <a href="${productLink}" style="text-decoration: none; color: inherit; font-weight: 600;">
+            <a href="${productLink}" ${clickAttr} style="text-decoration: none; color: inherit; font-weight: 600;">
               ${item.name}
-            </a>   <!-- ← link ở tên sản phẩm -->
+            </a>   <!-- ← chặn link, mở popup nếu là custom -->
           </div>
           <div class="order-item-meta">Số lượng: ${item.quantity}</div>
         </div>
@@ -336,6 +369,89 @@
   html += `</div>`;
   orderItems.innerHTML = html;
 }
+
+// Hàm hiển thị Popup thông tin chi tiết thiết kế custom của khách gửi
+window.showCustomOrderPopup = function() {
+  const details = window.currentCustomOrderDetail;
+  if (!details) return;
+
+  let modalOverlay = document.getElementById('customOrderModalOverlay');
+  if (!modalOverlay) {
+    modalOverlay = document.createElement('div');
+    modalOverlay.id = 'customOrderModalOverlay';
+    modalOverlay.className = 'custom-modal-overlay';
+    modalOverlay.innerHTML = `
+      <div class="custom-modal">
+        <div class="custom-modal-header">
+          <h3 class="custom-modal-title">Yêu cầu thiết kế riêng</h3>
+          <button class="custom-modal-close">&times;</button>
+        </div>
+        <div class="custom-modal-body">
+          <div class="custom-modal-image-container">
+            <img class="custom-modal-image" src="" alt="" />
+          </div>
+          <div class="custom-modal-details">
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Tên mẫu thiết kế</span>
+              <span class="custom-modal-detail-value" id="modalCustomName">--</span>
+            </div>
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Kích thước mẫu</span>
+              <span class="custom-modal-detail-value" id="modalCustomSize">--</span>
+            </div>
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Loại hạt nhựa</span>
+              <span class="custom-modal-detail-value" id="modalCustomBeadType">--</span>
+            </div>
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Số lượng hạt dự kiến</span>
+              <span class="custom-modal-detail-value" id="modalCustomBeadCount">--</span>
+            </div>
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Độ phức tạp</span>
+              <span class="custom-modal-detail-value" id="modalCustomComplexity">--</span>
+            </div>
+            <div class="custom-modal-detail-item">
+              <span class="custom-modal-detail-label">Ngày gửi yêu cầu</span>
+              <span class="custom-modal-detail-value" id="modalCustomDate">--</span>
+            </div>
+          </div>
+          <div class="custom-modal-advice-box">
+            <h4 class="custom-modal-advice-title">
+              <i class="bi bi-lightbulb"></i> Lời khuyên từ Urii Stylist
+            </h4>
+            <p class="custom-modal-advice-content" id="modalCustomAdvice">--</p>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+
+    // Sự kiện đóng modal
+    modalOverlay.querySelector('.custom-modal-close').addEventListener('click', () => {
+      modalOverlay.classList.remove('active');
+    });
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+      }
+    });
+  }
+
+  // Cập nhật các trường thông tin động
+  modalOverlay.querySelector('.custom-modal-image').src = details.image;
+  modalOverlay.querySelector('.custom-modal-image').alt = details.name;
+  modalOverlay.querySelector('#modalCustomName').textContent = details.name;
+  modalOverlay.querySelector('#modalCustomSize').textContent = details.size;
+  modalOverlay.querySelector('#modalCustomBeadType').textContent = details.beadType;
+  modalOverlay.querySelector('#modalCustomBeadCount').textContent = details.beadCount;
+  modalOverlay.querySelector('#modalCustomComplexity').textContent = details.complexity;
+  modalOverlay.querySelector('#modalCustomDate').textContent = details.date;
+  modalOverlay.querySelector('#modalCustomAdvice').textContent = details.stylistAdvice;
+
+  // Hiển thị modal
+  modalOverlay.classList.add('active');
+};
 
   // ===== RENDER PAYMENT =====
   function renderPayment(payment) {

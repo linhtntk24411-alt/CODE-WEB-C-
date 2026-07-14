@@ -18,6 +18,32 @@ body {
     --chat-bg-gray: #eae8e7;
     --text-dark: #1b1c1c;
     --text-muted: #916f6a;
+
+    /* Cấu hình kích thước chatbot theo tỷ lệ phần trăm màn hình (vw, vh) */
+    
+    /* 1. Thiết bị Desktop / Màn hình lớn (từ 992px trở lên) */
+    --chat-window-width-lg: 20vw;        /* Chiếm 20% chiều rộng màn hình (giảm từ 25%) */
+    --chat-window-min-width-lg: 320px;   /* Chiều rộng tối thiểu (giảm từ 360px) */
+    --chat-window-max-width-lg: 400px;   /* Chiều rộng tối đa (giảm từ 480px) */
+    --chat-window-height-lg: 60vh;       /* Chiếm 60% chiều cao màn hình (giảm từ 70%) */
+    --chat-window-min-height-lg: 450px;  /* Chiều cao tối thiểu (giảm từ 500px) */
+    --chat-window-max-height-lg: 650px;  /* Chiều cao tối đa (giảm từ 750px) */
+
+    /* 2. Thiết bị Tablet lớn / Màn hình trung bình (từ 768px đến 991.98px) */
+    --chat-window-width-md: 28vw;        /* Chiếm 28% chiều rộng màn hình (giảm từ 35%) */
+    --chat-window-min-width-md: 300px;   /* Giảm từ 320px */
+    --chat-window-max-width-md: 350px;   /* Giảm từ 400px */
+    --chat-window-height-md: 55vh;       /* Chiếm 55% chiều cao màn hình (giảm từ 65%) */
+    --chat-window-min-height-md: 420px;  /* Giảm từ 480px */
+    --chat-window-max-height-md: 550px;  /* Giảm từ 600px */
+
+    /* 3. Thiết bị Tablet nhỏ (từ 576px đến 767.98px) */
+    --chat-window-width-sm: 38vw;        /* Chiếm 38% chiều rộng màn hình (giảm từ 45%) */
+    --chat-window-min-width-sm: 280px;   /* Giảm từ 300px */
+    --chat-window-max-width-sm: 320px;   /* Giảm từ 350px */
+    --chat-window-height-sm: 50vh;       /* Chiếm 50% chiều cao màn hình (giảm từ 60%) */
+    --chat-window-min-height-sm: 380px;  /* Giảm từ 400px */
+    --chat-window-max-height-sm: 450px;  /* Giảm từ 500px */
 }
 
 .filled-icon {
@@ -84,9 +110,9 @@ body {
 
 .chat-window {
     width: 100%;                 
-    max-width: 380px;             
-    height: 80vh;                
-    max-height: 540px;
+    max-width: var(--chat-window-max-width-lg);             
+    height: var(--chat-window-height-lg);                
+    max-height: var(--chat-window-max-height-lg);
     background: transparent; /* remove outer white frame */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -95,6 +121,22 @@ body {
     flex-direction: column;
     overflow: visible;
     pointer-events: auto;
+    position: relative; /* Thêm để định vị phần nền tĩnh */
+}
+
+/* Nền tĩnh của chatbot, không di chuyển theo nội dung cuộn */
+.chat-window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('../assets/nen-chat-box.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: saturate(0.9) blur(0.6px);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .chat-header {
@@ -104,6 +146,8 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    position: relative;
+    z-index: 2; /* Nằm trên lớp nền tĩnh */
 }
 /* keep rounded corners on header */
 .chat-header { border-top-left-radius: 12px; border-top-right-radius: 12px; }
@@ -163,28 +207,14 @@ body {
     flex: 1;
     padding: 12px;
     overflow-y: auto;
-    background-color: rgba(255,255,255,0.96); /* white inner surface */
+    background-color: transparent; /* Đổi thành trong suốt để thấy được hình nền tĩnh phía sau */
     display: flex;
     flex-direction: column;
     gap: 12px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-}
-.chat-body {
     position: relative;
-}
-.chat-body::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('../assets/nen-chat-box.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.12; /* subtle */
-    filter: saturate(0.9) blur(0.6px);
-    pointer-events: none;
-    z-index: 0;
+    z-index: 1; /* Nằm trên lớp nền tĩnh nhưng dưới header/footer */
 }
 
 .chat-body .message,
@@ -215,6 +245,10 @@ body {
 }
 
 .message-content-wrapper { display: flex; flex-direction: column; gap: 8px; }
+.message-bubble {
+    font-size: 13px;
+    line-height: 1.45;
+}
 .bot-message .message-bubble {
     background-color: var(--chat-bg-gray);
     color: var(--text-dark);
@@ -297,6 +331,8 @@ body {
     border-top: 1px solid rgba(145, 111, 106, 0.08);
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
+    position: relative;
+    z-index: 2; /* Nằm trên lớp nền tĩnh */
 }
 .input-container {
     display: flex;
@@ -383,8 +419,12 @@ body {
 }
 @media (min-width: 576px) and (max-width: 767.98px) {
     .chat-window {
-        width: 340px;
-        height: 420px; 
+        width: var(--chat-window-width-sm);
+        min-width: var(--chat-window-min-width-sm);
+        max-width: var(--chat-window-max-width-sm);
+        height: var(--chat-window-height-sm);
+        min-height: var(--chat-window-min-height-sm);
+        max-height: var(--chat-window-max-height-sm);
     }
     .chat-fab {
         width: 52px;
@@ -396,8 +436,12 @@ body {
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
     .chat-window {
-        width: 360px;
-        height: 500px;
+        width: var(--chat-window-width-md);
+        min-width: var(--chat-window-min-width-md);
+        max-width: var(--chat-window-max-width-md);
+        height: var(--chat-window-height-md);
+        min-height: var(--chat-window-min-height-md);
+        max-height: var(--chat-window-max-height-md);
     }
 }
 
@@ -408,8 +452,12 @@ body {
         right: 24px;
     }
     .chat-window {
-        width: 380px; 
-        height: 540px;
+        width: var(--chat-window-width-lg);
+        min-width: var(--chat-window-min-width-lg);
+        max-width: var(--chat-window-max-width-lg);
+        height: var(--chat-window-height-lg);
+        min-height: var(--chat-window-min-height-lg);
+        max-height: var(--chat-window-max-height-lg);
     }
     .chat-fab {
         width: 58px;

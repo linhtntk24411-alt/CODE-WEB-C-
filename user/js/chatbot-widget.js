@@ -15,30 +15,63 @@ let fileInput = null;
 const SYSTEM_PROMPT = "Bạn là Trợ lý ảo Urii, một nhân viên tư vấn nhiệt tình, thông minh của cửa hàng bán bộ kit hạt đậu tạo hình (Perler Beads). Hãy trả lời bằng tiếng Việt, ngắn gọn, lịch sự và dễ hiểu.";
 
 // ===== SESSION HELPERS FOR HUMAN-IN-THE-LOOP =====
-function getOrCreateSessionId() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const userEmail = isLoggedIn ? (localStorage.getItem('userEmail') || 'guest') : 'guest';
-    const cleanEmail = userEmail.replace(/[^a-zA-Z0-9]/g, '_');
-    const storageKey = `urii_chat_session_id_${cleanEmail}`;
+// Lớp lưu trữ tạm thời trong bộ nhớ nếu localStorage bị vô hiệu hóa (Incognito / Sandbox)
+const memoryStorage = {};
 
-    let sessionId = localStorage.getItem(storageKey);
-    if (!sessionId) {
-        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
-        localStorage.setItem(storageKey, sessionId);
+function safeGetItem(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        console.warn("Truy cập localStorage.getItem bị chặn, sử dụng in-memory:", key);
+        return memoryStorage[key] || null;
     }
-    return sessionId;
+}
+
+function safeSetItem(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {
+        console.warn("Truy cập localStorage.setItem bị chặn, sử dụng in-memory:", key);
+        memoryStorage[key] = value;
+    }
+}
+
+function getOrCreateSessionId() {
+    try {
+        const isLoggedIn = safeGetItem('isLoggedIn') === 'true';
+        const userEmail = isLoggedIn ? (safeGetItem('userEmail') || 'guest') : 'guest';
+        const cleanEmail = userEmail.replace(/[^a-zA-Z0-9]/g, '_');
+        const storageKey = `urii_chat_session_id_${cleanEmail}`;
+
+        let sessionId = safeGetItem(storageKey);
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+            safeSetItem(storageKey, sessionId);
+        }
+        return sessionId;
+    } catch (e) {
+        if (!window.__temp_session_id) {
+            window.__temp_session_id = 'session_temp_' + Date.now();
+        }
+        return window.__temp_session_id;
+    }
 }
 
 function getSessions() {
     try {
-        return JSON.parse(localStorage.getItem('urii_chat_sessions') || '{}');
+        const val = safeGetItem('urii_chat_sessions');
+        return val ? JSON.parse(val) : {};
     } catch (e) {
-        return {};
+        return window.__temp_sessions || {};
     }
 }
 
 function saveSessions(sessions) {
-    localStorage.setItem('urii_chat_sessions', JSON.stringify(sessions));
+    try {
+        safeSetItem('urii_chat_sessions', JSON.stringify(sessions));
+    } catch (e) {
+        window.__temp_sessions = sessions;
+    }
 }
 
 function getCurrentSession() {
@@ -47,8 +80,8 @@ function getCurrentSession() {
     if (!sessions[sessionId]) {
         sessions[sessionId] = {
             sessionId: sessionId,
-            userName: localStorage.getItem('userName') || 'Khách vãng lai',
-            userEmail: localStorage.getItem('userEmail') || '',
+            userName: safeGetItem('userName') || 'Khách vãng lai',
+            userEmail: safeGetItem('userEmail') || '',
             status: 'ai', // 'ai', 'waiting', 'active'
             lastMessageTime: Date.now(),
             unreadCount: 0,
@@ -57,10 +90,10 @@ function getCurrentSession() {
         saveSessions(sessions);
     }
     // Cập nhật thông tin nếu đã đăng nhập
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const isLoggedIn = safeGetItem('isLoggedIn') === 'true';
     if (isLoggedIn) {
-        const uName = localStorage.getItem('userName');
-        const uEmail = localStorage.getItem('userEmail');
+        const uName = safeGetItem('userName');
+        const uEmail = safeGetItem('userEmail');
         if (uName && sessions[sessionId].userName !== uName) {
             sessions[sessionId].userName = uName;
         }
@@ -69,7 +102,21 @@ function getCurrentSession() {
         }
         saveSessions(sessions);
     }
-    return sessions[sessionId];
+
+    // Đảm bảo dữ liệu session luôn đầy đủ cấu trúc và hợp lệ, tránh lỗi dữ liệu cũ bị crash
+    const session = sessions[sessionId];
+    if (session) {
+        if (!Array.isArray(session.messages)) {
+            session.messages = [];
+        }
+        if (!session.status) {
+            session.status = 'ai';
+        }
+        if (typeof session.unreadCount !== 'number') {
+            session.unreadCount = 0;
+        }
+    }
+    return session;
 }
 
 function loadChatHistory() {
@@ -111,8 +158,12 @@ function updateHeaderStatus(status) {
     const botNameEl = chatWindow.querySelector('.bot-name');
     const botStatusEl = chatWindow.querySelector('.bot-status');
     const statusDotEl = chatWindow.querySelector('.status-dot');
+    const headerActions = chatWindow.querySelector('.header-actions');
     
     if (!botStatusEl) return;
+
+    // Kiểm tra xem nút chuyển đổi AI đã tồn tại chưa
+    let btnResetAi = chatWindow.querySelector('#btn-reset-ai');
 
     if (status === 'ai') {
         if (botNameEl) botNameEl.textContent = 'Trợ lý ảo Urii';
@@ -121,19 +172,63 @@ function updateHeaderStatus(status) {
             statusDotEl.style.backgroundColor = '#22c55e'; // Xanh lá
             statusDotEl.title = 'AI Đang hỗ trợ';
         }
-    } else if (status === 'waiting') {
-        if (botNameEl) botNameEl.textContent = 'Trợ lý ảo Urii';
-        botStatusEl.textContent = 'Đang kết nối nhân viên...';
-        if (statusDotEl) {
-            statusDotEl.style.backgroundColor = '#f59e0b'; // Vàng cam
-            statusDotEl.title = 'Đang chờ nhân viên';
+        if (btnResetAi) btnResetAi.remove(); // Ẩn nút nếu đang trong chế độ AI
+    } else {
+        if (status === 'waiting') {
+            if (botNameEl) botNameEl.textContent = 'Trợ lý ảo Urii';
+            botStatusEl.textContent = 'Đang kết nối nhân viên...';
+            if (statusDotEl) {
+                statusDotEl.style.backgroundColor = '#f59e0b'; // Vàng cam
+                statusDotEl.title = 'Đang chờ nhân viên';
+            }
+        } else if (status === 'active') {
+            if (botNameEl) botNameEl.textContent = 'Nhân viên tư vấn';
+            botStatusEl.textContent = 'Nhân viên đang hỗ trợ';
+            if (statusDotEl) {
+                statusDotEl.style.backgroundColor = '#ef4444'; // Đỏ
+                statusDotEl.title = 'Nhân viên đang hỗ trợ';
+            }
         }
-    } else if (status === 'active') {
-        if (botNameEl) botNameEl.textContent = 'Nhân viên tư vấn';
-        botStatusEl.textContent = 'Nhân viên đang hỗ trợ';
-        if (statusDotEl) {
-            statusDotEl.style.backgroundColor = '#ef4444'; // Đỏ
-            statusDotEl.title = 'Nhân viên đang hỗ trợ';
+
+        // Thêm nút chuyển sang chế độ AI nếu chưa có
+        if (!btnResetAi && headerActions) {
+            btnResetAi = document.createElement('button');
+            btnResetAi.id = 'btn-reset-ai';
+            btnResetAi.className = 'action-btn';
+            btnResetAi.title = 'Quay lại Chat với AI';
+            
+            // Dùng icon bootstrap hoặc material symbols tương ứng
+            const isBootstrap = headerActions.querySelector('.bi-dash') !== null || headerActions.querySelector('.bi-dash-lg') !== null || headerActions.querySelector('.bi-x-lg') !== null;
+            if (isBootstrap) {
+                btnResetAi.innerHTML = '<i class="bi bi-robot" style="font-size: 16px;"></i>';
+            } else {
+                btnResetAi.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px;">smart_toy</span>';
+            }
+            
+            // Chèn vào đầu danh sách nút điều hướng
+            headerActions.insertBefore(btnResetAi, headerActions.firstChild);
+
+            btnResetAi.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm('Bạn có muốn quay lại trò chuyện với Trợ lý ảo AI không?')) {
+                    const session = getCurrentSession();
+                    session.status = 'ai';
+                    
+                    const sysMsg = {
+                        text: 'Đã chuyển sang chế độ Trợ lý ảo AI. Trực tuyến và sẵn sàng hỗ trợ! ✨',
+                        sender: 'bot',
+                        timestamp: Date.now()
+                    };
+                    session.messages.push(sysMsg);
+                    
+                    const sessions = getSessions();
+                    sessions[session.sessionId] = session;
+                    saveSessions(sessions);
+                    
+                    loadChatHistory();
+                    syncChatUI();
+                }
+            });
         }
     }
 }
@@ -269,154 +364,164 @@ window.initChatbotWidget = initChatbot;
 })();
 
 async function handleUserSend() {
-    const text = chatInput.value.trim();
-    if (!text) return;
+    try {
+        const text = chatInput.value.trim();
+        if (!text) return;
 
-    chatInput.value = '';
+        chatInput.value = '';
 
-    const session = getCurrentSession();
-    
-    // Lưu tin nhắn của User
-    const userMsg = {
-        text: text,
-        sender: 'user',
-        timestamp: Date.now()
-    };
-    session.messages.push(userMsg);
-    session.lastMessageTime = Date.now();
-    
-    // Nếu trạng thái đang là active hoặc waiting, tăng số unreadCount để admin thấy
-    if (session.status === 'active' || session.status === 'waiting') {
-        session.unreadCount = (session.unreadCount || 0) + 1;
-    }
-    
-    const sessions = getSessions();
-    sessions[session.sessionId] = session;
-    saveSessions(sessions);
-    
-    // Hiển thị tin nhắn lên giao diện ngay lập tức
-    appendMessage(userMsg, 'user');
-    
-    // Cập nhật biến theo dõi cục bộ để tránh reload dư thừa
-    lastKnownMessageCount = session.messages.length;
-
-    // Chỉ gọi AI tự động phản hồi nếu trạng thái là 'ai'
-    if (session.status === 'ai') {
-        showTyping(true);
-        const replyData = await askRealAI(text);
-        showTyping(false);
-
-        const botReplyText = typeof replyData === 'string' ? replyData : (replyData.text || '');
-        const botMsg = {
-            text: botReplyText,
-            sender: 'bot',
-            timestamp: Date.now()
-        };
-
-        // Lấy lại danh sách session mới nhất đề phòng thay đổi trong lúc chờ API
-        const currentSessions = getSessions();
-        const freshSession = currentSessions[session.sessionId] || session;
-        freshSession.messages.push(botMsg);
-        freshSession.lastMessageTime = Date.now();
-        currentSessions[freshSession.sessionId] = freshSession;
-        saveSessions(currentSessions);
-        
-        appendMessage(replyData, 'bot');
-        lastKnownMessageCount = freshSession.messages.length;
-    }
-}
-
-async function handleChipClick(chipText) {
-    if (chipText === 'Đặt hàng yêu cầu' || 
-        chipText === '🛒 Đặt hàng theo yêu cầu' || 
-        chipText === 'Yêu cầu đặt hàng') {
-        
-        window.location.href = 'custom-order-request.html'; 
-        return;
-    }
-
-    // Nếu người dùng chọn tư vấn từ nhân viên
-    if (chipText === 'Tư vấn từ nhân viên' || chipText === ' Tư vấn từ nhân viên') {
         const session = getCurrentSession();
         
+        // Lưu tin nhắn của User
         const userMsg = {
-            text: 'Tư vấn từ nhân viên',
+            text: text,
             sender: 'user',
             timestamp: Date.now()
         };
         session.messages.push(userMsg);
-        
-        // Cập nhật trạng thái chờ tư vấn viên
-        session.status = 'waiting';
-        session.unreadCount = (session.unreadCount || 0) + 1;
         session.lastMessageTime = Date.now();
         
-        const botMsg = {
-            text: 'Dạ, Urii đã gửi yêu cầu hỗ trợ đến nhân viên tư vấn. Bạn vui lòng đợi một chút nhé, nhân viên sẽ phản hồi bạn ngay ạ! ✨',
-            sender: 'bot',
+        // Nếu trạng thái đang là active hoặc waiting, tăng số unreadCount để admin thấy
+        if (session.status === 'active' || session.status === 'waiting') {
+            session.unreadCount = (session.unreadCount || 0) + 1;
+        }
+        
+        const sessions = getSessions();
+        sessions[session.sessionId] = session;
+        saveSessions(sessions);
+        
+        // Hiển thị tin nhắn lên giao diện ngay lập tức
+        appendMessage(userMsg, 'user');
+        
+        // Cập nhật biến theo dõi cục bộ để tránh reload dư thừa
+        lastKnownMessageCount = session.messages.length;
+
+        // Chỉ gọi AI tự động phản hồi nếu trạng thái là 'ai'
+        if (session.status === 'ai') {
+            showTyping(true);
+            const replyData = await askRealAI(text);
+            showTyping(false);
+
+            const botReplyText = typeof replyData === 'string' ? replyData : (replyData.text || '');
+            const botMsg = {
+                text: botReplyText,
+                sender: 'bot',
+                timestamp: Date.now(),
+                chips: typeof replyData === 'object' ? replyData.chips : undefined
+            };
+
+            // Lấy lại danh sách session mới nhất đề phòng thay đổi trong lúc chờ API
+            const currentSessions = getSessions();
+            const freshSession = currentSessions[session.sessionId] || session;
+            freshSession.messages.push(botMsg);
+            freshSession.lastMessageTime = Date.now();
+            currentSessions[freshSession.sessionId] = freshSession;
+            saveSessions(currentSessions);
+            
+            appendMessage(replyData, 'bot');
+            lastKnownMessageCount = freshSession.messages.length;
+        }
+    } catch (error) {
+        console.error("Lỗi khi xử lý gửi tin nhắn của User:", error);
+    }
+}
+
+async function handleChipClick(chipText) {
+    try {
+        if (chipText === 'Đặt hàng yêu cầu' || 
+            chipText === '🛒 Đặt hàng theo yêu cầu' || 
+            chipText === 'Yêu cầu đặt hàng') {
+            
+            window.location.href = 'custom-order-request.html'; 
+            return;
+        }
+
+        // Nếu người dùng chọn tư vấn từ nhân viên
+        if (chipText === 'Tư vấn từ nhân viên' || chipText === ' Tư vấn từ nhân viên') {
+            const session = getCurrentSession();
+            
+            const userMsg = {
+                text: 'Tư vấn từ nhân viên',
+                sender: 'user',
+                timestamp: Date.now()
+            };
+            session.messages.push(userMsg);
+            
+            // Cập nhật trạng thái chờ tư vấn viên
+            session.status = 'waiting';
+            session.unreadCount = (session.unreadCount || 0) + 1;
+            session.lastMessageTime = Date.now();
+            
+            const botMsg = {
+                text: 'Dạ, Urii đã gửi yêu cầu hỗ trợ đến nhân viên tư vấn. Bạn vui lòng đợi một chút nhé, nhân viên sẽ phản hồi bạn ngay ạ! ✨',
+                sender: 'bot',
+                timestamp: Date.now()
+            };
+            session.messages.push(botMsg);
+            
+            const sessions = getSessions();
+            sessions[session.sessionId] = session;
+            saveSessions(sessions);
+            
+            appendMessage(userMsg, 'user');
+            
+            showTyping(true);
+            setTimeout(() => {
+                showTyping(false);
+                appendMessage(botMsg, 'bot');
+                updateHeaderStatus('waiting');
+                
+                // Cập nhật biến theo dõi
+                lastKnownMessageCount = session.messages.length;
+                lastKnownStatus = 'waiting';
+            }, 800);
+            return;
+        }
+
+        const session = getCurrentSession();
+        const userMsg = {
+            text: chipText,
+            sender: 'user',
             timestamp: Date.now()
         };
-        session.messages.push(botMsg);
+        session.messages.push(userMsg);
+        session.lastMessageTime = Date.now();
+        
+        if (session.status === 'active' || session.status === 'waiting') {
+            session.unreadCount = (session.unreadCount || 0) + 1;
+        }
         
         const sessions = getSessions();
         sessions[session.sessionId] = session;
         saveSessions(sessions);
         
         appendMessage(userMsg, 'user');
-        
-        showTyping(true);
-        setTimeout(() => {
+        lastKnownMessageCount = session.messages.length;
+
+        if (session.status === 'ai') {
+            showTyping(true);
+            const replyData = await askRealAI(chipText);
             showTyping(false);
-            appendMessage(botMsg, 'bot');
-            updateHeaderStatus('waiting');
+
+            const botMsg = {
+                text: typeof replyData === 'string' ? replyData : (replyData.text || ''),
+                sender: 'bot',
+                timestamp: Date.now(),
+                chips: typeof replyData === 'object' ? replyData.chips : undefined
+            };
+
+            const currentSessions = getSessions();
+            const freshSession = currentSessions[session.sessionId] || session;
+            freshSession.messages.push(botMsg);
+            freshSession.lastMessageTime = Date.now();
+            currentSessions[freshSession.sessionId] = freshSession;
+            saveSessions(currentSessions);
             
-            // Cập nhật biến theo dõi
-            lastKnownMessageCount = session.messages.length;
-            lastKnownStatus = 'waiting';
-        }, 800);
-        return;
-    }
-
-    const session = getCurrentSession();
-    const userMsg = {
-        text: chipText,
-        sender: 'user',
-        timestamp: Date.now()
-    };
-    session.messages.push(userMsg);
-    session.lastMessageTime = Date.now();
-    
-    if (session.status === 'active' || session.status === 'waiting') {
-        session.unreadCount = (session.unreadCount || 0) + 1;
-    }
-    
-    const sessions = getSessions();
-    sessions[session.sessionId] = session;
-    saveSessions(sessions);
-    
-    appendMessage(userMsg, 'user');
-    lastKnownMessageCount = session.messages.length;
-
-    if (session.status === 'ai') {
-        showTyping(true);
-        const replyData = await askRealAI(chipText);
-        showTyping(false);
-
-        const botMsg = {
-            text: typeof replyData === 'string' ? replyData : (replyData.text || ''),
-            sender: 'bot',
-            timestamp: Date.now()
-        };
-
-        const currentSessions = getSessions();
-        const freshSession = currentSessions[session.sessionId] || session;
-        freshSession.messages.push(botMsg);
-        freshSession.lastMessageTime = Date.now();
-        currentSessions[freshSession.sessionId] = freshSession;
-        saveSessions(currentSessions);
-        
-        appendMessage(replyData, 'bot');
-        lastKnownMessageCount = freshSession.messages.length;
+            appendMessage(replyData, 'bot');
+            lastKnownMessageCount = freshSession.messages.length;
+        }
+    } catch (error) {
+        console.error("Lỗi khi xử lý click gợi ý của User:", error);
     }
 }
 
@@ -478,7 +583,7 @@ function getFallbackReply(userMessage) {
            'Bạn muốn lấy những màu nào hoặc cần mua thêm phụ kiện gì không, nhắn em lên đơn cho mình liền nhé! ✨';
     }
 
-    if (containsAny(text, ['dat', 'mua', 'order', 'đặt'])) {
+    if (containsAny(text, ['dat', 'mua', 'order'])) {
         return 'Bạn có thể đặt hàng ngay hôm nay!\n\n Cách đặt:\n1. Chọn sản phẩm trên trang\n2. Nhập thông tin giao hàng\n3. Chọn phương thức thanh toán\n4. Xác nhận đơn hàng\n\nHoặc liên hệ trực tiếp cửa hàng để được tư vấn chi tiết!';
     }
 
@@ -574,7 +679,13 @@ function appendMessage(data, sender) {
             </div>
         `;
     }
-    chatBody.insertBefore(messageArticle, typingIndicator);
+    if (chatBody) {
+        if (typingIndicator && typingIndicator.parentNode === chatBody) {
+            chatBody.insertBefore(messageArticle, typingIndicator);
+        } else {
+            chatBody.appendChild(messageArticle);
+        }
+    }
     scrollToBottom();
 }
 
@@ -592,7 +703,8 @@ function scrollToBottom() {
 }
 
 function normalizeText(value) {
-    return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (typeof value !== 'string') return '';
+    return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 }
 
 function containsAny(text, keywords) {
