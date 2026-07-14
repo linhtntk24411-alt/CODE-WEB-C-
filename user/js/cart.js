@@ -60,18 +60,7 @@ function loadCartFromStorage() {
         }
     }
 
-    const hasLegacyDemoItems = Array.isArray(parsedItems) && parsedItems.some(item =>
-        [12, 30, 40].includes(item.productId) ||
-        ['Bánh Donut', 'Trứng vui vẻ', 'Combo 3 gấu'].includes(item.variant)
-    );
-
     cartItems = Array.isArray(parsedItems) ? parsedItems : [];
-    if (hasLegacyDemoItems) {
-        cartItems = [];
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        window.dispatchEvent(new CustomEvent('cart:updated', { detail: cartItems }));
-        window.dispatchEvent(new Event('storage'));
-    }
 
     selectedItems = new Set(cartItems.map((_, index) => index));
 }
