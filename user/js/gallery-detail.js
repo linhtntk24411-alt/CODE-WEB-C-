@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 title: m.map_name,
                                 author: m.author || 'Urii Thiết kế',
                                 mainImage: m.main_image,
-                                duration: "25 phút",
+                                duration: m.time || "25 phút",
                                 difficulty: m.difficulty || "Dễ",
                                 difficultyClass: m.difficultyClass || "badge-easy",
                                 categories: m.categories || ["Trang trí"],

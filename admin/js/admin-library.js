@@ -158,6 +158,7 @@ function openModal(id = null) {
             document.getElementById('map-total-beads').value = m.total_beads || '';
             document.getElementById('map-bead-type').value = m.bead_type || 'Midi 5mm';
             document.getElementById('map-desc').value = m.description || '';
+            document.getElementById('map-time').value = m.time || '';
             
             const preview = document.getElementById('image-preview');
             let imgPath = m.main_image || '';
@@ -201,6 +202,7 @@ document.getElementById('btn-save-map').addEventListener('click', function() {
     const total_beads = parseInt(document.getElementById('map-total-beads').value) || 0;
     const bead_type = document.getElementById('map-bead-type').value.trim();
     const description = document.getElementById('map-desc').value.trim();
+    const time = document.getElementById('map-time').value.trim();
 
     if (!map_name) {
         alert("Vui lòng điền tên mẫu!");
@@ -225,7 +227,8 @@ document.getElementById('btn-save-map').addEventListener('click', function() {
                 grid_size, 
                 total_beads, 
                 bead_type, 
-                description 
+                description,
+                time
             };
         }
     } else {
@@ -250,6 +253,7 @@ document.getElementById('btn-save-map').addEventListener('click', function() {
             total_beads,
             download_link: "",
             description,
+            time: time || "15-20 phút",
             related_product_ids: []
         });
     }

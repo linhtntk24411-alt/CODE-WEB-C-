@@ -80,14 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('advice-text').innerHTML = quoteData.stylistAdvice;
 
         // 5. Khởi động tương tác vi mô cho các nút bấm hành động cuối trang
-        initButtonInteractions(requestId);
+        initButtonInteractions(requestId, matchedOrder, quoteData);
     })
     .catch(error => {
         console.error("Lỗi đồng bộ API cục bộ:", error);
     });
 });
 
-function initButtonInteractions(id) {
+function initButtonInteractions(id, matchedOrder, quoteData) {
     // Xử lý nút Chấp nhận
     const btnAccept = document.getElementById('btn-accept');
     if (btnAccept) {
@@ -99,7 +99,44 @@ function initButtonInteractions(id) {
                 } else {
                     alert(`Đang khởi tạo cổng thanh toán an toàn cho yêu cầu ${id}.`);
                 }
-                btnAccept.innerHTML = '<span class="material-symbols-outlined">shopping_cart_checkout</span> Xác nhận & Thanh toán';
+                
+                // Tạo sản phẩm ảo đại diện cho đơn hàng custom này để thanh toán
+                const checkoutItem = {
+                    id: matchedOrder.id,
+                    productId: matchedOrder.id,
+                    name: `[Thiết kế theo yêu cầu] ${matchedOrder.name}`,
+                    price: quoteData.total,
+                    image: matchedOrder.image,
+                    quantity: 1,
+                    variant: matchedOrder.size || 'Mặc định',
+                    isCustomOrder: true
+                };
+                
+                // Lưu vào checkoutItems trong localStorage
+                localStorage.setItem('checkoutItems', JSON.stringify([checkoutItem]));
+                
+                // Cập nhật trạng thái đơn hàng custom này thành Đang gia công
+                try {
+                    const localData = JSON.parse(localStorage.getItem('custom_orders_cache')) || [];
+                    const existingIdx = localData.findIndex(item => item.id === matchedOrder.id);
+                    const updatedOrder = {
+                        ...matchedOrder,
+                        statusClass: 'status-processing',
+                        statusText: 'Đang gia công',
+                        actionType: ''
+                    };
+                    if (existingIdx !== -1) {
+                        localData[existingIdx] = updatedOrder;
+                    } else {
+                        localData.push(updatedOrder);
+                    }
+                    localStorage.setItem('custom_orders_cache', JSON.stringify(localData));
+                } catch (e) {
+                    console.error('Lỗi cập nhật trạng thái đơn custom:', e);
+                }
+
+                // Chuyển hướng sang trang checkout
+                window.location.href = 'checkout.html';
             }, 1000);
         });
     }

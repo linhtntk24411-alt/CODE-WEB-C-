@@ -62,7 +62,7 @@ async function fetchProductsData() {
         if (localMaps) {
             try {
                 allProducts = JSON.parse(localMaps);
-                if (Array.isArray(allProducts) && allProducts.length > 0) {
+                if (Array.isArray(allProducts) && allProducts.length > 0 && allProducts[0].hasOwnProperty('time')) {
                     updateSidebarCounts(); 
                     applyFilters(); 
                     return;
