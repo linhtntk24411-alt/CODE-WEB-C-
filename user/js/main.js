@@ -411,8 +411,12 @@ document.addEventListener('auth:changed', function() {
         }
     }
 
-    // Chạy kiểm tra ngay khi nạp script
-    checkAuthAndRedirect();
+    // Chạy kiểm tra sau khi DOM và toàn bộ script đã được load xong để đảm bảo window.ariiAlert đã sẵn sàng
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkAuthAndRedirect);
+    } else {
+        checkAuthAndRedirect();
+    }
     
     // Lắng nghe storage change để cập nhật khi có thay đổi từ tab khác
     window.addEventListener('storage', function(e) {
@@ -556,24 +560,37 @@ document.addEventListener('auth:changed', function() {
                 );
                 
                 if (myVoucher && myVoucher.birthday) {
-                    const birthMonth = new Date(myVoucher.birthday).getMonth(); // 0-11
+                    // Trích xuất tháng sinh nhật an toàn từ chuỗi (tránh lệch múi giờ)
+                    let birthMonth = -1;
+                    const birthdayStr = myVoucher.birthday;
+                    if (birthdayStr.includes('-')) {
+                        birthMonth = parseInt(birthdayStr.split('-')[1], 10) - 1;
+                    } else if (birthdayStr.includes('/')) {
+                        birthMonth = parseInt(birthdayStr.split('/')[1], 10) - 1;
+                    }
+                    
                     const currentMonth = new Date().getMonth(); // 0-11
                     const currentYear = new Date().getFullYear();
                     
                     // Nếu là tháng sinh nhật và chưa sử dụng trong năm nay
                     if (birthMonth === currentMonth && myVoucher.lastUsedYear !== currentYear) {
+                        // Tính toán ngày đầu tiên và ngày cuối cùng của tháng sinh nhật hiện tại
+                        const lastDay = new Date(currentYear, birthMonth + 1, 0).getDate();
+                        const expiryDateStr = `${String(lastDay).padStart(2, '0')}/${String(birthMonth + 1).padStart(2, '0')}/${currentYear}`;
+                        const startDateStr = `01/${String(birthMonth + 1).padStart(2, '0')}/${currentYear}`;
+
                         const birthdayCoupon = {
                             id: 99,
                             code: 'SINHNHAT50',
                             value: '50%',
                             condition: 'Tháng sinh nhật',
                             created: new Date().toLocaleDateString('vi-VN'),
-                            startDate: '01/01/2026',
-                            expiry: '31/12/2027',
+                            startDate: startDateStr,
+                            expiry: expiryDateStr,
                             status: 'active',
                             statusText: 'Đang hoạt động',
                             maxUses: '1',
-                            description: 'Voucher mừng sinh nhật giảm 50% dành riêng cho bạn.'
+                            description: `Voucher mừng sinh nhật giảm 50% dành riêng cho bạn (chỉ áp dụng từ ${startDateStr.substring(0, 5)} đến ${expiryDateStr}).`
                         };
                         
                         // Kiểm tra tránh trùng lặp
@@ -661,10 +678,17 @@ document.addEventListener('auth:changed', function() {
                 return { success: false, message: 'Không tìm thấy thông tin ngày sinh!' };
             }
             
-            const birthMonth = new Date(birthdayStr).getMonth();
+            // Trích xuất tháng sinh nhật an toàn từ chuỗi (tránh lệch múi giờ)
+            let birthMonth = -1;
+            if (birthdayStr.includes('-')) {
+                birthMonth = parseInt(birthdayStr.split('-')[1], 10) - 1;
+            } else if (birthdayStr.includes('/')) {
+                birthMonth = parseInt(birthdayStr.split('/')[1], 10) - 1;
+            }
+            
             const currentMonth = new Date().getMonth();
             
-            if (birthMonth !== currentMonth) {
+            if (birthMonth === -1 || birthMonth !== currentMonth) {
                 return { success: false, message: `Mã sinh nhật chỉ dùng được trong tháng sinh của bạn (Tháng ${birthMonth + 1})!` };
             }
             

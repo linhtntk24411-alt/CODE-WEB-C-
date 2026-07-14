@@ -1216,11 +1216,17 @@ function applyPromo() {
             return;
         }
         
-        // Kiểm tra tháng sinh nhật (birthMonth và currentMonth đều là 0-indexed)
-        const birthMonth = new Date(birthdayStr).getMonth();
+        // Trích xuất tháng sinh nhật an toàn từ chuỗi (tránh lệch múi giờ, birthMonth là 0-indexed)
+        let birthMonth = -1;
+        if (birthdayStr.includes('-')) {
+            birthMonth = parseInt(birthdayStr.split('-')[1], 10) - 1;
+        } else if (birthdayStr.includes('/')) {
+            birthMonth = parseInt(birthdayStr.split('/')[1], 10) - 1;
+        }
+        
         const currentMonth = new Date().getMonth();
         
-        if (birthMonth !== currentMonth) {
+        if (birthMonth === -1 || birthMonth !== currentMonth) {
             showToast(`Mã sinh nhật chỉ dùng được trong tháng sinh của bạn (Tháng ${birthMonth + 1})!`, 'error');
             return;
         }
