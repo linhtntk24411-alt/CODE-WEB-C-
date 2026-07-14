@@ -142,7 +142,32 @@
     if (data.users && Array.isArray(data.users)) {
       if (currentEmail) {
         user = data.users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
+        if (user) {
+          // Ghi đè bằng dữ liệu cập nhật từ localStorage nếu có
+          user.phone = localStorage.getItem('userPhone') || user.phone;
+          user.birth = localStorage.getItem('userBirth') || user.birth;
+          user.address = localStorage.getItem('userAddress') || user.address;
+          user.name = localStorage.getItem('userName') || user.name;
+          user.avatar = localStorage.getItem('userAvatar') || user.avatar;
+        }
       }
+      
+      // Nếu không có trong users.json nhưng trong localStorage đang đăng nhập (ví dụ: Google/Facebook hoặc đăng ký mới)
+      if (!user && localStorage.getItem('isLoggedIn') === 'true' && currentEmail) {
+        user = {
+          name: localStorage.getItem('userName') || 'Người dùng',
+          email: currentEmail,
+          avatar: localStorage.getItem('userAvatar') || '',
+          role: localStorage.getItem('userRole') || 'user',
+          phone: localStorage.getItem('userPhone') || '',
+          address: localStorage.getItem('userAddress') || '',
+          joinDate: '14/07/2026',
+          orders: 0,
+          maps: 0,
+          birth: localStorage.getItem('userBirth') || ''
+        };
+      }
+
       // Nếu không tìm thấy hoặc chưa đăng nhập, chuyển đến trang đăng nhập
       if (!user) {
         window.location.href = 'login.html';
@@ -214,7 +239,11 @@
     elements.shippingAddress.value = data.address;
 
     if (data.avatar && data.avatar.trim() !== '') {
-      const avatarPath = '../assets/' + data.avatar;
+      let avatarPath = data.avatar;
+      // Hỗ trợ cả url tuyệt đối (http) hoặc base64, ngược lại mới nối ../assets/
+      if (!avatarPath.startsWith('http') && !avatarPath.startsWith('data:') && !avatarPath.startsWith('../')) {
+        avatarPath = '../assets/' + avatarPath;
+      }
       elements.avatar.src = avatarPath;
       elements.avatar.onerror = function() {
         this.onerror = null;
@@ -332,6 +361,14 @@
 
   function setInputsEditable(editable) {
     inputs.forEach(input => {
+      // Nếu là trường ngày sinh và đã có dữ liệu -> Khóa cứng, không cho sửa kể cả khi bấm Sửa
+      if (input === elements.birthDate && userData && userData.birth && userData.birth.trim() !== '') {
+        input.readOnly = true;
+        input.classList.remove('editing');
+        input.style.backgroundColor = '';
+        return;
+      }
+      
       input.readOnly = !editable;
       if (editable) {
         input.classList.add('editing');
@@ -369,12 +406,107 @@
       isEditing = false;
       setInputsEditable(false);
       elements.editToggle.innerHTML = `<span class="material-symbols-outlined">edit</span> Chỉnh sửa`;
-      userData.name = elements.fullName.value;
-      userData.phone = elements.phoneNumber.value;
-      userData.email = elements.emailAddress.value;
-      userData.birth = elements.birthDate.value;
-      userData.address = elements.shippingAddress.value;
+      
+      const oldPhone = localStorage.getItem('userPhone') || '';
+      const newPhone = elements.phoneNumber.value.trim();
+      const newBirth = elements.birthDate.value.trim();
+      
+      userData.name = elements.fullName.value.trim();
+      userData.phone = newPhone;
+      userData.email = elements.emailAddress.value.trim();
+      userData.birth = newBirth;
+      userData.address = elements.shippingAddress.value.trim();
+      
       elements.userName.textContent = userData.name;
+      
+      // Đồng bộ thông tin đã chỉnh sửa vào localStorage
+      localStorage.setItem('userName', userData.name);
+      localStorage.setItem('userEmail', userData.email);
+      localStorage.setItem('userPhone', userData.phone);
+      localStorage.setItem('userBirth', userData.birth);
+      localStorage.setItem('userAddress', userData.address);
+      
+      // Đồng bộ ngược lại vào registered_users trong localStorage
+      let registeredUsers = JSON.parse(localStorage.getItem('registered_users')) || [];
+      let userIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === userData.email.toLowerCase());
+      if (userIdx !== -1) {
+          registeredUsers[userIdx].name = userData.name;
+          registeredUsers[userIdx].phone = userData.phone;
+          registeredUsers[userIdx].birth = userData.birth;
+          registeredUsers[userIdx].address = userData.address;
+          registeredUsers[userIdx].avatar = userData.avatar;
+          localStorage.setItem('registered_users', JSON.stringify(registeredUsers));
+      }
+      
+      // XỬ LÝ ĐỒNG BỘ VÀ LIÊN KẾT VOUCHER SINH NHẬT KHI ĐỔI SĐT HOẶC LƯU MỚI
+      let vouchers = JSON.parse(localStorage.getItem('birthday_vouchers')) || [];
+      const userEmail = userData.email;
+      
+      // 1. Tìm voucher đã sở hữu bởi tài khoản này
+      let myVoucher = vouchers.find(v => v.userEmail && v.userEmail.toLowerCase() === userEmail.toLowerCase());
+      
+      if (myVoucher) {
+          // Nếu đổi SĐT, cập nhật SĐT của voucher này
+          if (newPhone !== oldPhone) {
+              myVoucher.phone = newPhone;
+          }
+          // Cập nhật ngày sinh vào voucher nếu mới bổ sung
+          if (newBirth && (!myVoucher.birthday || myVoucher.birthday === '')) {
+              let birthYYYYMMDD = newBirth;
+              if (newBirth.includes('/')) {
+                  const parts = newBirth.split('/');
+                  if (parts.length === 3) {
+                      birthYYYYMMDD = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+                  }
+              }
+              myVoucher.birthday = birthYYYYMMDD;
+          }
+      } else {
+          // 2. Nếu chưa có voucher của tài khoản này, tìm xem có voucher vãng lai trùng SĐT mới không
+          let guestVoucher = vouchers.find(v => v.phone === newPhone && (!v.userEmail || v.userEmail === ''));
+          if (guestVoucher) {
+              // Liên kết voucher vãng lai sang tài khoản này
+              guestVoucher.userEmail = userEmail;
+              // Nếu hồ sơ chưa có ngày sinh, đồng bộ ngày sinh từ voucher vãng lai sang hồ sơ
+              if (!userData.birth || userData.birth === '') {
+                  let birthDDMMYYYY = guestVoucher.birthday;
+                  if (guestVoucher.birthday && guestVoucher.birthday.includes('-')) {
+                      const parts = guestVoucher.birthday.split('-');
+                      if (parts.length === 3) {
+                          birthDDMMYYYY = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                      }
+                  }
+                  userData.birth = birthDDMMYYYY;
+                  localStorage.setItem('userBirth', birthDDMMYYYY);
+                  elements.birthDate.value = birthDDMMYYYY;
+              }
+          } else if (newBirth && newPhone) {
+              // 3. Nếu chưa có voucher nào, và tự điền ngày sinh + SĐT thì tạo mới voucher sinh nhật luôn
+              let birthYYYYMMDD = newBirth;
+              if (newBirth.includes('/')) {
+                  const parts = newBirth.split('/');
+                  if (parts.length === 3) {
+                      birthYYYYMMDD = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+                  }
+              }
+              vouchers.push({
+                  phone: newPhone,
+                  birthday: birthYYYYMMDD,
+                  userEmail: userEmail,
+                  lastUsedYear: 0,
+                  discountPercent: 50
+              });
+          }
+      }
+      
+      localStorage.setItem('birthday_vouchers', JSON.stringify(vouchers));
+      
+      // Phát sự kiện cập nhật giao diện (Header, v.v.)
+      document.dispatchEvent(new CustomEvent('auth:changed'));
+      if (typeof window.initHeader === 'function') {
+        window.initHeader();
+      }
+
       showToast('Thông tin đã được lưu thành công!', 'success');
     }, 1500);
   });
@@ -389,10 +521,25 @@
     this.textContent = 'Đang xử lý...';
     this.disabled = true;
     setTimeout(() => {
+      // Xóa sạch thông tin đăng nhập khỏi localStorage
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userAvatar');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userPhone');
+      localStorage.removeItem('userBirth');
+      localStorage.removeItem('userAddress');
+      
       closeAllModals();
       showToast('Đăng xuất thành công!', 'success');
       this.textContent = 'Đăng xuất';
       this.disabled = false;
+      
+      // Chuyển hướng về login.html
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1000);
     }, 1000);
   });
 
@@ -639,6 +786,23 @@
     saveBtn.addEventListener('click', function() {
       avatarImg.src = tempAvatarSrc;
       userData.avatar = tempAvatarSrc;
+      
+      // Lưu lại vào localStorage và kích hoạt cập nhật Header
+      localStorage.setItem('userAvatar', tempAvatarSrc);
+      
+      // Đồng bộ ngược lại vào registered_users
+      let registeredUsers = JSON.parse(localStorage.getItem('registered_users')) || [];
+      let userIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === userData.email.toLowerCase());
+      if (userIdx !== -1) {
+          registeredUsers[userIdx].avatar = tempAvatarSrc;
+          localStorage.setItem('registered_users', JSON.stringify(registeredUsers));
+      }
+      
+      document.dispatchEvent(new CustomEvent('auth:changed'));
+      if (typeof window.initHeader === 'function') {
+        window.initHeader();
+      }
+      
       closeModal('modalAvatar');
       showToast('Ảnh đại diện đã được cập nhật!', 'success');
     });

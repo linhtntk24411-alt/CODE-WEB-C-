@@ -1181,6 +1181,70 @@ function applyPromo() {
         return;
     }
     
+    // =============================================================
+    // XỬ LÝ RIÊNG CHO MÃ VOUCHER SINH NHẬT SINHNHAT50
+    // =============================================================
+    if (code === 'SINHNHAT50') {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            showToast('Mã này chỉ áp dụng khi đăng nhập tài khoản!', 'error');
+            return;
+        }
+        
+        const userPhone = (localStorage.getItem('userPhone') || '').trim();
+        if (!userPhone) {
+            showToast('Tài khoản của bạn chưa cập nhật Số điện thoại!', 'error');
+            return;
+        }
+        
+        let vouchers = JSON.parse(localStorage.getItem('birthday_vouchers')) || [];
+        const userEmail = (localStorage.getItem('userEmail') || '').trim();
+        
+        const myVoucher = vouchers.find(v => 
+            (v.phone === userPhone) || 
+            (v.userEmail && v.userEmail.toLowerCase() === userEmail.toLowerCase())
+        );
+        
+        if (!myVoucher) {
+            showToast('Bạn chưa có voucher sinh nhật! Vui lòng nhận tại trang chủ.', 'error');
+            return;
+        }
+        
+        const birthdayStr = myVoucher.birthday;
+        if (!birthdayStr) {
+            showToast('Không tìm thấy thông tin ngày sinh!', 'error');
+            return;
+        }
+        
+        // Kiểm tra tháng sinh nhật (birthMonth và currentMonth đều là 0-indexed)
+        const birthMonth = new Date(birthdayStr).getMonth();
+        const currentMonth = new Date().getMonth();
+        
+        if (birthMonth !== currentMonth) {
+            showToast(`Mã sinh nhật chỉ dùng được trong tháng sinh của bạn (Tháng ${birthMonth + 1})!`, 'error');
+            return;
+        }
+        
+        // Kiểm tra xem đã dùng trong năm nay chưa
+        const currentYear = new Date().getFullYear();
+        if (myVoucher.lastUsedYear === currentYear) {
+            showToast('Bạn đã sử dụng voucher sinh nhật của năm nay rồi!', 'error');
+            return;
+        }
+        
+        // Hợp lệ
+        promoCode = code;
+        isFreeShip = false;
+        discountPercent = 50;
+        discountAmount = 0;
+        
+        showToast('Áp dụng mã giảm giá Sinh Nhật giảm 50% thành công!', 'success');
+        renderOrderSummary();
+        input.value = code;
+        localStorage.setItem('appliedPromoCode', code);
+        return;
+    }
+    
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
     if (typeof window.validateCoupon === 'function') {
@@ -1310,6 +1374,24 @@ function createOrder(orderId, paymentMethod, totalAmount, address) {
         }
     };
     
+    // Nếu sử dụng mã voucher sinh nhật, cập nhật trạng thái đã sử dụng
+    if (promoCode === 'SINHNHAT50') {
+        const userPhone = (localStorage.getItem('userPhone') || '').trim();
+        const userEmail = (localStorage.getItem('userEmail') || '').trim();
+        let vouchers = JSON.parse(localStorage.getItem('birthday_vouchers')) || [];
+        
+        const myVoucher = vouchers.find(v => 
+            (v.phone === userPhone) || 
+            (v.userEmail && v.userEmail.toLowerCase() === userEmail.toLowerCase())
+        );
+        
+        if (myVoucher) {
+            myVoucher.lastUsedYear = new Date().getFullYear();
+            localStorage.setItem('birthday_vouchers', JSON.stringify(vouchers));
+            console.log('✅ Đã cập nhật trạng thái sử dụng của Voucher Sinh Nhật:', myVoucher.lastUsedYear);
+        }
+    }
+
     const orders = JSON.parse(localStorage.getItem('orders') || '[]');
     orders.push(order);
     localStorage.setItem('orders', JSON.stringify(orders));

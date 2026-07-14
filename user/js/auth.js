@@ -144,7 +144,12 @@
         const response = await fetch('../data/users.json');
         if (!response.ok) throw new Error('Không thể tải thông tin người dùng');
         const data = await response.json();
-        const users = data.users || [];
+        
+        // Gộp người dùng tĩnh từ file JSON và người dùng tự đăng ký từ localStorage
+        const staticUsers = data.users || [];
+        const registeredUsers = JSON.parse(localStorage.getItem('registered_users')) || [];
+        const users = [...staticUsers, ...registeredUsers];
+        
         const enteredEmail = (emailInput?.value || '').trim().toLowerCase();
         const enteredPassword = (passwordInput?.value || '').trim();
 
@@ -163,6 +168,7 @@
           localStorage.setItem('userRole', foundUser.role || 'user');
           localStorage.setItem('userPhone', foundUser.phone || '');
           localStorage.setItem('userAddress', foundUser.address || '');
+          localStorage.setItem('userBirth', foundUser.birth || '');
 
           // Kiểm tra lại sau khi set
           console.log('🔍 Sau khi set - isLoggedIn:', localStorage.getItem('isLoggedIn'));
@@ -253,6 +259,38 @@
       btn.classList.add('loading');
 
       setTimeout(() => {
+        const newEmail = email.value.trim().toLowerCase();
+        
+        // Kiểm tra xem email đã tồn tại trong danh sách tài khoản tự đăng ký chưa
+        let registeredUsers = JSON.parse(localStorage.getItem('registered_users')) || [];
+        const isEmailExists = registeredUsers.some(u => u.email.toLowerCase() === newEmail);
+        
+        if (isEmailExists) {
+            showToast('Email này đã được đăng ký tài khoản!', 'error');
+            btn.textContent = originalText;
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            return;
+        }
+
+        // Tạo tài khoản mới giả lập
+        const newUserData = {
+            name: fullname.value.trim(),
+            email: newEmail,
+            password: password.value.trim(),
+            role: 'user',
+            phone: '',
+            birth: '',
+            address: '',
+            joinDate: new Date().toLocaleDateString('vi-VN'),
+            orders: 0,
+            maps: 0,
+            avatar: ''
+        };
+        
+        registeredUsers.push(newUserData);
+        localStorage.setItem('registered_users', JSON.stringify(registeredUsers));
+
         btn.textContent = originalText;
         btn.disabled = false;
         btn.classList.remove('loading');
@@ -343,6 +381,78 @@
   // Lắng nghe sự kiện logout từ header
   document.addEventListener('auth:logout', function() {
       document.dispatchEvent(new CustomEvent('auth:changed'));
+  });
+
+  // =============================================================
+  // GIẢ LẬP ĐĂNG NHẬP GOOGLE / FACEBOOK (CHO ĐỒ ÁN)
+  // =============================================================
+  const googleBtns = document.querySelectorAll('.social-btn--google');
+  const facebookBtns = document.querySelectorAll('.social-btn--facebook');
+
+  function handleSocialLogin(provider) {
+    const defaultName = provider === 'Google' ? 'Google Student' : 'Facebook Student';
+    const defaultEmail = provider === 'Google' ? 'google.student@gmail.com' : 'facebook.student@fb.com';
+    const defaultAvatar = provider === 'Google' 
+      ? 'https://cdn-icons-png.flaticon.com/512/300/300221.png' 
+      : 'https://cdn-icons-png.flaticon.com/512/124/124010.png';
+
+    showToast(`Đang kết nối với ${provider}...`, 'success');
+
+    // Giả lập độ trễ kết nối mạng 1.2s
+    setTimeout(() => {
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userName', defaultName);
+      localStorage.setItem('userEmail', defaultEmail);
+      localStorage.setItem('userAvatar', defaultAvatar);
+      localStorage.setItem('userRole', 'user');
+      localStorage.setItem('userPhone', '0987654321');
+      localStorage.setItem('userAddress', 'Hà Nội, Việt Nam');
+      localStorage.setItem('userBirth', ''); // Chừa trống ngày sinh để khách điền form tự nguyện nhận voucher
+
+      showToast(`Đăng nhập thành công bằng ${provider}!`, 'success');
+
+      // Phát sự kiện cập nhật header
+      document.dispatchEvent(new CustomEvent('auth:changed'));
+
+      if (typeof window.initHeader === 'function') {
+        window.initHeader();
+      }
+
+      if (typeof window.handleAdminLink === 'function') {
+        setTimeout(window.handleAdminLink, 100);
+      }
+
+      // Điều hướng về trang chủ hoặc trang trước đó
+      const redirectUrl = localStorage.getItem('redirectAfterLogin');
+      const checkoutAction = localStorage.getItem('checkoutAction');
+      if (redirectUrl) {
+        localStorage.removeItem('redirectAfterLogin');
+        if (checkoutAction === 'true') {
+          localStorage.setItem('checkoutAction', 'true');
+        }
+        setTimeout(() => {
+          window.location.href = redirectUrl;
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }
+    }, 1200);
+  }
+
+  googleBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      handleSocialLogin('Google');
+    });
+  });
+
+  facebookBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      handleSocialLogin('Facebook');
+    });
   });
 
   console.log('✅ Auth events initialized');

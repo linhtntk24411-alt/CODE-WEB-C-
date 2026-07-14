@@ -384,6 +384,51 @@ document.addEventListener('DOMContentLoaded', function() {
         if (popup) {
             popup.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // TỰ ĐỘNG ĐIỀN THÔNG TIN NẾU ĐÃ ĐĂNG NHẬP
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (isLoggedIn) {
+                const userName = localStorage.getItem('userName') || '';
+                const userPhone = localStorage.getItem('userPhone') || '';
+                const userBirth = localStorage.getItem('userBirth') || '';
+                
+                const nameInput = document.getElementById('fullName');
+                const phoneInput = document.getElementById('phone');
+                const birthInput = document.getElementById('birthday');
+                
+                if (nameInput) nameInput.value = userName;
+                
+                if (phoneInput) {
+                    phoneInput.value = userPhone;
+                    if (userPhone && userPhone.trim() !== '') {
+                        phoneInput.readOnly = true;
+                        phoneInput.style.backgroundColor = '#f1f1f1';
+                    } else {
+                        phoneInput.readOnly = false;
+                        phoneInput.style.backgroundColor = '';
+                    }
+                }
+                
+                if (birthInput) {
+                    if (userBirth && userBirth.trim() !== '') {
+                        // Định dạng userBirth từ DD/MM/YYYY sang YYYY-MM-DD cho input type="date"
+                        let formattedBirth = userBirth;
+                        if (userBirth.includes('/')) {
+                            const parts = userBirth.split('/');
+                            if (parts.length === 3) {
+                                formattedBirth = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+                            }
+                        }
+                        birthInput.value = formattedBirth;
+                        birthInput.readOnly = true;
+                        birthInput.style.backgroundColor = '#f1f1f1';
+                    } else {
+                        birthInput.value = '';
+                        birthInput.readOnly = false;
+                        birthInput.style.backgroundColor = '';
+                    }
+                }
+            }
         }
     }
 
@@ -462,21 +507,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Lưu dữ liệu
-            const userData = {
-                fullName: fullName,
-                birthday: birthday,
-                phone: phone,
-                age: age,
-                receivedAt: new Date().toISOString()
-            };
+            // Lấy danh sách vouchers sinh nhật hiện có
+            let vouchers = JSON.parse(localStorage.getItem('birthday_vouchers')) || [];
             
-            let users = JSON.parse(localStorage.getItem('voucherUsers')) || [];
-            users.push(userData);
-            localStorage.setItem('voucherUsers', JSON.stringify(users));
+            // Kiểm tra xem SĐT này đã có voucher sinh nhật trong năm nay chưa
+            const currentYear = today.getFullYear();
+            const existingVoucher = vouchers.find(v => v.phone === phone);
             
-            console.log('📝 Thông tin khách hàng:', userData);
-            console.log('📊 Tổng số người đăng ký:', users.length);
+            if (existingVoucher && existingVoucher.lastUsedYear === currentYear) {
+                alert('Số điện thoại này đã nhận và sử dụng voucher sinh nhật cho năm nay rồi!');
+                return;
+            }
+            
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userEmail = isLoggedIn ? localStorage.getItem('userEmail') : null;
+            
+            if (existingVoucher) {
+                // Cập nhật liên kết tài khoản nếu cần
+                if (userEmail) existingVoucher.userEmail = userEmail;
+                existingVoucher.birthday = birthday;
+            } else {
+                // Tạo mới voucher
+                vouchers.push({
+                    phone: phone,
+                    birthday: birthday,
+                    userEmail: userEmail,
+                    lastUsedYear: 0,
+                    discountPercent: 50
+                });
+            }
+            
+            localStorage.setItem('birthday_vouchers', JSON.stringify(vouchers));
+            
+            // ĐỒNG BỘ NGƯỢC LẠI HỒ SƠ NGƯỜI DÙNG NẾU ĐÃ ĐĂNG NHẬP
+            if (isLoggedIn) {
+                localStorage.setItem('userPhone', phone);
+                
+                // Định dạng Ngày sinh thành DD/MM/YYYY để đồng bộ với file users.json
+                let birthDDMMYYYY = birthday;
+                if (birthday.includes('-')) {
+                    const parts = birthday.split('-');
+                    if (parts.length === 3) {
+                        birthDDMMYYYY = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                    }
+                }
+                localStorage.setItem('userBirth', birthDDMMYYYY);
+                
+                // Kích hoạt sự kiện auth:changed để cập nhật Header/Sidebar
+                document.dispatchEvent(new CustomEvent('auth:changed'));
+            }
             
             // Hiển thị thành công
             const formEl = document.querySelector('.voucher-popup__form');
@@ -484,10 +563,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (formEl) formEl.style.display = 'none';
             if (thankYou) thankYou.classList.add('active');
-            
-            setTimeout(function() {
-                closePopup();
-            }, 4000);
         });
     }
 

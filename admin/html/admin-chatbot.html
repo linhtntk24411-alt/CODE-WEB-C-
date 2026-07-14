@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urii Admin | Hỗ trợ Chatbot</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- CSS Admin System -->
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-topbar.css">
+    <link rel="stylesheet" href="../../user/css/footer.css">
+    <link rel="stylesheet" href="../css/admin-chatbot.css">
+</head>
+<body>
+
+<div class="admin-layout-wrapper">
+
+    <!-- Sidebar Component -->
+    <div id="layout-sidebar"></div>
+    <script>
+        (function() {
+            const cached = localStorage.getItem('cache_layout-sidebar');
+            if (cached) {
+                document.getElementById('layout-sidebar').innerHTML = cached;
+                const currentPage = window.location.pathname.split('/').pop() || 'admin-chatbot.html';
+                const links = document.getElementById('layout-sidebar').querySelectorAll(".nav-item");
+                links.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href.includes('admin-chatbot.html')) {
+                        links.forEach(item => item.classList.remove("active"));
+                        link.classList.add("active");
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <div class="admin-main-area">
+        
+        <!-- Topbar Component -->
+        <div id="layout-topbar"></div>
+        <script>
+            (function() {
+                const cached = localStorage.getItem('cache_layout-topbar');
+                if (cached) {
+                    document.getElementById('layout-topbar').innerHTML = cached;
+                }
+            })();
+        </script>
+
+        <!-- Main Content Area -->
+        <div class="admin-main-content">
+            <div style="width: 100%; max-width: 1400px; margin: 0 auto; height: 100%;">
+                
+                <!-- Page Title -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="fw-bold mb-1" style="font-size: 28px; font-family: 'Segoe UI', sans-serif;">Hỗ trợ Chatbot</h1>
+                        <p class="text-muted small m-0">Tư vấn trực tiếp cho khách hàng và quản lý luồng Human-in-the-loop</p>
+                    </div>
+                </div>
+
+                <!-- Chat Workspace Container -->
+                <div class="row g-0 rounded-4 shadow-sm border overflow-hidden bg-white" style="height: calc(80vh - 60px); min-height: 550px;">
+                    
+                    <!-- Left Column: Chat Sessions List -->
+                    <div class="col-12 col-md-4 border-end d-flex flex-column h-100 bg-light-subtle">
+                        
+                        <!-- Search Bar -->
+                        <div class="p-3 border-bottom bg-white">
+                            <div class="input-group input-group-sm rounded-3 overflow-hidden border">
+                                <span class="input-group-text border-0 bg-transparent text-muted"><i class="bi bi-search"></i></span>
+                                <input type="text" id="search-session" class="form-control border-0 ps-1" placeholder="Tìm kiếm khách hàng...">
+                            </div>
+                        </div>
+
+                        <!-- Filter Tabs -->
+                        <div class="bg-white border-bottom px-2 py-1 d-flex gap-1">
+                            <button class="btn btn-sm btn-outline-danger active flex-fill py-1 fw-semibold filter-btn" data-filter="all" style="font-size: 12.5px;">Tất cả</button>
+                            <button class="btn btn-sm btn-outline-danger flex-fill py-1 fw-semibold filter-btn" data-filter="waiting" style="font-size: 12.5px;">
+                                Chờ phản hồi <span class="badge bg-danger ms-1" id="badge-waiting-count">0</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger flex-fill py-1 fw-semibold filter-btn" data-filter="active" style="font-size: 12.5px;">Đang chat</button>
+                        </div>
+
+                        <!-- Sessions List -->
+                        <div class="flex-grow-1 overflow-y-auto custom-scrollbar" id="sessions-list" style="background-color: #fbf9f8;">
+                            <!-- Dynamic Sessions List Rendered via JS -->
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border spinner-border-sm text-danger mb-2" role="status"></div>
+                                <p class="small m-0">Đang tải cuộc trò chuyện...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Active Conversation -->
+                    <div class="col-12 col-md-8 d-flex flex-column h-100" id="chat-content-pane">
+                        
+                        <!-- Default Blank State (shown when no session is selected) -->
+                        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-center text-muted" id="blank-state">
+                            <div class="bg-danger bg-opacity-10 text-danger rounded-circle p-4 mb-3" style="font-size: 40px; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-chat-dots-fill"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark">Chưa chọn cuộc trò chuyện</h5>
+                            <p class="small text-muted px-4" style="max-width: 400px;">Hãy chọn một khách hàng từ danh sách bên trái để bắt đầu xem lịch sử trò chuyện và hỗ trợ tư vấn.</p>
+                        </div>
+
+                        <!-- Chat Console (hidden by default until a session is selected) -->
+                        <div class="d-flex flex-column h-100 d-none" id="active-chat-console">
+                            
+                            <!-- Chat Header -->
+                            <div class="p-3 border-bottom bg-white d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="position-relative">
+                                        <div class="avatar-circle bg-danger text-white rounded-circle d-flex align-items-center justify-content-center fw-bold text-uppercase" style="width: 45px; height: 45px; font-size: 18px;" id="active-avatar-text">KV</div>
+                                        <span class="active-status-dot position-absolute bottom-0 end-0 border border-2 border-white rounded-circle" style="width: 12px; height: 12px; background-color: #999;"></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-dark" id="active-user-name">Khách vãng lai</h6>
+                                        <small class="text-muted" id="active-user-email">guest@example.com</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-danger fw-semibold px-3 py-1.5 rounded-3 d-flex align-items-center gap-1 shadow-sm" id="btn-takeover">
+                                        <i class="bi bi-hand-index-thumb"></i> Tiếp quản chat
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary fw-semibold px-3 py-1.5 rounded-3 d-flex align-items-center gap-1" id="btn-handback">
+                                        <i class="bi bi-robot"></i> Chuyển lại cho AI
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Status Notice Bar -->
+                            <div class="px-3 py-2 bg-light border-bottom d-flex align-items-center justify-content-between" style="font-size: 13px;">
+                                <div class="d-flex align-items-center gap-1.5 text-secondary">
+                                    <span class="fw-semibold">Trạng thái:</span>
+                                    <span class="badge" id="active-status-badge">AI đang tư vấn</span>
+                                </div>
+                                <div class="text-muted" id="active-session-id" style="font-size: 11px; font-family: monospace;">ID: ...</div>
+                            </div>
+
+                            <!-- Chat Messages Body -->
+                            <div class="flex-grow-1 p-3 overflow-y-auto bg-light-subtle d-flex flex-column gap-3 custom-scrollbar" id="active-chat-body" style="background-color: #fcfbfa; position: relative;">
+                                <!-- Messages will be dynamically rendered here -->
+                            </div>
+
+                            <!-- Chat Input Footer -->
+                            <div class="p-3 border-top bg-white">
+                                <div class="input-group shadow-sm rounded-4 border overflow-hidden p-1 bg-light">
+                                    <textarea id="admin-chat-input" class="form-control border-0 bg-transparent custom-scrollbar py-2" rows="1" placeholder="Nhập tin nhắn phản hồi..." style="resize: none; outline: none; box-shadow: none; font-size: 14px;"></textarea>
+                                    <button class="btn btn-danger px-4 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center" id="btn-admin-send" type="button" style="width: 50px; height: 42px; margin-top: auto; margin-bottom: auto;">
+                                        <i class="bi bi-send-fill fs-5"></i>
+                                    </button>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2 px-1 text-muted" style="font-size: 11px;">
+                                    <span>Bấm <b>Enter</b> để gửi, <b>Shift + Enter</b> để xuống dòng</span>
+                                    <span class="text-danger" id="ai-disabled-warning" style="display: none;"><i class="bi bi-exclamation-triangle"></i> AI đã tạm ngưng, bạn đang trực tiếp chat</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 2. FOOTER NẰM Ở NGOÀI CÙNG (Chạy full ngang) -->
+<div id="footer-placeholder"></div>
+
+<!-- Layout & Business Logic Scripts -->
+<script src="../js/admin-layout.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function loadComponent(url, targetId) {
+            const cacheKey = 'cache_' + targetId;
+            const cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) {
+                document.getElementById(targetId).innerHTML = cachedData;
+                if (targetId === 'layout-sidebar') {
+                    highlightActiveMenu();
+                }
+            }
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Lỗi tải file: " + url);
+                    return response.text();
+                })
+                .then(data => {
+                    if (data !== cachedData) {
+                        document.getElementById(targetId).innerHTML = data;
+                        localStorage.setItem(cacheKey, data);
+                        if (targetId === 'layout-sidebar') {
+                            highlightActiveMenu();
+                        }
+                    }
+                })
+                .catch(err => console.warn('Không thể tải layout:', err));
+        }
+
+        loadComponent('../components/admin-sidebar.html', 'layout-sidebar');
+        loadComponent('../components/admin-topbar.html', 'layout-topbar');
+        loadComponent('../../user/components/footer.html', 'footer-placeholder');
+
+        function highlightActiveMenu() {
+            const navLinks = document.querySelectorAll(".admin-sidebar .nav-item");
+            navLinks.forEach(link => {
+                const hrefAttribute = link.getAttribute("href");
+                if (hrefAttribute && hrefAttribute.includes("admin-chatbot.html")) {
+                    navLinks.forEach(item => item.classList.remove("active"));
+                    link.classList.add("active");
+                }
+            });
+        }
+    });
+</script>
+<script src="../js/admin-chatbot.js"></script>
+</body>
+</html>

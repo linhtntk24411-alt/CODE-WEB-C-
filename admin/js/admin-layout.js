@@ -352,6 +352,29 @@
             console.error(e);
         }
 
+        // 4. Khách hàng cần hỗ trợ Chatbot
+        try {
+            const sessionsSaved = localStorage.getItem('urii_chat_sessions');
+            if (sessionsSaved) {
+                const sessions = JSON.parse(sessionsSaved);
+                Object.values(sessions).forEach(s => {
+                    if (s.status === 'waiting') {
+                        notifications.push({
+                            id: 'chat-' + s.sessionId,
+                            title: 'Hỗ trợ Chatbot',
+                            message: `Khách hàng "${s.userName}" đang chờ nhân viên hỗ trợ.`,
+                            time: s.lastMessageTime ? new Date(s.lastMessageTime).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}) : 'Gần đây',
+                            icon: 'support_agent',
+                            iconClass: 'bg-danger bg-opacity-10 text-danger',
+                            link: '../html/admin-chatbot.html'
+                        });
+                    }
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
         // Update badge
         if (badge) {
             if (notifications.length > 0) {
@@ -415,6 +438,13 @@
                 const blogs = JSON.parse(blogsSaved);
                 count += blogs.filter(b => b.status === 'published' || b.status === 'pending').length;
             }
+
+            // Count waiting chatbot sessions
+            const sessionsSaved = localStorage.getItem('urii_chat_sessions');
+            if (sessionsSaved) {
+                const sessions = JSON.parse(sessionsSaved);
+                count += Object.values(sessions).filter(s => s.status === 'waiting').length;
+            }
         } catch (e) {
             console.error(e);
         }
@@ -433,6 +463,16 @@
         if (badge) {
             clearInterval(checkInterval);
             updateBadgeCount();
+            
+            // Lắng nghe thay đổi từ các tab khác để cập nhật badge
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'orders' || e.key === 'custom_orders_cache' || e.key === 'userBlogs' || e.key === 'urii_chat_sessions') {
+                    updateBadgeCount();
+                }
+            });
+
+            // Định kỳ quét mỗi 3 giây để cập nhật tức thời
+            setInterval(updateBadgeCount, 3000);
         }
     }, 100);
 })();

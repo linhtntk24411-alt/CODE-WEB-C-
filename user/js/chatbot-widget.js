@@ -14,6 +14,142 @@ let fileInput = null;
 
 const SYSTEM_PROMPT = "Bạn là Trợ lý ảo Urii, một nhân viên tư vấn nhiệt tình, thông minh của cửa hàng bán bộ kit hạt đậu tạo hình (Perler Beads). Hãy trả lời bằng tiếng Việt, ngắn gọn, lịch sự và dễ hiểu.";
 
+// ===== SESSION HELPERS FOR HUMAN-IN-THE-LOOP =====
+function getOrCreateSessionId() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userEmail = isLoggedIn ? (localStorage.getItem('userEmail') || 'guest') : 'guest';
+    const cleanEmail = userEmail.replace(/[^a-zA-Z0-9]/g, '_');
+    const storageKey = `urii_chat_session_id_${cleanEmail}`;
+
+    let sessionId = localStorage.getItem(storageKey);
+    if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        localStorage.setItem(storageKey, sessionId);
+    }
+    return sessionId;
+}
+
+function getSessions() {
+    try {
+        return JSON.parse(localStorage.getItem('urii_chat_sessions') || '{}');
+    } catch (e) {
+        return {};
+    }
+}
+
+function saveSessions(sessions) {
+    localStorage.setItem('urii_chat_sessions', JSON.stringify(sessions));
+}
+
+function getCurrentSession() {
+    const sessionId = getOrCreateSessionId();
+    const sessions = getSessions();
+    if (!sessions[sessionId]) {
+        sessions[sessionId] = {
+            sessionId: sessionId,
+            userName: localStorage.getItem('userName') || 'Khách vãng lai',
+            userEmail: localStorage.getItem('userEmail') || '',
+            status: 'ai', // 'ai', 'waiting', 'active'
+            lastMessageTime: Date.now(),
+            unreadCount: 0,
+            messages: []
+        };
+        saveSessions(sessions);
+    }
+    // Cập nhật thông tin nếu đã đăng nhập
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isLoggedIn) {
+        const uName = localStorage.getItem('userName');
+        const uEmail = localStorage.getItem('userEmail');
+        if (uName && sessions[sessionId].userName !== uName) {
+            sessions[sessionId].userName = uName;
+        }
+        if (uEmail && sessions[sessionId].userEmail !== uEmail) {
+            sessions[sessionId].userEmail = uEmail;
+        }
+        saveSessions(sessions);
+    }
+    return sessions[sessionId];
+}
+
+function loadChatHistory() {
+    const session = getCurrentSession();
+    if (!chatBody) return;
+
+    // Xóa tất cả tin nhắn cũ trong DOM ngoại trừ typing indicator
+    const existingMessages = chatBody.querySelectorAll('.message');
+    existingMessages.forEach(m => m.remove());
+
+    if (session.messages.length > 0) {
+        session.messages.forEach(msg => {
+            appendMessage(msg, msg.sender);
+        });
+        updateHeaderStatus(session.status);
+    } else {
+        // Gửi lời chào chào mừng lần đầu tiên
+        const welcome = {
+            text: "Xin chào, Urii có thể giúp gì cho bạn?",
+            chips: [
+                { label: 'Xem giá bộ Kit', action: 'Xem giá bộ Kit' },
+                { label: 'Màu sắc có sẵn', action: 'Màu sắc có sẵn' }
+            ],
+            timestamp: Date.now(),
+            sender: 'bot'
+        };
+        session.messages.push(welcome);
+        const sessions = getSessions();
+        sessions[session.sessionId] = session;
+        saveSessions(sessions);
+        
+        appendMessage(welcome, 'bot');
+        updateHeaderStatus('ai');
+    }
+}
+
+function updateHeaderStatus(status) {
+    if (!chatWindow) return;
+    const botNameEl = chatWindow.querySelector('.bot-name');
+    const botStatusEl = chatWindow.querySelector('.bot-status');
+    const statusDotEl = chatWindow.querySelector('.status-dot');
+    
+    if (!botStatusEl) return;
+
+    if (status === 'ai') {
+        if (botNameEl) botNameEl.textContent = 'Trợ lý ảo Urii';
+        botStatusEl.textContent = 'Đang trực tuyến';
+        if (statusDotEl) {
+            statusDotEl.style.backgroundColor = '#22c55e'; // Xanh lá
+            statusDotEl.title = 'AI Đang hỗ trợ';
+        }
+    } else if (status === 'waiting') {
+        if (botNameEl) botNameEl.textContent = 'Trợ lý ảo Urii';
+        botStatusEl.textContent = 'Đang kết nối nhân viên...';
+        if (statusDotEl) {
+            statusDotEl.style.backgroundColor = '#f59e0b'; // Vàng cam
+            statusDotEl.title = 'Đang chờ nhân viên';
+        }
+    } else if (status === 'active') {
+        if (botNameEl) botNameEl.textContent = 'Nhân viên tư vấn';
+        botStatusEl.textContent = 'Nhân viên đang hỗ trợ';
+        if (statusDotEl) {
+            statusDotEl.style.backgroundColor = '#ef4444'; // Đỏ
+            statusDotEl.title = 'Nhân viên đang hỗ trợ';
+        }
+    }
+}
+
+// Theo dõi thay đổi số lượng tin nhắn để tải lại giao diện
+let lastKnownMessageCount = 0;
+let lastKnownStatus = '';
+function syncChatUI() {
+    const session = getCurrentSession();
+    if (session.messages.length !== lastKnownMessageCount || session.status !== lastKnownStatus) {
+        loadChatHistory();
+        lastKnownMessageCount = session.messages.length;
+        lastKnownStatus = session.status;
+    }
+}
+
 function initChatbot() {
     if (window.__chatbotWidgetInitialized) {
         return;
@@ -38,45 +174,57 @@ function initChatbot() {
 
     // 1. Kích hoạt chức năng Emoji
     if (btnEmoji && emojiPicker) {
-        // Danh sách các emoji phổ biến
         const emojis = ['😊', '😂', '🥰', '👍', '🔥', '❤️', '✨', '⭐', '😭', '😮'];
         emojiPicker.innerHTML = emojis.map(emo => `<span>${emo}</span>`).join('');
         
-        // Bấm nút mặt cười thì ẩn/hiện bảng chọn
         btnEmoji.addEventListener('click', (e) => {
             e.stopPropagation();
             emojiPicker.classList.toggle('hidden');
         });
 
-        // Khi bấm chọn một emoji bất kỳ
         emojiPicker.addEventListener('click', (e) => {
             if (e.target.tagName === 'SPAN') {
                 chatInput.value += e.target.textContent;
-                emojiPicker.classList.add('hidden'); // Ẩn bảng đi
-                chatInput.focus(); // Giữ con trỏ chuột ở ô nhập liệu
+                emojiPicker.classList.add('hidden');
+                chatInput.focus();
             }
         });
 
-        // Click chuột ra ngoài khung chat thì tự động ẩn bảng chọn emoji
         document.addEventListener('click', () => emojiPicker.classList.add('hidden'));
     }
 
     // 2. Kích hoạt chức năng bấm nút dấu cộng để upload file
     const btnPlus = document.getElementById('btn-plus');
     if (btnPlus && fileInput) {
-        btnPlus.addEventListener('click', () => fileInput.click()); // Click nút cộng -> mở hộp chọn file
-        fileInput.addEventListener('change', handleFileSelect);     // Khi chọn xong file -> chạy hàm xử lý
+        btnPlus.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
     }
 
     window.__chatbotWidgetInitialized = true;
 
-    appendMessage({
-        text: "Xin chào, Urii có thể giúp gì cho bạn?",
-        chips: [
-            { label: 'Xem giá bộ Kit', action: 'Xem giá bộ Kit' },
-            { label: 'Màu sắc có sẵn', action: 'Màu sắc có sẵn' }
-        ]
-    }, 'bot');
+    // Load lịch sử hội thoại từ localStorage
+    loadChatHistory();
+
+    // Lắng nghe thay đổi từ các tab khác (ví dụ: admin đang chat ở tab khác)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'urii_chat_sessions' || e.key === 'isLoggedIn' || e.key === 'userEmail') {
+            syncChatUI();
+        }
+    });
+
+    // Lắng nghe sự kiện đăng nhập/đăng xuất để tải lại hội thoại mới tương ứng
+    document.addEventListener('auth:changed', () => {
+        console.log('🔄 Chatbot: Trạng thái tài khoản thay đổi, đồng bộ lại hội thoại...');
+        loadChatHistory();
+        syncChatUI();
+    });
+
+    // Theo dõi tin nhắn mới trong cùng trang
+    const curSession = getCurrentSession();
+    lastKnownMessageCount = curSession.messages.length;
+    lastKnownStatus = curSession.status;
+    setInterval(syncChatUI, 1500);
+
     // ----------------------------------------
 
     chatFab.addEventListener('click', () => {
@@ -104,10 +252,9 @@ window.initChatbotWidget = initChatbot;
         const btnPlusCheck = document.getElementById('btn-plus');
         const fileInputCheck = document.getElementById('chat-file-input');
         
-        // Khi tất cả các phần tử đã được main.js tạo ra đầy đủ
         if (btnEmojiCheck && btnPlusCheck && fileInputCheck) {
-            initChatbot(); // Kích hoạt toàn bộ tính năng gõ chữ, chọn emoji, gửi file
-            obs.disconnect(); // Ngắt observer để tiết kiệm tài nguyên bộ nhớ
+            initChatbot();
+            obs.disconnect();
         }
     });
 
@@ -116,7 +263,6 @@ window.initChatbotWidget = initChatbot;
         subtree: true
     });
 
-    // Chạy thử luôn đề phòng trường hợp HTML đã có sẵn từ trước
     if (document.getElementById('btn-emoji') && document.getElementById('btn-plus') && document.getElementById('chat-file-input')) {
         initChatbot();
     }
@@ -126,32 +272,152 @@ async function handleUserSend() {
     const text = chatInput.value.trim();
     if (!text) return;
 
-    appendMessage(text, 'user');
     chatInput.value = '';
 
-    showTyping(true);
-    const replyData = await askRealAI(text);
-    showTyping(false);
+    const session = getCurrentSession();
+    
+    // Lưu tin nhắn của User
+    const userMsg = {
+        text: text,
+        sender: 'user',
+        timestamp: Date.now()
+    };
+    session.messages.push(userMsg);
+    session.lastMessageTime = Date.now();
+    
+    // Nếu trạng thái đang là active hoặc waiting, tăng số unreadCount để admin thấy
+    if (session.status === 'active' || session.status === 'waiting') {
+        session.unreadCount = (session.unreadCount || 0) + 1;
+    }
+    
+    const sessions = getSessions();
+    sessions[session.sessionId] = session;
+    saveSessions(sessions);
+    
+    // Hiển thị tin nhắn lên giao diện ngay lập tức
+    appendMessage(userMsg, 'user');
+    
+    // Cập nhật biến theo dõi cục bộ để tránh reload dư thừa
+    lastKnownMessageCount = session.messages.length;
 
-    appendMessage(replyData, 'bot');
+    // Chỉ gọi AI tự động phản hồi nếu trạng thái là 'ai'
+    if (session.status === 'ai') {
+        showTyping(true);
+        const replyData = await askRealAI(text);
+        showTyping(false);
+
+        const botReplyText = typeof replyData === 'string' ? replyData : (replyData.text || '');
+        const botMsg = {
+            text: botReplyText,
+            sender: 'bot',
+            timestamp: Date.now()
+        };
+
+        // Lấy lại danh sách session mới nhất đề phòng thay đổi trong lúc chờ API
+        const currentSessions = getSessions();
+        const freshSession = currentSessions[session.sessionId] || session;
+        freshSession.messages.push(botMsg);
+        freshSession.lastMessageTime = Date.now();
+        currentSessions[freshSession.sessionId] = freshSession;
+        saveSessions(currentSessions);
+        
+        appendMessage(replyData, 'bot');
+        lastKnownMessageCount = freshSession.messages.length;
+    }
 }
 
 async function handleChipClick(chipText) {
-    // Nếu người dùng nhấn vào nút đặt hàng
     if (chipText === 'Đặt hàng yêu cầu' || 
         chipText === '🛒 Đặt hàng theo yêu cầu' || 
-        chipText === 'Yêu cầu đặt hàng') { // <-- Thêm điều kiện này để bắt đúng nút trong fallback
+        chipText === 'Yêu cầu đặt hàng') {
         
         window.location.href = 'custom-order-request.html'; 
-        return; // Dừng lại tại đây, không gửi tin nhắn hay gọi AI nữa
+        return;
     }
 
-    // Các xử lý mặc định cũ cho các nút khác
-    appendMessage(chipText, 'user');
-    showTyping(true);
-    const replyData = await askRealAI(chipText);
-    showTyping(false);
-    appendMessage(replyData, 'bot');
+    // Nếu người dùng chọn tư vấn từ nhân viên
+    if (chipText === 'Tư vấn từ nhân viên' || chipText === ' Tư vấn từ nhân viên') {
+        const session = getCurrentSession();
+        
+        const userMsg = {
+            text: 'Tư vấn từ nhân viên',
+            sender: 'user',
+            timestamp: Date.now()
+        };
+        session.messages.push(userMsg);
+        
+        // Cập nhật trạng thái chờ tư vấn viên
+        session.status = 'waiting';
+        session.unreadCount = (session.unreadCount || 0) + 1;
+        session.lastMessageTime = Date.now();
+        
+        const botMsg = {
+            text: 'Dạ, Urii đã gửi yêu cầu hỗ trợ đến nhân viên tư vấn. Bạn vui lòng đợi một chút nhé, nhân viên sẽ phản hồi bạn ngay ạ! ✨',
+            sender: 'bot',
+            timestamp: Date.now()
+        };
+        session.messages.push(botMsg);
+        
+        const sessions = getSessions();
+        sessions[session.sessionId] = session;
+        saveSessions(sessions);
+        
+        appendMessage(userMsg, 'user');
+        
+        showTyping(true);
+        setTimeout(() => {
+            showTyping(false);
+            appendMessage(botMsg, 'bot');
+            updateHeaderStatus('waiting');
+            
+            // Cập nhật biến theo dõi
+            lastKnownMessageCount = session.messages.length;
+            lastKnownStatus = 'waiting';
+        }, 800);
+        return;
+    }
+
+    const session = getCurrentSession();
+    const userMsg = {
+        text: chipText,
+        sender: 'user',
+        timestamp: Date.now()
+    };
+    session.messages.push(userMsg);
+    session.lastMessageTime = Date.now();
+    
+    if (session.status === 'active' || session.status === 'waiting') {
+        session.unreadCount = (session.unreadCount || 0) + 1;
+    }
+    
+    const sessions = getSessions();
+    sessions[session.sessionId] = session;
+    saveSessions(sessions);
+    
+    appendMessage(userMsg, 'user');
+    lastKnownMessageCount = session.messages.length;
+
+    if (session.status === 'ai') {
+        showTyping(true);
+        const replyData = await askRealAI(chipText);
+        showTyping(false);
+
+        const botMsg = {
+            text: typeof replyData === 'string' ? replyData : (replyData.text || ''),
+            sender: 'bot',
+            timestamp: Date.now()
+        };
+
+        const currentSessions = getSessions();
+        const freshSession = currentSessions[session.sessionId] || session;
+        freshSession.messages.push(botMsg);
+        freshSession.lastMessageTime = Date.now();
+        currentSessions[freshSession.sessionId] = freshSession;
+        saveSessions(currentSessions);
+        
+        appendMessage(replyData, 'bot');
+        lastKnownMessageCount = freshSession.messages.length;
+    }
 }
 
 async function askRealAI(userMessage) {
@@ -201,7 +467,6 @@ function getFallbackReply(userMessage) {
         return 'Bộ Kit Standard 24 màu bao gồm:\n\n🔴 Đỏ, 🟠 Cam, 🟡 Vàng\n🟢 Xanh Lá, 🔵 Xanh Dương\n💜 Tím, 🩶 Xám, ⚫ Đen\n⚪ Trắng, 🩷 Hồng, 🟤 Nâu\n\n+ Các màu pastel nhạt: Hồng nhạt, Xanh nhạt, Vàng nhạt...\n\nMỗi màu có số lượng hạt đủ để tạo nhiều tác phẩm đẹp!';
     }
 
-    // FIX LỖI: Thu hẹp từ khóa Giá (thay 'bao nhieu' chung chung bằng từ rõ nghĩa hơn)
     if (containsAny(text, ['gia', 'bao nhieu tien', 'bao nhieu k', 'price', 'phi', 'tien', 'ton kem'])) {
     return 'Dạ hiện tại bên Urii có sẵn đầy đủ 24 màu hạt nhựa lẻ cho bạn thoải mái lựa chọn ạ. Tất cả các màu đều đồng giá như nhau:\n\n' +
            '🛍️ Giá gói hạt nhựa lẻ: 35.000đ/gói (Mỗi gói có khoảng 500 hạt)\n\n' +
@@ -266,7 +531,7 @@ function getFallbackReply(userMessage) {
 }
 
 function appendMessage(data, sender) {
-    const now = new Date();
+    const now = (data && data.timestamp) ? new Date(data.timestamp) : new Date();
     const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     const messageArticle = document.createElement('article');
     messageArticle.classList.add('message', `${sender}-message`);
@@ -274,9 +539,14 @@ function appendMessage(data, sender) {
     let msgText = typeof data === 'string' ? data : (data.text || '');
     let chipsData = typeof data === 'object' ? (data.chips || []) : [];
 
-    if (sender === 'bot') {
+    if (sender === 'bot' || sender === 'admin') {
+        let avatarHtml = `<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCfogwmg9DqaHtDqBGDh2EszSFoIZZh0_VFx8XTmsJvJQ6DvK6lTFpYUUQs4gkh03sU5B-CdJyukuKQI3rhRuKYPk2pen2JL5L9V5UXot14qDw1uz15BgBW1Jh-_7sxS2iwTvcE1_UVMGC7Wu4F-C4-vvBpA-xS01AIjeDjyDacX277JxX4u6OEYYqLtZWfvfEzFCFrgr5UPRDjkM8VL5YkMrne_f-MHbFHDpbTcGg_2j3mJ9MsLj1Od2yBZT76XH2Av_mLj0vLZu" class="bot-avatar-chat" alt="AI Icon">`;
+        if (sender === 'admin') {
+            avatarHtml = `<div class="admin-avatar-chat" style="width: 32px; height: 32px; background-color: #840001; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; margin-top: 2px;"><i class="bi bi-headset"></i></div>`;
+        }
+
         let contentHtml = `
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCfogwmg9DqaHtDqBGDh2EszSFoIZZh0_VFx8XTmsJvJQ6DvK6lTFpYUUQs4gkh03sU5B-CdJyukuKQI3rhRuKYPk2pen2JL5L9V5UXot14qDw1uz15BgBW1Jh-_7sxS2iwTvcE1_UVMGC7Wu4F-C4-vvBpA-xS01AIjeDjyDacX277JxX4u6OEYYqLtZWfvfEzFCFrgr5UPRDjkM8VL5YkMrne_f-MHbFHDpbTcGg_2j3mJ9MsLj1Od2yBZT76XH2Av_mLj0vLZu" class="bot-avatar-chat" alt="AI Icon">
+            ${avatarHtml}
             <div class="message-content-wrapper">
                 <div class="message-bubble"><p>${msgText.replace(/\n/g, '<br>')}</p></div>
         `;

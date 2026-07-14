@@ -142,6 +142,9 @@ function initHeader() {
                 localStorage.removeItem('userEmail');
                 localStorage.removeItem('userAvatar');
                 localStorage.removeItem('userRole');
+                localStorage.removeItem('userPhone');
+                localStorage.removeItem('userBirth');
+                localStorage.removeItem('userAddress');
                 
                 // PHÁT SỰ KIỆN AUTH CHANGED
                 document.dispatchEvent(new CustomEvent('auth:changed'));
